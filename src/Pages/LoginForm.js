@@ -19,7 +19,6 @@ const LoginForm = () => {
   const [firstpass1, setFirstpass1] = useState('');
   const [value, setValue] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [activeUser, setActiveuser] = useState();
   const [border, setBorder] = useState({
     border: '2px solid #e5e7eb',
   });
@@ -99,12 +98,6 @@ const LoginForm = () => {
   };
 
   // Add cleanup for potential leaks
-  useEffect(() => {
-    return () => {
-      // Clear any resources, intervals, or subscriptions here
-    };
-  }, []); // Empty dependency array for mount and unmount
-
   return (
     <>
       <div className="grid flex justify-start center-1">
