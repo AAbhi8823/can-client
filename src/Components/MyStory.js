@@ -877,9 +877,9 @@ function MyStory({ value }) {
                                 </div>
 
                                 <div className="flex flex-wrap gap-2 items-center justify-center  w-fit h-[50px]  px-3 overflow-y-scroll ">
-                                  {checked.map((item) => (
+                                  {checked.map((item,index) => (
                                     <div
-                                      key={item.id}
+                                      key={index}
                                       className={`h-8 w-36 flex items-center justify-center rounded-[15px] bg-[#c31a7f3c] relative  transition-opacity ease-in-out duration-300 mx-1 text-[12px] font-semibold ${isChecked(
                                         item
                                       )}`}

@@ -25,31 +25,16 @@ const slides = [
 const CarouselMain = () => {
   return (
     <>
-      {/* <div className='max-w-lg'>
-        <Carousel>
-          {slides.map((s) => (
-            <img src={s} />
-          ))}
-        </Carousel> */}
 
       <div className='max-w-lg flex relative'>
         <Carousel>
-          {slides.map((slide) => (
-            <div className='' key={slide.id}>
+          {slides.map((slide,index) => (
+            <div className='' key={index}>
             <img  src={slide.image} />
             <p className=''>{slide.text}</p>
             </div>
           ))}
         </Carousel>
-
-        {/*  <div>
-      {slides.map((slide, index) => (
-        <div key={index}>
-          <img src={slide.image} alt={`Slide ${index}`} />
-          <p>{slide.text}</p>
-        </div>
-      ))}
-    </div> */}
       </div>
     </>
   )

@@ -148,8 +148,8 @@ const MedicineBank = () => {
 
 
     <div className=" flex flex-wrap justify-around gap-5 px-5 mt-5">
-    {data.map((item)=>(
-    <div className="border-[#C4C4C4] w-[100%] md:w-[48%] lg:w-[30%]  border-[1px] bg-[#fff] rounded-[20px] mt-5 px-10  py-6 justify-center">
+    {data.map((item,index)=>(
+    <div className="border-[#C4C4C4] w-[100%] md:w-[48%] lg:w-[30%]  border-[1px] bg-[#fff] rounded-[20px] mt-5 px-10  py-6 justify-center" key={index}>
         <div className="flex  justify-between py-3">
             <h1 className="font-bold lg:text-[1.20vw] text-[20px]">{item.heading}</h1>
             <p className="text-[#7E7E7E] lg:text-[1.04vw] text-[16px] px-5">{item.title}</p>
@@ -176,8 +176,8 @@ const MedicineBank = () => {
      January</button>
      </div>
      <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
-     {data.map((item)=>(
-    <div className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6">
+     {data.map((item,index)=>(
+    <div className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6" key={index}>
     <div className="flex  justify-between ">
             <h1 className="font-bold lg:text-[0.84vw] text-[13px] px-5">{item.heading}</h1>
             <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">{item.title}</p>
@@ -197,8 +197,8 @@ const MedicineBank = () => {
      February</button>
      </div>
      <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
-     {data.map((item)=>(
-    <div className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6">
+     {data.map((item,index)=>(
+    <div className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6" key={index}>
     <div className="flex  justify-between ">
             <h1 className="font-bold  lg:text-[0.84vw] text-[13px] px-5">{item.heading}</h1>
             <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">{item.title}</p>
@@ -220,8 +220,8 @@ const MedicineBank = () => {
      March</button>
      </div>
      <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
-     {data.map((item)=>(
-    <div className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6">
+     {data.map((item,index)=>(
+    <div className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6" key={index}>
     <div className="flex  justify-between ">
             <h1 className="font-bold   lg:text-[0.84vw] text-[13px] px-5">{item.heading}</h1>
             <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">{item.title}</p>
@@ -241,8 +241,8 @@ const MedicineBank = () => {
      April</button>
      </div>
      <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
-     {data.map((item)=>(
-    <div className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6">
+     {data.map((item,index)=>(
+    <div className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6" key={index}>
     <div className="flex  justify-between ">
             <h1 className="font-bold  lg:text-[0.84vw] text-[13px] px-5">{item.heading}</h1>
             <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">{item.title}</p>

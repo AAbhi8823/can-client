@@ -114,7 +114,7 @@ return(
       {data.map((item, index) => (
         <div
           className="carousel-item relative group flex items-center justify-center"
-          key={item.id}
+          key={index}
           onMouseEnter={() => handleHoverEnter(item.id)}
           onMouseLeave={() => handleHoverLeave(item.id)}
         >

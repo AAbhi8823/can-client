@@ -1389,7 +1389,7 @@ const Home = () => {
                                                   (item, index) => (
                                                     <div
                                                       className="mt-[25px] flex items-center"
-                                                      key={item.commentId}
+                                                      key={index}
                                                     >
                                                       <div className="w-[10%] rounded-full overflow-hidden">
                                                         {item.userId

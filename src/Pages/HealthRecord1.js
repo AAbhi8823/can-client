@@ -232,7 +232,7 @@ const HealthRecord1 = () => {
                 {/* BiopsyReports */}
                 {categories &&
                   categories.map((item, index) => (
-                    <div className="pt-5 w-full">
+                    <div className="pt-5 w-full" key={index}>
                       <div
                         className={
                           UploadBox
@@ -269,7 +269,7 @@ const HealthRecord1 = () => {
                           userPdfData.map((item, index) => (
                             <div
                               className="my-4 flex flex-col md:flex-row gap-2 py-4 w-[100%] border rounded-2xl border-[#7E7E7E] flex items-center justify-between "
-                              // key={index}
+                              key={index}
                             >
                               <div className="list-none flex flex-row items-center justify-center gap-16 mx-6">
                                 <div className="flex flex-row gap-2 items-center">

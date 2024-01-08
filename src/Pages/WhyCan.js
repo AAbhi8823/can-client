@@ -328,8 +328,10 @@ const WhyCan = () => {
         <div className="grid grid-cols-1   sm:grid-cols-2">
           <div className="flex items-center ">
             <div className="flex flex-wrap justify-center gap-14">
-              {Data.map((item) => (
-                <div className="text-center w-1/3">
+              {Data.map((item,index) => (
+                <div className="text-center w-1/3" 
+                key={index}
+                >
                   <Avatar
                     alt="Nmy Sharp"
                     className="m-auto img2 img3 "

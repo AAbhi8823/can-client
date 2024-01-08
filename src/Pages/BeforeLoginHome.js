@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Navigation from '../Components/Navigation'
-import bcancer from '../Photos/bcancer.png'
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Customdotstyle.css'
-import NewNavigation from '../Components/NewNavigation'
 import LandingPage1 from '../Photos/LandingPage1.png'
 import leftSideImage from '../Photos/leftSideImage.png'
 import rightSideImage from '../Photos/rightSideImage.png'
@@ -18,8 +15,6 @@ import leftCloud6 from '../Photos/leftCloud6.png'
 import leftCloud7 from '../Photos/leftCloud7.png'
 import rightCloud1 from '../Photos/rightCloud1.png'
 import rightCloud2 from '../Photos/rightCloud2.png'
-import rightCloud3 from '../Photos/rightCloud3.png'
-import rightCloud4 from '../Photos/rightCloud4.png'
 import rightCloud5 from '../Photos/rightCloud5.png'
 import rightCloud6 from '../Photos/rightCloud6.png'
 import greyCloud from '../Photos/slider1.png'
@@ -42,9 +37,6 @@ import sparrow from '../Photos/sparrow.png'
 import rightBranch from '../Photos/rightBranch.png'
 import leftBranch from '../Photos/leftBranch.png'
 import manyPeople from '../Photos/manyPeople.png'
-import heartLanding from '../Photos/heartLanding.png'
-import capsuleLanding from '../Photos/capsuleLanding.png'
-import supportLanding from '../Photos/supportLanding.png'
 import LandingPageFooter from './LandingPageFooter';
 import { Link } from 'react-router-dom';
 import baloon from '../Photos/baloon.png'
@@ -52,73 +44,16 @@ import baloon1 from '../Photos/baloon1.png'
 import plat1 from '../Photos/GIF/Group.json'
 import plat2 from '../Photos/GIF/feedback.json'
 import plat3 from '../Photos/GIF/three-friends.json'
-import sparrow1 from '../Photos/sparrow1.png'
 import faimily from '../Photos/faimily.png'
 import rightbranch1 from '../Photos/birdtree.png'
-
-import SearchLens from '../Photos/SearchLens.png'
-import HomeIcons from '../Photos/HomeIcon.png'
-import KnowAbout from '../Photos/KnowAbout.png'
-import JoinMeet from '../Photos/JoinMeet.png'
-import LogoCAn from '../Photos/LogoCAn.png'
 import Lottie from 'lottie-react';
-import LandingUser from '../Photos/LandingUser.svg'
-import downArrow from '../Photos/downArrow.svg'
-import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
 import Cookie from 'js-cookie'
 import { baseurl } from '../Api/baseUrl'
 import NavLanding from '../Components/NavLanding'
-// import flower1 from '../Photos/flower1.png'
-// import flower2 from '../Photos/flower2.png'
-// import flower3 from '../Photos/flower3.png'
-// import flower4 from '../Photos/flower4.png'
-// import flower5 from '../Photos/flower5.png'
-// import flower6 from '../Photos/flower6.png'
-// import flower7 from '../Photos/flower7.png'
-// import flower8 from '../Photos/flower8.png'
-// import flower9 from '../Photos/flower9.png'
-import LeftFlowers from '../Photos/LeftFlowers.png'
-import Leaf2 from '../Photos/Leaf2.png'
-import Group from '../Photos/Group.png'
-import rightflowers from '../Photos/rightflowers.png'
 import mobileland from '../Photos/mobileland2.png'
 
 const BeforeLoginHome = () => {
-
-  const [isHovered, setIsHovered] = useState(-1);
-
-  const handleHoverEnter = (index) => {
-    setIsHovered(index);
-  };
-
-  const handleHoverLeave = () => {
-    setIsHovered(-1);
-  };
-
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    pauseOnHover: true
-
-    // customPaging: i => (
-    //   <div
-    //   className={`
-    //             transition-all w-3 h-3 bg-[#084943] rounded-full 
-    //             ${isHovered === i ? 'p-1' : 'bg-opacity-40'}
-    //           `}
-    //   >
-
-    //   </div>
-    // )
-
-  };
 
   const data = [
     {
@@ -191,7 +126,6 @@ const BeforeLoginHome = () => {
     },
     // Add more images and data as needed
   ];
-
   const feature = [
     {
       id: 1,
@@ -217,9 +151,19 @@ const BeforeLoginHome = () => {
       li2: "Place to vent, share experience and learn from veterans",
     },
   ];
-
+  const [isHovered, setIsHovered] = useState(-1);
   const [scroll, setScroll] = useState(0);
   const [Nav, setNav] = useState(false);
+  const [navUser, setNavuser] = useState();
+
+  const handleHoverEnter = (index) => {
+    setIsHovered(index);
+  };
+
+  const handleHoverLeave = () => {
+    setIsHovered(-1);
+  };
+
   const handleScroll = () => {
     setScroll(window.scrollY);
   };
@@ -233,55 +177,52 @@ const BeforeLoginHome = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    const debouncedHandleScroll = debounce(handleScroll, 200);
+    
+    window.addEventListener('scroll', debouncedHandleScroll);
     checkScroll(); // Initial check when the component mounts
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', debouncedHandleScroll);
     };
   }, [scroll]);
 
-  const [menu, setMenu] = useState(false)
-
-  const toggleMenu = () => {
-    setMenu(!menu)
-  }
-
-  const [navUser, setNavuser] = useState()
-
-  const LandingData = async () => {
-    const token = Cookie.get('token')
-    const homeUser = localStorage.getItem('active_user')
-    try {
-      const userData = await axios.post(`${baseurl}/api/singleuser?token=${token}`, {
-        id: `${homeUser}`
-      })
-      // console.log("Navbar:", userData.data.data)
-      setNavuser(userData.data.data)
-
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   useEffect(() => {
-    LandingData()
-  })
+    const LandingData = async () => {
+      const token = Cookie.get('token');
+      const homeUser = localStorage.getItem('active_user');
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (event) => {
-  //     const confirmationMessage = "Are you sure you want to leave?";
-  //     event.returnValue = confirmationMessage; 
-  //     return confirmationMessage; 
-  //   };
+      try {
+        const userData = await axios.post(`${baseurl}/api/singleuser?token=${token}`, {
+          id: homeUser,
+        });
 
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
+        setNavuser(userData.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, []);
+    LandingData();
+  }, []);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+  };
+  const debounce = (func, delay) => {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
   return (
     <>
       <div className="flex justify-center">
@@ -470,7 +411,7 @@ const BeforeLoginHome = () => {
             {data.map((item, index) => (
               <div
                 className="carousel-item relative group flex items-center justify-center"
-                key={item.id}
+                key={index}
                 onMouseEnter={() => handleHoverEnter(item.id)}
                 onMouseLeave={() => handleHoverLeave(item.id)}
               >
@@ -626,7 +567,7 @@ const BeforeLoginHome = () => {
       <div className="pt-16  items-center container m-auto">
         <div className="w-full flex-wrap flex justify-around ">
           {feature.map((item, index) => (
-            <div className="mt-4 w-full lg:w-1/3 ">
+            <div className="mt-4 w-full lg:w-1/3 " key={index}>
               <div className="flex justify-center">
                 <Lottie
                   animationData={item.image}
