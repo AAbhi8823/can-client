@@ -1,43 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
-import HomeNav from "../Components/HomeNav";
 import VerticalAppointment from "../Components/VerticalAppointment";
 import VerticalMedicine from "../Components/VerticalMedicine";
-import account from "../Photos/account.jpg";
-import climberEverest from "../Photos/climberEverest.webp";
 import premium from "../Photos/premium.png";
 import { BsThreeDots } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
-import { FaLocationArrow, FaRegComment } from "react-icons/fa";
-import { SlPaperPlane } from "react-icons/sl";
-import { BsBookmarkDash } from "react-icons/bs";
+import { FaLocationArrow } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import SingleLineCalendar from "../Components/SingleLineCalender";
 import VerticalSLC from "../Components/VericalSLC";
 import FlippingImage from "../Components/FlipImage";
 import FloatingChat from "../Components/FloatingChat";
 import Page from "../Layouts/Pages";
-import { RxCross2 } from "react-icons/rx";
 import gallery from "../Photos/gallery.png";
-import gificon from "../Photos/gifIcon.png";
 import locationIcon from "../Photos/location.png";
 import smily from "../Photos/smily.png";
-import { TfiGallery } from "react-icons/tfi";
-import { HiOutlineGif } from "react-icons/hi2";
-import { HiOutlineLocationMarker } from "react-icons/hi";
-import { GrEmoji } from "react-icons/gr";
 import { IoMdClose } from "react-icons/io";
 import Send from "../Photos/Send.png";
 import commentIcon from "../Photos/commentIcon.png";
 import save from "../Photos/save.png";
 import saved from "../Photos/saved.png";
-import { MdPanoramaVerticalSelect } from "react-icons/md";
-import { CiLocationArrow1, CiSearch } from "react-icons/ci";
-import { BsCircle } from "react-icons/bs";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { CiSearch } from "react-icons/ci";
 import CreatePost from "../Components/CreatePost";
 import { BsLink45Deg } from "react-icons/bs";
-import { CiFaceSmile } from "react-icons/ci";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { HiOutlineChevronRight } from "react-icons/hi";
@@ -57,7 +42,7 @@ import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import Cookie from "js-cookie";
 
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "@mui/material/Tooltip"; 
 // import SkeletonFile from '../Pages/Skeleton'
 import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
@@ -79,7 +64,7 @@ const Home = () => {
   const [showlocation, setShowLacation] = useState(false);
   const [showgif, setShowgif] = useState(false);
   const [userBlock, setUserBlock] = useState(false);
-  const [userblocked, setUserBlocked] = useState(false);
+  const [userBlocked, setUserBlocked] = useState(false);
 
   //  gif data
   const GifImage = [
@@ -93,7 +78,7 @@ const Home = () => {
 
   // blocked user
   const toggleBlockedTab = () => {
-    setUserBlocked(!userblocked);
+    setUserBlocked(!userBlocked);
   };
 
   // block user
@@ -546,6 +531,9 @@ const Home = () => {
       setIsCommenting(false);
     }
   };
+
+
+  
 
   const handleReloadClick = () => {
     console.log("loading");
@@ -1006,7 +994,7 @@ const Home = () => {
                                               >
                                                 Block
                                               </p>
-                                              {userblocked && (
+                                              {userBlocked && (
                                                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
                                                   <div
                                                     className="bg-[#FFFFFF] flex flex-col items-center py-11 gap-7 rounded-[30px] px-32 relative "
@@ -1389,7 +1377,7 @@ const Home = () => {
                                                   (item, index) => (
                                                     <div
                                                       className="mt-[25px] flex items-center"
-                                                      key={index}
+                                                      key={item.commentId}
                                                     >
                                                       <div className="w-[10%] rounded-full overflow-hidden">
                                                         {item.userId

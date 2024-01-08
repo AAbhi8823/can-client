@@ -3,16 +3,6 @@ import { useEffect } from "react";
 import LogoCAN from '../Photos/LogoCAn.png'
 import { useLocation } from "react-router-dom";
 import Logo from '../Photos/CANPink.png'
-import USflag from '../Photos/usflag.png'
-import copyright from '../Photos/copyrighticon.png'
-import facebookIcon from '../Photos/facebookIcon.png'
-import twitterIcon from '../Photos/twitterIcon.png'
-import youtubeIcon from '../Photos/youtubeIcon.png'
-import instagramIcon from '../Photos/instagramIcon.png'
-import micIcongrey from '../Photos/MicIcongrey.png'
-import googlePlayStore from '../Photos/googleplayStore.png'
-import AppleStore from '../Photos/AppleStore.png'
-import india from '../Photos/india.png'
 import Cookies from "js-cookie";
 
 const LandingPageFooter = () => {

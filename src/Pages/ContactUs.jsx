@@ -1,91 +1,80 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import MessageI from '../Photos/messageI.svg'
-import CallI from '../Photos/callI.svg'
-import LocationI from '../Photos/locationI.svg'
-
-import sadEmoji from '../Photos/sadFace.svg'
-import normalEmoji from '../Photos/normalFace.svg'
-import smileEmoji from '../Photos/smileFace.svg'
-import laughEmoji from '../Photos/laughFace.svg'
-
-import SearchLens from '../Photos/SearchLens.png'
-import HomeIcons from '../Photos/HomeIcon.png'
-import KnowAbout from '../Photos/KnowAbout.png'
-import JoinMeet from '../Photos/JoinMeet.png'
-import LogoCAn from '../Photos/LogoCAn.png'
-import Lottie from 'lottie-react';
-import LandingUser from '../Photos/LandingUser.svg'
-import downArrow from '../Photos/downArrow.svg'
 import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
-import Cookie from 'js-cookie'
-import { baseurl } from '../Api/baseUrl'
+import Cookie from 'js-cookie';
+import { baseurl } from '../Api/baseUrl';
 import LandingPageFooter from './LandingPageFooter';
+import SearchLens from '../Photos/SearchLens.png';
+import HomeIcons from '../Photos/HomeIcon.png';
+import KnowAbout from '../Photos/KnowAbout.png';
+import JoinMeet from '../Photos/JoinMeet.png';
+import LogoCAn from '../Photos/LogoCAn.png';
+import downArrow from '../Photos/downArrow.svg';
+import MessageI from '../Photos/messageI.svg';
+import CallI from '../Photos/callI.svg';
+import LocationI from '../Photos/locationI.svg';
+import sadEmoji from '../Photos/sadFace.svg';
+import normalEmoji from '../Photos/normalFace.svg';
+import smileEmoji from '../Photos/smileFace.svg';
+import laughEmoji from '../Photos/laughFace.svg';
 
 function ContactUs() {
-    const [scroll, setScroll] = useState(0);
-    const [Nav, setNav] = useState(false);
-    const handleScroll = () => {
-        setScroll(window.scrollY);
+  const [scroll, setScroll] = useState(0);
+  const [Nav, setNav] = useState(false);
+  const [menu, setMenu] = useState(false);
+  const [navUser, setNavuser] = useState();
+
+  const handleScroll = () => {
+    setScroll(window.scrollY);
+  };
+
+  useEffect(() => {
+    const checkScroll = () => {
+      setNav(scroll > 50);
     };
+  
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    checkScroll();
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scroll]);
+  
+  const toggleMenu = () => {
+    setMenu(!menu);
+  };
 
-    useEffect(() => {
-        const checkScroll = () => {
-            if (scroll > 50) {
-                setNav(true);
-            } else {
-                setNav(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        checkScroll(); // Initial check when the component mounts
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [scroll]);
-
-    const [menu, setMenu] = useState(false)
-
-    const toggleMenu = () => {
-        setMenu(!menu)
+  const LandingData = async () => {
+    const token = Cookie.get('token');
+    const homeUser = localStorage.getItem('active_user');
+    try {
+      const userData = await axios.post(`${baseurl}/api/singleuser?token=${token}`, {
+        id: `${homeUser}`
+      });
+      setNavuser(userData.data.data);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    const [navUser, setNavuser] = useState()
+  useEffect(() => {
+    LandingData();
+  }, []);
 
-    const LandingData = async () => {
-        const token = Cookie.get('token')
-        const homeUser = localStorage.getItem('active_user')
-        try {
-            const userData = await axios.post(`${baseurl}/api/singleuser?token=${token}`, {
-                id: `${homeUser}`
-            })
-            // console.log("Navbar:", userData.data.data)
-            setNavuser(userData.data.data)
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        LandingData()
-    })
     return (
       <>
-        <div>
-          <div className="flex justify-center">
-            <nav
-              className={
-                Nav
-                  ? "bg-white fixed flex justify-center transition-[width] duration-[0.3s] ease-[ease] w-[100%] py-[10px] px-4 z-20 top-0"
-                  : "bg-white transition-[width] duration-[0.3s] ease-[ease] absolute w-[50%] rounded-full py-[10px] px-4 z-20 top-8"
-              }
-              style={{ boxShadow: "0px 10px 30px 0px rgba(0, 0, 0, 0.1)" }}
-            >
+       <div>
+        <div className="flex justify-center">
+          <nav
+            className={`${
+              Nav
+                ? 'bg-white fixed flex justify-center transition-[width] duration-[0.3s] ease-[ease] w-[100%] py-[10px] px-4 z-20 top-0'
+                : 'bg-white transition-[width] duration-[0.3s] ease-[ease] absolute w-[50%] rounded-full py-[10px] px-4 z-20 top-8'
+            }`}
+            style={{ boxShadow: '0px 10px 30px 0px rgba(0, 0, 0, 0.1)' }}
+          >
               <div
                 className={
                   Nav
@@ -181,9 +170,9 @@ function ContactUs() {
                 width={800}
                 height={600}
                 style={{ border: "0" }}
-                allowfullscreen=""
+                allowFullScreen=""
                 loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
+                referrerPolicy="no-referrer-when-downgrade"
                 title='mapp'
               ></iframe>
             </div>
