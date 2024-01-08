@@ -7,8 +7,6 @@ import four from '../img/four.png'
 import five from '../img/five.png'
 import six from '../img/six.png'
 const Craousel = () => {
-
-
   const [isHovered, setIsHovered] = useState(-1);
 
   const handleHoverEnter = (index) => {

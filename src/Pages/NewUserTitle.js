@@ -98,24 +98,26 @@ const ChooseTitle = () => {
           <div className="flex justify-end">
             <RxCross2 size={15} onClick={handleClose} />
           </div>
-          <DialogContentText id="alert-dialog-description">
-            <p className=" font-bold py-2 border-b-2 ">
+          <div id="alert-dialog-description">
+            <div className="font-bold py-2 border-b-2">
               <span className="text-[#C31A7F]">Fighter</span> : Embrace your
               inner superhero and join a <br /> league of warriors ready to face
               cancer head-on
               <br /> with strength and determination.{" "}
-            </p>
-            <p className=" font-bold py-2 border-b-2 ">
-              <span className="text-[#C31A7F]">Caregiver</span> : Step into the
-              role of a compassionate <br /> guardian, providing unwavering love
-              and support <br /> to those battling cancer.{" "}
-            </p>
-            <p className=" font-bold py-2">
+            </div>
+            <div className="font-bold py-2 border-b-2">
+              <span className="text-[#C31A7F]">Fighter</span> : Embrace your
+              inner superhero and join a <br /> league of warriors ready to face
+              cancer head-on
+              <br /> with strength and determination.{" "}
+            </div>
+
+            <div className=" font-bold py-2">
               <span className="text-[#C31A7F]">Veteran</span> : Share your
               triumphs and inspire others as a <br /> seasoned champion who has
               conquered cancer's <br /> challenges.{" "}
-            </p>
-          </DialogContentText>
+            </div>
+          </div>
         </DialogContent>
         {/* <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
@@ -135,7 +137,6 @@ const ChooseTitle = () => {
 
       <div>
         <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
-          
           <Craousel />
 
           <div className="h-full  flex items-center mt-4  lg:mt-12 lg:bottom-10">

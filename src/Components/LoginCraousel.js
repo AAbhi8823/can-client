@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Slider from 'react-slick';
-import c4 from '../Photos/c4.png'
-import MeetPeople from '../Photos/MeetPeople.png'
-import c7 from '../Photos/c7.png'
-
 import one from '../img/one.png'
-
 import five from '../img/five.png'
 import six from '../img/six.png'
 import seven from '../img/Seven.png'
@@ -15,19 +10,14 @@ import nine from '../img/nine.png'
 
 
 const LoginCraousel = () => {
-  
-    
 
   const [isHovered, setIsHovered] = useState(-1);
-
   const handleHoverEnter = (index) => {
     setIsHovered(index);
   };
-
   const handleHoverLeave = () => {
     setIsHovered(-1);
   };
-
   const settings = {
     dots: true,
     infinite: true,
@@ -42,31 +32,21 @@ const LoginCraousel = () => {
     {
       id: 1,
       imageUrl: one,
-    
       slideImage: one,
-
       title: "Welcome",
       description: "CAN is a safe place to share strength, hope, and ask for help Lets fight against cancer, together.",
-    
     },
     {
       id: 2,
       imageUrl: seven,
-    
       slideImage: seven,
-
       title: "Hospital visits, easier.",
-      description:
-        "Upload and manage your medical records and report all in one place.",
-    
-      
+      description: "Upload and manage your medical records and report all in one place.",
     },
     {
       id: 3,
       imageUrl: eight,
-   
       slideImage: eight,
-
       title: "Stay up to date, and inspired.",
       description:
         "Read  curated articles on the latest research, and success stories from our community. ",
@@ -75,9 +55,7 @@ const LoginCraousel = () => {
     {
       id: 4,
       imageUrl: nine,
-  
       slideImage:nine,
-
       title: "You are not alone!",
       description:
         "Join and host meetings to share, relate, and listen to experiences.Add people you connect with to your support group to chat, call, and spend time with.",
@@ -85,22 +63,16 @@ const LoginCraousel = () => {
     {
       id: 5,
       imageUrl: five,
-  
       slideImage: five,
-
       title: "Care, one step away",
-      description:
-        "Set up an emergency phone line with your trusted contacts to call anytime with the press of a button.",
+      description:"Set up an emergency phone line with your trusted contacts to call anytime with the press of a button.",
     },
     {
       id: 6,
       imageUrl: six,
-  
       slideImage: six,
-
       title: "A companion to your relaxation.",
-      description:
-        "Listen to our evergreen radio, do guided meditations, and record your memories to relax and unwind.",
+      description:"Listen to our evergreen radio, do guided meditations, and record your memories to relax and unwind.",
     },
     // Add more images and data as needed
   ];

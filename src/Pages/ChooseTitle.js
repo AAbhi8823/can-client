@@ -1,57 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import LogoCAn from '../Photos/LogoCAn.png';
-import CANa from '../Photos/CANa.png';
-import Roles_Fighter from '../Photos/Roles_Fighter.png';
-import Roles_Caregiver from '../Photos/Roles_Caregiver.png';
-import Roles_Veteran from '../Photos/Roles_Veteran.png';
-import Video from '../Photos/Video.png';
-import CarouselMain from '../Components/CarouselMain';
 import { Link, useNavigate } from 'react-router-dom';
-import MeetPeople from '../Photos/MeetPeople.png';
 import { CiCircleInfo } from 'react-icons/ci';
 import five from '../Photos/five.gif'
-import { BsDot } from 'react-icons/bs'
 import axios from 'axios';
 import { baseurl } from '../Api/baseUrl';
-import { RxCross1, RxCross2 } from 'react-icons/rx'
+import { RxCross2 } from 'react-icons/rx'
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import logo2 from '../Photos/logo2.png'
 import Craousel from '../Components/Craousel'
 import { Skeleton } from '@mui/material';
 
 
 const ChooseTitle = () => {
-  // const [selectedCategory, setSelectedCategory] = useState('');
-  // const [selectedImage, setSelectedImage] = useState(null);
   const [viewCategory, setViewCategory] = useState([])
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true);
-  // const [opa, setOpa] = useState({ opacity: 0.5 })
 
   const [select, setSelect] = useState(null);
 
   const SetChooseTitle = () => {
     const userValue = JSON.parse(localStorage.getItem('userValue')) || {};
-
-    // userValue.profile_category = select
     userValue.categoryId = select
     userValue.profile_category = select;
     localStorage.setItem('userValue', JSON.stringify(userValue));
     navigate('/registerImage')
-    // console.log(userValue);
   }
-
-
-  const [categoryId, setcategoryId] = useState("")
 
   const getprofileCategory = async () => {
     setLoading(true);
     try {
-      
       const { data } = await axios.get(`${baseurl}/api/profile_category_create`)
       console.log(data.data);
       if (data.status == true) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { baseurl } from '../Api/baseUrl';
@@ -7,34 +7,35 @@ import Cookies from 'js-cookie';
 import LoginCraousel from '../Components/LoginCraousel';
 import elite1 from '../Photos/elite1.gif';
 import logo2 from "../Photos/logo2.png";
-import logoCAn from '../Photos/LogoCAn.png'
+import logoCAn from '../Photos/LogoCAn.png';
+
 const LoginForm = () => {
   const navigate = useNavigate();
-
+  const [eye, setEye] = useState(false);
+  const [eye1, setEye1] = useState(false);
+  const [Username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+  const [firstpass1, setFirstpass1] = useState('');
+  const [value, setValue] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [activeUser, setActiveuser] = useState();
   const [border, setBorder] = useState({
     border: '2px solid #e5e7eb',
   });
-
-  const [loading, setLoading] = useState(false);
-
-  const [activeUser, setActiveuser] = useState();
-
   const handleLogin = async () => {
     setLoading(true);
     try {
-      // const response = await axios.post(`${baseurl}/api/userlogin`, {
-      //   email_phone: Username,
-      //   password: firstpass1,
-      // });
-      const response={
+      // Mocked response for testing
+      const response = {
         data: {
           status: true,
           findata: {
-            link_email: 'test@example.com', // Replace with the desired email or phone
+            link_email: 'test@example.com',
           },
           token: 'your_mocked_token',
         },
-      }
+      };
 
       console.log(response, 'success::>>>>>>>');
 
@@ -67,23 +68,13 @@ const LoginForm = () => {
     }
   };
 
-  const [eye, setEye] = useState();
-  const [eye1, setEye1] = useState();
-
-  const [Username, setUsername] = useState('');
-
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-
-  const [firstpass1, setFirstpass1] = useState('');
-
-  function seePass() {
+  const seePass = () => {
     setEye(!eye);
-  }
-
-  function seePass1() {
+  };
+  
+  const seePass1 = () => {
     setEye1(!eye1);
-  }
+  };
 
   const passwordChange1 = (e) => {
     setFirstpass1(e.target.value);
@@ -91,26 +82,28 @@ const LoginForm = () => {
 
   const changeUsername = (e) => {
     setUsername(e.target.value);
-
     const enteredValue = e.target.value;
     setEmail(enteredValue);
-
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const mobilePattern = /^\d{10}$/;
-
     if (!emailPattern.test(enteredValue) && !mobilePattern.test(enteredValue)) {
       setError('(Invalid Email or Mobile Number)');
     } else {
       setError('');
     }
-  };
-
-  const [value, setValue] = useState(false);
-
+  };   
+ 
   const Tick = () => {
     setValue(!value);
     console.log(value);
   };
+
+  // Add cleanup for potential leaks
+  useEffect(() => {
+    return () => {
+      // Clear any resources, intervals, or subscriptions here
+    };
+  }, []); // Empty dependency array for mount and unmount
 
   return (
     <>
@@ -147,9 +140,10 @@ const LoginForm = () => {
                   >
                     <input
                       placeholder="Email/Phone"
-                      className="border-none w-full bg-transparent   outline-none p-2 placeholder:font-thin placeholder:text-[18px]"
+                      className="border-none w-full bg-transparent  outline-none p-2 placeholder:font-thin placeholder:text-[18px]"
                       value={Username}
                       onChange={changeUsername}
+                      autoComplete="username"
                     />
                   </div>
                 </div>
@@ -165,6 +159,7 @@ const LoginForm = () => {
                     onChange={passwordChange1}
                     minLength={3}
                     value={firstpass1}
+                    autoComplete="current-password" 
                   />
                   <div onClick={seePass1} className="cursor-pointer px-3">
                     {eye1 ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
