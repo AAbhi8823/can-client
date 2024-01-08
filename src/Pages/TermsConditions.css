@@ -1,0 +1,24 @@
+.text-main-heading {
+    font-size: 45px;
+}
+
+
+
+@media (max-width: 768px) {
+    .main-contant {
+        padding: 30px 10px;
+    }
+
+    .text-main-heading {
+        font-size: 30px;
+    }
+
+    .terms_text{
+        font-size: 25px;
+        margin-bottom: 15px;
+    }
+
+    .term-logo{
+        display: none;
+    }
+}

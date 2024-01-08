@@ -1,0 +1,15 @@
+.content_page {
+    &::-webkit-scrollbar {
+        width: 6px;
+        /* Adjust the width as needed */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #faf4f9;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #C31A7F;
+        border-radius: 10px;
+    }
+}

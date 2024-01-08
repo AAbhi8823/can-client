@@ -1,0 +1,12 @@
+nav {
+    transition: width 0.3s, top 0.3s;
+    position: fixed;
+    top: -10;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+  }
+  
+  nav.expanded {
+    width: 100vw;
+  }

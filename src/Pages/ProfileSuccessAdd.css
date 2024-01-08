@@ -1,0 +1,29 @@
+.profile_success {
+    background-color: linear-gradient(135deg, rgba(255, 255, 255, 0.1), #D0F5D31A);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0px 0px 50px 0px #0000000D;
+}
+
+.grass_div {
+    position: absolute;
+    z-index: -1;
+    bottom: 0px;
+    width: 100%;
+}
+
+.leaves_img {
+    position: absolute;
+    rotate: rotate(45deg);
+    width: 15%;
+    top: 10px;
+}
+
+.leaf_postion {
+    position: absolute;
+    width: 15%;
+    left: 85%;
+    top: 0;
+}

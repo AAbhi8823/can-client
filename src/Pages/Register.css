@@ -1,0 +1,11 @@
+  .select2-container .select2-results__option:hover {
+    background-color: #C31A7F; /* Change this to your desired hover color */
+  }
+  .select2-container .select2-selection--single {
+    border: none;
+    outline: none; /* Optional: Remove the outline on focus */
+    box-shadow: none; /* Optional: Remove any box shadow */
+  }
+  .select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #C31A7F !important;
+}
