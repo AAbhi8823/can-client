@@ -18,7 +18,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { baseurl } from "../Api/baseUrl";
 import { BiMenu, BiX } from "react-icons/bi";
-import whyc from "../Photos/whyc.png";
+import whyc from '../Photos/whyc.png'
 
 export default function Example(props) {
   const [Nav, setNav] = useState(props);
@@ -126,7 +126,7 @@ export default function Example(props) {
         }
       >
         <div className="lg:flex flex-row gap-2 hidden lg:block items-center pr-4">
-          <img src={whyc} className="w-6 h-auto" alt="" />
+        <img src={whyc} className="w-6 h-auto" alt="" />
           <Link to="/whycan">
             <p className="  font-semibold  text-[#084943] text-[1vw] ">
               Why CAN

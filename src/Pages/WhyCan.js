@@ -1,54 +1,17 @@
 import React, { useEffect, useState } from "react";
-import NewNavigation from "../Components/NewNavigation";
-import mountainExample from "../Photos/mountainExample.svg";
-import WhyCanImage1 from "../Photos/WhyCanImage1.svg";
-import WhyCanImage2 from "../Photos/WhyCanImage2.svg";
-import WhyCanImage3 from "../Photos/WhyCanImage3.svg";
-import WhyCanImage4 from "../Photos/WhyCanImage4.svg";
 import LandingPageFooter from "./LandingPageFooter";
-
-import SearchLens from "../Photos/SearchLens.png";
-import HomeIcons from "../Photos/HomeIcon.png";
-import KnowAbout from "../Photos/KnowAbout.png";
-import JoinMeet from "../Photos/JoinMeet.png";
-import LogoCAn from "../Photos/LogoCAn.png";
-import { Link } from "react-router-dom";
-
-import motherChildImg from "../Photos/motherIcon.svg";
-import LandImg from "../Photos/land.svg";
-import LandImgSec from "../Photos/land2.svg";
 import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
 import special from "../Photos/special.png"
-import Vector121 from "../Photos/cloud1.svg";
 import NavLanding from "../Components/NavLanding";
-import { BsThreeDots } from "react-icons/bs";
-import BlueClud from "../Photos/blueCloud.svg";
-import downArrow from "../Photos/downArrow.svg";
-import mountainForest from "../Photos/MountainForest.png";
 import mainCloud from "../Photos/MainCloud.png";
 import leftCloud from "../Photos/LeftCloud.png";
 import rightCloud from "../Photos/RightCloud.png";
 import SunImg from "../Photos/Sun.png";
 import WhyCanmainImg from "../Photos/mobileWhyCan.png";
-
-// import RightCloud from '../Photos/RightCloud'
-// import LeftCloud from '../Photos/LeftCloud'
-
-// import Sun from '../Photos/Sun.png'
 import group1 from "../Photos/group1.png";
 import group2 from "../Photos/group2.png";
 import group3 from "../Photos/group3.png";
 import group4 from "../Photos/group4.png";
-import cld2 from "../Photos/cld2.png";
-import cld1 from "../Photos/cld1.png";
-import cld3 from "../Photos/cld3.png";
-import cld5 from "../Photos/cld5.png";
-import neelukedia from "../Photos/neelukedia.jpg";
-import PushkarShaw from "../Photos/PushkarShaw.jpg";
-import Subhamkedia from "../Photos/Subhamkedia.jpg";
-import LavanyaTulsian from "../Photos/LavanyaTulsian.jpg";
-import cld0 from "../Photos/cld0.png";
 import Mount1 from "../Photos/Mount1.png";
 import cloud1 from "../Photos/cloud1.png";
 import cloud2 from "../Photos/cloud2.png";
@@ -78,17 +41,8 @@ const WhyCan = () => {
   }, [scroll]);
 
   const [toggleNav, setToggleNav] = useState(false);
-  // const handleToggle = () => {
-  //     setToggleNav(true)
-  // }
-
   const [menu, setMenu] = useState(false);
 
-  // const toggleMenu = () => {
-  //     setMenu(!menu)
-  // }
-
-  // const [navUser, setNavuser] = useState()
 
   const Data = [
     {
@@ -116,6 +70,7 @@ const WhyCan = () => {
       des: "CAN Supporter",
     },
   ];
+
 
   const [MainCloud, setMainCloud] = useState(false);
   return (
@@ -181,8 +136,6 @@ const WhyCan = () => {
                         <img className='' src={motherChildImg} />
                     </div> */}
       </div>
-
-      {/* footer */}
       {/* section 1  */}
       <div className=" grid grid-cols-1  lg:py-5 px-1">
         <div className="text-center px-1 lg:py-5 ">
@@ -465,13 +418,6 @@ const WhyCan = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div>
-        {/* <div className="flex -space-x-1 overflow-hidden mx-auto">
-  <img className="inline-block h-6 w-6 rounded-full ring-2 img2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
-  <img className="inline-block h-6 w-6 rounded-full ring-2 img2 ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
-</div> */}
       </div>
 
       <div className="pt-[80px]">
