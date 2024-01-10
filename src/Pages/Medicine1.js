@@ -137,7 +137,7 @@ const MedicineReminder = () => {
                     </div>
                     <div className="flex px-5 items-center">
                       <Link to={"/MedicineBank"}>
-                        <button class="border-[#A94360] text-[#A94360] lg:text-[1.04vw] text-[16px] font-semibold py-1 px-10 border-2 border-pink-700 rounded-full">
+                        <button className="border-[#A94360] text-[#A94360] lg:text-[1.04vw] text-[16px] font-semibold py-1 px-10 border-2 border-pink-700 rounded-full">
                           Medicine Bank
                         </button>
                       </Link>

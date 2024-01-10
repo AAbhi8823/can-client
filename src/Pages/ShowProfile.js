@@ -401,7 +401,7 @@ const ShowProfile = () => {
                             </div>
                         </div>
                     </div>  */}
-                    <div class=" md:w-1/2 lg:w-[35%] px-5">
+                    <div className=" md:w-1/2 lg:w-[35%] px-5">
                         <form>
                      <div>
                                 <img src={vtwo} className='object-contain rounded-[20px] w-[100%]' alt='none' />
@@ -412,7 +412,7 @@ const ShowProfile = () => {
                             </div>
 
                             <div className='h-[80%] w-[100%] mt-2 relative'>
-                            <form class="bg-white shadow-md rounded  rounded-2xl  mb-4">
+                            <form className="bg-white shadow-md rounded  rounded-2xl  mb-4">
                                 <div className='flex justify-center  pt-[65px] pb-[65px]  ' >
                                     {
                                         singleuserData && singleuserData.map((userBox, i) => {

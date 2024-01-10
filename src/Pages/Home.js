@@ -1477,19 +1477,19 @@ const Home = () => {
                                           <div className="h-[14.33%] ">
                                             <div className="  bg-[#FDF4F9]">
                                               <div className="flex gap-3 w-full ">
-                                                <div class="relative w-full flex items-center">
+                                                <div className="relative w-full flex items-center">
                                                   {userDetails.profile_photo ? (
                                                     <img
                                                       src={
                                                         userDetails.profile_photo
                                                       }
-                                                      class="absolute left-3 h-10 w-10 rounded-full"
+                                                      className="absolute left-3 h-10 w-10 rounded-full"
                                                       alt="mage"
                                                     />
                                                   ) : (
                                                     <img
                                                       src=""
-                                                      class="absolute left-3 h-10 w-10 rounded-full"
+                                                      className="absolute left-3 h-10 w-10 rounded-full"
                                                       alt=""
                                                     />
                                                   )}
@@ -1497,10 +1497,10 @@ const Home = () => {
                                                     type="text"
                                                     value={comVal}
                                                     onChange={handleComInput}
-                                                    class="pl-14 pr-12 py-3 w-full border border-gray-300 rounded-lg w-64 focus:outline-none"
+                                                    className="pl-14 pr-12 py-3 w-full border border-gray-300 rounded-lg w-64 focus:outline-none"
                                                     placeholder="Add a comment.."
                                                   />
-                                                  <button class="absolute right-3 h-8 w-8 flex items-center justify-center  rounded-md hover:bg-gray-300 focus:outline-none">
+                                                  <button className="absolute right-3 h-8 w-8 flex items-center justify-center  rounded-md hover:bg-gray-300 focus:outline-none">
                                                     &#x1F60A;
                                                   </button>
                                                 </div>

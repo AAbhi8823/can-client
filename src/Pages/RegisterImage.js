@@ -118,9 +118,9 @@ const RegisterImage = () => {
 
           {/* Right side  */}
 
-          <div class=" md:w-1/2 lg:w-[35%] px-5">
+          <div className=" md:w-1/2 lg:w-[35%] px-5">
             <form
-              class="bg-white shadow-md rounded  rounded-2xl  mb-4"
+              className="bg-white shadow-md rounded  rounded-2xl  mb-4"
               onSubmit={SetRegisterImage}
             >
               <Link to={"/choosetitle"}>

@@ -127,10 +127,10 @@ const Newmultipin = () => {
           </div> */}
           <Craousel />
 
-          <div class=" md:w-1/2 lg:w-[35%] px-5">
+          <div className=" md:w-1/2 lg:w-[35%] px-5">
             <form
               onSubmit={registerUserAccount}
-              class="bg-white shadow-md rounded  rounded-2xl  mb-4"
+              className="bg-white shadow-md rounded  rounded-2xl  mb-4"
             >
               <Link to={"/Registerimage"}>
                 <div className="px-4 py-2 cursor-pointer">

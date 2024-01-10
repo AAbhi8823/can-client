@@ -298,7 +298,7 @@ const Register = () => {
             </div>
           </div>  */}
           < Craousel/>
-          <div class=" md:w-1/2 lg:w-[35%] px-5">
+          <div className=" md:w-1/2 lg:w-[35%] px-5">
             <div>
               <img src={elite1} className="w-[100%]" alt="none" />
             </div>

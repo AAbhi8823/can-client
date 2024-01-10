@@ -245,33 +245,33 @@ const HealthCard1 = () => {
               </div> */}
 
               <form className="flex flex-wrap items-center justify-center gap-7 mx-[4%] my-4">
-                <div class=" md:w-[46%] relative group w-full">
+                <div className=" md:w-[46%] relative group w-full">
                   <input
                     type="text"
                     id="patientsname"
                     required
-                    class="w-full h-12 px-4 text-sm peer  outline-none border rounded-lg "
+                    className="w-full h-12 px-4 text-sm peer  outline-none border rounded-lg "
                     onChange={handleInputChange}
                   />
                   <label
                     for="name"
-                    class="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     Name
                   </label>
                 </div>
 
-                <div class="md:w-[46%] w-full relative group ">
+                <div className="md:w-[46%] w-full relative group ">
                   <label
                     for="gender"
-                    class="absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+                    className="absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
                   >
                     Gender
                   </label>
                   <select
                     id="gender"
                     required
-                    class="w-full h-12 px-4 text-sm peer outline-none border rounded-lg bg-white "
+                    className="w-full h-12 px-4 text-sm peer outline-none border rounded-lg bg-white "
                     onChange={handleInputChange}
                   >
                     <option className="hover:bg-[#EFC31933]" value="male">
@@ -281,7 +281,7 @@ const HealthCard1 = () => {
                     <option value="other">Other</option>
                   </select>
                 </div>
-                <div class="md:w-[46%] w-full  relative group">
+                <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     onFocus={(e) => {
@@ -300,17 +300,17 @@ const HealthCard1 = () => {
                     Date of Birth
                   </label>
                 </div>
-                <div class="md:w-[46%] w-full relative group">
+                <div className="md:w-[46%] w-full relative group">
                   <label
                     for="blood_group"
-                    class="absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+                    className="absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
                   >
                     Blood Group
                   </label>
                   <select
                     id="blood_group"
                     required
-                    class="block px-2 py-2  w-full text-sm bg-transparent rounded-lg border h-12  bg-white focus:outline-none focus:ring-0  peer"
+                    className="block px-2 py-2  w-full text-sm bg-transparent rounded-lg border h-12  bg-white focus:outline-none focus:ring-0  peer"
                     placeholder=" "
                     onChange={handleInputChange}
                   >
@@ -325,40 +325,40 @@ const HealthCard1 = () => {
                     <option value="O -ive">O -ive</option>
                   </select>
                 </div>
-                <div class="md:w-[46%] w-full  relative group">
+                <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     id="height"
                     required
-                    class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
                     onChange={handleInputChange}
                   />
                   <label
                     for="height"
-                    class="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     Height (cm)
                   </label>
                 </div>
-                <div class="md:w-[46%] w-full  relative group">
+                <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     id="weight"
                     required
-                    class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
                     onChange={handleInputChange}
                   />
                   <label
                     for="weight"
-                    class="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     Weight (kg)
                   </label>
                 </div>
-                <div class="md:w-[46%] w-full relative group">
+                <div className="md:w-[46%] w-full relative group">
                   <label
                     for="cancer_type"
-                    class="absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+                    className="absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
                   >
                     Cancer Type
                   </label>
@@ -366,7 +366,7 @@ const HealthCard1 = () => {
                   <select
                     id="cancer_type"
                     required
-                    class="w-full p-2 px-4 text-sm outline-none border rounded-lg bg-white h-12"
+                    className="w-full p-2 px-4 text-sm outline-none border rounded-lg bg-white h-12"
                     onChange={handleInputChange}
                   >
                     <option value="default"> </option>
@@ -378,17 +378,17 @@ const HealthCard1 = () => {
                   </select>
                 </div>
 
-                <div class="md:w-[46%] w-full relative group">
+                <div className="md:w-[46%] w-full relative group">
                   <label
                     for="cancer_stage"
-                    class="absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+                    className="absolute text-sm duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
                   >
                     Cancer Stage
                   </label>
                   <select
                     id="cancer_stage"
                     required
-                    class="w-full p-2 px-4 text-sm  outline-none border rounded-lg bg-white h-12"
+                    className="w-full p-2 px-4 text-sm  outline-none border rounded-lg bg-white h-12"
                     onChange={handleInputChange}
                   >
                     <option value="default"> </option>
@@ -397,77 +397,77 @@ const HealthCard1 = () => {
                     <option value="Stage IIB">Stage IIB</option>
                   </select>
                 </div>
-                {/* <div class="md:w-[46%] w-full  relative group">
+                {/* <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     id="current_treatment"
                     required
-                    class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
                     onChange={handleInputChange}
                   />
                   <label
                     for="current_treatment"
-                    class="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     Current Treatment
                   </label>
                 </div>
-                <div class="md:w-[46%] w-full  relative group">
+                <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     id="last_treatment"
                     required
-                    class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
                     onChange={handleInputChange}
                   />
                   <label
                     for="last_treatment"
-                    class="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     Last Treatment
                   </label>
                 </div> */}
-                <div class="md:w-[46%] w-full  relative group">
+                <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     id="presiding_doctor"
                     required
-                    class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
                     onChange={handleInputChange}
                   />
                   <label
                     for="presiding_doctor"
-                    class="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     Preciding Doctor
                   </label>
                 </div>
-                <div class="md:w-[46%] w-full  relative group">
+                <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     id="hospital_details_primary"
                     required
-                    class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12"
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12"
                     onChange={handleInputChange}
                   />
                   <label
                     for="hospital_details_primary"
-                    class="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     Hospital Details (Primary)
                   </label>
                 </div>
-                <div class="md:w-[46%] w-full  relative group">
+                <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     id="hospital_details"
                     required
-                    class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12"
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12"
                     onChange={handleInputChange}
                   />
                   <label
                     for="hospital_details"
-                    class="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     Hospital Details
                   </label>
@@ -482,32 +482,32 @@ const HealthCard1 = () => {
                     key={index}
                     className="w-full flex flex-row gap-8 justify-center  "
                   >
-                    <div class="md:w-[46%] w-full relative group">
+                    <div className="md:w-[46%] w-full relative group">
                       <input
                         type="text"
                         id={`emergency_name_${index}`}
                         required
-                        class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
+                        className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
                         onChange={handleInputChange}
                       />
                       <label
                         for={`emergency_name_${index}`}
-                        class="transform  peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                        className="transform  peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                       >
                         Name
                       </label>
                     </div>
-                    <div class="md:w-[46%] w-full relative group">
+                    <div className="md:w-[46%] w-full relative group">
                       <input
                         type="numeric"
                         id={`emergency_phone_${index}`}
                         required
-                        class="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
+                        className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
                         onChange={handleInputChange}
                       />
                       <label
                         for={`emergency_phone_${index}`}
-                        class="transform  peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                        className="transform  peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                       >
                         Phone No.
                       </label>

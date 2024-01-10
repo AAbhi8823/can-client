@@ -193,7 +193,7 @@ const LandingPageFooter = () => {
                     <div>
                       {/* <li className="mb-2">
                         <a href="/LoginForm"
-                          class="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
+                          className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
                         >
                           Help & Support
                         </a>

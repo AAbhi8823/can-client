@@ -114,7 +114,7 @@ const MedicineBank = () => {
                 </div>
                 <div className="flex px-5 items-center">
                   <Link to={"/Medicine1"}>
-                <button class="bg-[#A94360] text-white lg:text-[1.04vw] text-[16px] py-1 px-4 border border-pink-700 rounded-full">
+                <button className="bg-[#A94360] text-white lg:text-[1.04vw] text-[16px] py-1 px-4 border border-pink-700 rounded-full">
   Medicine Bank
 </button>
 </Link>
@@ -123,7 +123,7 @@ const MedicineBank = () => {
     </div>
 <div className="flex flex-wrap justify-center md:justify-between lg:justify-between">
 <div className="flex px-10 mt-2 items-center">
-                <button class="bg-[#A94360]  lg:text-[1.04vw] text-[16px] text-white py-1 px-10 border border-pink-700 rounded">
+                <button className="bg-[#A94360]  lg:text-[1.04vw] text-[16px] text-white py-1 px-10 border border-pink-700 rounded">
                 On Going Medicines</button>
                 </div>
               <div className="flex mt-2 gap-5 px-5  ">
@@ -163,7 +163,7 @@ const MedicineBank = () => {
 </div>
 
 <div className="pt-5 flex  justify-center">
-<button class=" lg:text-[1.04vw] text-[16px] bg-[#A94360] text-white py-1 px-16 border border-pink-700 rounded">
+<button className=" lg:text-[1.04vw] text-[16px] bg-[#A94360] text-white py-1 px-16 border border-pink-700 rounded">
                Medical History</button>
                 
 </div>
@@ -172,7 +172,7 @@ const MedicineBank = () => {
 <div className="lg:flex flex-wrap pt-10" >
    <div className="lg:w-[50%] mb-6 ">
     <div className="flex justify-center ">
-    <button class="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
+    <button className="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
      January</button>
      </div>
      <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
@@ -193,7 +193,7 @@ const MedicineBank = () => {
     </div>
     <div className="lg:w-[50%] mb-6 border-l-[3px]">
     <div className="flex justify-center ">
-    <button class="font-bold lg:text-[1.04vw] text-[16px] bg-[#EFC319] text-white py-1 px-16 border  rounded">
+    <button className="font-bold lg:text-[1.04vw] text-[16px] bg-[#EFC319] text-white py-1 px-16 border  rounded">
      February</button>
      </div>
      <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
@@ -216,7 +216,7 @@ const MedicineBank = () => {
 <div className="lg:flex flex-wrap pt-10" >
    <div className="lg:w-[50%]  mb-6  ">
     <div className="flex justify-center ">
-    <button class="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
+    <button className="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
      March</button>
      </div>
      <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
@@ -237,7 +237,7 @@ const MedicineBank = () => {
     </div>
     <div className="lg:w-[50%] mb-6 border-l-[3px]">
     <div className="flex justify-center ">
-    <button class="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
+    <button className="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
      April</button>
      </div>
      <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">

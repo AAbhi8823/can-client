@@ -121,8 +121,8 @@ const LoginOTP = () => {
                     </div> */}
           <Craousel />
 
-          <div class=" md:w-1/2 lg:w-[35%] px-5">
-            <form class="bg-white shadow-md rounded  rounded-2xl  mb-4">
+          <div className=" md:w-1/2 lg:w-[35%] px-5">
+            <form className="bg-white shadow-md rounded  rounded-2xl  mb-4">
               <div className="py-5">
                 <img src={vthree} className="w-full" alt="none" />
               </div>

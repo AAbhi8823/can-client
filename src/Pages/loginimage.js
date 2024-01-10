@@ -158,8 +158,8 @@ const LoginImage = () => {
             </div>
 
           </div> */}
-            <div class=" md:w-1/2 lg:w-[35%] px-5">
-  <form class="bg-white shadow-md rounded  rounded-2xl  mb-4">
+            <div className=" md:w-1/2 lg:w-[35%] px-5">
+  <form className="bg-white shadow-md rounded  rounded-2xl  mb-4">
   <div>
                 <img src={sixx}  className='object-contain w-[100%] rounded-[20px]' alt='Video' />
               </div>
