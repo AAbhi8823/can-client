@@ -1,8 +1,7 @@
 export const baseurl = "https://can.colourfuldreamevents.in";
 // export const baseurl = "http://127.0.0.1:5000";
 
-
-
+export const just_login="https://i4zsbn32p4.ap-south-1.awsapprunner.com/api"
 const apis = {
 
     // users
