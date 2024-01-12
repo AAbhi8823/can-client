@@ -67,17 +67,9 @@ const KnowMore = () => {
 
     return (
         <>
-
-
-
-
-
             <div className='flex justify-center w-[100%]'>
                 <NavLanding onStateChange={Nav} />
             </div>
-
-
-
             <div className='flex items-center justify-center pt-36 '>
                 <h1 className='text-[2.604vw] text-center text-11 font-roboto font-bold px-5'>Know about <span className='text-[#B2437D]'>CANCER</span></h1>
             </div>

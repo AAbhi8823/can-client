@@ -491,7 +491,7 @@ const SideMenu = () => {
 
                   <p className="flex px-4 py-2 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]">
                     <img src={CANnn} alt="none" />
-                    <Link to="/whycan#aboutus">
+                    <Link to="/aboutus">
                     About us
                     </Link>
                   </p>

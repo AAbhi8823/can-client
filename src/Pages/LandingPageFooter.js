@@ -61,7 +61,7 @@ const LandingPageFooter = () => {
                   </li>
                   <li className="mb-2">
                     <a
-                      href="/whycan#aboutus"
+                      href="/aboutus"
                       className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
                     >
                       About us
