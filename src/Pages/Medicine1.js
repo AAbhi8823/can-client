@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import CalenderRecords from "../Components/CalenderRecords";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { MdOutlineAutoDelete, MdOutlineEdit } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import MedicinePopup from "../Components/MedicinePopup";
 import Page from "../Layouts/Pages";
 import apis from "../Api/baseUrl";
@@ -95,8 +95,8 @@ const MedicineReminder = () => {
                   <div
                     className={`flex lg:md:gap-8 gap-3  lg:md:w-[50%] w-full`}
                   >
-                    {/* <Link to='/Appointment1'> <button className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-6 p-2 rounded-[15px] w-fit text-center h-fit '  ${isClickedAppointment ? 'bg-white shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)]' : 'bg-[#ffffff7b] '} `} onClick={() => handleIsClickedAppointment()}>Appointments</button>  </Link> */}
-                    <Link to="/Medicine1">
+                    {/* <NavLink to='/Appointment1'> <button className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-6 p-2 rounded-[15px] w-fit text-center h-fit '  ${isClickedAppointment ? 'bg-white shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)]' : 'bg-[#ffffff7b] '} `} onClick={() => handleIsClickedAppointment()}>Appointments</button>  </NavLink> */}
+                    <NavLink to="/Medicine1">
                       <button
                         className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-10 p-2 shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)] rounded-[15px] w-fit h-fit text-center ${
                           isClickedMedicine
@@ -110,7 +110,7 @@ const MedicineReminder = () => {
                         {" "}
                         Medicine
                       </button>{" "}
-                    </Link>
+                    </NavLink>
                   </div>
                   <div>
                     <button
@@ -136,11 +136,11 @@ const MedicineReminder = () => {
                       <CalenderRecords />
                     </div>
                     <div className="flex px-5 items-center">
-                      <Link to={"/MedicineBank"}>
+                      <NavLink to={"/MedicineBank"}>
                         <button className="border-[#A94360] text-[#A94360] lg:text-[1.04vw] text-[16px] font-semibold py-1 px-10 border-2 border-pink-700 rounded-full">
                           Medicine Bank
                         </button>
-                      </Link>
+                      </NavLink>
                     </div>
                   </div>
 

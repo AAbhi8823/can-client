@@ -6,7 +6,7 @@ import AppointmentPopup from '../Components/AppointmentPopup';
 import Page from '../Layouts/Pages';
 import axios from 'axios';
 import apis from '../Api/baseUrl';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Appointment = () => {
   //pop up
@@ -44,12 +44,12 @@ const Appointment = () => {
                   >
                     Add Appointment
                   </div>
-                  <Link
+                  <NavLink
                     to={"/appointment1"}
                     className="  bg-[#C31A7F] text-white lg:text-[1.20vw]  text-[16px] px-4 py-2 rounded-[20px] cursor-pointer"
                   >
                     My Appointments
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
             </div>

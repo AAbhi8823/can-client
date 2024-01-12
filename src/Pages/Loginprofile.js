@@ -6,7 +6,7 @@ import { VscAccount } from 'react-icons/vsc';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import CarouselMain from '../Components/CarouselMain';
 import Freeline from '../Photos/MeetPeople.png'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import account from "../Photos/account.jpg";
 import logo2 from '../Photos/logo2.png'
 const LoginProfile = () => {
@@ -98,9 +98,9 @@ const LoginProfile = () => {
 
                             <div className='flex px-5 justify-center'>
                                 <div className='flex justify-center py-2 w-[50%]'>
-                                    <Link to='/home' className='w-[86%]'>
+                                    <NavLink to='/home' className='w-[86%]'>
                                         <h2 className='bg-[#C31A7F]  text-center p-3 rounded-lg text-white'>Fivnishq!</h2>
-                                    </Link>
+                                    </NavLink>
 
                                 </div>
                             </div>

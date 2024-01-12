@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import LogoCAn from '../Photos/LogoCAn.png'
 import CANa from '../Photos/CANa.png'
 import PinInput from 'react-pin-input'
@@ -83,12 +83,12 @@ const OtpVerify = () => {
   return (
     <>
       <div className="grid flex justify-start center-1">
-      <Link to='/'>
+      <NavLink to='/'>
         <div className="flex px-10 w-[100%]">
           <img src={logo2} className="lg:block md:block hidden" alt="" />
           <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
         </div>
-        </Link>
+        </NavLink>
       </div>
 
       <div className="lg:h-screen h-fit md:flex sm:block lg:p-0   pt-[100px]  items-center  justify-center">
@@ -98,11 +98,11 @@ const OtpVerify = () => {
             boxShadow: "0px 0px 50px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <Link to={"/forgotpassword"}>
+          <NavLink to={"/forgotpassword"}>
             <div className=" py-2 cursor-pointer px-2">
               <img src={arrow22} alt="" />
             </div>
-          </Link>
+          </NavLink>
           <div className=" flex flex-col lg:px-10 px-8 items-center justify-center gap-5">
             <div>
               <h1 className="lg:text-[28px]  text-[24px] font-semibold  text-[#C31A7F]">

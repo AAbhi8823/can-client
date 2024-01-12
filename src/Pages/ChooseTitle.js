@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { CiCircleInfo } from 'react-icons/ci';
 import five from '../Photos/five.gif'
 import axios from 'axios';
@@ -106,11 +106,11 @@ const ChooseTitle = () => {
       </Dialog>
 
       <div className="grid flex justify-start center-1">
-        <Link to="/">
+        <NavLink to="/">
           <div className="flex px-10 w-[100%]">
             <img src={logo2} alt="" />
           </div>
-        </Link>
+        </NavLink>
       </div>
 
       <div>

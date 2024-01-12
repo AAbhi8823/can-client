@@ -27,7 +27,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { BiCheckCircle } from "react-icons/bi";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
 import { BiArrowBack } from "react-icons/bi";
 import blockuser from "../Photos/blockuser.png";
@@ -1030,11 +1030,11 @@ const Home = () => {
                                           </div>
                                         </div>
                                       )}
-                                      <Link to="/profile">
+                                      <NavLink to="/profile">
                                         <p className="p-2 px-4 cursor-pointer hover:text-[#fff]  hover:bg-[#C31A7F]">
                                           About this account
                                         </p>
-                                      </Link>
+                                      </NavLink>
                                       <p
                                         className="p-2 px-4 cursor-pointer hover:text-[#fff] hover:bg-[#C31A7F]"
                                         onClick={toggleReportButton}
@@ -1645,7 +1645,7 @@ const Home = () => {
                                               <div className="flex flex-row items-center gap-2">
                                                 <BsLink45Deg color="#C31A7F" />
                                                 <p className="text-[12px]   text-[#C31A7F] font-semibold">
-                                                  Copy Link
+                                                  Copy NavLink
                                                 </p>
                                               </div>
                                               {/* <div className="w-16 h-7 flex items-center justify-center bg-[#efc419] text-[12px] font-semibold text-[#FFFFFF] rounded-[12px]">
@@ -1755,11 +1755,11 @@ const Home = () => {
                           </p>
                         </div>
                         <div className="flex justify-center">
-                          <Link to="/Subscription_Models">
+                          <NavLink to="/Subscription_Models">
                             <button className="bg-gradient-to-r mt-[10px] font-[500] from-[#efc41955] p-[15px] to-[#ed839a54] rounded-2xl">
                               Donate us
                             </button>
-                          </Link>
+                          </NavLink>
                         </div>
                       </div>
                     </div>

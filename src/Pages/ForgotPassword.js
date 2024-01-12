@@ -3,7 +3,7 @@ import LogoCAn from '../Photos/LogoCAn.png'
 import CANa from '../Photos/CANa.png'
 import Frame from '../Photos/Frame.png'
 import { AiOutlineMail } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { baseurl } from '../Api/baseUrl'
@@ -68,12 +68,12 @@ const ForgotPassword = () => {
   return (
     <>
       <div className="grid flex justify-start center-1">
-      <Link to='/'>
+      <NavLink to='/'>
         <div className="flex px-10 w-[100%]">
           <img src={logo2} className="lg:block md:block hidden" alt="" />
           <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
         </div>
-        </Link>
+        </NavLink>
       </div>
 
       <div className="lg:h-screen h-fit lg:flex md:flex lg:p-0 px-4  items-center sm:block justify-center">
@@ -133,11 +133,11 @@ const ForgotPassword = () => {
               )}
             </div>
             <div className="mt-3">
-              <Link to="/LoginForm">
+              <NavLink to="/LoginForm">
                 <h1 className="  text-[#C31A7F] lg:text-[1.1vw] text-[18px] font-semibold cursor-pointer underline decoration-1">
                   Login again
                 </h1>
-              </Link>
+              </NavLink>
             </div>
           </div>
         </div>

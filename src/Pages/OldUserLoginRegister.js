@@ -8,7 +8,7 @@ import { AiOutlineMail } from 'react-icons/ai'
 import { BsGenderAmbiguous } from 'react-icons/bs'
 import { VscAccount } from 'react-icons/vsc'
 import { SlCalender } from 'react-icons/sl'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import CarouselMain from '../Components/CarouselMain'
 import { HiArrowLeft } from 'react-icons/hi'
 
@@ -50,9 +50,9 @@ const OldUserRegister = () => {
                         <div className='h-[90%] w-[60vh] shadow-xl mx-24 bg-[#D9D9D9] bg-opacity-10 z-10 backdrop-blur-lg rounded-md'>
 
                             <div className='mt-6 mx-4 gap-4 flex items-center font-semibold'>
-                                <Link to='/OldUserLoginTitle'>
+                                <NavLink to='/OldUserLoginTitle'>
                                     <HiArrowLeft />
-                                </Link>
+                                </NavLink>
                                 <div>Adding profile for your loved one</div>
                             </div>
 
@@ -98,9 +98,9 @@ const OldUserRegister = () => {
                             </div>
 
                             <div className='flex justify-center py-2'>
-                                <Link to='/OldUserOTP' className='w-[86%]'>
+                                <NavLink to='/OldUserOTP' className='w-[86%]'>
                                     <h2 className='bg-[#C31A7F]  text-center p-3 rounded-lg text-white'>Continue</h2>
-                                </Link>
+                                </NavLink>
                             </div>
 
                         </div>

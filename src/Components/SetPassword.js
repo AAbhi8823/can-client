@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IoKeyOutline } from 'react-icons/io5';
 import { AiOutlineEyeInvisible, AiOutlineEye } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const SetPassword = () => {
   const eye1 = false;

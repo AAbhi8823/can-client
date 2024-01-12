@@ -10,7 +10,7 @@ import AdminReport from "../Photos/AdminIcons/AdminReport.png";
 import AdminSetting from "../Photos/AdminIcons/AdminSetting.png";
 import AdminLogout from "../Photos/AdminIcons/AdminLogout.png";
 
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 // import CreatePost from "./CreatePost";
 import iconRight from '../Photos/iconRight.png'
 import iconLeft from '../Photos/iconLeft.png'
@@ -132,14 +132,14 @@ const SideMenu = () => {
                         <div className='flex flex-col  pt-2'>
                             <ul className='flex flex-col gap-2 cursor-pointer'>
 
-                                <Link to="/AdminContent">
+                                <NavLink to="/AdminContent">
                                     <div onClick={() => setActivePage('/AdminContent')}>
                                         <li className={`flex flex-row items-center gap-2 h-12 text-[14px]  text-[#444] font-semibold  ${activePage === '/AdminContent' ? 'bg-[#efc4197c] border-l-[3px] flex flex-row font-semibold gap-2 h-12 items-center lg:border-[#C31A7F] text-[#444] text-[14px]' : ''}`}><div className={`ml-10 `}><img className='w-4' src={AdminDashboard} alt='none' /></div><p className={` ${isOpen ? '  hidden translate-x-0 ' : ' '}`}>Dashboard</p></li>
                                     </div>
-                                </Link>
+                                </NavLink>
 
 
-                                <Link to="/AdminUserManagement">
+                                <NavLink to="/AdminUserManagement">
                                     <div>
                                         <li className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold   ${activePage === '/meeting' ? 'bg-[#efc4197c] border-l-[3px] lg:border-[#084943] text-[14px] font-semibold' : ''}`}>
                                             <div className={`ml-10 `}>
@@ -148,12 +148,12 @@ const SideMenu = () => {
                                             <p className={`${isOpen ? 'hidden translate-x-0 ml-2' : ''}`}>Users</p>
                                         </li>
                                     </div>
-                                </Link>
+                                </NavLink>
 
 
-                                <Link to='/chatpage' onClick={() => setActivePage('/chatpage')}>
+                                <NavLink to='/chatpage' onClick={() => setActivePage('/chatpage')}>
                                     <li className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${activePage === '/chatpage' ? 'bg-[#efc4197c] border-l-[3px] lg:border-[#084943]' : ''}`}><div className={`ml-10 `}><img style={{ width: "19px" }} className='w-4' src={AdminMeeting} alt='none' /></div><p className={` ${isOpen ? '  hidden translate-x-0' : ''}`}>Meeting</p></li>
-                                </Link>
+                                </NavLink>
 
 
                                 <div onClick={() => setActivePage('/CreatePose')} >
@@ -171,21 +171,21 @@ const SideMenu = () => {
                                         <CreatePost close_createPost={close_createPost} />
                                     </div>
                                 )} */}
-                                <Link to='/HealthRecord' onClick={() => setActivePage('/HealthRecord')}>
+                                <NavLink to='/HealthRecord' onClick={() => setActivePage('/HealthRecord')}>
                                     <li className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${activePage === '/HealthRecord' ? 'bg-[#efc4197c] border-l-[3px] lg:border-[#084943]' : ''}`}><div className={`ml-10 `}><img style={{ width: "19px" }} className='w-4' src={AdminTransaction} alt='none' /></div><p className={` ${isOpen ? '  hidden translate-x-0' : ''}`}>Transaction</p></li>
-                                </Link>
+                                </NavLink>
 
-                                <Link to='/HealthCard' onClick={() => setActivePage('/HealthCard')}>
+                                <NavLink to='/HealthCard' onClick={() => setActivePage('/HealthCard')}>
                                     <li className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${activePage === '/HealthCard' ? 'bg-[#efc4197c] border-l-[3px] lg:border-[#084943]' : ''}`}><div className={`ml-10 `}><img style={{ width: "19px" }} className='w-4' src={AdminReport} alt='none' /></div><p className={` ${isOpen ? '  hidden translate-x-0' : ''}`}>Reports</p></li>
-                                </Link>
+                                </NavLink>
 
-                                <Link to='/Appointment' onClick={() => setActivePage('/Appointment')}>
+                                <NavLink to='/Appointment' onClick={() => setActivePage('/Appointment')}>
                                     <li className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${activePage === '/Appointment' ? 'bg-[#efc4197c] border-l-[3px] lg:border-[#084943]' : ''}`}><div className={`ml-10 `}><img style={{ width: "19px" }} className='w-4' src={AdminSetting} alt='none' /></div><p className={` ${isOpen ? '  hidden translate-x-0' : ''}`}>Setting</p></li>
-                                </Link>
+                                </NavLink>
 
-                                <Link to='/Medicine' onClick={() => setActivePage('/Medicine')}>
+                                <NavLink to='/Medicine' onClick={() => setActivePage('/Medicine')}>
                                     <li className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${activePage === '/Medicine' ? 'bg-[#efc4197c] border-l-[3px]  lg:border-[#084943]' : ''}`}><div className={`ml-10 `}><img style={{ width: "19px" }} className='w-4' src={AdminLogout} alt='none' /></div><p className={` ${isOpen ? '  hidden translate-x-0' : ''}`}>Logout</p></li>
-                                </Link>
+                                </NavLink>
 
                             </ul>
                         </div>
@@ -227,16 +227,16 @@ const SideMenu = () => {
                                     </p>
                                     <p className="flex px-4 py-2 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]">
                                         <img src={help} alt="none" />
-                                        <Link to="/HelpFeedback">Help / Feedback</Link>
+                                        <NavLink to="/HelpFeedback">Help / Feedback</NavLink>
                                     </p>
 
                                     <p className="flex px-4 py-2 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]">
                                         <img src={share} alt="none" />
-                                        <Link to='/HelpAFriend'> Help a friend</Link>
+                                        <NavLink to='/HelpAFriend'> Help a friend</NavLink>
                                     </p>
                                     <p className="flex px-4 py-2 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]">
                                         <img src={setting} alt="none" />
-                                        <Link to='/Settings'>Setting </Link>
+                                        <NavLink to='/Settings'>Setting </NavLink>
                                     </p>
                                     <p className="flex px-4 py-2 pb-4 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]" onClick={handleLogOut}>
                                         <img src={logout} alt="none" />
@@ -249,7 +249,7 @@ const SideMenu = () => {
                                             <div ref={logoutDivRef} className='bg-white flex flex-col items-center gap-3 px-10 py-4 justify-center rounded-[20px] p-4'>
                                                 <img src={CanLogo} alt="logo" />
                                                 <p className='font-[600]'>Are you sure you want to log out? </p>
-                                                <button className='bg-[#084943] rounded-[15px] text-white py-2 px-10 font-[500]'><Link to="/LoginForm">Log out</Link></button>
+                                                <button className='bg-[#084943] rounded-[15px] text-white py-2 px-10 font-[500]'><NavLink to="/LoginForm">Log out</NavLink></button>
                                                 <button className='border-[2px] border-[#084943]   text-[#084943]  rounded-[15px] py-2 px-5' onClick={handleLogOut}>Cancel</button>
                                             </div>
                                         </div>

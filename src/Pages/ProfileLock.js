@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {IoKeyOutline} from 'react-icons/io5'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import SetPin from '../Components/SetPin';
 
 const ProfileLock = () => {

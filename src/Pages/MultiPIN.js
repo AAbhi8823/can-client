@@ -3,7 +3,7 @@ import LogoCAn from "../Photos/LogoCAn.png";
 import CANa from "../Photos/CANa.png";
 import Video from "../Photos/Video.png";
 import CarouselMain from "../Components/CarouselMain";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SelfCare from "../Photos/SelfCare.png";
 import vibird1 from "../Photos/vibird1.gif";
 import PinInput from "react-pin-input";
@@ -134,11 +134,11 @@ const MultiPIN = () => {
   return (
     <>
       <div className="grid flex justify-start center-1">
-        <Link to={"/"}>
+        <NavLink to={"/"}>
           <div className="flex px-10 w-[100%]">
             <img src={logo2} alt="" />
           </div>
-        </Link>
+        </NavLink>
       </div>
       <div>
         <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
@@ -177,11 +177,11 @@ const MultiPIN = () => {
               onSubmit={registerUserAccount}
               className="bg-white shadow-md rounded  rounded-2xl  mb-4"
             >
-              <Link to={"/Registerimage"}>
+              <NavLink to={"/Registerimage"}>
                 <div className="px-4 py-2 cursor-pointer">
                   <img src={arrow22} alt="" />
                 </div>
-              </Link>
+              </NavLink>
               <div>
                 <img src={vibird1} className="w-[100%]" alt="Video" />
               </div>

@@ -6,18 +6,13 @@ import account from '../Photos/account.jpg'
 import account2 from '../Photos/account2.jpg'
 import CarouselMain from '../Components/CarouselMain'
 import { IoAddCircleOutline } from 'react-icons/io5'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import OldLoginImage from '../Photos/OldLoginImage.png'
 import OldProfileImage from '../Photos/PofielPageImage.png'
 import illus1 from '../Photos/illus1.png'
 import b4 from '../Photos/b4.png'
 
 const OldUserLogin = () => {
-
-    
-
-
-
 
     return (
         <>
@@ -62,12 +57,12 @@ const OldUserLogin = () => {
                                 </div>
 
                                 <div className='w-[45%] h-[40%] bg-[#FEE5EA] rounded-3xl flex flex-col justify-center items-center ' style={{ boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.05)' }} >
-                                    <Link to='/OldUserLoginTitle' className='w-[45%] h-[100%]'>
+                                    <NavLink to='/OldUserLoginTitle' className='w-[45%] h-[100%]'>
                                         <div className='h-full  rounded-3xl flex flex-col justify-center items-center ' >
                                             <h1 className='font-semibold text-lg'><IoAddCircleOutline /></h1>
                                             <p className='text-sm'>Add Profile</p>
                                         </div>
-                                    </Link>
+                                    </NavLink>
                                 </div>
 
                                 <div className='w-[50%] ml-[25%] '>

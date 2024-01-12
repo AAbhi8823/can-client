@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Logo from '../Photos/Logo.png'
 import CAN from '../Photos/CAN.png'
 import account from '../Photos/account.jpg'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const OldUserSuccessfully = () => {
 
@@ -69,11 +69,11 @@ const OldUserSuccessfully = () => {
                                     linked to his account.
                                 </div>
 
-                                <Link to='/home'>
+                                <NavLink to='/home'>
                                 <div className='bg-[#C31A7F] text-white px-12 rounded-2xl p-3'>
                                     Finish
                                 </div>
-                                </Link>
+                                </NavLink>
 
                             </div>
 

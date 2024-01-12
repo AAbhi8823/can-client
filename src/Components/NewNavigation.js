@@ -5,7 +5,7 @@ import KnowAbout from '../Photos/KnowAbout.png'
 import JoinMeet from '../Photos/JoinMeet.png'
 import LogoCAn from '../Photos/LogoCAn.png'
 // import './navbar.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const NewNavigation = () => {
 
@@ -32,9 +32,9 @@ const NewNavigation = () => {
           <div className='w-[45%] flex flex-row items-center justify-between '>
             <div className='flex flex-row gap-2 items-center pl-2'>
               <img className=' w-4 h-4' src={KnowAbout} alt='search' />
-              <Link to='/KnowMore'>
+              <NavLink to='/KnowMore'>
                 <p className='text-[14px]  font-semibold text-[#084943]'>Know About Cancer</p>
-              </Link>
+              </NavLink>
             </div>
             <div className=' flex flex-row gap-2 items-center h-8 px-3 py-5 rounded-full sm-hidden-1  bg-[#084943] '>
               <img className='w-4 h-4' src={JoinMeet} alt='search' />

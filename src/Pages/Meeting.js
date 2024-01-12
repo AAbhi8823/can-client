@@ -6,7 +6,7 @@ import account from "../Photos/account.jpg";
 import { IoMdClose } from "react-icons/io";
 import SideMenu from "../Components/SideMenu";
 import Page from "../Layouts/Pages";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 
@@ -218,9 +218,9 @@ const Meeting = () => {
 
                             {EnterName ? (
                               <div className="w-[80%] rounded-2xl p-[3%] text-center bg-[#efc41965] font-semibold cursor-pointer">
-                                <Link to='/MeetingActive'>
+                                <NavLink to='/MeetingActive'>
                                   Join now
-                                </Link>
+                                </NavLink>
                               </div>
 
                             ) : (

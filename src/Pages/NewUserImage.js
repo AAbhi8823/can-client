@@ -6,7 +6,7 @@ import { VscAccount } from 'react-icons/vsc';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import CarouselMain from '../Components/CarouselMain';
 import Freeline from '../Photos/Freeline.png'
-import { Form, Link, json, useNavigate } from 'react-router-dom';
+import { Form, NavLink, json, useNavigate } from 'react-router-dom';
 import sixx from '../Photos/sixx.gif'
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -153,9 +153,9 @@ const LoginImage = () => {
                             </div>
 
                             <div className='flex px-5 justify-center'>
-                                <Link to='/loginprofile' className='flex justify-center py-2 w-[50%]'>
+                                <NavLink to='/loginprofile' className='flex justify-center py-2 w-[50%]'>
                                     <h2 className='bg-transparent border-[#C31A7F] border-2 w-[86%] text-center p-3 rounded-lg text-[#C31A7F]'>Add later</h2>
-                                </Link>
+                                </NavLink>
 
                                 {image ? (
                                     <div className='flex justify-center py-2 w-[50%]'>

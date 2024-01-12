@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import LogoCAn from '../Photos/LogoCAn.png'
 import CANa from '../Photos/CANa.png'
 import { AiOutlineEyeInvisible } from 'react-icons/ai'
@@ -70,13 +70,13 @@ const ResetPassword = () => {
 
   return (
     <>
-      <Link to='/'>
+      <NavLink to='/'>
       <div className='lg:ml-[80px] mt-2 lg:absolute flex items-center justify-center '>
         <img src={LogoCAn} alt='not found' className='w-[80px] h-[80px]' />
         <img src={CANa} alt='not found' className='w-[42.88px] can-21 h-[16.19px]  ' />
       
       </div>
-</Link>
+</NavLink>
       <div className='lg:h-screen h-fit md:flex sm:block lg:p-0 px-4 pt-[50px]  items-center  justify-center'>
         <div className='shadow-xl px-[70px] py-11  bg-[#D0F5D3] bg-opacity-10 z-10 reset_content backdrop-blur-lg rounded-[20px]' style={{
           boxShadow: '0px 0px 50px rgba(0, 0, 0, 0.1)'
@@ -127,7 +127,7 @@ const ResetPassword = () => {
 
             <div className='mt-2'>
 
-              {/* <Link to='/ResetPasswordSuccessfully'> */}
+              {/* <NavLink to='/ResetPasswordSuccessfully'> */}
 
               {(firstpass) === (firstpass1) ?
 

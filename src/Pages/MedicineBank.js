@@ -4,7 +4,7 @@ import CalenderRecords from "../Components/CalenderRecords";
 import MedicinePopup from '../Components/MedicinePopup';
 import axios from "axios";
 import apis from "../Api/baseUrl";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { MdPictureAsPdf } from "react-icons/md";
 import Cookies from "js-cookie";
 import { MdShare } from "react-icons/md";
@@ -113,11 +113,11 @@ const MedicineBank = () => {
                   <CalenderRecords />
                 </div>
                 <div className="flex px-5 items-center">
-                  <Link to={"/Medicine1"}>
+                  <NavLink to={"/Medicine1"}>
                 <button className="bg-[#A94360] text-white lg:text-[1.04vw] text-[16px] py-1 px-4 border border-pink-700 rounded-full">
   Medicine Bank
 </button>
-</Link>
+</NavLink>
                 </div>
                
     </div>

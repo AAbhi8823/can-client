@@ -41,7 +41,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { BiCheckCircle } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
 import { BiArrowBack } from "react-icons/bi";
 import blockuser from "../Photos/blockuser.png";
@@ -442,7 +442,7 @@ const UserProfile = () => {
                     </div>
                     </div>
 
-                    {/* Links */}
+                    {/* NavLinks */}
                     <div className="mt-6">
                       <DesignTabs onChildStateChange={handleState} />
                     </div>

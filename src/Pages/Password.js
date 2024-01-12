@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import LogoCAn from '../Photos/LogoCAn.png'
 import CANa from '../Photos/CANa.png'
 import Video from '../Photos/Video.png'
-import { Link, json } from 'react-router-dom'
+import { NavLink, json } from 'react-router-dom'
 import CarouselMain from '../Components/CarouselMain'
 import { IoKeyOutline } from 'react-icons/io5'
 import { AiOutlineEyeInvisible } from 'react-icons/ai'
@@ -55,12 +55,12 @@ const LoginOTP = () => {
     return (
       <>
         <div className="grid flex justify-start center-1">
-          <Link to="/">
+          <NavLink to="/">
             <div className="flex px-10 w-[100%]">
               <img src={logo2} className="lg:block md:block hidden" alt="" />
               <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
             </div>
-          </Link>
+          </NavLink>
         </div>
 
         <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
@@ -179,14 +179,14 @@ const LoginOTP = () => {
 
               <div className="flex justify-center py-10 gap-3">
                 {firstpass.length >= 8 && firstpass === firstpass1 ? (
-                  <Link to="/choosetitle" className="">
+                  <NavLink to="/choosetitle" className="">
                     <button
                       onClick={SetPassword}
                       className=" bg-[#C31A7F] lg:text-[1.1vw] px-2 text-center py-[12px] px-[60px] rounded-xl text-white"
                     >
                       Continue
                     </button>
-                  </Link>
+                  </NavLink>
                 ) : (
                   <div className="">
                     <button className=" bg-[#C31A7F] lg:text-[1.1vw] px-2 text-center py-[12px] px-[60px] rounded-xl text-white opacity-60">
@@ -254,9 +254,9 @@ const LoginOTP = () => {
 
 
                                 {firstpass.length >= 8 && (firstpass) === (firstpass1) ?
-                                    (<Link to='/choosetitle' className='w-[40%]' onClick={SetPassword}>
+                                    (<NavLink to='/choosetitle' className='w-[40%]' onClick={SetPassword}>
                                         <h2 className='bg-[#C31A7F] cursor-pointer  text-center p-3 rounded-lg text-white'>Continue</h2>
-                                    </Link>)
+                                    </NavLink>)
                                     :
                                     (<div className='w-[40%]'>
                                         <h2 className='bg-[#C31A7F] opacity-50  text-center p-3 rounded-lg text-white'>Continue</h2>

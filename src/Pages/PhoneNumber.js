@@ -6,7 +6,7 @@ import Video from '../Photos/Video.png'
 import { FcGoogle } from 'react-icons/fc'
 import { BsFacebook } from 'react-icons/bs'
 import { AiFillTwitterCircle } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import CarouselMain from '../Components/CarouselMain'
 
 const PhoneNumber = () => {
@@ -106,9 +106,9 @@ const PhoneNumber = () => {
                             <div className='flex justify-center pt-12'>
 
                                 {data && check ?
-                                    (<Link to='/loginotp' className='w-[80%] text-center'>
+                                    (<NavLink to='/loginotp' className='w-[80%] text-center'>
                                         <h2 className='bg-[#C31A7F] p-3 my-3 rounded-xl text-white'>Continue</h2>
-                                    </Link>)
+                                    </NavLink>)
                                     :
                                     (
                                         <div className='w-[80%] text-center'>

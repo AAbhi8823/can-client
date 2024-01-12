@@ -3,7 +3,7 @@ import CalenderRecords from '../Components/CalenderRecords'
 import { MdDeleteOutline, MdOutlineModeEditOutline } from 'react-icons/md'
 import { AiOutlineFilePdf } from 'react-icons/ai'
 import { TfiClipboard } from 'react-icons/tfi'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import AppointmentPopup from '../Components/AppointmentPopup'
 import Page from '../Layouts/Pages';
@@ -104,8 +104,8 @@ const Appointment1 = () => {
             <div className='  mt-6 flex justify-between m-4  '>
               <div className={`flex lg:md:gap-8 gap-3  lg:md:w-[50%] w-full`}>
 
-                <Link to='/appointment1'> <button className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-6 p-2 rounded-[15px] w-fit text-center h-fit '  ${isClickedAppointment ? 'bg-white shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)]' : 'bg-[#ffffff7b] '} `} onClick={() => handleIsClickedAppointment()}>Appointments</button>  </Link>
-                {/* <Link to='/Medicine1'><button className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-10 p-2 shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)] rounded-[15px] w-fit h-fit text-center ${isClickedMedicine ? 'bg-white shadow-lg' : 'bg-[#ffffff7b] '}`} onClick={() => { handleIsClickedMedicine() }}> Medicine</button>    </Link> */}
+                <NavLink to='/appointment1'> <button className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-6 p-2 rounded-[15px] w-fit text-center h-fit '  ${isClickedAppointment ? 'bg-white shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)]' : 'bg-[#ffffff7b] '} `} onClick={() => handleIsClickedAppointment()}>Appointments</button>  </NavLink>
+                {/* <NavLink to='/Medicine1'><button className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-10 p-2 shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)] rounded-[15px] w-fit h-fit text-center ${isClickedMedicine ? 'bg-white shadow-lg' : 'bg-[#ffffff7b] '}`} onClick={() => { handleIsClickedMedicine() }}> Medicine</button>    </NavLink> */}
               </div>
               <div> 
                 <button className='lg:text-[1.20vw] text-[16px] lg:h-[5vh] lg:block  hidden  text-sm  end-2 z-10 lg:z-0  bottom-4 lg:bottom-0  lg:py-2 lg:px-6 p-2   bg-[#C31A7F] text-white  shadow-lg rounded-[15px] w-fit text-center' onClick={PopUp}>  Add Appointment     </button>

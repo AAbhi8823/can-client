@@ -2,7 +2,7 @@ import React from 'react'
 import {BsCheck2} from 'react-icons/bs'
 import {RxCross2} from 'react-icons/rx'
 import {BiArrowBack} from 'react-icons/bi'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import HomeNav from '../Components/HomeNav'
 
 
@@ -13,7 +13,7 @@ const SubscriptionModels = () => {
         {/** title space */}
         
         {/** Subscription Models components */}
-        <div className=' justify-start pl-20 mt-7'><Link to='/home'><BiArrowBack size={24}  className=''/></Link></div>
+        <div className=' justify-start pl-20 mt-7'><NavLink to='/home'><BiArrowBack size={24}  className=''/></NavLink></div>
         <div className='flex flex-row justify-center items-center '>
         
         <div className='flex flex-col justify-center items-center p-4 pt-0'>
@@ -40,7 +40,7 @@ const SubscriptionModels = () => {
                         <li className='flex flex-row  text-white text-[14px] gap-4 items-center  leading-[2]'><BsCheck2/>Scheduler Locked</li>
                         <li className='flex flex-row  text-white text-[14px] gap-4 items-center  leading-[2]'><RxCross2/>Whatsapp Feature Availability </li>
                     </ul>
-                    <button className='border-[2px] border-white text-white rounded-[20px] w-[153px] h-[45px] mt-12 -mb-2'><Link to='/Subscription_Payment_Method'>Buy Now</Link></button>
+                    <button className='border-[2px] border-white text-white rounded-[20px] w-[153px] h-[45px] mt-12 -mb-2'><NavLink to='/Subscription_Payment_Method'>Buy Now</NavLink></button>
             </div>
             {/** Model 2*/}
             <div className='flex flex-col w-[350px] mt-2 h-full sm:mt-3 bg-[#084943] rounded-[30px] justify-center items-center py-[25px]'style={{boxShadow: '0px 20px 60px 0px #0000001A'}}>
@@ -57,7 +57,7 @@ const SubscriptionModels = () => {
                         <li className='flex flex-row  text-white text-[14px] gap-4 items-center  leading-[2]'><BsCheck2/>Scheduler Locked</li>
                         <li className='flex flex-row  text-white text-[14px] gap-4 items-center  leading-[2]'><BsCheck2/>Whatsapp Feature Availability </li>
                     </ul>
-                    <button className='border-[2px] border-white text-white rounded-[20px] w-[153px] h-[45px] mt-12 -mb-2'><Link to='/Subscription_Payment_Method'>Buy Now</Link></button>
+                    <button className='border-[2px] border-white text-white rounded-[20px] w-[153px] h-[45px] mt-12 -mb-2'><NavLink to='/Subscription_Payment_Method'>Buy Now</NavLink></button>
             </div>
             {/** Model 3 */}
             <div className='flex flex-col w-[350px] h-full mt-2 bg-[#FFA000;] rounded-[30px] justify-center items-center py-[25px]' style={{boxShadow: '0px 20px 60px 0px #0000001A'}}>
@@ -74,7 +74,7 @@ const SubscriptionModels = () => {
                     <li className='flex flex-row  text-white text-[14px] gap-4 items-center  leading-[2]'><BsCheck2/>Scheduler Locked</li>
                     <li className='flex flex-row  text-white text-[14px] gap-4 items-center  leading-[2]'><BsCheck2/>Whatsapp Feature Availability </li>
                 </ul>
-                <button className='border-[2px] border-white text-white rounded-[20px] w-[153px] h-[45px] mt-12 -mb-2'><Link to='/Subscription_Payment_Method'>Buy Now</Link></button>
+                <button className='border-[2px] border-white text-white rounded-[20px] w-[153px] h-[45px] mt-12 -mb-2'><NavLink to='/Subscription_Payment_Method'>Buy Now</NavLink></button>
             </div>
         </div>
         </div>

@@ -7,7 +7,7 @@ import four from '../img/four.png'
 import five from '../img/five.png'
 import six from '../img/six.png'
 import { HiArrowRight } from "react-icons/hi";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 
 const MobileCraousel = () => {
@@ -120,10 +120,10 @@ const MobileCraousel = () => {
 return(
     <div className="block md:hidden lg:hidden">
       <div className="flex justify-end px-10 py-10">
-        <Link to="/Loginform">
+        <NavLink to="/Loginform">
         <button className="pointer-cursor text-[#7C7C7C]">Skip</button>
 
-        </Link>
+        </NavLink>
 
       </div>
     <Slider {...settings} className="" ref={sliderRef}>

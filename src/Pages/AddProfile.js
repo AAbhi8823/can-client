@@ -6,7 +6,7 @@ import account from '../Photos/account.jpg'
 import account2 from '../Photos/account2.jpg'
 import CarouselMain from '../Components/CarouselMain'
 import { IoAddCircleOutline } from 'react-icons/io5'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import OldProfileImage from '../Photos/PofielPageImage.png'
 import illus1 from '../Photos/illus1.png'
@@ -221,9 +221,9 @@ const AddProfile = () => {
                 </div>
                 <div className="w-[40%] pt-5 flex flex-col items-center  ">
                   {/* {(value.length === 4 && value === value1) ?
-                                    (<Link to={(value.length === 4 && value === value1) ? '/loginchoosetitle' : ''}>
+                                    (<NavLink to={(value.length === 4 && value === value1) ? '/loginchoosetitle' : ''}>
                                         <div className='bg-[#C31A7F] text-center p-3 rounded-xl text-white'>Continue</div>
-                                    </Link>)
+                                    </NavLink>)
                                     :
                                     (
                                         <div className='bg-[#C31A7F] text-center p-3 rounded-xl text-white opacity-50 '>Continue</div>
@@ -308,12 +308,12 @@ const AddProfile = () => {
         )}
 
         <div className="grid flex justify-start center-1">
-          <Link to="/">
+          <NavLink to="/">
             <div className="flex px-10 w-[100%]">
               <img src={logo2} className="lg:block md:block hidden" alt="" />
               <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
             </div>
-          </Link>
+          </NavLink>
         </div>
         <div>
           <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">

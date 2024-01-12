@@ -8,11 +8,10 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import account from "../Photos/account.jpg";
 import account2 from "../Photos/account2.jpg";
 // import SideNav from "./SideNav";
-import { Link } from "react-router-dom";
 import Home from "../Pages/Home";
 import { CiSearch } from 'react-icons/ci'
 import AdminMainUser from '../Photos/AdminIcons/AdminMainUser.svg'
-
+import { NavLink } from "react-router-dom";
 import axios from 'axios'
 import { baseurl } from '../Api/baseUrl'
 import  Cookie  from 'js-cookie'
@@ -469,7 +468,7 @@ const HomeNav = ({ }) => {
                 )}
 
                 <div className="flex ">
-                  <Link
+                  <NavLink
                     to="/profileuser"
                     className="flex items-center gap-2"
                   >
@@ -478,7 +477,7 @@ const HomeNav = ({ }) => {
                       <Avatar alt="Cindy Baker" src={ `${baseurl}/${navUser?.profile_photo}`} />
                     </div>
                     <div className=" hidden md:block">Admin User</div>
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
             </div>

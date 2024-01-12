@@ -1,12 +1,9 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-// import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import LogoCAn from "../Photos/LogoCAn.png";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import GroupsIcon from "@mui/icons-material/Groups";
 import vector from "../Photos/Vector.svg";
-import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import SearchLens from "../Photos/SearchLens.png";
 import KnowAbout from "../Photos/KnowAbout.png";
@@ -19,7 +16,7 @@ import Cookies from "js-cookie";
 import { baseurl } from "../Api/baseUrl";
 import { BiMenu, BiX } from "react-icons/bi";
 import whyc from '../Photos/whyc.png'
-
+import { NavLink } from "react-router-dom";
 export default function Example(props) {
   const [Nav, setNav] = useState(props);
   const [menu, setMenu] = useState(false);
@@ -127,19 +124,19 @@ export default function Example(props) {
       >
         <div className="lg:flex flex-row gap-2 hidden lg:block items-center pr-4">
         <img src={whyc} className="w-6 h-auto" alt="" />
-          <Link to="/whycan">
+          <NavLink to="/whycan">
             <p className="  font-semibold  text-[#084943] text-[1vw] ">
               Why CAN
             </p>
-          </Link>
+          </NavLink>
         </div>
         <div className="lg:flex flex-row gap-2 items-center pl-2 hidden lg:block ">
           <img className="w-[1vw] h-auto" src={KnowAbout} alt="search" />
-          <Link to="/KnowMore">
+          <NavLink to="/KnowMore">
             <p className="  font-semibold  text-[#084943] text-[1vw] ">
               Know About Cancer
             </p>
-          </Link>
+          </NavLink>
         </div>
         <div
           onClick={openMenu}
@@ -157,31 +154,31 @@ export default function Example(props) {
               style={{ boxShadow: "0px 10px 30px 0px rgba(0, 0, 0, 0.1)" }}
               ref={menuRef}
             >
-              <Link to={"/knowMore"}>
+              <NavLink to={"/knowMore"}>
                 <div className="flex border-b items-center px-[10px]  py-[15px]">
                   <img className="h-4 mr-2 " src={KnowAbout} alt="search" />
                   <p>Know About Cancer</p>
                 </div>
-              </Link>
+              </NavLink>
 
-              <Link to={"/Animate"}>
+              <NavLink to={"/Animate"}>
                 <div className="flex border-b items-center px-[10px]  py-[15px]">
                   <img className="h-4 mr-2 " src={HomeIcons} alt="search" />
                   <p>My Space</p>
                 </div>
-              </Link>
+              </NavLink>
 
-              <Link to={"/whycan"}>
+              <NavLink to={"/whycan"}>
                 <div className="flex border-b items-center px-[10px]  py-[15px]">
                   <img className="w-6" src={whyc} alt="search" />
                   <p>Why CAN </p>
                 </div>
-              </Link>
+              </NavLink>
             </div>
           )}
         </div>
         <div className=" flex relative mx-auto md:mx-auto lg:mx-0">
-          <Link to="/">
+          <NavLink to="/">
             <div className="flex relative flex-row cursor-pointer item-center justify-center">
               <img
                 className="w-[14vw] lg:w-[4vw] h-auto relative left-1/2 lg:left-0"
@@ -189,9 +186,9 @@ export default function Example(props) {
                 alt="Logo"
               />
             </div>
-          </Link>
+          </NavLink>
         </div>
-        <Link to="/Animate" className="lg:block hidden">
+        <NavLink to="/Animate" className="lg:block hidden">
           <div className="lg:flex gap-2 cursor-pointer hidden lg:block  items-center">
             <div>
               <img className="w-[1vw] h-auto" src={HomeIcons} alt="search" />
@@ -202,9 +199,9 @@ export default function Example(props) {
               </p>
             </div>
           </div>
-        </Link>
+        </NavLink>
         {Cookies.get("token") ? (
-          <Link to="/meeting" className="lg:block hidden">
+          <NavLink to="/meeting" className="lg:block hidden">
             <div className="lg:flex gap-2 cursor-pointer items-center h-[2vw] px-5 hidden lg:block rounded-full bg-[#084943] ">
               <div>
                 <img className="w-[1vw] h-auto" src={JoinMeet} alt="search" />
@@ -215,9 +212,9 @@ export default function Example(props) {
                 </p>
               </div>
             </div>
-          </Link>
+          </NavLink>
         ) : (
-          <Link to="/animate" className="lg:block hidden">
+          <NavLink to="/animate" className="lg:block hidden">
             <div className="lg:flex gap-2 cursor-pointer items-center h-[2vw] px-5 hidden lg:block rounded-full bg-[#084943] ">
               <div>
                 <img className="w-[1vw] h-auto" src={JoinMeet} alt="search" />
@@ -228,7 +225,7 @@ export default function Example(props) {
                 </p>
               </div>
             </div>
-          </Link>
+          </NavLink>
         )}
         <div
           className={
@@ -284,57 +281,57 @@ export default function Example(props) {
               <div className="text-center" role="none">
                 {Cookies.get("token") ? (
                   <div>
-                    <Link to={"/profileuser"}>
+                    <NavLink to={"/profileuser"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                         style={{}}
                       >
                         Profile
                       </div>
-                    </Link>
-                    <Link to={"/settings"}>
+                    </NavLink>
+                    <NavLink to={"/settings"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                         style={{}}
                       >
                         User Settings
                       </div>
-                    </Link>
-                    <Link to={"/meeting"}>
+                    </NavLink>
+                    <NavLink to={"/meeting"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                         style={{}}
                       >
                         Meeting
                       </div>
-                    </Link>
+                    </NavLink>
                   </div>
                 ) : (
                   <div>
-                    <Link to={"/loginform"}>
+                    <NavLink to={"/loginform"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                         style={{}}
                       >
                         Profile
                       </div>
-                    </Link>
-                    <Link to={"/loginform"}>
+                    </NavLink>
+                    <NavLink to={"/loginform"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                         style={{}}
                       >
                         User Settings
                       </div>
-                    </Link>
-                    <Link to={"/loginform"}>
+                    </NavLink>
+                    <NavLink to={"/loginform"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                         style={{}}
                       >
                         Meeting
                       </div>
-                    </Link>
+                    </NavLink>
                   </div>
                 )}
                 <div

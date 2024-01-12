@@ -6,7 +6,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { VscAccount } from "react-icons/vsc";
 import { SlCalender } from "react-icons/sl";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CarouselMain from "../Components/CarouselMain";
 import c4 from "../Photos/c4.png";
 import PageImg from "../Photos/p8.png";
@@ -51,12 +51,12 @@ const LoginDetails = () => {
   return (
     <>
       <div className="grid flex justify-start center-1">
-        <Link to="/">
+        <NavLink to="/">
           <div className="flex px-10 w-[100%]">
             <img src={logo2} className="lg:block md:block hidden" alt="" />
             <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
           </div>
-        </Link>
+        </NavLink>
       </div>
 
       <div className=" ">
@@ -65,11 +65,11 @@ const LoginDetails = () => {
 
           <div className=" md:w-1/2 lg:w-[35%] px-5">
             <form className="bg-white shadow-md rounded  rounded-2xl  mb-4">
-              <Link to={"/newusertitle"}>
+              <NavLink to={"/newusertitle"}>
                 <div className="px-4 py-2 cursor-pointer">
                   <img src={arrow22} alt="" />
                 </div>
-              </Link>
+              </NavLink>
               <div>
                 <img
                   src={five}

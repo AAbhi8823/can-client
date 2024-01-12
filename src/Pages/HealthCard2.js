@@ -6,7 +6,7 @@ import flight from "../Photos/MoreIcons/flight.png";
 import share from "../Photos/MoreIcons/share.png";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { BsDownload } from "react-icons/bs";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
@@ -311,12 +311,12 @@ const HealthCard2 = ({ healthCardData }) => {
               </div>
 
               <div className="flex justify-end px-10">
-                <Link to={"/HealthRecord1"}>
+                <NavLink to={"/HealthRecord1"}>
                 
                   
                     <h2 className="text-[#3F75F3]">All Medical records</h2>
                   
-                </Link>
+                </NavLink>
               </div>
             </div>
           </div>

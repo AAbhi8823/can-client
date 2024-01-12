@@ -43,7 +43,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { BiCheckCircle } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
 import { BiArrowBack } from "react-icons/bi";
 import blockuser from "../Photos/blockuser.png";
@@ -963,7 +963,7 @@ function MyStory({ value }) {
                                   <div className="flex flex-row items-center gap-2">
                                     <BsLink45Deg color="#C31A7F" />
                                     <p className="text-[12px]   text-[#C31A7F] font-semibold">
-                                      Copy Link
+                                      Copy NavLink
                                     </p>
                                   </div>
                                   <div className="w-16 h-7 flex items-center justify-center bg-[#efc419] text-[12px] font-semibold text-[#FFFFFF] rounded-[12px]">

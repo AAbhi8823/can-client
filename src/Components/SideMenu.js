@@ -15,7 +15,7 @@ import healthRec from "../Photos/healthRec.png";
 import healthCard from "../Photos/healthCard.png";
 import appointment from "../Photos/appointment.png";
 import medicine from "../Photos/medicine.png";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { NavLink, Navigate, useLocation } from "react-router-dom";
 import CreatePost from "./CreatePost";
 import iconRight from "../Photos/iconRight.png";
 import iconLeft from "../Photos/iconLeft.png";
@@ -195,13 +195,13 @@ const SideMenu = () => {
                 isOpen ? "flex flex-col gap-1 " : ""
               }`}
             >
-              <Link to={"/"}>
+              <NavLink to={"/"}>
                 <img
                   src={LogoCAn}
                   alt="none"
                   className="w-[70px] lg:block md:block hidden"
                 />
-              </Link>
+              </NavLink>
               <img
                 src={CANa}
                 alt="none"
@@ -285,7 +285,7 @@ const SideMenu = () => {
 
             <div className="flex flex-col  pt-5">
               <ul className="flex flex-col gap-2 cursor-pointer">
-                <Link to="/home">
+                <NavLink to="/home">
                   <div onClick={() => setActivePage("/home")}>
                     <li
                       className={`flex flex-row items-center gap-2 h-12 text-[14px]  text-[#444] font-semibold  ${
@@ -306,7 +306,7 @@ const SideMenu = () => {
                       </p>
                     </li>
                   </div>
-                </Link>
+                </NavLink>
 
                 <div onClick={() => setActivePage("/CreatePose")}>
                   <li
@@ -331,7 +331,7 @@ const SideMenu = () => {
                     <CreatePost close_createPost={close_createPost} />
                   </div>
                 )}
-                <Link to="/meeting">
+                <NavLink to="/meeting">
                   <div>
                     <li
                       className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold   ${
@@ -352,9 +352,9 @@ const SideMenu = () => {
                       </p>
                     </li>
                   </div>
-                </Link>
+                </NavLink>
 
-                <Link to="/chatpage" onClick={() => setActivePage("/chatpage")}>
+                <NavLink to="/chatpage" onClick={() => setActivePage("/chatpage")}>
                   <li
                     className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${
                       activePage === "/chatpage"
@@ -369,9 +369,9 @@ const SideMenu = () => {
                       Chat
                     </p>
                   </li>
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                   to="/HealthRecord"
                   onClick={() => setActivePage("/HealthRecord")}
                 >
@@ -389,9 +389,9 @@ const SideMenu = () => {
                       Health Record
                     </p>
                   </li>
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                   to="/HealthCard"
                   onClick={() => setActivePage("/HealthCard")}
                 >
@@ -409,9 +409,9 @@ const SideMenu = () => {
                       Health Card
                     </p>
                   </li>
-                </Link>
+                </NavLink>
 
-                <Link
+                <NavLink
                   to="/Appointment"
                   onClick={() => setActivePage("/Appointment")}
                 >
@@ -429,9 +429,9 @@ const SideMenu = () => {
                       Appointments
                     </p>
                   </li>
-                </Link>
+                </NavLink>
 
-                <Link to="/Medicine" onClick={() => setActivePage("/Medicine")}>
+                <NavLink to="/Medicine" onClick={() => setActivePage("/Medicine")}>
                   <li
                     className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${
                       activePage === "/Medicine"
@@ -446,7 +446,7 @@ const SideMenu = () => {
                       Medicines
                     </p>
                   </li>
-                </Link>
+                </NavLink>
               </ul>
             </div>
           </div>
@@ -491,22 +491,22 @@ const SideMenu = () => {
 
                   <p className="flex px-4 py-2 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]">
                     <img src={CANnn} alt="none" />
-                    <Link to="/whycan#aboutus">
+                    <NavLink to="/whycan#aboutus">
                     About us
-                    </Link>
+                    </NavLink>
                   </p>
                   <p className="flex px-4 py-2 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]">
                     <img src={help} alt="none" />
-                    <Link to="/HelpFeedback">Help / Feedback</Link>
+                    <NavLink to="/HelpFeedback">Help / Feedback</NavLink>
                   </p>
 
                   <p className="flex px-4 py-2 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]">
                     <img src={share} alt="none" />
-                    <Link to="/HelpAFriend"> Help a friend</Link>
+                    <NavLink to="/HelpAFriend"> Help a friend</NavLink>
                   </p>
                   <p className="flex px-4 py-2 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]">
                     <img src={setting} alt="none" />
-                    <Link to="/Settings">Setting </Link>
+                    <NavLink to="/Settings">Setting </NavLink>
                   </p>
                   <p
                     className="flex px-4 py-2 pb-4 hover:bg-[rgba(239, 195, 25, 0.2)] gap-2 hover:bg-[#efc4197c]"
@@ -530,7 +530,7 @@ const SideMenu = () => {
                           className="bg-[#C31A7F] rounded-[15px] text-white py-2 px-10 font-[500]"
                           onClick={handleLogOut}
                         >
-                          <Link to="/LoginForm">Log out</Link>
+                          <NavLink to="/LoginForm">Log out</NavLink>
                         </button>
                         <button
                           className="border-[2px] border-[#C31A7F]   text-[#C31A7F]  rounded-[15px] py-2 px-5"

@@ -5,7 +5,7 @@ import Visa from "../Photos/Visa.png";
 import UPI from "../Photos/UPI.png";
 import NetBanking from "../Photos/NetBanking.png";
 import { BiArrowBack, BiCheckCircle } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import SecurePayment from "../Photos/SecurePayment.png";
 import HomeNav from "../Components/HomeNav";
 
@@ -25,9 +25,9 @@ const Subscription_Payment_Method = () => {
       <div className=" "><HomeNav /></div>
       <div className="flex items-start pl-40 absolute top-24   ">
         <div className="  ">
-          <Link to="../Subscription_Models">
+          <NavLink to="../Subscription_Models">
             <BiArrowBack size={24} className="" />
-          </Link>
+          </NavLink>
         </div>
 
       </div>
@@ -204,11 +204,11 @@ const Subscription_Payment_Method = () => {
                           </div>
                         
                           <div className="flex items-center flex-col">
-                          <Link to='/home'>
+                          <NavLink to='/home'>
                           <div className='w-52 h-12 cursor-pointer'>
                     <h2 className='bg-[#C31A7F]  text-center p-3 rounded-xl text-white font-semibold'>Back To Home</h2>
                   </div>
-                  </Link>
+                  </NavLink>
              
                   </div>
                   </div>
@@ -226,13 +226,13 @@ const Subscription_Payment_Method = () => {
         <p className="text-[14px] font-semibold  text-[#696969] py-18">
           <center>
             By Continuing, you would agree our{" "}
-            <Link to="/TermCondition" className=" underline font-semibold text-black">
+            <NavLink to="/TermCondition" className=" underline font-semibold text-black">
               Terms of Service
-            </Link>{" "}
+            </NavLink>{" "}
             and{" "}
-            <Link to="/PrivatePolicy" className=" underline font-semibold text-black">
+            <NavLink to="/PrivatePolicy" className=" underline font-semibold text-black">
               Privacy Policy
-            </Link>
+            </NavLink>
             .
           </center>
         </p>

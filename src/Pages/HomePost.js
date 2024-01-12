@@ -41,7 +41,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { HiOutlineChevronRight } from 'react-icons/hi'
 import { BiCheckCircle } from 'react-icons/bi'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { GrLocation } from 'react-icons/gr'
 import { BiArrowBack } from 'react-icons/bi'
 import blockuser from '../Photos/blockuser.png'
@@ -248,7 +248,7 @@ const HomePost = () => {
                 <>
                     <div className=' h-[100%] bg-[#FEF8FD] '>
                     <div className="flex 'bg-[#FEF8FD] py-5 px-12">
-           <Link to='/Home3'><h1 className=' text-[22px] px-5 font-bold' style={{borderRight:'3px solid #7e7e7e'}}> <a href=""> People </a></h1> </Link>
+           <NavLink to='/Home3'><h1 className=' text-[22px] px-5 font-bold' style={{borderRight:'3px solid #7e7e7e'}}> <a href=""> People </a></h1> </NavLink>
                     <h1 className=' text-[22px] px-5 font-bold'><a href=""> Posts </a></h1>
                     </div>
                         <div className=' lg:flex'>
@@ -329,9 +329,9 @@ const HomePost = () => {
                                                             </div>
                                                         )}
 
-                                                        <Link to="/profile">
+                                                        <NavLink to="/profile">
                                                             <p className='p-2 px-4 cursor-pointer hover:text-[#fff]  hover:bg-[#C31A7F]' >About this account</p>
-                                                        </Link>
+                                                        </NavLink>
 
                                                         <p className='p-2 px-4 cursor-pointer hover:text-[#fff] hover:bg-[#C31A7F]' onClick={toggleReportButton}>Report Sierra Ferguson</p>
 
@@ -640,7 +640,7 @@ const HomePost = () => {
                                                                         <div className='flex flex-row justify-between p-4'>
                                                                             <div className='flex flex-row items-center gap-2'>
                                                                                 <BsLink45Deg color='#C31A7F' />
-                                                                                <p className='text-[12px]   text-[#C31A7F] font-semibold'>Copy Link</p>
+                                                                                <p className='text-[12px]   text-[#C31A7F] font-semibold'>Copy NavLink</p>
                                                                             </div>
                                                                             <div className='w-16 h-7 flex items-center justify-center bg-[#efc419] text-[12px] font-semibold text-[#FFFFFF] rounded-[12px]'>
                                                                                 share
@@ -739,9 +739,9 @@ const HomePost = () => {
                                                             </div>
                                                         )}
 
-                                                        <Link to="/profile">
+                                                        <NavLink to="/profile">
                                                             <p className='p-2 px-4 cursor-pointer hover:text-[#fff]  hover:bg-[#C31A7F]' >About this account</p>
-                                                        </Link>
+                                                        </NavLink>
 
                                                         <p className='p-2 px-4 cursor-pointer hover:text-[#fff] hover:bg-[#C31A7F]' onClick={toggleReportButton}>Report Sierra Ferguson</p>
 
@@ -1050,7 +1050,7 @@ const HomePost = () => {
                                                                         <div className='flex flex-row justify-between p-4'>
                                                                             <div className='flex flex-row items-center gap-2'>
                                                                                 <BsLink45Deg color='#C31A7F' />
-                                                                                <p className='text-[12px]   text-[#C31A7F] font-semibold'>Copy Link</p>
+                                                                                <p className='text-[12px]   text-[#C31A7F] font-semibold'>Copy NavLink</p>
                                                                             </div>
                                                                             <div className='w-16 h-7 flex items-center justify-center bg-[#efc419] text-[12px] font-semibold text-[#FFFFFF] rounded-[12px]'>
                                                                                 share
@@ -1125,11 +1125,11 @@ const HomePost = () => {
                                                 One month free
                                             </div>
 
-                                            <Link to='/Subscription_Models'>
+                                            <NavLink to='/Subscription_Models'>
                                                 <div className='w-max absolute top-[65%] left-[10%] bg-gradient-to-r from-[#efc41955] to-[#ed839a54] p-2 px-8 rounded-2xl'>
                                                     View More
                                                 </div>
-                                            </Link>
+                                            </NavLink>
 
 
                                         </div>

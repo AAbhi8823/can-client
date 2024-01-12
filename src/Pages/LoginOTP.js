@@ -3,7 +3,7 @@ import LogoCAn from '../Photos/LogoCAn.png'
 import CANa from '../Photos/CANa.png'
 import WelcomeScreen from '../Photos/WelcomeScreen.png'
 import Video from '../Photos/Video.png'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import CarouselMain from '../Components/CarouselMain'
 import c7 from '../Photos/c7.png'
 import vtwo from '../Photos/vtwo.gif'
@@ -81,12 +81,12 @@ const LoginOTP = () => {
     return (
       <>
         <div className="grid flex justify-start center-1">
-          <Link to="/">
+          <NavLink to="/">
             <div className="flex px-10 w-[100%] ">
               <img src={logo2} className="lg:block md:block hidden" alt="" />
               <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
             </div>
-          </Link>
+          </NavLink>
         </div>
         <div>
           <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
@@ -198,11 +198,11 @@ const LoginOTP = () => {
 
             <div className=" md:w-1/2 lg:w-[35%] px-5">
               <form className="bg-white shadow-md rounded  rounded-2xl  mb-4">
-                <Link to={"/register"}>
+                <NavLink to={"/register"}>
                   <div className="px-4 py-2 cursor-pointer">
                     <img src={arrow22} alt="" />
                   </div>
-                </Link>
+                </NavLink>
 
                 <div>
                   <img

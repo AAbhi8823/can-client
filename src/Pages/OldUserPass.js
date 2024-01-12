@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Logo from '../Photos/Logo.png'
 import CAN from '../Photos/CAN.png'
 import Video from '../Photos/Video.png'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const OldUserPass = () => {
 
@@ -79,9 +79,9 @@ const OldUserPass = () => {
                             </div>
 
                             <div className='flex justify-center py-2'>
-                                <Link to='' className='w-[50%] mt-[5%]'>
+                                <NavLink to='' className='w-[50%] mt-[5%]'>
                                     <h2 className='bg-[#C31A7F]  text-center p-3 rounded-lg text-white'>Continue</h2>
-                                </Link>
+                                </NavLink>
                             </div>
 
                         </div>

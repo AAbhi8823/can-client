@@ -7,7 +7,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { BsGenderAmbiguous, BsStackOverflow } from "react-icons/bs";
 import { VscAccount } from "react-icons/vsc";
 import { SlCalender } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import CarouselMain from "../Components/CarouselMain";
 import c4 from "../Photos/c4.png";
 import DatePicker from "react-datepicker";
@@ -150,12 +150,12 @@ const Register = () => {
   return (
     <>
       <div className="grid flex justify-start center-1">
-        <Link to="/">
+        <NavLink to="/">
           <div className="flex px-10 w-[100%]">
             <img src={logo2} className="lg:block md:block hidden" alt="" />
             <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
           </div>
-        </Link>
+        </NavLink>
       </div>
 
       {/* <div className="grid grid-cols-2 flex px-20">
@@ -198,8 +198,8 @@ const Register = () => {
                         <div className=' text-center flex justify-center gap-1'>
                             <p className='text-[1.17vw] text-[18px]'>Have an account?</p>
                             <p className='text-[#3C37FF]  text-[1.17vw] font-semibold '>
-                                <Link to={`/LoginForm`}>
-                                    Sign in</Link></p>
+                                <NavLink to={`/LoginForm`}>
+                                    Sign in</NavLink></p>
                         </div>
                         <div className='p-4'>
                             <div className='border-2 lg:h-12 h-12  mt-1   px-2 rounded-[20px] flex items-center justify-center '>
@@ -253,7 +253,7 @@ const Register = () => {
                             </div>
                         </div>
                         <div className=' flex text-center px-5' >
-                            <h1 className='text-[0.97vw]'><input type='checkbox' className='' value={check} onChange={handleCheckChange} />By Continuing, you would agree our <Link className='underline font-semibold text-[0.97vw]' to={'/TermCondition'} >Terms of Service</Link> and <Link className='underline font-semibold text-[0.97vw]' to={'/PrivatePolicy'} >Privacy Policy.</Link></h1>
+                            <h1 className='text-[0.97vw]'><input type='checkbox' className='' value={check} onChange={handleCheckChange} />By Continuing, you would agree our <NavLink className='underline font-semibold text-[0.97vw]' to={'/TermCondition'} >Terms of Service</NavLink> and <NavLink className='underline font-semibold text-[0.97vw]' to={'/PrivatePolicy'} >Privacy Policy.</NavLink></h1>
                         </div>
                         <div className='flex justify-center lg:py-3 p-[10px]'
                             >
@@ -310,7 +310,7 @@ const Register = () => {
               <div className=" text-center flex justify-center ">
                 <p className="lg:text-[1.17vw] text-[20px]">Have an account?</p>
                 <p className="text-[#3C37FF] px-2 lg:text-[1.17vw] text-[18px]">
-                  <Link to={`/LoginForm`}>Sign in</Link>
+                  <NavLink to={`/LoginForm`}>Sign in</NavLink>
                 </p>
               </div>
 
@@ -408,19 +408,19 @@ const Register = () => {
                   onChange={handleCheckChange}
                 />
                 By Continuing, you would agree our{" "}
-                <Link
+                <NavLink
                   className="underline font-semibold lg:text-[0.97vw] text-[13px]"
                   to={"/TermCondition"}
                 >
                   Terms of Service <br />
-                </Link>{" "}
+                </NavLink>{" "}
                 and{" "}
-                <Link
+                <NavLink
                   className="underline font-semibold lg:text-[0.97vw] text-[13px]"
                   to={"/PrivatePolicy"}
                 >
                   Privacy Policy.
-                </Link>
+                </NavLink>
               </h1>
             </div>
             <div className="flex justify-center lg:py-3 p-[10px]">

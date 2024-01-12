@@ -3,7 +3,7 @@ import LogoCAn from '../Photos/LogoCAn.png';
 import CANa from '../Photos/CANa.png';
 import Video from '../Photos/Video.png';
 import CarouselMain from '../Components/CarouselMain';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import SelfCare from '../Photos/SelfCare.png'
 import vibird1 from '../Photos/vibird1.gif'
 import PinInput from 'react-pin-input'

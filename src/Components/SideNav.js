@@ -15,7 +15,7 @@ import more from "../Photos/more.png";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineCreate } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import CreatePost from "./CreatePost";
 import CANnn from "../Photos/MoreIcons/CANnn.png";
 import contact from "../Photos/MoreIcons/contact.png";
@@ -112,7 +112,7 @@ const SideNavbar = ({ OpenUpload }) => {
             </p>
 
             <div className="  flex w-56 flex-col gap-6 mt-5">
-              <Link to="/home">
+              <NavLink to="/home">
                 {" "}
                 <li className=" flex flex-row  items-center  gap-3 hover:bg-[#efc4197c] " onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}  >
@@ -132,8 +132,8 @@ const SideNavbar = ({ OpenUpload }) => {
 
                   
                 </li>
-              </Link>
-              <Link to="/meeting">
+              </NavLink>
+              <NavLink to="/meeting">
                 {" "}
                 <li className=" flex  items-center gap-3">
                   <div
@@ -145,8 +145,8 @@ const SideNavbar = ({ OpenUpload }) => {
                   </div>
                   Meeting{" "}
                 </li>
-              </Link>
-              <Link to="/chatpage">
+              </NavLink>
+              <NavLink to="/chatpage">
                 {" "}
                 <li className=" flex items-center gap-3">
                   <div
@@ -158,7 +158,7 @@ const SideNavbar = ({ OpenUpload }) => {
                   </div>
                   Chat{" "}
                 </li>
-              </Link>
+              </NavLink>
               <li className=" flex items-center gap-3" onClick={uploadPost}>
                 <div
                   className={`transition-all duration-500   ${
@@ -169,7 +169,7 @@ const SideNavbar = ({ OpenUpload }) => {
                 </div>
                 Create Post{" "}
               </li>
-              <Link to="/profile">
+              <NavLink to="/profile">
                 <li className=" flex items-center gap-3">
                   <div
                     className={`transition-all duration-500   ${
@@ -180,9 +180,9 @@ const SideNavbar = ({ OpenUpload }) => {
                   </div>
                   Saved{" "}
                 </li>
-              </Link>
+              </NavLink>
 
-              <Link to="/HealthRecord">
+              <NavLink to="/HealthRecord">
                 <li className=" flex items-center gap-3">
                   <div
                     className={`transition-all duration-500  ${
@@ -193,8 +193,8 @@ const SideNavbar = ({ OpenUpload }) => {
                   </div>
                   Health Record
                 </li>
-              </Link>
-              <Link to="/HealthCard">
+              </NavLink>
+              <NavLink to="/HealthCard">
                 <li className=" flex items-center gap-3">
                   <div
                     className={`transition-all duration-500   ${
@@ -205,8 +205,8 @@ const SideNavbar = ({ OpenUpload }) => {
                   </div>
                   Health Card{" "}
                 </li>
-              </Link>
-              <Link to="/Appointment">
+              </NavLink>
+              <NavLink to="/Appointment">
                 <li className=" flex items-center gap-3">
                   <div
                     className={`transition-all duration-500   ${
@@ -218,7 +218,7 @@ const SideNavbar = ({ OpenUpload }) => {
                   </div>
                   Appointment{" "}
                 </li>
-              </Link>
+              </NavLink>
               <li className=" flex items-center gap-3">
                 <div
                   className={`transition-all duration-500  ${

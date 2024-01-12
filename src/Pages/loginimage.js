@@ -6,7 +6,7 @@ import { VscAccount } from 'react-icons/vsc';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import CarouselMain from '../Components/CarouselMain';
 import Freeline from '../Photos/Freeline.png'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import sixx from '../Photos/sixx.gif'
 import logo2 from "../Photos/logo2.png";
 import logoCAn from '../Photos/LogoCAn.png'
@@ -32,12 +32,12 @@ const LoginImage = () => {
   return (
     <>
       <div className='grid flex justify-start center-1'>
-      <Link to='/'>
+      <NavLink to='/'>
                 <div className='flex px-10 w-[100%]'>
                 <img src={logo2} className="lg:block md:block hidden" alt="" />
           <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
                 </div>
-                </Link>
+                </NavLink>
             </div>
       <div>
 
@@ -131,16 +131,16 @@ const LoginImage = () => {
               </div>
 
               <div className='flex px-5 justify-center'>
-                <Link to='/loginprofile' className='flex justify-center py-2 w-[50%]'>
+                <NavLink to='/loginprofile' className='flex justify-center py-2 w-[50%]'>
                   <h2 className='bg-transparent border-[#C31A7F] border-2 w-[86%] text-center p-3 rounded-lg   text-[#C31A7F]'>Add later</h2>
-                </Link>
+                </NavLink>
 
                 {image ? (
                   <div className='flex justify-center py-2 w-[50%]'>
 
-                    <Link to='/loginprofile' className='w-[86%]'>
+                    <NavLink to='/loginprofile' className='w-[86%]'>
                       <h2 className='bg-[#C31A7F]  text-center p-3 rounded-lg text-white'>Continue</h2>
-                    </Link>
+                    </NavLink>
                   </div>)
                   :
                   (<div className='flex justify-center py-2 w-[50%]'>
@@ -195,16 +195,16 @@ const LoginImage = () => {
               </div>
 
               <div className='flex px-5 justify-center py-10'>
-                <Link to='/loginprofile' className='flex justify-center  w-[50%]'>
+                <NavLink to='/loginprofile' className='flex justify-center  w-[50%]'>
                   <h2 className='bg-transparent border-[#C31A7F] border-2 w-[86%] text-center lg:text-[1.33vw] text-[20px] p-3 rounded-lg   text-[#C31A7F]'>Add later</h2>
-                </Link>
+                </NavLink>
 
                 {image ? (
                   <div className='flex justify-center  w-[50%]'>
 
-                    <Link to='/loginprofile' className='w-[86%]'>
+                    <NavLink to='/loginprofile' className='w-[86%]'>
                       <h2 className='bg-[#C31A7F]  text-center p-3 lg:text-[1.33vw] text-[20px] rounded-lg text-white'>Continue</h2>
-                    </Link>
+                    </NavLink>
                   </div>)
                   :
                   (<div className='flex justify-center  w-[50%]'>

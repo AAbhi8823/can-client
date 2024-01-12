@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { baseurl } from '../Api/baseUrl';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -101,12 +101,12 @@ const LoginForm = () => {
   return (
     <>
       <div className="grid flex justify-start center-1">
-        <Link to={'/'}>
+        <NavLink to={'/'}>
           <div className="flex px-10 w-[100%]">
             <img src={logo2} className="lg:block md:block hidden" alt="" />
             <img src={logoCAn} className="lg:hidden md:hidden block" alt="" />
           </div>
-        </Link>
+        </NavLink>
       </div>
       <div>
         <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
@@ -122,7 +122,7 @@ const LoginForm = () => {
               <div className="text-center flex justify-center gap-1">
                 <p className="lg:text-[1.33vw] text-[18px]  ">Don’t Have an account?</p>
                 <p className="text-[#3C37FF] lg:text-[1.33vw]  text-[18px]">
-                  <Link to={`/Register`}>Sign Up</Link>
+                  <NavLink to={`/Register`}>Sign Up</NavLink>
                 </p>
               </div>
               <div className="mt-6 px-2 flex flex-col gap-3">
@@ -170,11 +170,11 @@ const LoginForm = () => {
                     <p className="text-[#7E7E7E]  lg:text-[1.33vw] text-[14px]  ">Remember me</p>
                   </div>
                   <div>
-                    <Link to="/ForgotPassword">
+                    <NavLink to="/ForgotPassword">
                       <p className="text-[#3C37FF] lg:text-[1.33vw]  text-[14px]  hover:underline cursor-pointer">
                         Forgot Password?
                       </p>
-                    </Link>
+                    </NavLink>
                   </div>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Logo from '../Photos/Logo.png'
 import CAN from '../Photos/CAN.png'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { BsChevronDown } from 'react-icons/bs'
 
 
@@ -45,11 +45,11 @@ const Navigation = () => {
           
             <div className='bg-[#C31A7F] p-2 font-semibold rounded-xl text-white flex gap-1'>
               <div>
-                <Link to= '/LoginForm'>Login</Link>
+                <NavLink to= '/LoginForm'>Login</NavLink>
               </div>
               /
               <div>
-              <Link to='/Register'> SignUp</Link>
+              <NavLink to='/Register'> SignUp</NavLink>
               </div>
             </div>
           

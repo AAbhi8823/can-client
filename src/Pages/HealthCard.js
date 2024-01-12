@@ -7,7 +7,7 @@ import HealthReco from '../Photos/HealthReco.png'
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import SingleLineCalendar from '../Components/SingleLineCalender'
 import VerticalSLC from '../Components/VericalSLC'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import SideMenu from '../Components/SideMenu'
 import Page from "../Layouts/Pages";
 import Cookies from 'js-cookie'
@@ -63,11 +63,11 @@ const HealthCard = () => {
                     Create your Fit-to-Fly Report Card by filling in your
                     details.
                   </div>
-                  <Link to="/HealthCard1">
+                  <NavLink to="/HealthCard1">
                     <div className="   bg-[#C31A7F] text-white lg:text-[1.20vw]  text-[16px] px-4 py-2 rounded-[20px] cursor-pointer">
                       Make Your Health Card
                     </div>
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
             </div>

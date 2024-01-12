@@ -38,7 +38,7 @@ import rightBranch from '../Photos/rightBranch.png'
 import leftBranch from '../Photos/leftBranch.png'
 import manyPeople from '../Photos/manyPeople.png'
 import LandingPageFooter from './LandingPageFooter';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import baloon from '../Photos/baloon.png'
 import baloon1 from '../Photos/baloon1.png'
 import plat1 from '../Photos/GIF/Group.json'
@@ -241,11 +241,11 @@ const BeforeLoginHome = () => {
               Join the fight against cancer!
             </h1>
 
-            <Link to="/Animate">
+            <NavLink to="/Animate">
               <button className="text-[1vw] bg-[#084943] flex   items-center justify-center  rounded-full  h-[4vh] px-10  font-semibold text-white transition duration-300 ease-in-out hover:bg-[#084943] transform hover:-translate-y-1 hover:scale-110 ">
                 Join a meeting
               </button>
-            </Link>
+            </NavLink>
           </div>
           <img
             src={rightSideImage}
@@ -346,11 +346,11 @@ const BeforeLoginHome = () => {
           <h1 className=" text-center  font-semibold   text-[#084943] tracking-[0.3px]  med-1 text-[18px] ">
             Join the fight against cancer!
           </h1>
-          <Link to="/Animate">
+          <NavLink to="/Animate">
             <button className="text-[16px] bg-[#084943] m-auto mt-5 flex lg:hidden block z-1  w rounded-full  py-1 px-5  font-semibold text-white 3xl:text-[50px] transition duration-300 ease-in-out hover:bg-[#084943] transform hover:-translate-y-1 hover:scale-110 ">
               Join a meeting
             </button>
-          </Link>
+          </NavLink>
         </div>
       </div>
 
@@ -613,11 +613,11 @@ const BeforeLoginHome = () => {
           >
             Let’s fight cancer together!
           </h1>
-          <Link to="/Animate">
+          <NavLink to="/Animate">
             <button className="py-2 px-10 mt-4  text-[1vw] med-1 fnt-3 rounded-[25px] bg-[#084943] transition duration-300 ease-in-out hover:bg-[#084944] transform hover:-translate-y-1 hover:scale-110 text-white">
               Start Your Journey
             </button>
-          </Link>
+          </NavLink>
           <img
             className="absolute right-36  sm-hidden-1"
             src={sparrow}

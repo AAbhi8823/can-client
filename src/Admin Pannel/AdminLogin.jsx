@@ -6,7 +6,7 @@ import { AiOutlineMail } from 'react-icons/ai'
 import { BsGenderAmbiguous, BsStackOverflow } from 'react-icons/bs'
 import { VscAccount } from 'react-icons/vsc'
 import { SlCalender } from 'react-icons/sl'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import CarouselMain from '../Components/CarouselMain'
 import c4 from '../Photos/c4.png'
 import DatePicker from 'react-datepicker';

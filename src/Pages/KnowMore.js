@@ -14,7 +14,7 @@ import HomeIcons from '../Photos/HomeIcon.png'
 import KnowAbout from '../Photos/KnowAbout.png'
 import JoinMeet from '../Photos/JoinMeet.png'
 import LogoCAn from '../Photos/LogoCAn.png'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import water1 from '../Photos/water1.png'
 import water2 from '../Photos/water2.png'
 import pradee from '../Photos/pradee.png'

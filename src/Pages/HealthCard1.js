@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { CgAdd } from "react-icons/cg";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import Page from "../Layouts/Pages";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { BsFileEarmarkPdf } from "react-icons/bs";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import axios from "axios";
@@ -713,7 +713,7 @@ const HealthCard1 = () => {
                   <div className="h-10 w-28 bg-transparent text-[#7E7E7E] border-2 rounded-xl flex items-center justify-center cursor-pointer">
                     Cancel
                   </div>
-                  {/* <Link to={{ pathname: '/HealthCard2',
+                  {/* <NavLink to={{ pathname: '/HealthCard2',
                       state: { healthCardData: healthCardData, emergencyContacts: emergencyContacts, },}}> */}
                   <button
                     className="h-10 w-28 bg-[#C31A7F] text-[#FFFF] rounded-xl flex items-center justify-center cursor-pointer"
@@ -721,7 +721,7 @@ const HealthCard1 = () => {
                   >
                     {isSubmitting ? "Saving..." : "Save"}
                   </button>
-                  {/* </Link> */}
+                  {/* </NavLink> */}
                 </div>
               </div>
             </div>

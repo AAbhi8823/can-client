@@ -7,7 +7,7 @@ import HealthReco from '../Photos/HealthReco.png'
 import { RiArrowDropDownLine } from 'react-icons/ri'
 import SingleLineCalendar from '../Components/SingleLineCalender'
 import VerticalSLC from '../Components/VericalSLC'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import SideMenu from '../Components/SideMenu'
 import Page from "../Layouts/Pages";
 const HealthRecord = () => {
@@ -37,17 +37,17 @@ const HealthRecord = () => {
                     Add your document here of easy access anytime anywhere.
                   </div>
                   <div className="flex gap-4">
-                    <Link to="/HealthRecord1">
+                    <NavLink to="/HealthRecord1">
                       <div className="    bg-[#C31A7F] text-white lg:text-[1.20vw]  text-[16px] px-4 py-2 rounded-[20px] cursor-pointer">
                         Add health Record
                       </div>
-                    </Link>
-                    <Link
+                    </NavLink>
+                    <NavLink
                       to={"/HealthRecord1"}
                       className="  bg-[#C31A7F] text-white lg:text-[1.20vw]  text-[16px] px-4 py-2 rounded-[20px] cursor-pointer"
                     >
                       My Health Record
-                    </Link>
+                    </NavLink>
                   </div>
                 </div>
               </div>

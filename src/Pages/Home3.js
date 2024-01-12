@@ -41,7 +41,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { HiOutlineChevronRight } from 'react-icons/hi'
 import { BiCheckCircle } from 'react-icons/bi'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { GrLocation } from 'react-icons/gr'
 import { BiArrowBack } from 'react-icons/bi'
 import blockuser from '../Photos/blockuser.png'
@@ -248,8 +248,8 @@ const Home = () => {
                 <>
                     <div className=' h-[100%] bg-[#FEF8FD]  '>
                         <div className="flex 'bg-[#FEF8FD] py-5 px-12">
-               <Link to='/Home3'> <h1 className=' text-[22px] px-5 font-bold' style={{borderRight:'3px solid #7e7e7e'}}> <a href=""> People </a></h1></Link>
-                  <Link to='/HomePost'> <h1 className=' text-[22px] px-5 font-bold'><a href=""> Posts </a></h1></Link>
+               <NavLink to='/Home3'> <h1 className=' text-[22px] px-5 font-bold' style={{borderRight:'3px solid #7e7e7e'}}> <a href=""> People </a></h1></NavLink>
+                  <NavLink to='/HomePost'> <h1 className=' text-[22px] px-5 font-bold'><a href=""> Posts </a></h1></NavLink>
                     </div>
 
                         <div className=' lg:flex'>
@@ -304,11 +304,11 @@ const Home = () => {
                                                 One month free
                                             </div>
 
-                                            <Link to='/Subscription_Models'>
+                                            <NavLink to='/Subscription_Models'>
                                                 <div className='w-max absolute top-[65%] left-[10%] bg-gradient-to-r from-[#efc41955] to-[#ed839a54] p-2 px-8 rounded-2xl'>
                                                     View More
                                                 </div>
-                                            </Link>
+                                            </NavLink>
 
 
                                         </div>

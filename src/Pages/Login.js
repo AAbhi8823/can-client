@@ -6,7 +6,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { BsFacebook } from 'react-icons/bs'
 import { AiFillTwitterCircle } from 'react-icons/ai'
 import { BsPhone } from 'react-icons/bs'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import CarouselMain from '../Components/CarouselMain'
 
 const Login = () => {
@@ -48,11 +48,11 @@ const Login = () => {
                             </div>
                             <br />
                             <div className='flex flex-col items-center gap-5 '>
-                                <Link to='/chooseTitle' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'><FcGoogle /> Sign in with Google</button></Link>
-                                <Link to='/chooseTitle' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'><BsFacebook color='blue' />Sign in with Facebook</button></Link>
-                                <Link to='/chooseTitle' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'><AiFillTwitterCircle color='#1da1f2' /> Sign in with Twitter</button></Link>
-                                <Link to='/phonenumber' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'><BsPhone /> Sign in with Number</button></Link>
-                                {/* <Link to='/register' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'>Register Here</button></Link> */}
+                                <NavLink to='/chooseTitle' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'><FcGoogle /> Sign in with Google</button></NavLink>
+                                <NavLink to='/chooseTitle' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'><BsFacebook color='blue' />Sign in with Facebook</button></NavLink>
+                                <NavLink to='/chooseTitle' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'><AiFillTwitterCircle color='#1da1f2' /> Sign in with Twitter</button></NavLink>
+                                <NavLink to='/phonenumber' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'><BsPhone /> Sign in with Number</button></NavLink>
+                                {/* <NavLink to='/register' className='bg-white w-[80%] p-3 rounded-xl shadow-lg flex justify-center '><button className='flex justify-center items-center gap-2'>Register Here</button></NavLink> */}
                             </div>
                         </div>
 

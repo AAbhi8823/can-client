@@ -8,7 +8,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import account from "../Photos/account.jpg";
 import account2 from "../Photos/account2.jpg";
 import SideNav from "./SideNav";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Home from "../Pages/Home";
 import { CiSearch } from "react-icons/ci";
 import NavDownArrow from "../Photos/NavDownArrow.svg";
@@ -714,57 +715,57 @@ useEffect(() => {
                       <div className="text-center" role="none">
                         {Cookies.get("token") ? (
                           <div>
-                            <Link to={"/profileuser"}>
+                            <NavLink to={"/profileuser"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                                 style={{}}
                               >
                                 Profile
                               </div>
-                            </Link>
-                            <Link to={"/settings"}>
+                            </NavLink>
+                            <NavLink to={"/settings"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                                 style={{}}
                               >
                                 User Settings
                               </div>
-                            </Link>
-                            <Link to={"/meeting"}>
+                            </NavLink>
+                            <NavLink to={"/meeting"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                                 style={{}}
                               >
                                 Meeting
                               </div>
-                            </Link>
+                            </NavLink>
                           </div>
                         ) : (
                           <div>
-                            <Link to={"/loginform"}>
+                            <NavLink to={"/loginform"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                                 style={{}}
                               >
                                 Profile
                               </div>
-                            </Link>
-                            <Link to={"/loginform"}>
+                            </NavLink>
+                            <NavLink to={"/loginform"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                                 style={{}}
                               >
                                 User Settings
                               </div>
-                            </Link>
-                            <Link to={"/loginform"}>
+                            </NavLink>
+                            <NavLink to={"/loginform"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                                 style={{}}
                               >
                                 Meeting
                               </div>
-                            </Link>
+                            </NavLink>
                           </div>
                         )}
                         <div
@@ -839,57 +840,57 @@ useEffect(() => {
                     <div className="text-center" role="none">
                       {Cookies.get("token") ? (
                         <div>
-                          <Link to={"/profileuser"}>
+                          <NavLink to={"/profileuser"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                               style={{}}
                             >
                               Profile
                             </div>
-                          </Link>
-                          <Link to={"/settings"}>
+                          </NavLink>
+                          <NavLink to={"/settings"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                               style={{}}
                             >
                               User Settings
                             </div>
-                          </Link>
-                          <Link to={"/meeting"}>
+                          </NavLink>
+                          <NavLink to={"/meeting"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                               style={{}}
                             >
                               Meeting
                             </div>
-                          </Link>
+                          </NavLink>
                         </div>
                       ) : (
                         <div>
-                          <Link to={"/loginform"}>
+                          <NavLink to={"/loginform"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                               style={{}}
                             >
                               Profile
                             </div>
-                          </Link>
-                          <Link to={"/loginform"}>
+                          </NavLink>
+                          <NavLink to={"/loginform"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                               style={{}}
                             >
                               User Settings
                             </div>
-                          </Link>
-                          <Link to={"/loginform"}>
+                          </NavLink>
+                          <NavLink to={"/loginform"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                               style={{}}
                             >
                               Meeting
                             </div>
-                          </Link>
+                          </NavLink>
                         </div>
                       )}
                       <div

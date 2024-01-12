@@ -6,7 +6,7 @@ import Roles_Caregiver from '../Photos/Roles_Caregiver.png';
 import Roles_Veteran from '../Photos/Roles_Veteran.png';
 import Video from '../Photos/Video.png';
 import CarouselMain from '../Components/CarouselMain';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import MeetPeople from '../Photos/MeetPeople.png';
 import { CiCircleInfo } from 'react-icons/ci';
 import PageImg from '../Photos/illus2.png'
@@ -132,11 +132,11 @@ const LoginChooseTitle = () => {
                   </div>
 
                   {select ? (
-                    <Link to="/logindetails" className="w-[40%]">
+                    <NavLink to="/logindetails" className="w-[40%]">
                       <h2 className="bg-[#C31A7F] text-center p-3 rounded-lg text-white">
                         Continue
                       </h2>
-                    </Link>
+                    </NavLink>
                   ) : (
                     <div className="w-[40%]">
                       <h2 className="   bg-[#C31A7F] text-center p-3 rounded-lg text-white">

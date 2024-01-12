@@ -3,7 +3,7 @@ import Logo from '../Photos/Logo.png'
 import CAN from '../Photos/CAN.png'
 import WelcomeScreen from '../Photos/WelcomeScreen.png'
 import Video from '../Photos/Video.png'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import CarouselMain from '../Components/CarouselMain'
 import { HiArrowLeft } from 'react-icons/hi'
 
@@ -35,9 +35,9 @@ const OldUserOTP = () => {
                         <div className='h-[90%] w-[60vh] shadow-xl mx-24 bg-[#D9D9D9] bg-opacity-10 z-10 backdrop-blur-lg rounded-md'>
 
                             <div className='mt-6 mx-4 gap-4 flex items-center font-semibold'>
-                                <Link to='/OldUserLoginTitle'>
+                                <NavLink to='/OldUserLoginTitle'>
                                     <HiArrowLeft />
-                                </Link>
+                                </NavLink>
                                 <div>Adding profile for your loved one</div>
                             </div>
 
@@ -61,9 +61,9 @@ const OldUserOTP = () => {
 
                             </div>
                             <div className='flex justify-center py-2'>
-                                <Link to='/OldUserSuccessfully' className='w-[86%]'>
+                                <NavLink to='/OldUserSuccessfully' className='w-[86%]'>
                                     <h2 className='bg-[#C31A7F]  text-center p-3 rounded-lg text-white'>Verify OTP</h2>
-                                </Link>
+                                </NavLink>
                             </div>
 
                             <p className='text-center py-4'>Resend OTP</p>

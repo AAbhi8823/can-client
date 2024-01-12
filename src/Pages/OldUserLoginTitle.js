@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Logo from '../Photos/Logo.png'
 import CAN from '../Photos/CAN.png'
 import Video from '../Photos/Video.png'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Roles_Fighter from '../Photos/Roles_Fighter.png'
 import Roles_Caregiver from '../Photos/Roles_Caregiver.png'
 import Roles_Veteran from '../Photos/Roles_Veteran.png'
@@ -49,9 +49,9 @@ const OldUserLoginTitle = () => {
                         <div className='h-[90%] w-[60vh] shadow-xl mx-24 bg-[#D9D9D9] bg-opacity-10 z-10 backdrop-blur-lg rounded-md'>
 
                             <div className='mt-6 mx-4 gap-4 flex items-center font-semibold'>
-                                <Link to='/OldUserLogin'>
+                                <NavLink to='/OldUserLogin'>
                                     <HiArrowLeft />
-                                </Link>
+                                </NavLink>
                                 <div>Adding profile for your loved one</div>
                             </div>
 
@@ -89,9 +89,9 @@ const OldUserLoginTitle = () => {
 
 
                                     {select ?
-                                        (<Link to='/home' className=' w-[50%]'>
+                                        (<NavLink to='/home' className=' w-[50%]'>
                                             <h2 className={`bg-[#C31A7F] text-center p-3 rounded-lg text-white `}>Continue</h2>
-                                        </Link>)
+                                        </NavLink>)
                                         :
                                         (
                                             <div className='w-[50%]'>

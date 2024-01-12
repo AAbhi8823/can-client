@@ -4,7 +4,7 @@ import CANa from '../Photos/CANa.png'
 import account from '../Photos/account.jpg'
 import CarouselMain from '../Components/CarouselMain'
 import { IoAddCircleOutline } from 'react-icons/io5'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import b4 from '../Photos/b4.png'
 import WelcomScreen from '../Photos/WelcomeScreen.png'
 import { RxCross2 } from 'react-icons/rx'
@@ -286,12 +286,12 @@ const ShowProfile = () => {
                 </div>
             }
  <div className='grid flex justify-start center-1'>
- <Link to='/'>
+ <NavLink to='/'>
                 <div className='flex px-10 w-[100%]'>
                 <img src={logo2} className="lg:block md:block hidden" alt="" />
           <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
                 </div>
-                </Link>
+                </NavLink>
             </div>
             <div>
                 <div className='flex lg:flex-row lg:p-0 p-2 items-center justify-center'>

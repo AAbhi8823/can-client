@@ -6,7 +6,7 @@ import { VscAccount } from 'react-icons/vsc';
 import { IoCloseCircleSharp } from 'react-icons/io5';
 import CarouselMain from '../Components/CarouselMain';
 import Freeline from '../Photos/Freeline.png'
-import { Link, Navigate } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import five from '../Photos/five.gif'
 import logo2 from "../Photos/logo2.png";
 import logoCAn from '../Photos/LogoCAn.png'
@@ -55,12 +55,12 @@ const RegisterImage = () => {
   return (
     <>
       <div className="grid flex justify-start center-1">
-        <Link to="/">
+        <NavLink to="/">
           <div className="flex px-10 w-[100%]">
             <img src={logo2} className="lg:block md:block hidden" alt="" />
             <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
           </div>
-        </Link>
+        </NavLink>
       </div>
 
       <div>
@@ -123,11 +123,11 @@ const RegisterImage = () => {
               className="bg-white shadow-md rounded  rounded-2xl  mb-4"
               onSubmit={SetRegisterImage}
             >
-              <Link to={"/choosetitle"}>
+              <NavLink to={"/choosetitle"}>
                 <div className="px-4 py-2 cursor-pointer">
                   <img src={arrow22} alt="" />
                 </div>
-              </Link>
+              </NavLink>
               <div>
                 <img
                   src={five}
@@ -197,14 +197,14 @@ const RegisterImage = () => {
 
                 {image ? (
                   <div className="flex justify-center px-2  py-2 w-[50%]">
-                    <Link to="/MultiPIN" state={img_file} className="w-[100%]">
+                    <NavLink to="/MultiPIN" state={img_file} className="w-[100%]">
                       <button
                         type="submit"
                         className=" bg-[#C31A7F] lg:text-[1.1vw] text-[20px] w-[86%] px-2 py-4 p-3 text-center rounded-xl text-white w-full"
                       >
                         Continue
                       </button>
-                    </Link>
+                    </NavLink>
                   </div>
                 ) : (
                   <div className="flex justify-center px-2 py-2 w-[50%]">
@@ -260,16 +260,16 @@ const RegisterImage = () => {
               </div>
 
               <div className='flex px-5 justify-center mt-5'>
-                <Link to='/MultiPIN' className='flex justify-center py-2 w-[50%]'>
+                <NavLink to='/MultiPIN' className='flex justify-center py-2 w-[50%]'>
                   <h2 className='bg-transparent border-[#C31A7F] border-2 w-[86%] text-center p-3 rounded-lg   text-[#C31A7F]'>Add later</h2>
-                </Link>
+                </NavLink>
 
                 {image ? (
                   <div className='flex justify-center py-2 w-[50%]'>
 
-                    <Link to='/MultiPIN' state={img_file} className='w-[86%]' onClick={SetRegisterImage}>
+                    <NavLink to='/MultiPIN' state={img_file} className='w-[86%]' onClick={SetRegisterImage}>
                       <h2 className='bg-[#C31A7F]  text-center p-3 rounded-lg text-white'>Continue</h2>
-                    </Link>
+                    </NavLink>
                   </div>)
                   :
                   (<div className='flex justify-center py-2 w-[50%]'>

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import Medicineimg from '../Photos/Medicineimg.png'
 import MedicinePopup from '../Components/MedicinePopup';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Page from '../Layouts/Pages';
 
 
@@ -43,12 +43,12 @@ const Medicine = () => {
                      <MedicinePopup toggleMedicine={toggleMedicine} />
                    )}
 
-                   <Link
+                   <NavLink
                      to={"/Medicine1"}
                      className="  bg-[#C31A7F] text-white lg:text-[1.20vw]  text-[16px] px-4 py-2 rounded-[20px] cursor-pointer"
                    >
                      My Medicine
-                   </Link>
+                   </NavLink>
                  </div>
                </div>
              </div>

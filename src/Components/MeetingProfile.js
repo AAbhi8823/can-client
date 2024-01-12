@@ -6,9 +6,8 @@ import account from "../Photos/account.jpg";
 import { IoMdClose } from "react-icons/io";
 import SideMenu from "../Components/SideMenu";
 import Page from "../Layouts/Pages";
-import { Link } from "react-router-dom";
 import TabPanel from './TabPanel';
-
+import { NavLink } from "react-router-dom";
 
 function MeetingProfile({ value }) {
   const [selectedOption, setSelectedOption] = useState("Today");
@@ -213,9 +212,9 @@ function MeetingProfile({ value }) {
 
                             {EnterName ? (
                               <div className="w-[80%] rounded-2xl p-[3%] text-center bg-[#efc41965] font-semibold cursor-pointer">
-                                <Link to='/MeetingActive'>
+                                <NavLink to='/MeetingActive'>
                                   Join now
-                                </Link>
+                                </NavLink>
                               </div>
 
                             ) : (
