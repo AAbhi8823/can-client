@@ -80,41 +80,35 @@ import MeetingProfile from './Components/MeetingProfile'
 import Saved from './Components/Saved'
 import Carousel from './Components/Craousel'
 import LoginCraousel from './Components/LoginCraousel'
-
 import { io } from "socket.io-client"
 import Cookies from 'js-cookie'
 import { baseurl } from './Api/baseUrl'
-// import customTheme from './Components/customTheme'
-import { socket_action } from './redux/slice/socket'
-import { useDispatch, useSelector } from 'react-redux'
-// import customTheme from './Components/customTheme'
+// import { socket_action } from './redux/slice/socket'
+// import { useDispatch, useSelector } from 'react-redux'
 import HealthProfile from './Components/HealthProfile'
 import MedicineBank  from './Pages/MedicineBank'
 import MobileCraousel  from './Components/MobileCraousel'
 
-
 const App = () => {
-  const dispatch=useDispatch()
-  let socket_connection = io(baseurl)
+  // const dispatch=useDispatch()
+  // let socket_connection = io(baseurl)
   let token = Cookies.get("authToken")
-  const senderId = localStorage.getItem("active_user")
-  const { socket } = useSelector(state => state.socket)
-  useEffect(() => {
-    console.log(socket_connection)
-    if (socket_connection && !socket && token) {
-      dispatch(socket_action.socket_connection(socket_connection))
-      socket_connection.emit("joinuser",{id:senderId})
-    }
-  }, [])
+  // const senderId = localStorage.getItem("active_user")
+  // const { socket } = useSelector(state => state.socket)
+  // useEffect(() => {
+  //   console.log(socket_connection)
+  //   if (socket_connection && !socket && token) {
+  //     dispatch(socket_action.socket_connection(socket_connection))
+  //     socket_connection.emit("joinuser",{id:senderId})
+  //   }
+  // }, [])
   return (
     <>
       <BrowserRouter>
         <Routes>
-
           {/* <Route exact path = '/' element = {<BeforeLoginHome /> }/> */}
           <Route exact path='/' element={<BeforeLoginHome />} />
           <Route exact path='/contactUs' element={<ContactUs />} />
-
           <Route exact path='/KnowMore' element={<KnowMore />} />
           <Route exact path='/Whycan' element={<WhyCan />} />
           {/* <Route exact path='login' element={<Login />} /> */}
@@ -196,8 +190,6 @@ const App = () => {
           <Route expact path='HealthProfile' element={<HealthProfile/>}/>
           <Route expact path='MedicineBank' element={<MedicineBank/>}/>
           <Route expact path='MobileCraousel' element={<MobileCraousel/>}/>
-
-
         </Routes>
       </BrowserRouter>
     </>

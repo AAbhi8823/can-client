@@ -32,21 +32,15 @@ import { GrLocation } from "react-icons/gr";
 import { BiArrowBack } from "react-icons/bi";
 import blockuser from "../Photos/blockuser.png";
 import userIcon from "../Photos/userIcon.png";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import SelectLabels from "../Components/SelectLabels";
-
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import Cookie from "js-cookie";
-
 import Tooltip from "@mui/material/Tooltip"; 
-// import SkeletonFile from '../Pages/Skeleton'
 import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
-
 const Home = () => {
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
@@ -65,7 +59,36 @@ const Home = () => {
   const [showgif, setShowgif] = useState(false);
   const [userBlock, setUserBlock] = useState(false);
   const [userBlocked, setUserBlocked] = useState(false);
-
+  const [commentModel, setcommentModel] = useState([]);
+  const [postCommentModel, setPostCommentModel] = useState();
+  const [isCommentLoadin, setIsCommentLoading] = useState();
+  const [commentLikeCount, setCommentLikeCount] = useState();
+  const [LikeID, setLikeID] = useState(false);
+  const [likedPosts, setLikedPosts] = useState({});
+  const [singlePostId, setSinglePostId] = useState();
+  const [isShared, setIsShared] = useState();
+  const [threeDots, setThreeDots] = useState(false);
+  const [userDetails, setUserDetails] = useState();
+  const threeDotsOutClick = useRef(null);
+  const [vertical, setVertical] = useState("Upcoming");
+  const [comVal, setComVal] = useState();
+  const [Loading, setLoading] = useState(true);
+  const [filter, setfilter] = useState("new");
+  const location = useLocation();
+  const querysearch = new URLSearchParams(location.search);
+  const varFilter = querysearch.get("filter");
+  const [myFriends, setMyFriends] = useState();
+  const [reloadFlag, setReloadFlag] = useState(false);
+  const [forceRerender, setForceRerender] = useState(false);
+  const [isCommenting, setIsCommenting] = useState();
+  const [homePost, sethomePost] = useState();
+  const [page, setPage] = useState(1);
+  const [alresdyLiked, setAlreadyLiked] = useState(false);
+  const [isPosting, setIsPosting] = useState();
+  const [isChecked, setIsChecked] = useState(false);
+  const [isSaved, setIsSaved] = useState();
+  const [isCommentLiked, setCommentLiked] = useState(false);
+  const navigate = useNavigate();
   //  gif data
   const GifImage = [
     { id: 1, image: "climberEverest.Webp" },
@@ -168,15 +191,11 @@ const Home = () => {
   //   console.log(item)
   // };
 
-  const [singlePostId, setSinglePostId] = useState();
-
   const toggleShareButton = (postid) => {
     setShareButton(!shareButton);
     console.log("postshareid", postid);
     setSinglePostId(postid);
   };
-
-  const [isShared, setIsShared] = useState();
 
   const sharePost = async (share_userid) => {
     setIsShared(true);
@@ -187,7 +206,7 @@ const Home = () => {
         userid: userid,
         post_id: singlePostId,
       });
-      if (data.data.status == true) {
+      if (data.data.status === true) {
         console.log("post shared");
       } else {
         console.log("api error or");
@@ -195,11 +214,6 @@ const Home = () => {
     } catch (error) {}
     console.log(share_userid, singlePostId);
   };
-
-  const [commentModel, setcommentModel] = useState([]);
-  const [postCommentModel, setPostCommentModel] = useState();
-  const [isCommentLoadin, setIsCommentLoading] = useState();
-  const [commentLikeCount, setCommentLikeCount] = useState();
 
   const toggleContent = async (commentItem) => {
     setIsCommentLoading(true);
@@ -264,9 +278,6 @@ const Home = () => {
     setThanku(!showThanku);
   };
 
-  const [LikeID, setLikeID] = useState(false);
-  const [likedPosts, setLikedPosts] = useState({});
-
   const likeButton = async (likeID) => {
     document.getElementById("likeButtonColorless").style.color = "red";
     console.log(likeID);
@@ -308,8 +319,6 @@ const Home = () => {
   // const para = 'Bethany was running in a half marathon when she began to feel ill. She thought that her celiac disease may have flared up due to something she had eaten, but when she didn’t get better, she decided to see a doctor. What followed was a series of misdiagnoses is the etc'
 
   // three dots
-  const [threeDots, setThreeDots] = useState(false);
-
   function threeDotsToggle(postId) {
     setThreeDots((prev) => ({
       ...prev,
@@ -318,8 +327,7 @@ const Home = () => {
   }
 
   //outclick from three dots
-  const threeDotsOutClick = useRef(null);
-
+  
   const handleClickOutsidethreeDots = (event) => {
     if (
       threeDotsOutClick.current &&
@@ -328,8 +336,6 @@ const Home = () => {
       setThreeDots(false);
     }
   };
-
-  const [userDetails, setUserDetails] = useState();
 
   useEffect(() => {
     const activeUser = async () => {
@@ -366,11 +372,6 @@ const Home = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-
-    document.addEventListener("click", handleClickOutsidethreeDots, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutsidethreeDots, true);
-    };
   }, []);
 
   const handlePickerFocus = () => {
@@ -378,13 +379,13 @@ const Home = () => {
   };
 
   //vertical calender , appointments and Medicine
-  const [vertical, setVertical] = useState("Upcoming");
+ 
 
   const toggleVertical = (item) => {
     setVertical(item);
   };
 
-  const [comVal, setComVal] = useState();
+  
 
   const takeValue = (e) => {
     // e.preventDefault()
@@ -410,16 +411,6 @@ const Home = () => {
       });
     }
   };
-
-  const [Loading, setLoading] = useState(true);
-  const [filter, setfilter] = useState("new");
-  const location = useLocation();
-  const querysearch = new URLSearchParams(location.search);
-  const varFilter = querysearch.get("filter");
-
-  const [homePost, sethomePost] = useState();
-  const [page, setPage] = useState(1);
-  const [alresdyLiked, setAlreadyLiked] = useState(false);
 
   const HomePost = async () => {
     try {
@@ -449,8 +440,6 @@ const Home = () => {
       setLoading(false);
     }
   };
-
-  const [myFriends, setMyFriends] = useState();
 
   const friendList = async () => {
     const userid = localStorage.getItem("active_user");
@@ -489,10 +478,7 @@ const Home = () => {
     setComVal(e.target.value);
   };
 
-  const [reloadFlag, setReloadFlag] = useState(false);
-  const [forceRerender, setForceRerender] = useState(false);
 
-  const [isCommenting, setIsCommenting] = useState();
   const handleComment = async (homePostItems) => {
     setIsCommenting(true);
     const CommentToken = Cookie.get("token");
@@ -532,17 +518,13 @@ const Home = () => {
     }
   };
 
-
-  
-
   const handleReloadClick = () => {
     console.log("loading");
   };
 
   // const [postId, setPostId] = useState()
 
-  const [isPosting, setIsPosting] = useState();
-
+ 
   const handlePost = async () => {
     setIsPosting(true);
     const token = Cookie.get("token");
@@ -584,8 +566,6 @@ const Home = () => {
     }
   };
 
-  const [isSaved, setIsSaved] = useState();
-
   const savePost = async (posiID) => {
     const token = Cookie.get("token");
     const userId = localStorage.getItem("active_user");
@@ -597,7 +577,7 @@ const Home = () => {
           userid: userId,
         }
       );
-      if (saveThePost.data.status == true) {
+      if (saveThePost.data.status === true) {
         toast.success("Post Saved", {
           position: "top-center",
           autoClose: 2000,
@@ -618,7 +598,6 @@ const Home = () => {
     }
   };
 
-  const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get("token");
 
@@ -626,8 +605,7 @@ const Home = () => {
       navigate("/loginform");
     }
   }, []);
-
-  const [isChecked, setIsChecked] = useState(false);
+ 
   const handleCheckboxChange = (event) => {
     const { checked, value } = event.target;
     setIsChecked(checked);
@@ -638,8 +616,6 @@ const Home = () => {
     }
   };
 
-  const [isCommentLiked, setCommentLiked] = useState(false);
-
   const commentLike = async (commentId) => {
     const user = localStorage.getItem("active_user");
     try {
@@ -648,7 +624,7 @@ const Home = () => {
         type: "like",
         comment_id: commentId,
       });
-      if (response.data.status == true) {
+      if (response.data.status === true) {
         // console.log(response.data.status);
         // setCommentLiked(true)
         setCommentLiked((prevLikes) => ({
@@ -1233,7 +1209,7 @@ const Home = () => {
                                       id="likeButtonColorless"
                                     />
                                   )}
-                                  {/* {homePostItems.likes[0].userId == activeUser ? "already liked" : "notliked"} */}
+                                  {/* {homePostItems.likes[0].userId === activeUser ? "already liked" : "notliked"} */}
                                   {/* {likedPosts[homePostItems?._id] ? (
                                     <AiFillHeart
                                       className="cursor-pointer"

@@ -1,7 +1,9 @@
-export const baseurl = "https://can.colourfuldreamevents.in";
+import Cookies from "js-cookie";
+export const baseurl = "https://32bv9twjew.ap-south-1.awsapprunner.com/api/v1";
 // export const baseurl = "http://127.0.0.1:5000";
-
-export const just_login="https://i4zsbn32p4.ap-south-1.awsapprunner.com/api"
+// export const just_login="https://i4zsbn32p4.ap-south-1.awsapprunner.com/api"
+export const base_token = Cookies.get("token");
+console.log("ankurfjkwrbfjrgyfergyfreuy",base_token);
 const apis = {
 
     // users

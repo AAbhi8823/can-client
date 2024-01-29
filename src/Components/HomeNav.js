@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef,forwardRef } from "react";
 import { BiBell } from "react-icons/bi";
 import { TiTick } from "react-icons/ti";
 import { RxCrossCircled } from "react-icons/rx";
@@ -7,20 +7,14 @@ import { CgAdd } from "react-icons/cg";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import account from "../Photos/account.jpg";
 import account2 from "../Photos/account2.jpg";
-import SideNav from "./SideNav";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import Home from "../Pages/Home";
 import { CiSearch } from "react-icons/ci";
-import NavDownArrow from "../Photos/NavDownArrow.svg";
 import Cookies from "js-cookie";
 import apis from "../Api/baseUrl";
-
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
-import Cookie from "js-cookie";
 import { Avatar } from "@mui/material";
-
 import Tooltip from "@mui/material/Tooltip";
 import { useDispatch } from "react-redux";
 import { filteraction } from "../redux/slice/filterslice";
@@ -34,81 +28,108 @@ const HomeNav = (props) => {
   const dispatch = useDispatch();
   const [friend, setFriend] = useState(false);
   const [notification, setNotification] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [explore, setExplore] = useState(true);
-  const navigate = useNavigate();
-  const { socket } = useSelector((state) => state.socket);
-  const { search } = useSelector((state) => state.filter);
-
-  const [Nav, setNav] = useState(props);
-
+  const [navUser, setNavuser] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [users, setUsers] = useState([]);
   
+  const [Nav, setNav] = useState(props);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+  const outclick = useRef(null);
+  const notificationOutclick = useRef(null);
+  const { search } = useSelector((state) => state.filter);
+  const activeuser = localStorage.getItem("active_user");
+  const token = Cookies.get("token");
+  const tableRef = useRef(null);
 
   useEffect(() => {
     setNav(props.onStateChange);
   }, [props]);
 
+  useEffect(() => {
+    const LandingData = async () => {
+      try {
+        const { data } = await axios.post(
+          `${baseurl}/api/singleuser?token=${token}`,
+          { id: `${activeuser}` }
+        );
+        setNavuser(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const LandingData = async () => {
-    const token = Cookies.get("token");
-    const homeUser = localStorage.getItem("active_user");
-    try {
-      const userData = await axios.post(
-        `${baseurl}/api/singleuser?token=${token}`,
-        {
-          id: `${homeUser}`,
-        }
-      );
-      // console.log("Navbar:", userData.data.data)
-      setNavuser(userData.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    LandingData();
+  }, [activeuser, token]);
 
   useEffect(() => {
-    LandingData();
-  }, []);
+    const handleClickOutside = (event) => {
+      if (outclick.current && !outclick.current.contains(event.target)) {
+        setFriend(false);
+      }
+    };
 
-  const [mainMenu, setMainMenu] = useState(false);
+    document.addEventListener("mousedown", handleClickOutside);
 
-  const openMenu = () => {
-    setMainMenu(!mainMenu);
-  };
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [outclick]);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutsidenotification = (event) => {
+      if (
+        notificationOutclick.current &&
+        !notificationOutclick.current.contains(event.target)
+      ) {
+        setNotification(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutsidenotification, true);
+
+    return () => {
+      document.removeEventListener(
+        "click",
+        handleClickOutsidenotification,
+        true
+      );
+    };
+  }, [notificationOutclick]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tableRef.current && !tableRef.current.contains(event.target)) {
+        setIsVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [tableRef]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-
-  const handleClickOutside = (event) => {
-    if (outclick.current && !outclick.current.contains(event.target)) {
-      setFriend(false);
-    }
-  };
-   
-   
-
-   
-
-   useEffect(() => {
-     document.addEventListener("mousedown", handleClickOutside);
-     return () => {
-       document.removeEventListener("mousedown", handleClickOutside);
-     };
-   }, []);
-
+  const Tooltip = forwardRef((props, ref) => {
+    const { title, children } = props;
   
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
+    // your component logic here
+  
+    return (
+      <div ref={ref}>
+        {/* your Tooltip content */}
+        {children}
+      </div>
+    );
+  });
+  
   const showFriendreq = () => {
     setFriend(!friend);
   };
@@ -121,161 +142,41 @@ const HomeNav = (props) => {
     setNotification(!notification);
   };
 
-  const outclick = useRef(null);
+  const handleLogOut = () => {
+    Cookies.remove("token");
+    localStorage.clear();
+    navigate("/");
+  };
 
-  //outclick from notifiaction box :- close
-  const notificationOutclick = useRef(null);
-
-  const handleClickOutsidenotification = (event) => {
-    if (
-      notificationOutclick.current &&
-      !notificationOutclick.current.contains(event.target)
-    ) {
-      setNotification(false);
+  const getSearchUser = async (txt) => {
+    try {
+      const { data } = await axios.post(`${apis.SEARCH_USER}?token=${token}`, {
+        search: txt,
+        userid: activeuser,
+      });
+      if (data.status === true) {
+        setUsers(data.data);
+      } else {
+        setUsers([]);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    // activeUser();
-
-    document.addEventListener("click", handleClickOutsidenotification, true);
-    return () => {
-      document.removeEventListener(
-        "click",
-        handleClickOutsidenotification,
-        true
-      );
-    };
-  }, []);
-
-
-
-  
-
-  
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
-
-  const [navUser, setNavuser] = useState();
-
-  // const activeUser = async () => {
-  //   const token = Cookie.get("token");
-  //   const homeUser = localStorage.getItem("active_user");
-  //   try {
-  //     const { userData } = await axios.post(
-  //       `${baseurl}/api/singleuser?token=${token}`,
-  //       {
-  //         id: `${homeUser}`,
-  //       }
-  //     );
-  //     // console.log("Navbar:",userData.data.data)
-  //     setNavuser(userData.data.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // console.log(navUser && navUser)
-
-  //Open upload from side nav
-
-  const [menu, setMenu] = useState(false);
-
-  const toggleMenu = () => {
-    setMenu(!menu);
-  };
-
-  // useEffect(() => {
-  //   const handle = () => {
-  //     setMenu(false)
-  //   }
-  //   document.addEventListener("mousedown", handle)
-  // }, [])
-
-  const pushUser = () => {
-    // console.log("suraj")
-    navigate("/userProfile");
-  };
-
-  const NavAppointment = () => {
-    navigate("/Appointment");
-  };
-
-  const HealthRec = () => {
-    navigate("/HealthRecord");
-  };
-const [logOut, setLogOut] = useState(false);
-   
-const handleLogOut = () => {
-  Cookies.remove("token");
-  localStorage.clear();
-  navigate("/");
-};
-
-const [users, setusers] = useState([]);
-const activeuser = localStorage.getItem("active_user");
-const token = Cookies.get("token");
-
-const get_search_user = async (txt) => {
-  try {
-    const { data } = await axios.post(`${apis.SEARCH_USER}?token=${token}`, {
-      search: txt,
-      userid: activeuser,
-    });
-    if (data.status == true) {
-      setusers(data.data);
-    } else {
-      setusers([]);
+    if (search !== "") {
+      getSearchUser(search);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-useEffect(() => {
-  if (search != "") {
-    get_search_user(search);
-  }
-}, [search]);
-
-const tableRef = useRef(null);
-const [isVisible, setIsVisible] = useState(true);
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (tableRef.current && !tableRef.current.contains(event.target)) {
-      // Clicked outside the table, hide the component
-      setIsVisible(false);
-    }
-  };
-
-  // Bind the event listener
-  document.addEventListener("mousedown", handleClickOutside);
-
-  // Unbind the event listener on component unmount
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
-
+  }, [search, getSearchUser]);
   return (
     <>
-      {/* <div className="w-full" > */}
-
-      {/* <SideNav /> */}
-      {/* </div> */}
 
       <div className="z-10">
         <div
           className="flex  p-3     border-b-[1px] border-[#D9EAFF] "
           style={{ boxShadow: "0px 10px 40px 0px rgba(231, 237, 243, 0.40)" }}
         >
-          {/* <div className=" w-[30%]"></div> */}
           <div className="flex w-full justify-around ">
             <div className="md:w-[50%] md:relative flex items-center justify-center md:ml-40 ml-8 ">
               <CiSearch
@@ -296,11 +197,11 @@ useEffect(() => {
               <div className=" flex items-center pointer-cursor gap-4 ">
                 {/* Icons */}
                 <div className="hidden">
-                  <Tooltip title="Notification">
+                  {/* <Tooltip ref={notificationOutclick} title="Notification">
                     <div className="cursor-pointer" onClick={showFriendreq}>
                       <VscBellDot color="#C31A7F" size={22} />
                     </div>
-                  </Tooltip>
+                  </Tooltip> */}
 
                   {friend && (
                     <div
@@ -477,6 +378,7 @@ useEffect(() => {
                                 <img
                                   src={account}
                                   className="rounded-full h-12 w-12"
+                                  alt="account"
                                 />
                               </div>
 
@@ -501,6 +403,7 @@ useEffect(() => {
                                 <img
                                   src={account}
                                   className="rounded-full h-12 w-12"
+                                  alt='account'
                                 />
                               </div>
 
@@ -525,6 +428,7 @@ useEffect(() => {
                                 <img
                                   src={account}
                                   className="rounded-full h-12 w-12"
+                                  alt="account"
                                 />
                               </div>
 
@@ -550,14 +454,14 @@ useEffect(() => {
 
                 {/* Notification */}
 
-                <Tooltip title="Notification">
+                {/* <Tooltip ref={notificationOutclick} title="Notification">
                   <BiBell
                     onClick={notificationToggle}
                     className="cursor-pointer mr-6"
                     color="#C31A7F"
                     size={22}
                   />
-                </Tooltip>
+                </Tooltip> */}
 
                 {notification && (
                   <div
@@ -586,6 +490,7 @@ useEffect(() => {
                         <img
                           src={account2}
                           className="rounded-full h-12 w-12 mr-2"
+                          alt="account2"
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
@@ -599,6 +504,7 @@ useEffect(() => {
                         <img
                           src={account2}
                           className="rounded-full h-12 w-12 mr-2"
+                          alt="account2"
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
@@ -625,6 +531,7 @@ useEffect(() => {
                         <img
                           src={account2}
                           className="rounded-full h-12 w-12 mr-2"
+                          alt="account2"
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
@@ -638,6 +545,7 @@ useEffect(() => {
                         <img
                           src={account2}
                           className="rounded-full h-12 w-12 mr-2"
+                          alt="account"
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
@@ -650,6 +558,7 @@ useEffect(() => {
                         <img
                           src={account2}
                           className="rounded-full h-12 w-12 mr-2"
+                          alt="account2"
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
@@ -691,7 +600,7 @@ useEffect(() => {
                         <div className="flex relative right-0 ">
                           <div>
                             <img
-                              alt=""
+                              alt="vector"
                               // src={navUser?.profile_photo}
                               src={vector}
                               className="w-[8vw] md:w-[5vw] lg:w-[2vw] "
@@ -814,7 +723,7 @@ useEffect(() => {
                       <div className="flex relative right-0 ">
                         <div>
                           <img
-                            alt=""
+                            alt="vector"
                             // src={navUser?.profile_photo}
                             src={vector}
                             className="w-[8vw] md:w-[5vw] lg:w-[2vw] "

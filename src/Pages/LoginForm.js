@@ -1,76 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { baseurl } from '../Api/baseUrl';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import Cookies from 'js-cookie';
-import LoginCraousel from '../Components/LoginCraousel';
-import elite1 from '../Photos/elite1.gif';
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { baseurl } from "../Api/baseUrl";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import Cookies from "js-cookie";
+import LoginCraousel from "../Components/LoginCraousel";
+import elite1 from "../Photos/elite1.gif";
 import logo2 from "../Photos/logo2.png";
-import logoCAn from '../Photos/LogoCAn.png';
-
+import logoCAn from "../Photos/LogoCAn.png";
 const LoginForm = () => {
   const navigate = useNavigate();
   const [eye, setEye] = useState(false);
   const [eye1, setEye1] = useState(false);
-  const [Username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [firstpass1, setFirstpass1] = useState('');
+  const [Username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [firstpass1, setFirstpass1] = useState("");
   const [value, setValue] = useState(false);
   const [loading, setLoading] = useState(false);
   const [border, setBorder] = useState({
-    border: '2px solid #e5e7eb',
+    border: "2px solid #e5e7eb",
   });
+  
+  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1YWExN2Y4NzQ4OWEwMjQyMzhmNmFmMCIsInBob25lX251bWJlciI6Ijk4NzE5NDgxNzQifSwiaWF0IjoxNzA1NjY1NTAwLCJleHAiOjE3MDU3NTE5MDB9.GFenr28zrbB9tyWt-IFHjTfJgkC54rFS6Hc3xtUP73w'
   const handleLogin = async () => {
     setLoading(true);
+  
     try {
-      // Mocked response for testing
-      const response = {
-        data: {
-          status: true,
-          findata: {
-            link_email: 'test@example.com',
-          },
-          token: 'your_mocked_token',
+      const response = await axios.post(
+        `${baseurl}/user/user-login`,
+        {
+          phone_number: Username,
+          password: firstpass1,
         },
-      };
+      
+      );
+      console.log('API Response:::>>>>',response);
+      
 
-      console.log(response, 'success::>>>>>>>');
-
-      const userValue = JSON.parse(localStorage.getItem('userValue')) || {};
-      userValue.email_phone = response.data.findata.link_email;
-      localStorage.setItem('userValue', JSON.stringify(userValue));
-
-      if (response.data.status === true) {
+      if (response.data.resData.status === true) {
         setLoading(false);
+        Cookies.set('token', response.data.resData.data, { expires: 7 });
         navigate('/AddProfile');
-
-        Cookies.set('token', response.data.token, { expires: 7 });
-
-        if (!value) {
-          window.addEventListener('beforeunload', () => {
-            Cookies.remove('token');
-          });
-        }
-      }
-
-      if (response.data.status === false) {
+        // if (!value) {
+        //   window.addEventListener('beforeunload', () => {
+        //     Cookies.remove('token');
+        //   });
+        // }
+      } else {
+        // Provide a user-friendly error message
+        setError('Invalid email/phone or password.');
         setLoading(false);
         setBorder({
           border: '2px solid red',
         });
       }
     } catch (error) {
-      console.log(error);
+      console.error('An error occurred:', error);
+      // Provide a user-friendly error message
+      setError('An error occurred. Please try again.');
       setLoading(false);
     }
   };
-
+  
   const seePass = () => {
     setEye(!eye);
   };
-  
+
   const seePass1 = () => {
     setEye1(!eye1);
   };
@@ -86,12 +82,12 @@ const LoginForm = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const mobilePattern = /^\d{10}$/;
     if (!emailPattern.test(enteredValue) && !mobilePattern.test(enteredValue)) {
-      setError('(Invalid Email or Mobile Number)');
+      setError("(Invalid Email or Mobile Number)");
     } else {
-      setError('');
+      setError("");
     }
-  };   
- 
+  };
+
   const Tick = () => {
     setValue(!value);
     console.log(value);
@@ -101,7 +97,7 @@ const LoginForm = () => {
   return (
     <>
       <div className="grid flex justify-start center-1">
-        <NavLink to={'/'}>
+        <NavLink to={"/"}>
           <div className="flex px-10 w-[100%]">
             <img src={logo2} className="lg:block md:block hidden" alt="" />
             <img src={logoCAn} className="lg:hidden md:hidden block" alt="" />
@@ -120,7 +116,9 @@ const LoginForm = () => {
                 <h1>Sign In</h1>
               </div>
               <div className="text-center flex justify-center gap-1">
-                <p className="lg:text-[1.33vw] text-[18px]  ">Don’t Have an account?</p>
+                <p className="lg:text-[1.33vw] text-[18px]  ">
+                  Don’t Have an account?
+                </p>
                 <p className="text-[#3C37FF] lg:text-[1.33vw]  text-[18px]">
                   <NavLink to={`/Register`}>Sign Up</NavLink>
                 </p>
@@ -140,7 +138,9 @@ const LoginForm = () => {
                     />
                   </div>
                 </div>
-                <div className="px-10 text-red-500	">{error && <p>{error}</p>}</div>
+                <div className="px-10 text-red-500	">
+                  {error && <p>{error}</p>}
+                </div>
                 <div
                   style={border}
                   className="lg:h-[8vh] h-12 mx-4 mt-3 lg:mx-8 lg:m-2  rounded-[20px] flex items-center gap-4"
@@ -148,11 +148,11 @@ const LoginForm = () => {
                   <input
                     placeholder="password"
                     className="bg-transparent w-full border-0 outline-none placeholder:font-thin  placeholder:text-[18px] p-2"
-                    type={eye1 ? 'text' : 'password'}
+                    type={eye1 ? "text" : "password"}
                     onChange={passwordChange1}
                     minLength={3}
                     value={firstpass1}
-                    autoComplete="current-password" 
+                    autoComplete="current-password"
                   />
                   <div onClick={seePass1} className="cursor-pointer px-3">
                     {eye1 ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
@@ -167,7 +167,9 @@ const LoginForm = () => {
                       onChange={Tick}
                       className="lg:w-[1vw] w-4 lg:h-[2vh] h-4   rounded-xl border-[#7E7E7E] cursor-pointer"
                     />
-                    <p className="text-[#7E7E7E]  lg:text-[1.33vw] text-[14px]  ">Remember me</p>
+                    <p className="text-[#7E7E7E]  lg:text-[1.33vw] text-[14px]  ">
+                      Remember me
+                    </p>
                   </div>
                   <div>
                     <NavLink to="/ForgotPassword">
@@ -183,10 +185,10 @@ const LoginForm = () => {
                   type="button"
                   onClick={handleLogin}
                   className={`bg-[#C31A7F] cursor-pointer lg:text-[1vw] text-[18px]  text-center p-3 rounded-lg text-white w-[40%] ${
-                    Username && firstpass1 ? '' : 'opacity-50'
+                    Username && firstpass1 ? "" : "opacity-50"
                   }`}
                 >
-                  {loading ? 'Logging...' : 'Continue'}
+                  {loading ? "Logging..." : "Continue"}
                 </button>
               </div>
             </form>

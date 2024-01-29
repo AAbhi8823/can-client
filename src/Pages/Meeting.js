@@ -4,7 +4,7 @@ import { TiMediaRecord } from "react-icons/ti";
 import { FiSearch } from "react-icons/fi";
 import account from "../Photos/account.jpg";
 import { IoMdClose } from "react-icons/io";
-import SideMenu from "../Components/SideMenu";
+// import SideMenu from "../Components/SideMenu";
 import Page from "../Layouts/Pages";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect } from "react";

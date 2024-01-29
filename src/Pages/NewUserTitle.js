@@ -10,7 +10,7 @@ import DialogContent from "@mui/material/DialogContent";
 import logo2 from "../Photos/logo2.png";
 import Craousel from "../Components/Craousel";
 import { Skeleton } from "@mui/material";
-
+import Cookies from "js-cookie";
 const ChooseTitle = () => {
   // const [selectedCategory, setSelectedCategory] = useState('');
   // const [selectedImage, setSelectedImage] = useState(null);
@@ -33,12 +33,16 @@ const ChooseTitle = () => {
   };
 
   const [categoryId, setcategoryId] = useState("");
-
+  const token= Cookies.get("token");
   const getprofileCategory = async () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `${baseurl}/api/profile_category_create`
+        `${baseurl}/userprofile/get-user-profile-list`,{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
       console.log(data.data);
       if (data.status == true) {

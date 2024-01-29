@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import more from "../Photos/more.png";
-import CAN from "../Photos/CAN.png";
-import Logo1 from "../Photos/Logo1.png";
+
 import CANnn from "../Photos/MoreIcons/CANnn.png";
-import contact from "../Photos/MoreIcons/contact.png";
 import help from "../Photos/MoreIcons/help.png";
 import logout from "../Photos/MoreIcons/logout.png";
 import setting from "../Photos/MoreIcons/setting.png";
@@ -15,7 +13,7 @@ import healthRec from "../Photos/healthRec.png";
 import healthCard from "../Photos/healthCard.png";
 import appointment from "../Photos/appointment.png";
 import medicine from "../Photos/medicine.png";
-import { NavLink, Navigate, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import CreatePost from "./CreatePost";
 import iconRight from "../Photos/iconRight.png";
 import iconLeft from "../Photos/iconLeft.png";
@@ -23,47 +21,39 @@ import LogoCAn from "../Photos/LogoCAn.png";
 import CANa from "../Photos/CANa.png";
 import CanLogo from "../Photos/CanLogo.png";
 import share from "../Photos/MoreIcons/share.png";
-import Roles_fighter from "../Photos/Roles_Fighter.png";
-import roles from "../Photos/roles.png";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import account from "../Photos/account.jpg";
 import frame33 from "../Photos/frame33.png";
-import pencil from "../Photos/pencil.png";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import frame34 from "../Photos/frame34.png";
-import UserProfile from "../Photos/UserProfile.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BsPencil } from "react-icons/bs";
-import logo33 from '../Photos/logo33.png'
 import { baseurl } from "../Api/baseUrl";
-
 import axios from "axios";
 const SideMenu = () => {
   const [isOpen, setIsOpen] = useState(() => {
     const storedValue = localStorage.getItem("isOpen");
     return storedValue ? JSON.parse(storedValue) : true;
-    console.log(isOpen);
   });
   const [isiconVisible, setIsiconVisible] = useState(true);
+  const [showmore, setShowmore] = useState(false);
+  const [uploadPosts, setUploadPosts] = useState(false);
+  const [activePage, setActivePage] = useState(null);
+  const [userData, setUserData] = useState();
+  const [logOut, setLogOut] = useState(false);
+  const location = useLocation();
+  const showmoreOutclick = useRef(null);
+  const navigate = useNavigate();
+  const logoutDivRef = useRef(null);
+  const sideMenuDivRef = useRef(null);
+  const currentPathname = location.pathname;
+
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
     setIsiconVisible(!isiconVisible);
   };
-  const closeMenu =()=>{
-    setIsOpen(isOpen)
-  }
 
   useEffect(() => {
     // Store the 'isOpen' state in localStorage whenever it changes
     localStorage.setItem("isOpen", JSON.stringify(isOpen));
   }, [isOpen]);
-
-  const [showmore, setShowmore] = useState(false);
-  const [uploadPosts, setUploadPosts] = useState(false);
-  const [activePage, setActivePage] = useState(null);
-  const location = useLocation();
 
   const uploadPost = () => {
     setUploadPosts(!uploadPosts);
@@ -72,17 +62,12 @@ const SideMenu = () => {
   function close_createPost() {
     setUploadPosts(!uploadPosts);
   }
-  const [logOut, setLogOut] = useState(false);
-
-  const navigate = useNavigate();
-
+ 
   const handleLogOut = () => {
     Cookies.remove("authToken", { path: "/" });;
     
     navigate("/"); 
   };
-
-  const currentPathname = location.pathname;
 
   useEffect(() => {
     // Set the active page based on the current URL path
@@ -97,9 +82,8 @@ const SideMenu = () => {
         ? "/HealthRecord"
         : currentPathname
     );
-  }, [location]);
+  }, [currentPathname]);
 
-  const [userData, setUserData] = useState();
   const LandingData = async () => {
     const token = Cookies.get("token");
     const homeUser = localStorage.getItem("active_user");
@@ -120,65 +104,64 @@ const SideMenu = () => {
     LandingData();
   }, []);
 
-  // useEffect(() => {
-  //   // Store the 'isOpen' state in localStorage whenever it changes
-  //   localStorage.setItem('isOpen', JSON.stringify(isOpen));
-  // }, [isOpen]);
-
-  const showmoreOutclick = useRef(null);
-
   function showmoreToggle() {
     setShowmore(!showmore);
   }
 
-  const handleClickOutsideshowmore = (event) => {
-    if (
-      showmoreOutclick.current &&
-      !showmoreOutclick.current.contains(event.target)
-    ) {
-      setShowmore(false);
-    }
-  };
-  const logoutDivRef = useRef(null);
+  
+  
+ 
 
-  const handleClickOutsideLogout = (event) => {
-    if (
-      logOut &&
-      logoutDivRef.current &&
-      !logoutDivRef.current.contains(event.target)
-    ) {
-      setLogOut(false);
-    }
-  };
   useEffect(() => {
+    const handleClickOutsideLogout = (event) => {
+      if (
+        logOut &&
+        logoutDivRef.current &&
+        !logoutDivRef.current.contains(event.target)
+      ) {
+        setLogOut(false);
+      }
+    };
     document.addEventListener("click", handleClickOutsideLogout, true);
     return () => {
       document.removeEventListener("click", handleClickOutsideLogout, true);
     };
-  }, [logOut]);
+  }, [logOut,logoutDivRef]);
+
   useEffect(() => {
+    const handleClickOutsideshowmore = (event) => {
+      if (
+        showmoreOutclick.current &&
+        !showmoreOutclick.current.contains(event.target)
+      ) {
+        setShowmore(false);
+      }
+    };
     document.addEventListener("click", handleClickOutsideshowmore, true);
     return () => {
       document.removeEventListener("click", handleClickOutsideshowmore, true);
     };
-  }, [showmore]);
+  }, [showmoreOutclick]);
 
-  const sideMenuDivRef = useRef(null);
-  const handleClickOutsideSideMenu = (event) => {
-    if (
-      isOpen === false &&
-      sideMenuDivRef.current &&
-      !sideMenuDivRef.current.contains(event.target)
-    ) {
-      setIsOpen(true);
-    }
-  };
+ 
   useEffect(() => {
+    const handleClickOutsideSideMenu = (event) => {
+      if (
+        isOpen === false &&
+        sideMenuDivRef.current &&
+        !sideMenuDivRef.current.contains(event.target)
+      ) {
+        setIsOpen(true);
+      }
+    };
+  
     document.addEventListener("click", handleClickOutsideSideMenu, false);
     return () => {
       document.removeEventListener("click", handleClickOutsideSideMenu, false);
     };
-  }, [isOpen]);
+  }, [isOpen, sideMenuDivRef]);
+
+
   return (
     <>
       <div ref={sideMenuDivRef} className="relative">
@@ -455,13 +438,12 @@ const SideMenu = () => {
           <div
             onClick={() => setActivePage("showMore")}
             className={`cursor-pointer hover:bg-[#efc4197c] ${
-              activePage == "showMore"
+              activePage ==="showMore"
                 ? "bg-[#efc4197c] border-l-[3px] lg:border-[#C31A7F]"
                 : ""
             }`}
           >
             <ul className="relative w-full h-12 ">
-              <li>
                 <li className="flex flex-row   gap-2 " onClick={showmoreToggle}>
                   <div
                     className={` ${
@@ -474,7 +456,6 @@ const SideMenu = () => {
                     Show More
                   </p>
                 </li>
-              </li>
 
               {showmore && (
                 <div

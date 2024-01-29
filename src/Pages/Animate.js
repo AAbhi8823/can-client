@@ -8,7 +8,7 @@ const Animate = () => {
    const navigate = useNavigate();
 
    useEffect(() => {
-     const delay = 5500; // 7000 milliseconds = 7 seconds
+     const delay = 4000; // 7000 milliseconds = 7 seconds
 
      const token = Cookies.get("token"); // Assuming getCookie is a function to retrieve the token from cookies
 

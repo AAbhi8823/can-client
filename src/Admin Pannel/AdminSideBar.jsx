@@ -9,7 +9,6 @@ import AdminTransaction from "../Photos/AdminIcons/AdminTransaction.png";
 import AdminReport from "../Photos/AdminIcons/AdminReport.png";
 import AdminSetting from "../Photos/AdminIcons/AdminSetting.png";
 import AdminLogout from "../Photos/AdminIcons/AdminLogout.png";
-
 import { NavLink, useLocation } from 'react-router-dom';
 // import CreatePost from "./CreatePost";
 import iconRight from '../Photos/iconRight.png'

@@ -78,8 +78,8 @@ export default function SelectLabels() {
           }}
           value={age}
           onChange={handleChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
+          displayempty="true"
+          inputprops={{ "aria-label": "Without label" }}
           className=" rounded-20 text-center "
         >
           <p className="font-medium text-black">Verified</p>
@@ -100,8 +100,8 @@ export default function SelectLabels() {
           }}
           value={age}
           onChange={handleChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
+          displayempty="true"
+          inputprops={{ "aria-label": "Without label" }}
           className=" rounded-20 text-center  "
         >
           <p className="font-medium text-white">All</p>
@@ -123,8 +123,8 @@ export default function SelectLabels() {
           }}
           value={age || "new"}
           onChange={handleChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
+          displayempty="true"
+          inputprops={{ "aria-label": "Without label" }}
           className="rounded-20 text-center"
         >
           <MenuItem
