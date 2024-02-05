@@ -1,16 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import LogoCAn from "../Photos/LogoCAn.png";
-import CANa from "../Photos/CANa.png";
-import Video from "../Photos/Video.png";
-import CarouselMain from "../Components/CarouselMain";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import SelfCare from "../Photos/SelfCare.png";
 import vibird1 from "../Photos/vibird1.gif";
 import PinInput from "react-pin-input";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import logo2 from "../Photos/logo2.png";
-// import { Cookies } from 'react-cookie'
 import arrow22 from "../Photos/arrow22.png";
 import Cookies from "js-cookie";
 import Craousel from "../Components/Craousel"
@@ -21,7 +15,6 @@ const MultiPIN = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("")
   const navigate = useNavigate();
-  // const cookie = new Cookies()
   const location = useLocation();
   console.log( location.state);
 
@@ -30,86 +23,66 @@ const MultiPIN = () => {
     const homeUser = localStorage.getItem("active_user");
     try {
       const userData = await axios.post(
-        `${baseurl}/api/singleuser?token=${token}`,
+        `${baseurl}/userprofile/add-user-profile`,
         {
-          id: `${homeUser}`,
+          pin:'',
+          re_enter_pin:'',
+        },      {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
+  
       );
       console.log("canid" ,userData.data.data);
     } catch (error) {
       console.log(error);
     }
   };
-
- const registerUserAccount = async (e) => {
-  e.preventDefault()
-  const token = Cookies.get("token")
-  setLoading(true);
-   try {
-     let profile = location.state;
-     const userValue = JSON.parse(localStorage.getItem("userValue")) || {};
-     userValue.profile_pin = pin;
-     userValue.profile_pin = repin;
-     localStorage.setItem("userValue", JSON.stringify(userValue));
-
-     const formdata = new FormData();
-     formdata.set("username", userValue.username);
-     formdata.set("email_phone", userValue.email_phone);
-     formdata.set("gender", userValue.gender);
-     formdata.set("date_of_birth", userValue.date_of_birth);
-     formdata.set("password", userValue.password);
-     formdata.set("profile_category", userValue.categoryId);
-     formdata.set("profile_pin", userValue.profile_pin);
-     formdata.set("confirmPassword", userValue.confirmPassword);
-     formdata.set("profile_photo", profile);
-     formdata.set("profile_photo", profile);
-     
-     
-
-     if (token) {
-        const { data } = await axios.post(
-          `${baseurl}/api/add-another-account?token=${token}`,
-          formdata
-        );
-        console.log(data);
-        if (data.status === true) {
-          console.log("Successfully Registered");
-          console.log("User account registered successfully!");
-          setLoading(false);
-          navigate("/newaddedprofile", {
-            state: data.data._id,
-          });
-        }
-        if (data.status === false) {
-          console.log("Failed to register user account.");
-        }
-     } else {
-      const { data } = await axios.post(
-        `${baseurl}/api/userAccountregister`,
-        formdata
-      );
-      console.log(data);
+  const registerUserAccount = async (e) => {
+    e.preventDefault();
+    const token = Cookies.get("token");
+    setLoading(true);
+    
+    try {
+      let profile = location.state;
+      const userValue = JSON.parse(localStorage.getItem("userValue")) || {};
+      userValue.profile_pin = pin;
+      userValue.profile_pin = repin;
+      localStorage.setItem("userValue", JSON.stringify(userValue));
+  
+      const formdata = new FormData();
+      formdata.set("username", userValue.username);
+      formdata.set("email_phone", userValue.email_phone);
+      formdata.set("gender", userValue.gender);
+      formdata.set("date_of_birth", userValue.date_of_birth);
+      formdata.set("password", userValue.password);
+      formdata.set("profile_category", userValue.categoryId);
+      formdata.set("profile_pin", userValue.profile_pin);
+      formdata.set("confirmPassword", userValue.confirmPassword);
+      if (profile) {
+        formdata.append("profile_photo", profile);
+      }
+  
+      const endpoint = token ? `${baseurl}/api/add-another-account?token=${token}` : `${baseurl}/api/userAccountregister`;
+      const { data } = await axios.post(endpoint, formdata);
+  
       if (data.status === true) {
-        console.log("Successfully Registered");
         console.log("User account registered successfully!");
         Cookies.set("token", data.token, { expires: 7 });
         setLoading(false);
         navigate("/newaddedprofile", {
           state: data.data._id,
         });
-      }
-      if (data.status === false) {
+      } else {
         console.log("Failed to register user account.");
       }
-     }
-
-     
-   } catch (error) {
-     console.error("Error occurred during registration:", error);
-     // Handle error as required
-   }
- };
-
+    } catch (error) {
+      console.error("Error occurred during registration:", error);
+      // Handle error as required
+    }
+  };
+  
 
   const handlePinChange = (value) => {
     setPin(value);
@@ -127,9 +100,9 @@ const MultiPIN = () => {
     }
   };
 
-  useEffect(()=>{
-    activeUser()
-  })
+  // useEffect(()=>{
+  //   activeUser()
+  // })
 
   return (
     <>
@@ -142,36 +115,7 @@ const MultiPIN = () => {
       </div>
       <div>
         <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
-          {/* <div className="hidden md:block lg:block w-[50%]   flex flex-col items-center justify-center   ">
-            <div className="flex flex-col items-center justify-center gap-4 ">
-              <div className="">
-                <img src={SelfCare} alt="none" className="w-[20vw]" />
-              </div>
-
-              <div className="mt-2 flex flex-col items-center justify-center gap-1 ">
-                <h1 className="text-center lg:text-[2.23vw] text-[32px]  font-semibold">
-                  A companion to your relaxation.
-                </h1>
-                <p className="text-center lg:text-[1.12vw] text-[18px] font-medium ">
-                  Listen to our evergreen radio, do guided meditations, and
-                </p>
-                <p className="text-center lg:text-[1.12vw] text-[18px] font-medium ">
-                  record your memories to relax and unwind.
-                </p>
-              </div>
-
-              <div className="flex flex-row items-center gap-4 mt-3">
-                <div className="h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]"></div>
-                <div className="h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]"></div>
-                <div className="h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]"></div>
-                <div className="h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]"></div>
-                <div className="h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]"></div>
-                <div className="h-[0.78vw] w-[0.78vw] rounded-full bg-[#C31A7F]"></div>
-              </div>
-            </div>
-          </div> */}
             <Craousel/>
-
           <div className=" md:w-1/2 lg:w-[35%] px-5">
             <form
               onSubmit={registerUserAccount}

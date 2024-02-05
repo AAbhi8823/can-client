@@ -4,59 +4,54 @@ import { CiCircleInfo } from "react-icons/ci";
 import five from "../Photos/five.gif";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
-import {RxCross2 } from "react-icons/rx";
+import { RxCross2 } from "react-icons/rx";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import logo2 from "../Photos/logo2.png";
 import Craousel from "../Components/Craousel";
 import { Skeleton } from "@mui/material";
 import Cookies from "js-cookie";
+import NewImage from '../Photos/profile/blue.png'
 const ChooseTitle = () => {
-  // const [selectedCategory, setSelectedCategory] = useState('');
-  // const [selectedImage, setSelectedImage] = useState(null);
   const [viewCategory, setViewCategory] = useState([]);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  // const [opa, setOpa] = useState({ opacity: 0.5 })
-
   const [select, setSelect] = useState(null);
-
+  const navigate = useNavigate();
+  const token = Cookies.get("token");
   const SetChooseTitle = () => {
     const userValue = JSON.parse(localStorage.getItem("userValue")) || {};
-
-    // userValue.profile_category = select
     userValue.categoryId = select;
     userValue.profile_category = select;
     localStorage.setItem("userValue", JSON.stringify(userValue));
     navigate("/loginDetails");
-    // console.log(userValue);
   };
-
-  const [categoryId, setcategoryId] = useState("");
-  const token= Cookies.get("token");
-  const getprofileCategory = async () => {
-    setLoading(true);
-    try {
-      const { data } = await axios.get(
-        `${baseurl}/userprofile/get-user-profile-list`,{
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      console.log(data.data);
-      if (data.status == true) {
-        setViewCategory(data.data);
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getprofileCategory();
-  }, []);
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(
+          `${baseurl}/profilelist/get-profile-list`,
+          {
+            // headers: {
+            //   Authorization: `Bearer ${token}`,
+            // },
+          }
+        );
+
+        console.log("data::>>",data.resData.data.profiles)
+        console.log("data::>>>>>>>>>>",data.resData)
+        if (data.resData.status === true) {
+          setViewCategory(data.resData.data.profiles);
+          console.log("setViewCategory::>>>>>>>>>>",data.resData)
+        }
+
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   function selectedOption(value) {
     setSelect(value);
@@ -111,12 +106,6 @@ const ChooseTitle = () => {
             </div>
           </div>
         </DialogContent>
-        {/* <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions> */}
       </Dialog>
 
       <div className="grid flex justify-start center-1">
@@ -159,6 +148,7 @@ const ChooseTitle = () => {
 
                 <div className="w-full pt-2">
                   <div className="flex flex-col items-center justify-center gap-4">
+                    {console.log("number::>>>>>>>", viewCategory)}
                     {viewCategory.map((cata, i) => (
                       <div
                         key={cata._id}
@@ -180,7 +170,7 @@ const ChooseTitle = () => {
                         ) : (
                           <>
                             <img
-                              src={cata.image}
+                              src={NewImage}
                               alt="not found"
                               className={`w-[90%] relative`}
                             />
@@ -196,11 +186,11 @@ const ChooseTitle = () => {
                               }
                             >
                               <h3 className="  lg:text-[20px] text-[16px]">
-                                {cata.category_Name}
+                                {cata.role}
                               </h3>
                               <div className="">
                                 <p className="lg:text-[14px] text-[12px]">
-                                  {cata.descritption}
+                                  {cata.profile_description}
                                 </p>
                               </div>
                             </div>
@@ -208,79 +198,6 @@ const ChooseTitle = () => {
                         )}
                       </div>
                     ))}
-
-                    {/* <div className=''>
-                    <img src={Roles_Fighter} alt="not found" className={`w-[90%] relative`} />
-                    <div className='' >
-                      hello world
-                    </div>
-                  </div> */}
-
-                    {/* <div
-                    className={`flex justify-center cursor-pointer ${select !== "" && select !== "Caregiver"
-                      ? "opacity-50"
-                      : ""
-                      }`}
-                    onClick={() => selectedOption("Caregiver")}
-                  >
-                    <img
-                      src={Roles_Caregiver}
-                      alt="not found"
-                      className={`w-[90%] relative `}
-                    />
-                    <div className="absolute lg:top-[54%] top-[46%] right-14  lg:left-60 text-white ">
-                      <h3 className=" lg:text-[20px] text-[16px]">
-                        Caregiver
-                      </h3>
-                      <div className=" ">
-                        <p className="  lg:text-[14px] text-[12px]">
-                          I will help fighter
-                        </p>
-                        <p className=" lg:text-[14px] text-[12px] ">
-                          defeat cancer.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className={`flex justify-center cursor-pointer ${select !== "" && select !== "Veteran" ? "opacity-50" : ""
-                      }`}
-                    onClick={() => selectedOption("Veteran")}
-                  >
-                    <img
-                      src={Roles_Veteran}
-                      alt="not found"
-                      className={`w-[90%] relative `}
-                    />
-                    <div className="absolute lg:top-[73%] top-[63%] right-14  lg:left-60 text-white ">
-                      <h3 className=" lg:text-[20px] text-[16px]">
-                        Veteran
-                      </h3>
-                      <div className="">
-                        <p className="  lg:text-[14px] text-[12px]">
-                          I have defeated
-                        </p>
-                        <p className="  lg:text-[14px] text-[12px] ">
-                          cancer.
-                        </p>
-                      </div>
-                    </div>
-                  </div> 
-
-                  {/* {select ? (
-                    <div to="/logindetails" className="">
-                      <button className="bg-[#C31A7F] w-[50%] text-center p-3 rounded-lg text-white">
-                        Continue
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="w-[50%]">
-                      <button className="   bg-[#C31A7F] w-[50%] text-center p-3 rounded-lg text-white">
-                        Continue
-                      </button>
-                    </div>
-                  )} */}
                     <div>
                       {select ? (
                         <button

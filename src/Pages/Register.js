@@ -19,7 +19,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const [gender, setGender] = useState("DEFAULT");
   const navigate = useNavigate();
-  const [isOtpSending, setIsOtpSending] = useState();
+  const [isOtpSending, setIsOtpSending] = useState(false);
   const selectRef = useRef(null);
   const [Username, setUsername] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -27,26 +27,23 @@ const Register = () => {
 
   const handleRegistration = async () => {
     setIsOtpSending(true);
-
+  
     const userData = {
-      username: Username,
-      email_phone: email,
+      full_name: Username,
+      phone_number: email,
       gender: gender,
-      date_of_birth: startDate,
+      date_of_birth: startDate.toString(), // Ensure correct date format
     };
-
+  
     localStorage.setItem("userValue", JSON.stringify({ ...userData }));
-
+  
     try {
-      const response = await axios.post(`${baseurl}/api/otpsend`, {
-        email_phone: email,
-        type: "sinup",
-      });
-
-      sessionStorage.setItem("email_phone", JSON.stringify({ email_phone: email }));
+      const response = await axios.post(`${baseurl}/user/user-register`, userData);
+  
+      sessionStorage.setItem("email", JSON.stringify({ email: email }));
       sessionStorage.setItem("user_otp", JSON.stringify({ user_otp: response.data.otp }));
-      sessionStorage.setItem("username", userData.username);
-
+      sessionStorage.setItem("full_name", userData.full_name);
+  
       if (response.data.status === true) {
         navigate("/loginotp");
       } else {
@@ -55,10 +52,12 @@ const Register = () => {
       }
     } catch (error) {
       console.error(error);
+      setError("An error occurred. Please try again later.");
     } finally {
       setIsOtpSending(false);
     }
   };
+  
 
   useEffect(() => {
     $(selectRef.current).select2({

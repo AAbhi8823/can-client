@@ -20,45 +20,40 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Home from "../Pages/Home";
 import { useNavigate } from 'react-router-dom';
+import { BiLabel } from "react-icons/bi";
 
 export default function SelectLabels() {
   const theme = useTheme();
   const navigate = useNavigate()
   const displayButton = useMediaQuery(theme.breakpoints.up("420"));
-  
-
   const [age, setAge] = useState(""); 
   const [filter, setFilter] = useState()
-
-  
-
   const [homePost, setMostLikedPost] = useState()
-  const most_liked = async(filter)=>{
-    const token = Cookies.get("token")
-    try {
-      const mostLikedPost = await axios.put(
-        `${baseurl}/api/postFilter?token=${token}`,
-        {
-          filter: filter,
-          limit: "",
-        }
-      );
-      if (mostLikedPost) {
-        setMostLikedPost(mostLikedPost.data.data)
-        console.log(filter,mostLikedPost.data.data)
-      } else {
-        console.log("error")
-      }
+  // const most_liked = async(filter)=>{
+  //   const token = Cookies.get("token")
+  //   try {
+  //     const mostLikedPost = await axios.put(
+  //       `${baseurl}/api/postFilter?token=${token}`,
+  //       {
+  //         filter: filter,
+  //         limit: "",
+  //       }
+  //     );
+  //     if (mostLikedPost) {
+  //       setMostLikedPost(mostLikedPost.data.data)
+  //       console.log(filter,mostLikedPost.data.data)
+  //     } else {
+  //       console.log("error")
+  //     }
       
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-    most_liked(event.target.value);
-  };
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+  // const handleChange = (event) => {
+  //   setAge(event.target.value);
+  //   most_liked(event.target.value);
+  // };
 
   return (
     <div className="flex justify-between">
@@ -77,7 +72,7 @@ export default function SelectLabels() {
             display: displayButton ? "block" : "none",
           }}
           value={age}
-          onChange={handleChange}
+          // onChange={handleChange}
           displayempty="true"
           inputprops={{ "aria-label": "Without label" }}
           className=" rounded-20 text-center "
@@ -90,7 +85,8 @@ export default function SelectLabels() {
             minWidth: 120,
             borderRadius: "20px",
             height: "42px",
-            background: "#C31A7F",
+            backgroundColor: "white",
+            // background: "#C31A7F",
             border: "2px solid #C31A7F", // Updated border color
             "&:hover": {
               // Remove hover effect
@@ -99,7 +95,7 @@ export default function SelectLabels() {
             },
           }}
           value={age}
-          onChange={handleChange}
+          // onChange={handleChange}
           displayempty="true"
           inputprops={{ "aria-label": "Without label" }}
           className=" rounded-20 text-center  "
@@ -122,7 +118,7 @@ export default function SelectLabels() {
             },
           }}
           value={age || "new"}
-          onChange={handleChange}
+          // onChange={handleChange}
           displayempty="true"
           inputprops={{ "aria-label": "Without label" }}
           className="rounded-20 text-center"

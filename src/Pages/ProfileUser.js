@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState,useMemo } from 'react'
 import HomeNav from '../Components/HomeNav'
 import VerticalAppointment from '../Components/VerticalAppointment'
 import VerticalMedicine from '../Components/VerticalMedicine'
 import account from '../Photos/account.jpg'
+import backprofile from '../Photos/profile/blue.png'
 import climberEverest from '../Photos/climberEverest.webp'
 import premium from '../Photos/premium.png'
 import { BsThreeDots } from 'react-icons/bs'
@@ -100,36 +101,47 @@ import axios from 'axios'
 
 const ProfileUser = () => {
   const [userData, setUserData] = useState();
-
+  const [value, setValue] = React.useState(0);
+  const [vertical, setVertical] = useState("Upcoming");
+  const navigate=useNavigate()
+  console.log('navigator>>>>>:::',navigator.geolocation)
   const LandingData = async () => {
-    const token = Cookies.get("token");
-    const homeUser = localStorage.getItem("active_user");
     try {
-      const userData = await axios.post(
-        `${baseurl}/api/singleuser?token=${token}`,
-        {
-          id: `${homeUser}`,
-        }
-      );
-      setUserData(userData.data.data);
-      console.log("profileuse", userData.data.data);
+      const token = Cookies.get("token");
+      const homeUser = localStorage.getItem("active_user");
+      const response = await axios.post(`${baseurl}/v1/userprofile/get-user-profile-list`, {
+        headers: {
+          // Headers
+          Authorization: `Bearer ${token}`, 
+
+        },
+      });
+      setUserData(response.data.data);
+      console.log('response.data',response.data)
     } catch (error) {
       console.log(error);
     }
   };
 
-  const date = new Date(userData?.createdAt);
-  const options = { month: "long", day: "numeric" };
-  const formattedDate = date.toLocaleDateString("en-US", options);
-
-  console.log(formattedDate); 
-
   useEffect(() => {
     LandingData();
   }, []);
 
-  const [value, setValue] = React.useState(0);
-  const [vertical, setVertical] = useState("Upcoming");
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (!token) {
+      navigate("/loginform");
+    }
+  }, []);
+
+  const formattedDate = useMemo(() => {
+    if (userData && userData.createdAt) {
+      const date = new Date(userData.createdAt);
+      const options = { month: "long", day: "numeric" };
+      return date.toLocaleDateString("en-US", options);
+    }
+    return "";
+  }, [userData]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -138,15 +150,6 @@ const ProfileUser = () => {
   const toggleVertical = (item) => {
     setVertical(item);
   };
-
-  const navigate = useNavigate();
-  useEffect(() => {
-    const token = Cookies.get("token");
-
-    if (!token) {
-      navigate("/loginform");
-    }
-  }, []);
 
   return (
     <Page
@@ -158,7 +161,7 @@ const ProfileUser = () => {
                 <div className="bg-white w-[100%]  rounded-[40px] shadow-xl  ">
                   <div className="w-full  overflow-hidden">
                     <img
-                      src={userData?.profile_category?.image}
+                      src={backprofile}
                       alt="img.roles.fighter"
                       className="w-full h-full"
                     />
@@ -173,11 +176,11 @@ const ProfileUser = () => {
                     <div>
                       <Avatar
                         className="w-[10vw] p-1 rounded-full"
-                        src={userData?.profile_photo}
+                        src={UserProfile}
                         sx={{
                           width: 120,
                           height: 120,
-                          marginTop: -10,
+                          marginTop:-10,
                           marginLeft: 5,
                         }}
                       />
@@ -200,7 +203,7 @@ const ProfileUser = () => {
                         </h2>
                         <div className="flex py-2 bg-[#CC4093] rounded-full ">
                           <EditIcon />
-                          <h4 className="text-[1vw] text-12">Edit Profile</h4>
+                          <h4 className="text-[.8vw] text-12">Profile</h4>
                         </div>
                       </div>
                     </div>
@@ -251,7 +254,7 @@ const ProfileUser = () => {
                       >
                         <Avatar
                           alt="Cindy Baker"
-                          src={userData?.profile_photo}
+                          src={UserProfile}
                         />
                         <h1 className="font-semibold text-lg ">
                           {userData?.username}
@@ -381,6 +384,7 @@ const ProfileUser = () => {
               </div>
             </div>
           </div>
+          
         </>
       }
     />
