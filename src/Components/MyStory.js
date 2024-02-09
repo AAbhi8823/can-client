@@ -259,7 +259,7 @@ function MyStory({ value }) {
           ...prevLikedPosts,
           [likeID]: true,
         }));
-        HomePost();
+        // HomePost();
       } else {
         console.log("api error");
       }
@@ -406,34 +406,46 @@ function MyStory({ value }) {
   const [Loading, setLoading] = useState(true);
   const [filter, setfilter] = useState("most_likes");
 
-  const [homePost, sethomePost] = useState();
+  const [homePost, sethomePost] = useState(
+    [ { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } }]
+  );
 
   const userid = localStorage.getItem("active_user");
   const [isPostLoading, setPostLoading] = useState(true);
-  const HomePost = async () => {
-    try {
-      const HomePosttoken = Cookie.get("token");
-      const homePost = await axios.post(
-        `${baseurl}/api/getsingleuserdata?token=${HomePosttoken}`,
-        {
-          key: "mypost",
-          userid: userid,
-        }
-      );
-      sethomePost(homePost.data.data);
-      setPostLoading(false);
-    } catch (error) {
-      console.log(error);
-      setPostLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const HomePost = async () => {
+  //   try {
+  //     const HomePosttoken = Cookie.get("token");
+  //     const homePost = await axios.post(
+  //       `${baseurl}/api/getsingleuserdata?token=${HomePosttoken}`,
+  //       {
+  //         key: "mypost",
+  //         userid: userid,
+  //       }
+  //     );
+  //     sethomePost(homePost.data.data);
+  //     setPostLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setPostLoading(false);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // const postId = homePost._id;
 
   useEffect(() => {
-    HomePost();
+    // HomePost();
   }, []);
 
   useEffect(() => {}, []);

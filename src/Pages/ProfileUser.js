@@ -1,123 +1,130 @@
-import React, { useEffect, useRef, useState,useMemo } from 'react'
-import HomeNav from '../Components/HomeNav'
-import VerticalAppointment from '../Components/VerticalAppointment'
-import VerticalMedicine from '../Components/VerticalMedicine'
-import account from '../Photos/account.jpg'
-import backprofile from '../Photos/profile/blue.png'
-import climberEverest from '../Photos/climberEverest.webp'
-import premium from '../Photos/premium.png'
-import { BsThreeDots } from 'react-icons/bs'
-import { AiOutlineHeart } from 'react-icons/ai'
-import { AiFillHeart } from 'react-icons/ai'
-import { FaRegComment } from 'react-icons/fa'
-import { SlPaperPlane } from 'react-icons/sl'
-import { BsBookmarkDash } from 'react-icons/bs'
-import { RiArrowDropDownLine } from 'react-icons/ri'
-import SingleLineCalendar from '../Components/SingleLineCalender'
-import VerticalSLC from '../Components/VericalSLC'
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import HomeNav from "../Components/HomeNav";
+import VerticalAppointment from "../Components/VerticalAppointment";
+import VerticalMedicine from "../Components/VerticalMedicine";
+import account from "../Photos/account.jpg";
+import backprofile from "../Photos/profile/red.png";
+import climberEverest from "../Photos/climberEverest.webp";
+import premium from "../Photos/premium.png";
+import { BsThreeDots } from "react-icons/bs";
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
+import { FaRegComment } from "react-icons/fa";
+import { SlPaperPlane } from "react-icons/sl";
+import { BsBookmarkDash } from "react-icons/bs";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import SingleLineCalendar from "../Components/SingleLineCalender";
+import VerticalSLC from "../Components/VericalSLC";
 
-import FloatingChat from '../Components/FloatingChat'
+import FloatingChat from "../Components/FloatingChat";
 import Page from "../Layouts/Pages";
 
-import { RxCross2 } from 'react-icons/rx'
-import gallery from '../Photos/gallery.png'
-import gificon from '../Photos/gifIcon.png'
-import location from '../Photos/location.png'
-import smily from '../Photos/smily.png'
-import { TfiGallery } from 'react-icons/tfi'
-import { HiOutlineGif } from 'react-icons/hi2'
-import { HiOutlineLocationMarker } from 'react-icons/hi'
-import { GrEmoji } from 'react-icons/gr'
-import { IoMdClose } from 'react-icons/io'
-import Send from '../Photos/Send.png'
-import commentIcon from '../Photos/commentIcon.png'
-import save from '../Photos/save.png'
-import { MdPanoramaVerticalSelect } from 'react-icons/md'
-import { CiSearch } from 'react-icons/ci'
-import { BsCircle } from 'react-icons/bs'
-import { AiFillCheckCircle } from 'react-icons/ai'
-import CreatePost from '../Components/CreatePost'
-import { BsLink45Deg } from 'react-icons/bs'
-import { CiFaceSmile } from 'react-icons/ci'
+import { RxCross2 } from "react-icons/rx";
+import gallery from "../Photos/gallery.png";
+import gificon from "../Photos/gifIcon.png";
+import location from "../Photos/location.png";
+import smily from "../Photos/smily.png";
+import { TfiGallery } from "react-icons/tfi";
+import { HiOutlineGif } from "react-icons/hi2";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { GrEmoji } from "react-icons/gr";
+import { IoMdClose } from "react-icons/io";
+import Send from "../Photos/Send.png";
+import commentIcon from "../Photos/commentIcon.png";
+import save from "../Photos/save.png";
+import { MdPanoramaVerticalSelect } from "react-icons/md";
+import { CiSearch } from "react-icons/ci";
+import { BsCircle } from "react-icons/bs";
+import { AiFillCheckCircle } from "react-icons/ai";
+import CreatePost from "../Components/CreatePost";
+import { BsLink45Deg } from "react-icons/bs";
+import { CiFaceSmile } from "react-icons/ci";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import { HiOutlineChevronRight } from 'react-icons/hi'
-import { BiCheckCircle } from 'react-icons/bi'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { GrLocation } from 'react-icons/gr'
-import { BiArrowBack } from 'react-icons/bi'
-import blockuser from '../Photos/blockuser.png'
-import Roles_fighter_banner from '../Photos/Roles_Fighter_banner.png'
-import { AiOutlineCamera } from 'react-icons/ai'
-import { MdOutlineModeEdit } from 'react-icons/md'
-import Avatar from '@mui/material/Avatar';
-import lock from '../Photos/lock.png'
-import Cookies from 'js-cookie'
-import Roles_Fighter from '../Photos/Roles_Fighter.png'
-import account2 from '../Photos/account2.jpg'
-import UserProfile from '../Photos/UserProfile.png'
+import { HiOutlineChevronRight } from "react-icons/hi";
+import { BiCheckCircle } from "react-icons/bi";
+import { NavLink, useNavigate } from "react-router-dom";
+import { GrLocation } from "react-icons/gr";
+import { BiArrowBack } from "react-icons/bi";
+import blockuser from "../Photos/blockuser.png";
+import Roles_fighter_banner from "../Photos/Roles_Fighter_banner.png";
+import { AiOutlineCamera } from "react-icons/ai";
+import { MdOutlineModeEdit } from "react-icons/md";
+import Avatar from "@mui/material/Avatar";
+import lock from "../Photos/lock.png";
+import Cookies from "js-cookie";
+import Roles_Fighter from "../Photos/Roles_Fighter.png";
+import account2 from "../Photos/account2.jpg";
+import UserProfile from "../Photos/UserProfile.png";
 
-import SlideBox from '../Components/SlideBox'
-import TabPanel from '../Components/TabPanel'
-import MyStory from '../Components/MyStory'
+import SlideBox from "../Components/SlideBox";
+import TabPanel from "../Components/TabPanel";
+import MyStory from "../Components/MyStory";
 
-import Chart from "react-apexcharts"
+import Chart from "react-apexcharts";
 import { FiSearch } from "react-icons/fi";
-import { BsTelephone, BsCheck2All, BsThreeDotsVertical, BsChat } from "react-icons/bs";
+import {
+  BsTelephone,
+  BsCheck2All,
+  BsThreeDotsVertical,
+  BsChat,
+} from "react-icons/bs";
 import { AiOutlineEye } from "react-icons/ai";
 import { ImAttachment } from "react-icons/im";
 import { AiOutlineSend } from "react-icons/ai";
 import { GrMicrophone } from "react-icons/gr";
-import crossIcon from '../Photos/crossIcon.svg'
+import crossIcon from "../Photos/crossIcon.svg";
 import { AiOutlineVideoCamera } from "react-icons/ai";
-import downloadIcon from '../Photos/downloadIcon.svg';
-import leftarrowIcon from '../Photos/leftarrowIcon.svg'
-import rightarrowIcon from '../Photos/rightarrowIcon.svg'
-import removIcon from '../Photos/removeIcon.svg'
-import climbeverst from '../Photos/climberEverest.webp'
-import c3 from '../Photos/c3.png'
-import c4 from '../Photos/c4.png'
-import flight from '../Photos/MoreIcons/flight.png'
-import share from '../Photos/MoreIcons/share.png'
-import { MdOutlineModeEditOutline } from 'react-icons/md'
-import { BsDownload } from 'react-icons/bs'
-import Icon from '../Photos/Icon.png'
-import Healthrecfolder from '../Photos/Healthrecfolder.png'
-import { CgAdd } from 'react-icons/cg'
-import { BsFileEarmarkPdf } from 'react-icons/bs'
-import { AiOutlineShareAlt } from 'react-icons/ai'
-import { BsTrash3 } from 'react-icons/bs'
-import { BsPencil } from 'react-icons/bs'
-import { RxCross1 } from 'react-icons/rx'
-import { MdOutlineCloudUpload } from 'react-icons/md'
-import { IoCloseCircleSharp } from 'react-icons/io5'
-import { TbClipboardList } from 'react-icons/tb'
-import MeetingProfile  from '../Components/MeetingProfile';
-import Saved from '../Components/Saved'
-import EditIcon from '@mui/icons-material/Edit';
-import HealthProfile from '../Components/HealthProfile'
+import downloadIcon from "../Photos/downloadIcon.svg";
+import leftarrowIcon from "../Photos/leftarrowIcon.svg";
+import rightarrowIcon from "../Photos/rightarrowIcon.svg";
+import removIcon from "../Photos/removeIcon.svg";
+import climbeverst from "../Photos/climberEverest.webp";
+import c3 from "../Photos/c3.png";
+import c4 from "../Photos/c4.png";
+import flight from "../Photos/MoreIcons/flight.png";
+import share from "../Photos/MoreIcons/share.png";
+import { MdOutlineModeEditOutline } from "react-icons/md";
+import { BsDownload } from "react-icons/bs";
+import Icon from "../Photos/Icon.png";
+import Healthrecfolder from "../Photos/Healthrecfolder.png";
+import { CgAdd } from "react-icons/cg";
+import { BsFileEarmarkPdf } from "react-icons/bs";
+import { AiOutlineShareAlt } from "react-icons/ai";
+import { BsTrash3 } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
+import { RxCross1 } from "react-icons/rx";
+import { MdOutlineCloudUpload } from "react-icons/md";
+import { IoCloseCircleSharp } from "react-icons/io5";
+import { TbClipboardList } from "react-icons/tb";
+import MeetingProfile from "../Components/MeetingProfile";
+import Saved from "../Components/Saved";
+import { MdOutlineEdit } from "react-icons/md";
+import HealthProfile from "../Components/HealthProfile";
 import { baseurl } from "../Api/baseUrl";
-import axios from 'axios'
+import axios from "axios";
 
 const ProfileUser = () => {
   const [userData, setUserData] = useState();
   const [value, setValue] = React.useState(0);
   const [vertical, setVertical] = useState("Upcoming");
-  const navigate=useNavigate()
-  console.log('navigator>>>>>:::',navigator.geolocation)
+  const navigate = useNavigate();
+  console.log("navigator>>>>>:::", navigator.geolocation);
   const LandingData = async () => {
     try {
       const token = Cookies.get("token");
       const homeUser = localStorage.getItem("active_user");
-      const response = await axios.post(`${baseurl}/v1/userprofile/get-user-profile-list`, {
-        headers: {
-          // Headers
-          Authorization: `Bearer ${token}`, 
-
-        },
-      });
+      const response = await axios.post(
+        `${baseurl}/v1/userprofile/get-user-profile-list`,
+        {
+          headers: {
+            // Headers
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setUserData(response.data.data);
-      console.log('response.data',response.data)
+      console.log("response.data", response.data);
     } catch (error) {
       console.log(error);
     }
@@ -158,18 +165,33 @@ const ProfileUser = () => {
           <div className="w-full md:flex sm:block lg:px-10">
             <div className="right-div px-5 lg:w-[60%] w-[100%]">
               <div className="flex flex-col  mt-10 ">
-                <div className="bg-white w-[100%]  rounded-[40px] shadow-xl  ">
+                <div
+                  className="bg-white w-[100%]  rounded-[40px] shadow-xl  "
+                  style={{ position: "relative" }}
+                >
                   <div className="w-full  overflow-hidden">
                     <img
                       src={backprofile}
                       alt="img.roles.fighter"
                       className="w-full h-full"
                     />
+
                     <div className=" top-[15%] right-[18%] text-white">
                       <h1 className="text-3xl font-semibold py-2"></h1>
                       <p className="text-xl"></p>
                     </div>
                   </div>
+                  <p
+                    style={{
+                      position: "absolute",
+                      top: "7vh",
+                      right: "2vw",
+                      color: "white",
+                      fontSize: "2rem",
+                    }}
+                  >
+                    Fighte <br />I will defeat cancer.
+                  </p>
 
                   {/* <div className='rounded-full overflow-hidden absolute top-[40%] left-[10%] w-[20%] h-[%] bg-white flex justify-center items-center '> */}
                   <div className="rounded-full lg:flex bg-white">
@@ -178,9 +200,9 @@ const ProfileUser = () => {
                         className="w-[10vw] p-1 rounded-full"
                         src={UserProfile}
                         sx={{
-                          width: 120,
-                          height: 120,
-                          marginTop:-10,
+                          width: 150,
+                          height: 150,
+                          marginTop: -10,
                           marginLeft: 5,
                         }}
                       />
@@ -188,22 +210,46 @@ const ProfileUser = () => {
                     <div className=" w-full h-max flex justify-between  ml-5 mt-1  ">
                       <div className=" mt-1">
                         <h1 className=" text-[1.4vw] text-12  font-semibold">
-                          {userData?.username}
+                          {/* {userData?.username} */}
+                          User Name
                         </h1>
                         <h2 className="  text-[#C31A7F] text-12 text-[1.1vw]">
-                          {userData?.profile_category?.category_Name}
+                          {/* {userData?.profile_category?.category_Name} */}
+                          category Name
                         </h2>
-                        <h2 className="text-[1.2vw] text-12">
-                          Joined on {formattedDate}
+                        <h2
+                          className="text-[1.2vw] text-12"
+                          style={{
+                            color: "#444444",
+                            size: "14px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          {/* Joined on {formattedDate} */}
+                          Joined on 2023
                         </h2>
                       </div>
                       <div className="mt-1 px-10">
                         <h2 className="text-[1vw] text-12">
-                          CANID:{userData?.can_id}
+                          {/* CANID:{userData?.can_id} */}
+                          CANID:Shri2121
                         </h2>
-                        <div className="flex py-2 bg-[#CC4093] rounded-full ">
-                          <EditIcon />
-                          <h4 className="text-[.8vw] text-12">Profile</h4>
+                        <div
+                          className="flex py-2 bg-[#f5d7e8ff] rounded-full "
+                          style={{
+                            padding: "5px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <MdOutlineEdit />
+                          <h4
+                            className="text-[.8vw] text-12"
+                            style={{ marginLeft: "5px" }}
+                          >
+                            Edit Profile
+                          </h4>
                         </div>
                       </div>
                     </div>
@@ -211,6 +257,7 @@ const ProfileUser = () => {
                       <hr />
                     </div>
                   </div>
+                  <hr />
                   <div className="flex float-right mr-10  ">
                     {/* SlideBox file here */}
                     <SlideBox value={value} handleChange={handleChange} />
@@ -252,15 +299,14 @@ const ProfileUser = () => {
                           boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.05)",
                         }}
                       >
-                        <Avatar
-                          alt="Cindy Baker"
-                          src={UserProfile}
-                        />
+                        <Avatar alt="Cindy Baker" src={UserProfile} />
                         <h1 className="font-semibold text-lg ">
-                          {userData?.username}
+                          {/* {userData?.username} */}
+                          username
                         </h1>
                         <p className="text-sm">
-                          {userData?.profile_category?.category_Name}
+                          {/* {userData?.profile_category?.category_Name} */}
+                          Category Name
                         </p>
                         <img src={lock} alt="none" className="h-5 w-5 mt-1" />
                         <div className="absolute -top-5 rounded-full overflow-hidden bg-white w-[15%] h-[] ">
@@ -268,7 +314,7 @@ const ProfileUser = () => {
                         </div>
                       </div>
 
-                      {/* <div
+                      <div
                           className="w-[46%] h-[75%] pb-8  bg-[#FEE5EA] rounded-3xl flex flex-col justify-center items-center cursor-pointer "
                           style={{
                             boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.05)",
@@ -286,7 +332,7 @@ const ProfileUser = () => {
                               />
                             </div>
                           </div>
-                        </div> */}
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -384,28 +430,28 @@ const ProfileUser = () => {
               </div>
             </div>
           </div>
-          
         </>
       }
     />
   );
+};
+
+export default ProfileUser;
+
+{
+  /* Add more sections as needed */
+}
+// </div>
+{
+  /*-------------- MY story ---------------------- */
 }
 
-export default ProfileUser
+{
+  /*------------- CHAT------------------------- */
+}
 
-
-
-
-                                {/* Add more sections as needed */}
-                                // </div>
-                            {/*-------------- MY story ---------------------- */}
-
-
-
-                            {/*------------- CHAT------------------------- */}
-
-
-                            {/* <div className="  mt-10 flex items-center">
+{
+  /* <div className="  mt-10 flex items-center">
                                 
                                 <div className="  w-full  ">
                                 <div className="  bg-white  rounded-3xl  shadow-2xl">
@@ -964,16 +1010,18 @@ export default ProfileUser
                                     </div>
                                 </div>
                                 </div>
-                            )} */}
+                            )} */
+}
 
-                            {/*---------------- -------Health Record------------ */}
+{
+  /*---------------- -------Health Record------------ */
+}
 
+// </div>
+// </div>
 
-
-                        // </div>
-                        // </div>
-                        
-                        {/* <div className='left-div px-10' >
+{
+  /* <div className='left-div px-10' >
 
                             <div className=' bg-[#fff] w-[100%] mt-10 rounded-[30px] border-[1px] border-solid border-[#D9EAFF] ' style={{
                                 boxShadow: '0px 10px 30px 0px rgba(0, 0, 0, 0.05)'
@@ -1055,5 +1103,8 @@ export default ProfileUser
                                 </div>
 
                             </div>
-                        </div> */}
-                    {/* </div> */}
+                        </div> */
+}
+{
+  /* </div> */
+}

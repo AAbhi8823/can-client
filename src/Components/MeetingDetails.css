@@ -1,0 +1,27 @@
+.MeetingDetails-class{
+    height: 20vh;
+    width: 50vw;
+    background-color:#fff;
+    border-radius: 20px;
+    box-shadow: 4px 6px 15px rgb(0 0 0 / 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+
+}
+.MeetingDetails-class div{
+    height: 14vh;
+    border-right:1px solid rgba(170, 161, 161, 0.359);
+}
+.MeetingDetails > div:last-child {
+    border: none;
+}
+.time-and-date{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

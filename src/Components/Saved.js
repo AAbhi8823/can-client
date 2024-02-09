@@ -6,11 +6,20 @@ import { Cookie } from "@mui/icons-material";
 import { baseurl } from "../Api/baseUrl";
 import axios from "axios";
 import Cookies from "js-cookie";
-
-
+import DummyImage from '../Photos/account2.jpg'
 function Saved({ value }) {
 
-  const[savedPosts, setSavePosts] = useState()
+  const[savedPosts, setSavePosts] = useState([ { postid: { image:"https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/300" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } },
+    { postid: { image: "https://via.placeholder.com/400" } }])
   const userid = localStorage.getItem("active_user")
   const SavedPost = async () => {
     try {
@@ -32,7 +41,7 @@ function Saved({ value }) {
   };
 
   useEffect(() => {
-    SavedPost();
+    // SavedPost();
   }, []);
 
   return (
@@ -46,11 +55,12 @@ function Saved({ value }) {
           <div className=" gap-4 justify-center item-center py-3">
             <div className="flex flex-wrap space-between">
               {savedPosts &&
-                savedPosts.map((item) => (
+                savedPosts.map((item,index) => (
                   item.postid !== null ? (<img
                     src={item.postid.image}
-                    className="px-2 py-3 w-[100%] md:w-[47%]"
+                    className="px-2 py-3 w-[100%] md:w-[32%]"
                     alt=""
+                    key={index}
                   />) : "No saved Posts"
                 ))}
             </div>

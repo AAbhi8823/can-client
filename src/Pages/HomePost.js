@@ -45,10 +45,6 @@ import { NavLink } from 'react-router-dom'
 import { GrLocation } from 'react-icons/gr'
 import { BiArrowBack } from 'react-icons/bi'
 import blockuser from '../Photos/blockuser.png'
-import SplitButton from '../Components/Splitbutton'
-import SelectLabels from '../Components/SelectLabels'
-
-
 
 const HomePost = () => {
 
