@@ -100,7 +100,7 @@ export default function SelectLabels() {
           inputprops={{ "aria-label": "Without label" }}
           className=" rounded-20 text-center  "
         >
-          <p className="font-medium text-white">All</p>
+          <p className="font-medium text-black">All</p>
         </Button>
       </div>
       <FormControl>

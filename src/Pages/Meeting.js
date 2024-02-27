@@ -149,9 +149,9 @@ const Meeting = () => {
                     </h2>
                   </div>
 
-                  <div className="flex items-center w-[20%] ">Active accounts</div>
+                  <div className="flex items-center justify-center w-[20%] ">Active accounts</div>
 
-                  <div className="flex items-center w-[20%] ">
+                  <div className="flex items-center justify-center w-[20%] ">
                     <h2
                       className="bg-[#C31A7F] text-white px-8 py-1 rounded-xl"
                       onClick={joinMeeting}
@@ -253,7 +253,7 @@ const Meeting = () => {
                   <div className="flex flex-col items-center w-[10%]">
                     <p className="text-xs">23 Dec</p>
                     <p className="text-sm">Start's On</p>
-                    <p className="font-semibold text-[#CF4899]">
+                    <p className="font-semibold text-[#CF4899] text-sm">
                       11:00 - 12:15PM
                     </p>
                   </div>
@@ -264,7 +264,7 @@ const Meeting = () => {
                     </div>
                     <div className="mx-2  ">
                       <h2 className="font-semibold">Sierra Ferguson</h2>
-                      <p className="text-xs">Cancer Fighter</p>
+                      <p className="text-xs mb-1">Cancer Fighter</p>
                       <div className="flex justify-between text-xs text-[#CF4899] font-semibold">
                         <h3>Team CAN</h3>
                         <h3>Virtual</h3>
@@ -298,7 +298,7 @@ const Meeting = () => {
                 <div className="bg-white shadow-xl mt-8 flex justify-between px-10 rounded-2xl py-2">
                   <div className="flex flex-col items-center justify-center w-[10%]">
                     <p className="text-xs">23 Dec</p>
-                    <p className="font-semibold text-[#CF4899]">
+                    <p className="font-semibold text-[#CF4899] text-[14px] mt-1">
                       11:00 - 12:15PM
                     </p>
                   </div>
@@ -309,7 +309,7 @@ const Meeting = () => {
                     </div>
                     <div className="mx-2  ">
                       <h2 className="font-semibold">Sierra Ferguson</h2>
-                      <p className="text-xs">Cancer Fighter</p>
+                      <p className="text-xs mb-1">Cancer Fighter</p>
                       <div className="flex justify-between text-xs text-[#CF4899] font-semibold">
                         <h3>Team CAN</h3>
                         <h3>Virtual</h3>

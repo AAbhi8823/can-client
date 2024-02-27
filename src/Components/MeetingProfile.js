@@ -50,7 +50,7 @@ function MeetingProfile({ value }) {
     <>
       <TabPanel value={value} index={1}>
         <div
-          className=" lg:p-7 p-4 mt-10 shrink-0 w-[100%]  bg-[#C31A7F]  bg-white rounded-[30px] border-[1px]"
+          className=" lg:p-0 p-4 mt-10 shrink-0 w-[100%]  bg-[#C31A7F]  bg-white rounded-[30px] border-[1px]"
           style={{
             // boxShadow: "0px 10px 60px 0px rgba(0, 0, 0, 0.10)",
             background: "none",
@@ -111,11 +111,11 @@ function MeetingProfile({ value }) {
             {/* History */}
             {selectedOption === "Saved" && (
               <div className="">
-                <div className="pl-[10%] pr-[6%] ">
+                <div >
                   <div className="bg-white shadow-xl mt-8 flex justify-between px-10 rounded-2xl py-2">
-                    <div className="flex flex-col items-center justify-center w-[10%]">
+                    <div className="flex flex-col items-center justify-center w-[12%]">
                       <p className="text-xs">23 Dec</p>
-                      <p className="font-semibold text-[#CF4899]">
+                      <p className="font-semibold text-[#CF4899] text-[14px]">
                         11:00 - 12:15PM
                       </p>
                     </div>
@@ -126,10 +126,10 @@ function MeetingProfile({ value }) {
                       </div>
                       <div className="mx-2  ">
                         <h2 className="font-semibold">Sierra Ferguson</h2>
-                        <p className="text-xs">Cancer Fighter</p>
+                        <p className="text-xs mb-1">Cancer Fighter</p>
                         <div className="flex justify-between text-xs text-[#CF4899] font-semibold">
-                          <h3>Team CAN</h3>
-                          <h3>Virtual</h3>
+                          <h3 class="text-sm/[13px]">Team CAN</h3>
+                          <h3 class="text-sm/[13px]">Virtual</h3>
                         </div>
                       </div>
                     </div>
