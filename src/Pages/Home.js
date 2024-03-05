@@ -38,7 +38,7 @@ import SelectLabels from "../Components/SelectLabels";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import Cookie from "js-cookie";
-import Tooltip from "@mui/material/Tooltip"; 
+import Tooltip from "@mui/material/Tooltip";
 import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
 const Home = () => {
@@ -211,7 +211,7 @@ const Home = () => {
       } else {
         console.log("api error or");
       }
-    } catch (error) {}
+    } catch (error) { }
     console.log(share_userid, singlePostId);
   };
 
@@ -327,7 +327,7 @@ const Home = () => {
   }
 
   //outclick from three dots
-  
+
   const handleClickOutsidethreeDots = (event) => {
     if (
       threeDotsOutClick.current &&
@@ -379,13 +379,10 @@ const Home = () => {
   };
 
   //vertical calender , appointments and Medicine
- 
 
   const toggleVertical = (item) => {
     setVertical(item);
   };
-
-  
 
   const takeValue = (e) => {
     // e.preventDefault()
@@ -415,25 +412,14 @@ const Home = () => {
   const HomePost = async () => {
     try {
       const HomePosttoken = Cookie.get("token");
-      const homePost = await axios.put(
-        `${baseurl}/api/postFilter?token=${HomePosttoken}`,
-        {
-          filter: varFilter || "new",
-          limit: "",
-        }
-      );
-      const likedPost = homePost.data.data.find((post) => {
-        return post.likes.some((like) => like.userId === activeUser);
+      const homePost = await axios.get(`${baseurl}/mystory/get-story-list`, {
+        headers: {
+          Authorization: `Bearer ${HomePosttoken}`, // Include the authorization header
+        },
       });
-      if (likedPost) {
-        console.log(likedPost);
-        // setAlreadyLiked(true)
-      } else {
-        console.log("kuch gadbad h");
-        // setAlreadyLiked(false);
-      }
-      sethomePost(homePost.data.data);
-      console.log(homePost.data.data);
+      console.log("homePost::>>>", homePost.data.resData.data);
+      sethomePost(homePost.data.resData.data);
+      console.log(homePost.data.resData.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -464,7 +450,7 @@ const Home = () => {
 
   const activeUser = localStorage.getItem("active_user");
 
-  const alreadyLike = () => {};
+  const alreadyLike = () => { };
 
   useEffect(() => {
     HomePost();
@@ -473,11 +459,10 @@ const Home = () => {
 
   // const postId = homePost._id;
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   const handleComInput = (e) => {
     setComVal(e.target.value);
   };
-
 
   const handleComment = async (homePostItems) => {
     setIsCommenting(true);
@@ -524,7 +509,6 @@ const Home = () => {
 
   // const [postId, setPostId] = useState()
 
- 
   const handlePost = async () => {
     setIsPosting(true);
     const token = Cookie.get("token");
@@ -605,7 +589,7 @@ const Home = () => {
       navigate("/loginform");
     }
   }, []);
- 
+
   const handleCheckboxChange = (event) => {
     const { checked, value } = event.target;
     setIsChecked(checked);
@@ -806,11 +790,10 @@ const Home = () => {
                         </div>
 
                         <div
-                          className={`${
-                            input
+                          className={`${input
                               ? "bg-[#C31A7F]  text-white p-1 py-2  px-8 rounded-xl  cursor-pointer"
                               : "bg-[#C31A7F] opacity-60 text-white p-1 py-2 px-8  rounded-xl"
-                          }`}
+                            }`}
                           onClick={handlePost}
                         >
                           {isPosting ? "Posting..." : "Post"}
@@ -1155,10 +1138,10 @@ const Home = () => {
                             </div>
 
                             <div className="pt-3 ">
-                              {homePostItems?.image ? (
-                                <div className=" rounded-3xl w-full overflow-hidden h-[40vh]">
+                              {homePostItems?.media_files ? (
+                                <div className="rounded-3xl w-full overflow-hidden h-[40vh]">
                                   <img
-                                    src={homePostItems?.image}
+                                    src={homePostItems.media_files}  // Use homePostItems.media_files instead of homePostItems?.media_files
                                     className="w-full h-full object-cover"
                                     alt="Not found"
                                   />
@@ -1167,6 +1150,7 @@ const Home = () => {
                                 ""
                               )}
                             </div>
+
 
                             <div className=" pt-7 flex justify-between">
                               <div className="flex  items-center gap-7">
@@ -1246,18 +1230,16 @@ const Home = () => {
                                   {showContent && (
                                     <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#98989806]  ">
                                       <div
-                                        className={` mt-[105px] lg:mt-2 h-[90vh] overflow-scroll lg:overflow-hidden scrollbar-hide lg:h-[70%]  bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden ${
-                                          commentModel.image
+                                        className={` mt-[105px] lg:mt-2 h-[90vh] overflow-scroll lg:overflow-hidden scrollbar-hide lg:h-[70%]  bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden ${commentModel.image
                                             ? "w-[95%]   lg:w-[70%]"
                                             : "w-[95%] lg:w-[27%]"
-                                        }`}
+                                          }`}
                                       >
                                         <div
-                                          className={`lg:w-[60%] ${
-                                            commentModel.image
+                                          className={`lg:w-[60%] ${commentModel.image
                                               ? "block"
                                               : "hidden"
-                                          }`}
+                                            }`}
                                         >
                                           <img
                                             src={commentModel.image}
@@ -1266,11 +1248,10 @@ const Home = () => {
                                           />
                                         </div>
                                         <div
-                                          className={`lg:w-[40%] h-[68%] lg:h-[100%] flex flex-col justify-between gap-4 p-4 relative ${
-                                            commentModel.image
+                                          className={`lg:w-[40%] h-[68%] lg:h-[100%] flex flex-col justify-between gap-4 p-4 relative ${commentModel.image
                                               ? ""
                                               : "lg:w-full"
-                                          }`}
+                                            }`}
                                         >
                                           <div className="h-[15%] ">
                                             <div className=" flex h-max items-center gap-2">
@@ -1305,8 +1286,8 @@ const Home = () => {
                                                     <p className="text-xs text-[#7E7E7E]">
                                                       {commentModel.createdAt
                                                         ? commentModel.createdAt.split(
-                                                            "T"
-                                                          )[0]
+                                                          "T"
+                                                        )[0]
                                                         : ""}
                                                     </p>
                                                   </div>
@@ -1395,8 +1376,8 @@ const Home = () => {
                                                                     size={16}
                                                                   />
                                                                 ) : isCommentLiked[
-                                                                    item._id
-                                                                  ] ? (
+                                                                  item._id
+                                                                ] ? (
                                                                   <AiFillHeart
                                                                     className="cursor-pointer"
                                                                     color="red"
@@ -1429,8 +1410,8 @@ const Home = () => {
                                                           <div className="text-xs text-[#7E7E7E]">
                                                             {item.updatedAt
                                                               ? item.updatedAt.split(
-                                                                  "T"
-                                                                )[0]
+                                                                "T"
+                                                              )[0]
                                                               : ""}
                                                           </div>
                                                         </div>

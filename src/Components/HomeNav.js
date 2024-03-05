@@ -651,7 +651,7 @@ const HomeNav = (props) => {
                           </div>
                         ) : (
                           <div>
-                            <NavLink to={"/loginform"}>
+                            <NavLink to={"/LoginForm"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                                 style={{}}
@@ -659,7 +659,7 @@ const HomeNav = (props) => {
                                 Profile
                               </div>
                             </NavLink>
-                            <NavLink to={"/loginform"}>
+                            <NavLink to={"/LoginForm"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                                 style={{}}
@@ -667,7 +667,7 @@ const HomeNav = (props) => {
                                 User Settings
                               </div>
                             </NavLink>
-                            <NavLink to={"/loginform"}>
+                            <NavLink to={"/LoginForm"}>
                               <div
                                 className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                                 style={{}}
@@ -776,7 +776,7 @@ const HomeNav = (props) => {
                         </div>
                       ) : (
                         <div>
-                          <NavLink to={"/loginform"}>
+                          <NavLink to={"/LoginForm"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                               style={{}}
@@ -784,7 +784,7 @@ const HomeNav = (props) => {
                               Profile
                             </div>
                           </NavLink>
-                          <NavLink to={"/loginform"}>
+                          <NavLink to={"/LoginForm"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                               style={{}}
@@ -792,7 +792,7 @@ const HomeNav = (props) => {
                               User Settings
                             </div>
                           </NavLink>
-                          <NavLink to={"/loginform"}>
+                          <NavLink to={"/LoginForm"}>
                             <div
                               className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                               style={{}}

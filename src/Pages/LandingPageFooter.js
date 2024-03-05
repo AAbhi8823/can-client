@@ -130,7 +130,7 @@ const LandingPageFooter = () => {
                   <ul>
                     <li className="mb-2">
                       <a
-                        href="/loginform"
+                        href="/LoginForm"
                         className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
                       >
                         My Feed{" "}
@@ -142,7 +142,7 @@ const LandingPageFooter = () => {
                     </li>
                     <li className="mb-2">
                       <a
-                        href="/loginform"
+                        href="/LoginForm"
                         className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
                       >
                         Appointments{" "}
@@ -154,7 +154,7 @@ const LandingPageFooter = () => {
                     </li>
                     <li className="mb-2">
                       <a
-                        href="/loginform"
+                        href="/LoginForm"
                         className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
                       >
                         Health Records{" "}

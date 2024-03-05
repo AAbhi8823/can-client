@@ -53,7 +53,7 @@ const Meeting = () => {
     const token = Cookies.get("token");
 
     if (!token) {
-      navigate("/loginform");
+      navigate("/LoginForm");
     }
   }, []);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
@@ -8,79 +8,57 @@ import LoginCraousel from "../Components/LoginCraousel";
 import elite1 from "../Photos/elite1.gif";
 import logo2 from "../Photos/logo2.png";
 import logoCAn from "../Photos/LogoCAn.png";
+
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [eye, setEye] = useState(false);
+
   const [eye1, setEye1] = useState(false);
-  const [Username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [firstpass1, setFirstpass1] = useState("");
   const [value, setValue] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [border, setBorder] = useState({
-    border: "2px solid #e5e7eb",
-  });
-  
-  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1YWExN2Y4NzQ4OWEwMjQyMzhmNmFmMCIsInBob25lX251bWJlciI6Ijk4NzE5NDgxNzQifSwiaWF0IjoxNzA1NjY1NTAwLCJleHAiOjE3MDU3NTE5MDB9.GFenr28zrbB9tyWt-IFHjTfJgkC54rFS6Hc3xtUP73w'
+  const [border, setBorder] = useState("2px solid #e5e7eb");
+
   const handleLogin = async () => {
     setLoading(true);
-  
+
     try {
-      const response = await axios.post(
-        `${baseurl}/user/user-login`,
-        {
-          phone_number: Username,
-          password: firstpass1,
-        },
-      
-      );
-      console.log('API Response:::>>>>',response);
-      
+      const response = await axios.post(`${baseurl}/user/user-login`, {
+        phone_number: username,
+        password: password,
+      });
 
       if (response.data.resData.status === true) {
         setLoading(false);
         Cookies.set('token', response.data.resData.data, { expires: 7 });
         navigate('/AddProfile');
-        // if (!value) {
-        //   window.addEventListener('beforeunload', () => {
-        //     Cookies.remove('token');
-        //   });
-        // }
       } else {
-        // Provide a user-friendly error message
         setError('Invalid email/phone or password.');
         setLoading(false);
-        setBorder({
-          border: '2px solid red',
-        });
+        setBorder('2px solid red');
       }
     } catch (error) {
       console.error('An error occurred:', error);
-      // Provide a user-friendly error message
       setError('An error occurred. Please try again.');
       setLoading(false);
     }
-  };
-  
-  const seePass = () => {
-    setEye(!eye);
   };
 
   const seePass1 = () => {
     setEye1(!eye1);
   };
 
-  const passwordChange1 = (e) => {
-    setFirstpass1(e.target.value);
+  const passwordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   const changeUsername = (e) => {
     setUsername(e.target.value);
     const enteredValue = e.target.value;
-    setEmail(enteredValue);
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const mobilePattern = /^\d{10}$/;
+
     if (!emailPattern.test(enteredValue) && !mobilePattern.test(enteredValue)) {
       setError("(Invalid Email or Mobile Number)");
     } else {
@@ -88,12 +66,10 @@ const LoginForm = () => {
     }
   };
 
-  const Tick = () => {
+  const handleCheckboxChange = () => {
     setValue(!value);
-    console.log(value);
   };
 
-  // Add cleanup for potential leaks
   return (
     <>
       <div className="grid flex justify-start center-1">
@@ -108,7 +84,7 @@ const LoginForm = () => {
         <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
           <LoginCraousel />
           <div className="md:w-1/2 lg:w-[35%] px-5">
-            <form className="bg-white shadow-md rounded  rounded-2xl  mb-4">
+            <form className="bg-white shadow-md rounded rounded-2xl  mb-4">
               <div>
                 <img src={elite1} className="w-[100%]" alt="none" />
               </div>
@@ -126,32 +102,31 @@ const LoginForm = () => {
               <div className="mt-6 px-2 flex flex-col gap-3">
                 <div>
                   <div
-                    style={border}
+                    style={{ border: border }}
                     className="lg:h-[8vh] h-12 mx-4 mt-3 lg:mx-8 lg:m-2   rounded-[20px] flex items-center justify-center gap-4"
                   >
                     <input
                       placeholder="Email/Phone"
                       className="border-none w-full bg-transparent  outline-none p-2 placeholder:font-thin placeholder:text-[18px]"
-                      value={Username}
+                      value={username}
                       onChange={changeUsername}
                       autoComplete="username"
                     />
                   </div>
                 </div>
-                <div className="px-10 text-red-500	">
+                <div className="px-10 text-red-500">
                   {error && <p>{error}</p>}
                 </div>
                 <div
-                  style={border}
+                  style={{ border: border }}
                   className="lg:h-[8vh] h-12 mx-4 mt-3 lg:mx-8 lg:m-2  rounded-[20px] flex items-center gap-4"
                 >
                   <input
-                    placeholder="password"
+                    placeholder="Password"
                     className="bg-transparent w-full border-0 outline-none placeholder:font-thin  placeholder:text-[18px] p-2"
                     type={eye1 ? "text" : "password"}
-                    onChange={passwordChange1}
-                    minLength={3}
-                    value={firstpass1}
+                    onChange={passwordChange}
+                    value={password}
                     autoComplete="current-password"
                   />
                   <div onClick={seePass1} className="cursor-pointer px-3">
@@ -161,13 +136,13 @@ const LoginForm = () => {
                 <div className="flex flex-row items-center justify-between lg:px-9 px-5">
                   <div className="flex flex-row items-center gap-2">
                     <input
-                      id="default-checkbox "
+                      id="default-checkbox"
                       type="checkbox"
-                      value={value}
-                      onChange={Tick}
-                      className="lg:w-[1vw] w-4 lg:h-[2vh] h-4   rounded-xl border-[#7E7E7E] cursor-pointer"
+                      checked={value}
+                      onChange={handleCheckboxChange}
+                      className="lg:w-[1vw] w-4 lg:h-[2vh] h-4 rounded-xl border-[#7E7E7E] cursor-pointer"
                     />
-                    <p className="text-[#7E7E7E]  lg:text-[1.33vw] text-[14px]  ">
+                    <p className="text-[#7E7E7E]  lg:text-[1.33vw] text-[14px]">
                       Remember me
                     </p>
                   </div>
@@ -185,7 +160,7 @@ const LoginForm = () => {
                   type="button"
                   onClick={handleLogin}
                   className={`bg-[#C31A7F] cursor-pointer lg:text-[1vw] text-[18px]  text-center p-3 rounded-lg text-white w-[40%] ${
-                    Username && firstpass1 ? "" : "opacity-50"
+                    username && password ? "" : "opacity-50"
                   }`}
                 >
                   {loading ? "Logging..." : "Continue"}

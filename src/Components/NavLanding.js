@@ -308,7 +308,7 @@ export default function Example(props) {
                   </div>
                 ) : (
                   <div>
-                    <NavLink to={"/loginform"}>
+                    <NavLink to={"/LoginForm"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
                         style={{}}
@@ -316,7 +316,7 @@ export default function Example(props) {
                         Profile
                       </div>
                     </NavLink>
-                    <NavLink to={"/loginform"}>
+                    <NavLink to={"/LoginForm"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                         style={{}}
@@ -324,7 +324,7 @@ export default function Example(props) {
                         User Settings
                       </div>
                     </NavLink>
-                    <NavLink to={"/loginform"}>
+                    <NavLink to={"/LoginForm"}>
                       <div
                         className="py-[10px] cursor-pointer hover:bg-[#A94360] hover:text-white"
                         style={{}}
