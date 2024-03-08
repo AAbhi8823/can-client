@@ -8,7 +8,6 @@ import logo2 from "../Photos/logo2.png";
 import arrow22 from "../Photos/arrow22.png";
 import Cookies from "js-cookie";
 import Craousel from "../Components/Craousel"
-
 const MultiPIN = () => {
   const [pin, setPin] = useState("");
   const [repin, setRepin] = useState("");
@@ -64,7 +63,7 @@ const MultiPIN = () => {
         formdata.append("profile_photo", profile);
       }
   
-      const endpoint = token ? `${baseurl}/api/add-another-account?token=${token}` : `${baseurl}/api/userAccountregister`;
+      const endpoint = `${baseurl}/userprofile/add-user-profile`;
       const { data } = await axios.post(endpoint, formdata);
   
       if (data.status === true) {

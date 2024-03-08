@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 export const baseurl = "https://32bv9twjew.ap-south-1.awsapprunner.com/api/v1";
-export const base_token = Cookies.get("token");
+// export const base_token = Cookies.get("token");
+export const base_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1ZTk1ZTYxZGVkMTJmNDBiNmU3MzYxNyIsIkNBTklEIjoiQ0FONDAyMyIsInBob25lX251bWJlciI6Ijk4NzE5NDgxNzQiLCJ1c2VyX3Byb2ZpbGUiOiJGaWdodGVyIn0sImlhdCI6MTcwOTg5MjMxMiwiZXhwIjoxNzA5OTc4NzEyfQ.GMMAMNACdTRaCx6Ci3V9_kMbsvu7UTFeFIfNkZC7uOM'
 console.log("ankurfjkwrbfjrgyfergyfreuy",base_token);
 const apis = {
 

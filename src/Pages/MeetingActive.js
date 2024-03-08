@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import video from "../Photos/MoreIcons/video.png";
 import videocall1 from "../Photos/videocall1.png";
 import emotions from "../Photos/MoreIcons/emotions.png";
@@ -14,7 +14,7 @@ import pin from "../Photos/MoreIcons/pin.png";
 
 const MeetingActive = () => {
   const [micOn, setMicOn] = useState(true);
-  const [cameraActive, setCameraActive] = useState(false)
+  const [cameraActive, setCameraActive] = useState(false);
   const videoRef = useRef(null);
   const handleMic = () => {
     setMicOn(!micOn);
@@ -79,7 +79,6 @@ const MeetingActive = () => {
         });
     }
   };
-  
 
   return (
     <>
@@ -99,8 +98,6 @@ const MeetingActive = () => {
               Cancer Fighter
             </p>
           </div>
-          {/* Live recorder space */}
-          <div className=""></div>
         </div>
         {/* middle video section */}
         <div className="flex flex-row w-full gap-2 h-[75%]">
@@ -173,7 +170,6 @@ const MeetingActive = () => {
               ))}
             </div>
           </div>{" "}
-          {/**   other participants section ends  */}
         </div>{" "}
         {/** middle video section ends */}
         {/* buttons section */}
@@ -190,16 +186,15 @@ const MeetingActive = () => {
                 <img src={microphone} alt="Mic Off" />
               )}
             </button>
-            <button 
-        className="flex justify-center items-center p-2 bg-[#00000020] w-[45px] h-[45px] rounded-[20px] hover:bg-[#C31A7F] hover:shadow-lg"
-        onClick={toggleCamera}
-      >
-             <video
-        ref={videoRef}
-        style={{ display: cameraActive ? "block" : "none" }} // Hide/show the video element based on camera status
-      />
-
-      </button>
+            <button
+              className="flex justify-center items-center p-2 bg-[#00000020] w-[45px] h-[45px] rounded-[20px] hover:bg-[#C31A7F] hover:shadow-lg"
+              onClick={toggleCamera}
+            >
+              <video
+                ref={videoRef}
+                style={{ display: cameraActive ? "block" : "none" }} // Hide/show the video element based on camera status
+              />
+            </button>
             <button className="flex justify-center items-center p-2 bg-[#00000020] w-[45px] h-[45px] rounded-[20px] hover:bg-[#C31A7F] hover:shadow-lg">
               <img src={sharescreen} alt="Share Screen" />
             </button>

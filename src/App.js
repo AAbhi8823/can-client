@@ -59,8 +59,6 @@ import PrivacyPolicy from './Pages/PrivacyPolicy'
 import ProfileSuccessAdd from './Pages/ProfileSuccessAdd'
 import SplitButton from './Components/Splitbutton'
 import SelectLabels from './Components/SelectLabels'
-import Home3 from './Pages/Home3'
-import HomePost from './Pages/HomePost'
 import UserProfile from './Pages/UserProfile'
 import NewUserTitle from './Pages/NewUserTitle'
 import NewUserDetails from './Pages/NewUserDetails'
@@ -83,25 +81,12 @@ import LoginCraousel from './Components/LoginCraousel'
 import { io } from "socket.io-client"
 import Cookies from 'js-cookie'
 import { baseurl } from './Api/baseUrl'
-// import { socket_action } from './redux/slice/socket'
-// import { useDispatch, useSelector } from 'react-redux'
 import HealthProfile from './Components/HealthProfile'
 import MedicineBank  from './Pages/MedicineBank'
 import MobileCraousel  from './Components/MobileCraousel'
 
 const App = () => {
-  // const dispatch=useDispatch()
-  // let socket_connection = io(baseurl)
   let token = Cookies.get("authToken")
-  // const senderId = localStorage.getItem("active_user")
-  // const { socket } = useSelector(state => state.socket)
-  // useEffect(() => {
-  //   console.log(socket_connection)
-  //   if (socket_connection && !socket && token) {
-  //     dispatch(socket_action.socket_connection(socket_connection))
-  //     socket_connection.emit("joinuser",{id:senderId})
-  //   }
-  // }, [])
   return (
     <>
       <BrowserRouter>
@@ -167,8 +152,6 @@ const App = () => {
           <Route exact path='loginprofile' element={<ProfileSuccessAdd />} />
           <Route exact path='splitButton' element={<SplitButton />} />
           <Route exact path='SelectLabels' element={<SelectLabels />} />
-          <Route exact path='Home3' element={<Home3 />} />
-          <Route exact path='HomePost' element={<HomePost />} />
           <Route exact path='UserProfile' element={<UserProfile />} />
           <Route exact path='NewUserTitle' element={<NewUserTitle />} />
           <Route exact path='NewUserImage' element={<NewUserImage />} />

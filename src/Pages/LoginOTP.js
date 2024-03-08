@@ -21,19 +21,25 @@ const LoginOTP = () => {
     const [otpErr, setOtpErr] = useState("");
     const navigate = useNavigate()
     const pinInputRef = useRef(null);
-    const Useremail = JSON.parse(sessionStorage.getItem("email_phone"));
-
+    const Useremail = JSON.parse(localStorage.getItem("userValue"));
+    console.log('Useremail::>>',Useremail)
     // resend OTP
     const resendOtp = async () => {
         try {
             const { data } = await axios.post(`${baseurl}/api/otpsend`, {
-                email_phone: Useremail.email_phone,
-                type : "sinup"
+                email_phone: Useremail.phone_number,
+                date_of_birth: Useremail.date_of_birth,
+                full_name: Useremail.full_name,
+                gender: Useremail.gender,
+                phone_number: Useremail.phone_number,
+                agreed_To_Terms: Useremail.agreed_To_Terms,
+                
+
             });
             
             if (data.status === true) {
                 setOtpResent(true);
-                sessionStorage.setItem(
+                localStorage.setItem(
                   "user_otp",
                   JSON.stringify({ user_otp: data.otp })
                 );
@@ -50,18 +56,25 @@ const LoginOTP = () => {
     const verifyOTP = async (e) => {
         setIsVerifing(true)
         e.preventDefault()
+        const userData = {
+          email_phone: Useremail.phone_number,
+          date_of_birth: Useremail.date_of_birth,
+          full_name: Useremail.full_name,
+          gender: Useremail.gender,
+          phone_number: Useremail.phone_number,
+          agreed_To_Terms: Useremail.agreed_To_Terms,
+          otp: pin,
+        };
         try {
             console.log(JSON.parse(sessionStorage.getItem("email_phone")))
-            const { data } = await axios.post(`${baseurl}/api/otpverify`, {
-                email_phone: Useremail.email_phone,
-                otpnumber: pin,
-            });
+            const { data } = await axios.post(`${baseurl}/user/user-register`, userData);
             console.log('Response:', data);
             sessionStorage.getItem(JSON.stringify({ user_otp: data.otp }))
 
             if (data.status === true) {
                 navigate('/password');
                 setIsVerifing(false)
+                localStorage.setItem("userValue", JSON.stringify({ ...userData }));
             } else {
                 setOtpErr("OTP is incorrect");
                 pinInputRef.current.clear();
@@ -90,112 +103,7 @@ const LoginOTP = () => {
         </div>
         <div>
           <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
-            {/* <div className=' hidden lg:block w-[55%] mt-20  flex flex-col items-center justify-center '>
-                        <div className=' flex flex-col items-center justify-center gap-4'>
-                            
-                            <div className='ml-[10%]'>
-                            
-                                <img src={c7} className='h-[350px] w-[450px]' alt='none' />
-                            </div>
-
-                            <div className=' mt-5 flex flex-col items-center justify-center gap-1 '>
-                                <h1 className='text-center text-[36px] font-semibold '>Hospital visits, easier.</h1>
-                                <p className='text-center text-[18px] font-medium '>Upload and manage your medical records and reports,</p>
-                                <p className='text-center text-[18px] font-medium '> all in one place.</p>
-                            </div>
-
-                            <div className='flex flex-row items-center gap-4 mt-4 '>
-                                <div className='h-[12px] w-[12px] rounded-full bg-[#E7E7E7]'></div>
-                                <div className='h-[12px] w-[12px] rounded-full bg-[#C31A7F]'></div>
-                                <div className='h-[12px] w-[12px] rounded-full bg-[#E7E7E7]'></div>
-                                <div className='h-[12px] w-[12px] rounded-full bg-[#E7E7E7]'></div>
-                                <div className='h-[12px] w-[12px] rounded-full bg-[#E7E7E7]'></div>
-                                <div className='h-[12px] w-[12px] rounded-full bg-[#E7E7E7]'></div>
-                            </div>
-                        </div>
-                    </div> */}
- {/* <div className='hidden md:block lg:block w-[50%]   flex flex-col items-center justify-center   '>
-                        <div className='flex flex-col items-center justify-center gap-4 '>
-
-                            <div className=''>
-
-                                <img src={c7} className='w-[24vw]' alt='none' />
-                            </div>
-
-                            <div className='  flex flex-col items-center justify-center mt-4  '>
-                                <h1 className='text-center text-[2.67vw] font-bold '>Hospital visits, easier.</h1>
-                                <p className='text-center font-medium text-[1.33vw] mt-2 '>Upload and manage your medical records and reports,</p>
-                                <p className='text-center font-medium text-[1.33vw] mt-2 '>all in one place.</p>
-                            </div>
-                            <div className='flex flex-row items-center gap-4 mt-4 '>
-                                <div className='h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]'></div>
-                                <div className='h-[0.78vw] w-[0.78vw] rounded-full bg-[#C31A7F]'></div>
-                                <div className='h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]'></div>
-                                <div className='h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]'></div>
-                                <div className='h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]'></div>
-                                <div className='h-[0.78vw] w-[0.78vw] rounded-full bg-[#E7E7E7]'></div>
-                            </div>
-                        </div>
-                    </div> */}
           < Craousel/>
-
-            {/* right side */}
-            {/* <div className='h-[100vh]  flex lg:items-center'>
-                        <div className='lg:h-[650px] md:w-[660px] lg:w-[501px] sm:w-[330px] h-[550px] lg:mr-[140px] bg-opacity-10 z-10 backdrop-blur-md rounded-[20px]' style={{
-                            boxShadow: '0px 0px 50px rgba(0, 0, 0, 0.1)'
-                        }}>
-                            <div>
-                                <img className='object-contain rounded-[20px]' src={vtwo} alt='none' />
-                            </div>
-                            <div className='text-center lg:text-3xl mt-5 text-[24px] font-semibold  p-1   text-[#C31A7F]'>
-                                <h1>OTP Verification</h1>
-                            </div>
-                            <div className='text-center py-4'>Enter the OTP sent to you</div>
-
-                            <div className='flex pl-4  justify-center relative items-center   '>
-
-                                <PinInput
-
-                                    ref={pinInputRef}
-                                    length={4}
-
-                                    id='pin'
-                                    value={pin}
-                                    onComplete={handlePinChange}
-                                    inputStyle={{
-                                        border: 'none',
-                                        borderBottom: '1px solid black',
-                                        width: '40px',
-                                        textAlign: 'center',
-                                        marginRight: '30px',
-                                    }}
-                                ></PinInput>
-
-                            </div>
-                            {otpErr && <p className='text-center text-red-500'>{otpErr}</p>}
-
-                            <div className='text-center py-4 flex mt-4 mb-4 gap-1 justify-center'>
-                                <p>Didn't recieved the OTP?</p>
-                                <p className='text-center   text-[#C31A7F] cursor-pointer' onClick={resendOtp}>Resend OTP</p>
-                            </div>
-                            {otpResent && <p className='text-center   text-[#C31A7F]'>New OTP is Sent</p>}
-
-                            <div className='flex justify-center py-2'>
-
-
-                     
-
-                                <div className='w-[40%]' onClick={verifyOTP}>
-                                    <h2 className='bg-[#C31A7F] cursor-pointer font-semibold  text-center p-3 rounded-lg text-white'>Verify</h2>
-                                </div>
-
-                            </div>
-
-
-
-                        </div>
-                    </div> */}
-
             <div className=" md:w-1/2 lg:w-[35%] px-5">
               <form className="bg-white shadow-md rounded  rounded-2xl  mb-4">
                 <NavLink to={"/register"}>
@@ -203,7 +111,6 @@ const LoginOTP = () => {
                     <img src={arrow22} alt="" />
                   </div>
                 </NavLink>
-
                 <div>
                   <img
                     className="w-full rounded-[20px] w-[100%]"

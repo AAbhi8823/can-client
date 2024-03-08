@@ -12,7 +12,7 @@ import LoginCraousel from "../Components/LoginCraousel";
 import LogoCAn from "../Photos/LogoCAn.png";
 import vtwo from "../Photos/vtwo.gif";
 import lock from "../Photos/lock.png";
-
+import { base_token } from "../Api/baseUrl";
 const AddProfile = () => {
   const [pin, setPin] = useState("");
   const [repin, setRepin] = useState("");
@@ -33,17 +33,18 @@ const AddProfile = () => {
   }, []);
 
   const getToken = async () => {
+    console.log('getToken:::::>>>');
     try {
-      const response = await axios.get(`${baseurl}/user/user-register`, {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.get(`${baseurl}/userprofile/get-user-profile-list`, {
+        headers: { Authorization: `Bearer ${base_token}` },
       });
       setPerData(response.data.resData.data);
-      console.log("Ankur singh",response.data.resData)
+      console.log("Ankursingh::::::>>>>", response.data.resData);
     } catch (error) {
-      console.log("Error::>>>>>", error);
+      console.error("Error fetching token:", error);
     }
   };
-
+  
   const mainPin = async () => {
     setIsVerifying(true);
     try {
@@ -182,7 +183,7 @@ const AddProfile = () => {
                       </div>
                     </div>
                   ))}
-                  {perData && perData.length < 4 && (
+                  {perData && perData.length < 3 && (
                     <div className="w-[141px] mb-1 mx-2 h-[130px] bg-[#FEE5EA] rounded-3xl flex flex-col justify-center items-center cursor-pointer " style={{ boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.05)" }}>
                       <div onClick={creatPin} className="w-[45%] h-[100%]">
                         <div className="h-full  rounded-3xl flex flex-col justify-center items-center ">
