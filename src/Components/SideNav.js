@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Logo from "../Photos/Logo.png";
 import Logo1 from "../Photos/Logo1.png";
 import CAN from "../Photos/CAN.png";
 import home from "../Photos/home.png";
@@ -9,11 +8,8 @@ import createPost from "../Photos/createPost.svg";
 import saved from "../Photos/saved.png";
 import healthRec from "../Photos/healthRec.png";
 import healthCard from "../Photos/healthCard.png";
-import appointment from "../Photos/appointment.png";
 import medicine from "../Photos/medicine.png";
 import more from "../Photos/more.png";
-import { AiOutlineHome } from "react-icons/ai";
-import { MdOutlineCreate } from "react-icons/md";
 import { SlCalender } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
 import CreatePost from "./CreatePost";

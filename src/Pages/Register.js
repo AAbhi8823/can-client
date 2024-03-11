@@ -177,7 +177,6 @@ const Register = () => {
 
               <select
                 defaultValue={"DEFAULT"}
-                value={gender}
                 id="gender"
                 ref={selectRef}
                 onChange={handleGenderChange}

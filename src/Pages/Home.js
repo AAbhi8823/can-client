@@ -44,7 +44,6 @@ import Cookies from "js-cookie";
 const Home = () => {
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
-  // const [heart, setHeart] = useState()
   const [heart1, setHeart1] = useState();
   const [createPost, setCreatePost] = useState(false);
   const [showFullContent, setShowFullContent] = useState(false);
@@ -89,7 +88,7 @@ const Home = () => {
   const [isSaved, setIsSaved] = useState();
   const [isCommentLiked, setCommentLiked] = useState(false);
   const navigate = useNavigate();
-  //  gif data
+  
   const GifImage = [
     { id: 1, image: "climberEverest.Webp" },
     { id: 2, image: "climberEverest.Webp" },
@@ -99,7 +98,6 @@ const Home = () => {
     { id: 6, image: "climberEverest.Webp" },
   ];
 
-  // blocked user
   const toggleBlockedTab = () => {
     setUserBlocked(!userBlocked);
   };
@@ -316,17 +314,12 @@ const Home = () => {
     setCreatePost(true);
   }
 
-  // const para = 'Bethany was running in a half marathon when she began to feel ill. She thought that her celiac disease may have flared up due to something she had eaten, but when she didn’t get better, she decided to see a doctor. What followed was a series of misdiagnoses is the etc'
-
-  // three dots
   function threeDotsToggle(postId) {
     setThreeDots((prev) => ({
       ...prev,
       [postId]: !prev[postId],
     }));
   }
-
-  //outclick from three dots
 
   const handleClickOutsidethreeDots = (event) => {
     if (
@@ -377,8 +370,6 @@ const Home = () => {
   const handlePickerFocus = () => {
     setShowEmoji(true);
   };
-
-  //vertical calender , appointments and Medicine
 
   const toggleVertical = (item) => {
     setVertical(item);
@@ -457,8 +448,6 @@ const Home = () => {
     friendList();
   }, [varFilter]);
 
-  // const postId = homePost._id;
-
   useEffect(() => { }, []);
   const handleComInput = (e) => {
     setComVal(e.target.value);
@@ -506,8 +495,6 @@ const Home = () => {
   const handleReloadClick = () => {
     console.log("loading");
   };
-
-  // const [postId, setPostId] = useState()
 
   const handlePost = async () => {
     setIsPosting(true);
@@ -636,7 +623,7 @@ const Home = () => {
           <div className=" h-[100%] y-scrl ">
             <div className=" lg:flex">
               {/* background */}
-              <div className="bg-[#FEF8FD] lg:px-0 px-2   lg:px-10 w-[100%] flex flex-wrap justify-around">
+              <div className="bg-[#FEF8FD] lg:px-0 px-2 lg:px-10 w-[100%] flex flex-wrap justify-around">
                 {/* post */}
                 <div className="flex flex-col  ml-0  w-full  lg:w-[55%] ">
                   {createPost ? (
@@ -859,7 +846,6 @@ const Home = () => {
                   ) : (
                     <>
                       {homePost?.map((homePostItems, index) => {
-                        // setPostId( "postID : ", homePostItems?._id)
                         const createdAt = new Date(homePostItems?.createdAt);
                         const formattedDate = createdAt.toLocaleDateString(
                           "en-GB",
@@ -1193,22 +1179,7 @@ const Home = () => {
                                       id="likeButtonColorless"
                                     />
                                   )}
-                                  {/* {homePostItems.likes[0].userId === activeUser ? "already liked" : "notliked"} */}
-                                  {/* {likedPosts[homePostItems?._id] ? (
-                                    <AiFillHeart
-                                      className="cursor-pointer"
-                                      size={24}
-                                      color="red"
-                                    />
-                                  ) : (
-                                    <AiOutlineHeart
-                                      className="cursor-pointer"
-                                      size={24}
-                                      id="likeButtonColorless"
-                                    />
-                                  )} */}
-                                  {/* {heart ? <AiFillHeart className='cursor-pointer' size={24} color='red' /> : <AiOutlineHeart className='cursor-pointer' size={24} />} */}
-                                  <p className="text-[12px] font-bold">
+                                   <p className="text-[12px] font-bold">
                                     {" "}
                                     {homePostItems.likesCount}{" "}
                                   </p>
@@ -1578,23 +1549,6 @@ const Home = () => {
                                             </div>
                                           </div>
                                           <div className="w-full bg-[#FEF8FD] rounded-b-[20px]  ">
-                                            {/* <div className="p-4 flex flex-row items-center ">
-                                              <div className="flex flex-row gap-2 items-center w-full">
-                                                <img
-                                                  className="h-7 w-7 rounded-full"
-                                                  src={account}
-                                                  alt="none"
-                                                />
-                                                <input
-                                                  type="text"
-                                                  placeholder="write here"
-                                                  className="bg-transparent w-full outline-none"
-                                                />
-                                              </div>
-                                              <div>
-                                                <CiFaceSmile />
-                                              </div>
-                                            </div> */}
                                             <div>
                                               <hr />
                                             </div>
@@ -1605,9 +1559,6 @@ const Home = () => {
                                                   Copy NavLink
                                                 </p>
                                               </div>
-                                              {/* <div className="w-16 h-7 flex items-center justify-center bg-[#efc419] text-[12px] font-semibold text-[#FFFFFF] rounded-[12px]">
-                                                share
-                                              </div> */}
                                             </div>
                                           </div>
                                         </div>
@@ -1815,8 +1766,6 @@ const Home = () => {
                 </div>
               </div>
             </div>
-
-            {/* floating chat */}
             <FloatingChat />
 
             {/* emoji  */}

@@ -78,7 +78,6 @@ import MeetingProfile from './Components/MeetingProfile'
 import Saved from './Components/Saved'
 import Carousel from './Components/Craousel'
 import LoginCraousel from './Components/LoginCraousel'
-import { io } from "socket.io-client"
 import Cookies from 'js-cookie'
 import { baseurl } from './Api/baseUrl'
 import HealthProfile from './Components/HealthProfile'
@@ -91,12 +90,10 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          {/* <Route exact path = '/' element = {<BeforeLoginHome /> }/> */}
           <Route exact path='/' element={<BeforeLoginHome />} />
           <Route exact path='/contactUs' element={<ContactUs />} />
           <Route exact path='/KnowMore' element={<KnowMore />} />
           <Route exact path='/Whycan' element={<WhyCan />} />
-          {/* <Route exact path='login' element={<Login />} /> */}
           <Route exact path='choosetitle' element={<ChooseTitle />} />
           <Route exact path='phonenumber' element={<PhoneNumber />} />
           <Route exact path='register' element={<Register />} />

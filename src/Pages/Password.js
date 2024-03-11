@@ -60,21 +60,27 @@ const LoginOTP = () => {
       console.error("User data is not available.");
       return;
     }
+    const newUserdata = {
+      ...userData,
+      password: password,
+      confirm_password: confirmPassword
+    };
     try {
-      const response = await fetch(`${baseurl}/user/user-register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData),
-      });
+      // const response = await fetch(`${baseurl}/user/user-register`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify(userData),
+      // });
+      localStorage.setItem("userValue", JSON.stringify(newUserdata));
 
-      if (response.ok) {
-        console.log("Password set successfully");
-        // Redirect or perform any action upon successful password set
-      } else {
-        console.error("Failed to set password:", response.statusText);
-      }
+      // if (response.ok) {
+      //   console.log("Password set successfully");
+      //   // Redirect or perform any action upon successful password set
+      // } else {
+      //   console.error("Failed to set password:", response.statusText);
+      // }
     } catch (error) {
       console.error("Error setting password:", error.message);
     }

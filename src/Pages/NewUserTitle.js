@@ -40,7 +40,7 @@ const ChooseTitle = () => {
         console.log("data::>>",data.resData.data.profiles)
         console.log("data::>>>>>>>>>>",data.resData)
         if (data.resData.status === true) {
-          setViewCategory(data.resData.data.profiles);
+          setViewCategory(data.resData.data);
           console.log("setViewCategory::>>>>>>>>>>",data.resData)
         }
 
@@ -170,7 +170,7 @@ const ChooseTitle = () => {
                         ) : (
                           <>
                             <img
-                              src={NewImage}
+                              src={cata.profile_image}
                               alt="not found"
                               className={`w-[90%] relative`}
                             />
@@ -185,14 +185,14 @@ const ChooseTitle = () => {
                                   : ""
                               }
                             >
-                              <h3 className="  lg:text-[20px] text-[16px]">
+                              {/* <h3 className="  lg:text-[20px] text-[16px]">
                                 {cata.role}
                               </h3>
                               <div className="">
                                 <p className="lg:text-[14px] text-[12px]">
                                   {cata.profile_description}
                                 </p>
-                              </div>
+                              </div> */}
                             </div>
                           </>
                         )}
