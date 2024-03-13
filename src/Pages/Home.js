@@ -88,7 +88,7 @@ const Home = () => {
   const [isSaved, setIsSaved] = useState();
   const [isCommentLiked, setCommentLiked] = useState(false);
   const navigate = useNavigate();
-  
+
   const GifImage = [
     { id: 1, image: "climberEverest.Webp" },
     { id: 2, image: "climberEverest.Webp" },
@@ -209,7 +209,7 @@ const Home = () => {
       } else {
         console.log("api error or");
       }
-    } catch (error) { }
+    } catch (error) {}
     console.log(share_userid, singlePostId);
   };
 
@@ -441,14 +441,14 @@ const Home = () => {
 
   const activeUser = localStorage.getItem("active_user");
 
-  const alreadyLike = () => { };
+  const alreadyLike = () => {};
 
   useEffect(() => {
     HomePost();
     friendList();
   }, [varFilter]);
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   const handleComInput = (e) => {
     setComVal(e.target.value);
   };
@@ -507,14 +507,16 @@ const Home = () => {
 
     try {
       const createPost = await axios.post(
-        `${baseurl}/api/createpost?token=${token}`,
-        formInfo,
+        `${baseurl}/mystory/add-story`,
+        formInfo, 
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
+  
 
       if (createPost) {
         setIsPosting(false);
@@ -777,10 +779,11 @@ const Home = () => {
                         </div>
 
                         <div
-                          className={`${input
+                          className={`${
+                            input
                               ? "bg-[#C31A7F]  text-white p-1 py-2  px-8 rounded-xl  cursor-pointer"
                               : "bg-[#C31A7F] opacity-60 text-white p-1 py-2 px-8  rounded-xl"
-                            }`}
+                          }`}
                           onClick={handlePost}
                         >
                           {isPosting ? "Posting..." : "Post"}
@@ -1103,11 +1106,11 @@ const Home = () => {
                               <p className="py-2 text-[#484848] text-[13px] text-left md:shrink-0 md:text-left md:text-[14px] ">
                                 {!showFullContent ? (
                                   <>
-                                    {homePostItems.content?.length <= 250 ? (
-                                      homePostItems.content
+                                    {homePostItems.post_title?.length <= 250 ? (
+                                      homePostItems.post_title
                                     ) : (
                                       <>
-                                        {homePostItems.content?.slice(0, 250)}
+                                        {homePostItems.post_title?.slice(0, 250)}
                                         <button
                                           className="text-black font-semibold underline text-[13px] md:text-[14px] cursor-pointer"
                                           onClick={handleReadMore}
@@ -1127,7 +1130,7 @@ const Home = () => {
                               {homePostItems?.media_files ? (
                                 <div className="rounded-3xl w-full overflow-hidden h-[40vh]">
                                   <img
-                                    src={homePostItems.media_files}  // Use homePostItems.media_files instead of homePostItems?.media_files
+                                    src={homePostItems.media_files} // Use homePostItems.media_files instead of homePostItems?.media_files
                                     className="w-full h-full object-cover"
                                     alt="Not found"
                                   />
@@ -1136,7 +1139,6 @@ const Home = () => {
                                 ""
                               )}
                             </div>
-
 
                             <div className=" pt-7 flex justify-between">
                               <div className="flex  items-center gap-7">
@@ -1179,7 +1181,7 @@ const Home = () => {
                                       id="likeButtonColorless"
                                     />
                                   )}
-                                   <p className="text-[12px] font-bold">
+                                  <p className="text-[12px] font-bold">
                                     {" "}
                                     {homePostItems.likesCount}{" "}
                                   </p>
@@ -1201,16 +1203,18 @@ const Home = () => {
                                   {showContent && (
                                     <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#98989806]  ">
                                       <div
-                                        className={` mt-[105px] lg:mt-2 h-[90vh] overflow-scroll lg:overflow-hidden scrollbar-hide lg:h-[70%]  bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden ${commentModel.image
+                                        className={` mt-[105px] lg:mt-2 h-[90vh] overflow-scroll lg:overflow-hidden scrollbar-hide lg:h-[70%]  bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden ${
+                                          commentModel.image
                                             ? "w-[95%]   lg:w-[70%]"
                                             : "w-[95%] lg:w-[27%]"
-                                          }`}
+                                        }`}
                                       >
                                         <div
-                                          className={`lg:w-[60%] ${commentModel.image
+                                          className={`lg:w-[60%] ${
+                                            commentModel.image
                                               ? "block"
                                               : "hidden"
-                                            }`}
+                                          }`}
                                         >
                                           <img
                                             src={commentModel.image}
@@ -1219,10 +1223,11 @@ const Home = () => {
                                           />
                                         </div>
                                         <div
-                                          className={`lg:w-[40%] h-[68%] lg:h-[100%] flex flex-col justify-between gap-4 p-4 relative ${commentModel.image
+                                          className={`lg:w-[40%] h-[68%] lg:h-[100%] flex flex-col justify-between gap-4 p-4 relative ${
+                                            commentModel.image
                                               ? ""
                                               : "lg:w-full"
-                                            }`}
+                                          }`}
                                         >
                                           <div className="h-[15%] ">
                                             <div className=" flex h-max items-center gap-2">
@@ -1257,8 +1262,8 @@ const Home = () => {
                                                     <p className="text-xs text-[#7E7E7E]">
                                                       {commentModel.createdAt
                                                         ? commentModel.createdAt.split(
-                                                          "T"
-                                                        )[0]
+                                                            "T"
+                                                          )[0]
                                                         : ""}
                                                     </p>
                                                   </div>
@@ -1347,8 +1352,8 @@ const Home = () => {
                                                                     size={16}
                                                                   />
                                                                 ) : isCommentLiked[
-                                                                  item._id
-                                                                ] ? (
+                                                                    item._id
+                                                                  ] ? (
                                                                   <AiFillHeart
                                                                     className="cursor-pointer"
                                                                     color="red"
@@ -1381,8 +1386,8 @@ const Home = () => {
                                                           <div className="text-xs text-[#7E7E7E]">
                                                             {item.updatedAt
                                                               ? item.updatedAt.split(
-                                                                "T"
-                                                              )[0]
+                                                                  "T"
+                                                                )[0]
                                                               : ""}
                                                           </div>
                                                         </div>

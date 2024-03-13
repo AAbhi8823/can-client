@@ -57,7 +57,6 @@ const CreatePost = ({ close_createPost }) => {
   const handlePost = async () => {
     setIsPosting(true);
     const token = Cookie.get("token");
-    const activeUser = localStorage.getItem("active_user");
     const formInfo = new FormData();
     formInfo.set("post_title", input);
     formInfo.set("media_files", mainImg);
