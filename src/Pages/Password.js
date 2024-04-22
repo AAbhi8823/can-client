@@ -37,7 +37,7 @@ const LoginOTP = () => {
     const Useremail = JSON.parse(localStorage.getItem("userValue"));
     if (Useremail) {
       const newUserdata = {
-        email_phone: Useremail.phone_number,
+        email: Useremail.email,
         date_of_birth: Useremail.date_of_birth,
         full_name: Useremail.full_name,
         gender: Useremail.gender,

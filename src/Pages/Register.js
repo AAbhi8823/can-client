@@ -21,6 +21,7 @@ const Register = () => {
   const [isOtpSending, setIsOtpSending] = useState(false);
   const selectRef = useRef(null);
   const [Username, setUsername] = useState("");
+  const [mobilenumber,setMobilenumber]=useState()
   const [startDate, setStartDate] = useState("");
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +30,8 @@ const Register = () => {
     setIsOtpSending(true);
     const userData = {
       full_name: Username,
-      phone_number: email,
+      phone_number: mobilenumber,
+      email:email,
       gender: gender,
       date_of_birth: startDate.toString(), // Ensure correct date format
       agreed_To_Terms: check,
@@ -84,6 +86,9 @@ const Register = () => {
     }
   };
 
+  const numberChage=(event)=>{
+    setMobilenumber(event.target.value)
+  }
   const changeUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -148,13 +153,25 @@ const Register = () => {
                 onChange={changeUsername}
               />
             </div>
+            <div className="border-2 lg:h-[3vw] h-12 mt-1   rounded-[20px] flex items-center justify-center ">
+              <h1 className="font-bold flex items-center w-max h-full px-3 lg:text-[1.30vw] text-[18px]">
+                <VscAccount />
+              </h1>
+              <div className="     inher-1 bg-[#000] h-[3.3vh] lg:h-[2.27vw] w-[0.5px]  text-[1.30vw]"></div>
+              <input
+                placeholder="Number"
+                className="border-none w-full bg-transparent placeholder: outline-none  ml-3 text-[18px] lg:text-[1vw]"
+                value={mobilenumber}
+                onChange={numberChage}
+              />
+            </div>
             <div className="border-2 lg:h-[3vw] h-12  mt-3    rounded-[20px] flex items-center ">
               <h1 className="font-bold flex items-center w-max h-full px-3 lg:text-[1.30vw] text-[18px]">
                 <AiOutlineMail />
               </h1>
               <div className="   inher-1 bg-[#000] h-[3.3vh] lg:h-[2.27vw] w-[0.5px]  text-[1.30vw]"></div>
               <input
-                placeholder="Email/phone no."
+                placeholder="Email"
                 className="border-none w-full bg-transparent ml-3 placeholder: outline-none text-[18px] lg:text-[1vw]"
                 value={email}
                 onChange={handleEmailChange}

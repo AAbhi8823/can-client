@@ -24,32 +24,30 @@ const LoginOTP = () => {
     const Useremail = JSON.parse(localStorage.getItem("userValue"));
     console.log('Useremail::>>',Useremail)
     // resend OTP
-    const resendOtp = async () => {
-        try {
-            const { data } = await axios.post(`${baseurl}/api/otpsend`, {
-                email_phone: Useremail.phone_number,
-                date_of_birth: Useremail.date_of_birth,
-                full_name: Useremail.full_name,
-                gender: Useremail.gender,
-                phone_number: Useremail.phone_number,
-                agreed_To_Terms: Useremail.agreed_To_Terms,
-                
-
-            });
+    // const resendOtp = async () => {
+    //     try {
+    //         const { data } = await axios.post(`${baseurl}/api/otpsend`, {
+    //             email: Useremail.email,
+    //             date_of_birth: Useremail.date_of_birth,
+    //             full_name: Useremail.full_name,
+    //             gender: Useremail.gender,
+    //             phone_number: Useremail.phone_number,
+    //             agreed_To_Terms: Useremail.agreed_To_Terms,
+    //         });
             
-            if (data.status === true) {
-                setOtpResent(true);
-                localStorage.setItem(
-                  "user_otp",
-                  JSON.stringify({ user_otp: data.otp })
-                );
-                setPin(data.otp)
-                pinInputRef.current.clear();
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    //         if (data.status === true) {
+    //             setOtpResent(true);
+    //             localStorage.setItem(
+    //               "user_otp",
+    //               JSON.stringify({ user_otp: data.otp })
+    //             );
+    //             setPin(data.otp)
+    //             pinInputRef.current.clear();
+    //         }
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //     }
+    // };
 
     //Verify otp
     const [isVerifing, setIsVerifing] =useState()
@@ -57,7 +55,7 @@ const LoginOTP = () => {
         setIsVerifing(true)
         e.preventDefault()
         const userData = {
-          email_phone: Useremail.phone_number,
+          email: Useremail.email,
           date_of_birth: Useremail.date_of_birth,
           full_name: Useremail.full_name,
           gender: Useremail.gender,
@@ -66,10 +64,10 @@ const LoginOTP = () => {
           otp: pin,
         };
         try {
-            console.log(JSON.parse(sessionStorage.getItem("email_phone")))
+            // console.log(JSON.parse(sessionStorage.getItem("phone_number")))
             const { data } = await axios.post(`${baseurl}/user/user-register`, userData);
             console.log('Response:', data);
-            sessionStorage.getItem(JSON.stringify({ user_otp: data.otp }))
+            // sessionStorage.getItem(JSON.stringify({ user_otp: data.otp }))
 
             if (data.status === true) {
                 navigate('/password');
@@ -149,7 +147,7 @@ const LoginOTP = () => {
                   </p>
                   <p
                     className="text-center  text-[18px] lg:text-[1vw] text-[18px]  text-[#C31A7F] cursor-pointer"
-                    onClick={resendOtp}
+                    // onClick={resendOtp}
                   >
                     Resend OTP
                   </p>

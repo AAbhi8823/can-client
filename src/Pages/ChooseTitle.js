@@ -25,7 +25,7 @@ const ChooseTitle = () => {
     const Useremail = JSON.parse(localStorage.getItem("userValue"));
     if (Useremail) {
       const newUserdata = {
-        // email_phone: Useremail.phone_number,
+        email: Useremail.email,
         date_of_birth: Useremail.date_of_birth,
         full_name: Useremail.full_name,
         gender: Useremail.gender,
@@ -34,7 +34,7 @@ const ChooseTitle = () => {
         agreed_To_Terms: Useremail.agreed_To_Terms,
         password: Useremail.password,
         confirm_password: Useremail.confirm_password,
-        profile_role: select,
+        user_profile: select,
       };
       setUserData(newUserdata);
     }
@@ -79,7 +79,7 @@ const ChooseTitle = () => {
     }
     const newUserdata = {
       ...userData,
-      profile_role: select,
+      user_profile: select,
     };
     try {
       localStorage.setItem("userValue", JSON.stringify(newUserdata));
@@ -172,6 +172,7 @@ const ChooseTitle = () => {
                         <div
                           key={index}
                           onClick={() => handleSelect(cata.role)}
+
                           className={`flex justify-center cursor-pointer ${
                             select !== null && select !== cata._id
                               ? "opacity-50"
@@ -183,6 +184,7 @@ const ChooseTitle = () => {
                             alt="not found"
                             className="w-[90%] relative"
                           />
+                          {console.log("Select::>>>",cata)}
                         </div>
                       ))
                     )}

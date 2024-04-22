@@ -37,7 +37,7 @@ const Newmultipin = () => {
 
       const formdata = new FormData();
       formdata.set("username", userValue.username);
-      formdata.set("email_phone", userValue.email_phone);
+      formdata.set("email", userValue.email);
       formdata.set("gender", userValue.gender);
       formdata.set("date_of_birth", userValue.date_of_birth);
       formdata.set("password", userValue.password);

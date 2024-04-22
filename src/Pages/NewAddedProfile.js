@@ -23,6 +23,7 @@ function ProfileSuccessAdd() {
   const navigate = useNavigate();
   const token = Cookies.get("token");
   const userValue = JSON.parse(localStorage.getItem("userValue")) || {};
+  console.log("userValue::>>>>",userValue);
   const fullDate = userValue.date_of_birth;
   const dateOfBirth = fullDate ? fullDate.split("T")[0] : "";
 
@@ -35,10 +36,34 @@ function ProfileSuccessAdd() {
     }
   }, [token, location.state]);
 
-  const handleSuccess = () => {
-    navigate("/showprofile");
-    localStorage.clear();
+  // const handleSuccess = () => {
+
+  //   navigate("/");
+  //   localStorage.clear();
+  // };
+
+
+  const handleSuccess = async () => {
+    try {
+      const response = await axios.post(`${baseurl}/user/user-register`, userValue, {
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
+      });
+      if (response.status === 200) {
+        console.log("Data sent successfully:", response.data);
+        localStorage.clear();
+        navigate("/");
+      } else {
+        console.error("Error sending data to the server");
+        // Handle the error as per your requirement
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle the error as per your requirement
+    }
   };
+  
 
   const showData = async (token) => {
     try {
@@ -96,7 +121,7 @@ function ProfileSuccessAdd() {
                   {userValue.profile_category?.category_Name} {userValue.gender}
                 </p>
                 <p className="text-white font-[100] text-[16px]">
-                  {userValue.email_phone}
+                  {userValue.email}
                 </p>
               </div>
             </div>

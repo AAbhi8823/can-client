@@ -32,7 +32,7 @@ const LoginForm = () => {
       if (response.data.resData.status === true) {
         setLoading(false);
         Cookies.set('token', response.data.resData.data, { expires: 7 });
-        navigate('/AddProfile');
+        navigate('/home');
       } else {
         setError('Invalid email/phone or password.');
         setLoading(false);

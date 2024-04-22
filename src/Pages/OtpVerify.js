@@ -25,15 +25,15 @@ const OtpVerify = () => {
   };
 
   useEffect(() => {
-    const getEmail = sessionStorage.getItem('email_phone')
+    const getEmail = sessionStorage.getItem('email')
     const parse = JSON.parse(getEmail)
-    setOtpmail(parse.email_phone)
+    setOtpmail(parse.email)
   })
 
   const getOtp = async () => {
     try {
       const response = await axios.post(`${baseurl}/api/otpsend`, {
-        email_phone: otpMail,
+        email: otpMail,
         type: "sinup",
       });
       console.log("registerOTP : ", response);

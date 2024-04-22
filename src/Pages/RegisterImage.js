@@ -38,6 +38,7 @@ const RegisterImage = () => {
 
   const SetRegisterImage = () => {
     const userValue = JSON.parse(localStorage.getItem("userValue")) || {};
+    console.log("userValue::>>>>>>",userValue);
     userValue.profile_photo = [img_file];
     localStorage.setItem("userValue", JSON.stringify(userValue));
     localStorage.setItem("photo", img_file);
@@ -49,7 +50,7 @@ const RegisterImage = () => {
   }
 
   const addLater =()=>{
-    navigate("/Multipin");
+    navigate("/newaddedprofile");
   }
 
   return (
@@ -148,7 +149,7 @@ const RegisterImage = () => {
 
                 {image ? (
                   <div className="flex justify-center px-2  py-2 w-[50%]">
-                    <NavLink to="/MultiPIN" state={img_file} className="w-[100%]">
+                    <NavLink to="/newaddedprofile" state={img_file} className="w-[100%]">
                       <button
                         type="submit"
                         className=" bg-[#C31A7F] lg:text-[1.1vw] text-[20px] w-[86%] px-2 py-4 p-3 text-center rounded-xl text-white w-full"

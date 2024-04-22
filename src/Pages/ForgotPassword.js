@@ -23,13 +23,13 @@ const ForgotPassword = () => {
   const getOtp = async () => {
     try {
       const response = await axios.post(`${baseurl}/api/otpsend`, {
-        email_phone: email,
+        email: email,
         type: "forgotpassword",
       });
       console.log("registerOTP : ", response);
       sessionStorage.setItem(
-        "email_phone",
-        JSON.stringify({ email_phone: email })
+        "email",
+        JSON.stringify({ email: email })
       );
       sessionStorage.setItem(
         "user_otp",

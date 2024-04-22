@@ -87,6 +87,7 @@ const Home = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [isSaved, setIsSaved] = useState();
   const [isCommentLiked, setCommentLiked] = useState(false);
+  const [likeNumber,setLikenumber]=useState(0);
   const navigate = useNavigate();
 
   const GifImage = [
@@ -184,10 +185,6 @@ const Home = () => {
     setChecked(checked.filter((checkedItem) => checkedItem.id !== item.id));
   };
 
-  // const isChecked = (item) => {
-  // return checked.some((checkedItem) => checkedItem.id === item.id);
-  //   console.log(item)
-  // };
 
   const toggleShareButton = (postid) => {
     setShareButton(!shareButton);
@@ -279,36 +276,36 @@ const Home = () => {
   const likeButton = async (likeID) => {
     document.getElementById("likeButtonColorless").style.color = "red";
     console.log(likeID);
-    const Postid = likeID;
-    const postUserId = localStorage.getItem("active_user");
-    const posttoken = Cookie.get("token");
+    const postID = likeID; // Renamed Postid to postID for consistency
+    const postToken = Cookie.get("token");
 
     try {
-      const LikeData = await axios.post(
-        `${baseurl}/api/createLike?token=${posttoken}`,
-        {
-          post_id: `${Postid}`,
-          userId: `${postUserId}`,
-          is_like: true,
+        const likeData = await axios.post(
+            `${baseurl}/mystory/like-story`,
+            {
+              story_id: postID,
+            },
+            {
+              headers: {
+                  Authorization: `Bearer ${postToken}`,
+              },
+          }
+        );
+        if (likeData) {
+            setLikedPosts((prevLikedPosts) => ({
+                ...prevLikedPosts,
+                [likeID]: true,
+            }));
+            HomePost();
+        } else {
+            console.log("API error");
         }
-      );
-      setLikeID(true);
-      if (LikeData) {
-        setLikedPosts((prevLikedPosts) => ({
-          ...prevLikedPosts,
-          [likeID]: true,
-        }));
-        HomePost();
-      } else {
-        console.log("api error");
-      }
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  };
-  function likeButton1() {
-    setHeart1(!heart1);
-  }
+};
+
+
 
   function open_post() {
     setCreatePost(true);
@@ -1183,7 +1180,7 @@ const Home = () => {
                                   )}
                                   <p className="text-[12px] font-bold">
                                     {" "}
-                                    {homePostItems.likesCount}{" "}
+                                    {console.log("homePostItems::>>",homePostItems.likes.length)}{homePostItems.likes.length}
                                   </p>
                                 </div>
                                 <div>

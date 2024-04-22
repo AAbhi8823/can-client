@@ -29,7 +29,7 @@ const MultiPIN = () => {
         const NewData = JSON.parse(email)
         // console.log(NewData.Name)
         const formData = new FormData()
-        formData.set("email_phone", NewData.Email)
+        formData.set("email", NewData.email)
         formData.set("username", NewData.Name)
         formData.set("gender", NewData.Gender)
         formData.set("date_of_birth", NewData.newDOB)

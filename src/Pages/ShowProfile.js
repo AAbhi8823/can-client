@@ -147,7 +147,7 @@ const ShowProfile = () => {
                         <h1 className="font-semibold mt-[10px] text-center text-lg">
                           {userBox.profile_name}
                         </h1>
-                        <p className="text-sm">{userBox.profile_role}</p>
+                        <p className="text-sm">{userBox.user_profile}</p>
                         <img src={lock} />
                         <div className="absolute top-[28px] rounded-full overflow-hidden bg-white p-[3px] ">
                           <Avatar
