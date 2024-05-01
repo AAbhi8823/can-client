@@ -24,12 +24,14 @@ const LoginForm = () => {
     setLoading(true);
 
     try {
+      const isEmail = /\S+@\S+\.\S+/.test(username);
+      const key = isEmail ? 'email' : 'phone_number';
       const response = await axios.post(`${baseurl}/user/user-login`, {
-        phone_number: username,
+        [key]: username,
         password: password,
       });
 
-      if (response.data.resData.status === true) {
+      if (response?.data?.resData?.status === true) {
         setLoading(false);
         Cookies.set('token', response.data.resData.data, { expires: 7 });
         navigate('/home');
