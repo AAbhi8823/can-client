@@ -83,7 +83,7 @@ import { baseurl } from './Api/baseUrl'
 import HealthProfile from './Components/HealthProfile'
 import MedicineBank  from './Pages/MedicineBank'
 import MobileCraousel  from './Components/MobileCraousel'
-
+import MagickLink from './Pages/MagickLink'
 const App = () => {
   let token = Cookies.get("authToken")
   return (
@@ -170,6 +170,8 @@ const App = () => {
           <Route expact path='HealthProfile' element={<HealthProfile/>}/>
           <Route expact path='MedicineBank' element={<MedicineBank/>}/>
           <Route expact path='MobileCraousel' element={<MobileCraousel/>}/>
+          {/* <Route expact path="Health" element={<MagickLink/>}/> */}
+          
         </Routes>
       </BrowserRouter>
     </>

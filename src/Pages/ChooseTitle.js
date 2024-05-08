@@ -172,10 +172,9 @@ const ChooseTitle = () => {
                         <div
                           key={index}
                           onClick={() => handleSelect(cata.role)}
-
                           className={`flex justify-center cursor-pointer ${
-                            select !== null && select !== cata._id
-                              ? "opacity-50"
+                            select !== null && select !== cata.role
+                              ? "filter blur-lg"
                               : ""
                           }`}
                         >
@@ -184,7 +183,7 @@ const ChooseTitle = () => {
                             alt="not found"
                             className="w-[90%] relative"
                           />
-                          {console.log("Select::>>>",cata)}
+                          {console.log("Select::>>>", cata)}
                         </div>
                       ))
                     )}
