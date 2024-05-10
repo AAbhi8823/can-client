@@ -115,9 +115,9 @@ const Register = () => {
 
   return (
     <>
-      <div className="grid flex justify-start center-1">
+      <div className="grid flex justify-center center-1 re-logo">
         <Link to="/">
-          <div className="flex px-10 w-[100%]">
+          <div className="flex justify-center px-10 w-[100%]">
             <img src={LogoCAn} className="lg:block md:block hidden" alt="" />
             <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
           </div>
@@ -127,7 +127,7 @@ const Register = () => {
         <Craousel />
         <div className=" md:w-1/2 lg:w-[35%] px-5">
           <div>
-            <img src={elite1} className="w-[100%]" alt="none" />
+            <img src={elite1} className="w-[50%] m-[auto]"  alt="none" />
           </div>
 
           <div className="text-center text-[22px] lg:text-[1.95vw] font-semibold    text-[#C31A7F]">
