@@ -87,7 +87,7 @@ const Home = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [isSaved, setIsSaved] = useState();
   const [isCommentLiked, setCommentLiked] = useState(false);
-  const [likeNumber,setLikenumber]=useState(0);
+  const [likeNumber, setLikenumber] = useState(0);
   const navigate = useNavigate();
 
   const GifImage = [
@@ -185,7 +185,6 @@ const Home = () => {
     setChecked(checked.filter((checkedItem) => checkedItem.id !== item.id));
   };
 
-
   const toggleShareButton = (postid) => {
     setShareButton(!shareButton);
     console.log("postshareid", postid);
@@ -280,32 +279,30 @@ const Home = () => {
     const postToken = Cookie.get("token");
 
     try {
-        const likeData = await axios.post(
-            `${baseurl}/mystory/like-story`,
-            {
-              story_id: postID,
-            },
-            {
-              headers: {
-                  Authorization: `Bearer ${postToken}`,
-              },
-          }
-        );
-        if (likeData) {
-            setLikedPosts((prevLikedPosts) => ({
-                ...prevLikedPosts,
-                [likeID]: true,
-            }));
-            HomePost();
-        } else {
-            console.log("API error");
+      const likeData = await axios.post(
+        `${baseurl}/mystory/like-story`,
+        {
+          story_id: postID,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${postToken}`,
+          },
         }
+      );
+      if (likeData) {
+        setLikedPosts((prevLikedPosts) => ({
+          ...prevLikedPosts,
+          [likeID]: true,
+        }));
+        HomePost();
+      } else {
+        console.log("API error");
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
-
-
+  };
 
   function open_post() {
     setCreatePost(true);
@@ -371,14 +368,6 @@ const Home = () => {
   const toggleVertical = (item) => {
     setVertical(item);
   };
-
-  const takeValue = (e) => {
-    // e.preventDefault()
-    setComVal(e.target.value);
-  };
-
-  const handleCom = () => console.log(comVal);
-
   const postApidata = (postData) => {
     // console.log(postData.data.msg)
     if (postData.data.msg === "post create successfully") {
@@ -437,8 +426,6 @@ const Home = () => {
   };
 
   const activeUser = localStorage.getItem("active_user");
-
-  const alreadyLike = () => {};
 
   useEffect(() => {
     HomePost();
@@ -505,7 +492,7 @@ const Home = () => {
     try {
       const createPost = await axios.post(
         `${baseurl}/mystory/add-story`,
-        formInfo, 
+        formInfo,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -513,7 +500,6 @@ const Home = () => {
           },
         }
       );
-  
 
       if (createPost) {
         setIsPosting(false);
@@ -576,16 +562,6 @@ const Home = () => {
     }
   }, []);
 
-  const handleCheckboxChange = (event) => {
-    const { checked, value } = event.target;
-    setIsChecked(checked);
-
-    if (checked) {
-      console.log("The checkbox is checked! Sending value:", value);
-    } else {
-    }
-  };
-
   const commentLike = async (commentId) => {
     const user = localStorage.getItem("active_user");
     try {
@@ -607,11 +583,6 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const [totallikesoncomment, setTotalLikes] = useState();
-  const refershCount = (newLikes) => {
-    setTotalLikes(newLikes);
   };
 
   return (
@@ -1107,7 +1078,10 @@ const Home = () => {
                                       homePostItems.post_title
                                     ) : (
                                       <>
-                                        {homePostItems.post_title?.slice(0, 250)}
+                                        {homePostItems.post_title?.slice(
+                                          0,
+                                          250
+                                        )}
                                         <button
                                           className="text-black font-semibold underline text-[13px] md:text-[14px] cursor-pointer"
                                           onClick={handleReadMore}
@@ -1128,7 +1102,7 @@ const Home = () => {
                                 <div className="rounded-3xl w-full overflow-hidden h-[40vh]">
                                   <img
                                     src={homePostItems.media_files} // Use homePostItems.media_files instead of homePostItems?.media_files
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-contain"
                                     alt="Not found"
                                   />
                                 </div>
@@ -1180,7 +1154,11 @@ const Home = () => {
                                   )}
                                   <p className="text-[12px] font-bold">
                                     {" "}
-                                    {console.log("homePostItems::>>",homePostItems.likes.length)}{homePostItems.likes.length}
+                                    {console.log(
+                                      "homePostItems::>>",
+                                      homePostItems.likes.length
+                                    )}
+                                    {homePostItems.likes.length}
                                   </p>
                                 </div>
                                 <div>
@@ -1200,7 +1178,7 @@ const Home = () => {
                                   {showContent && (
                                     <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#98989806]  ">
                                       <div
-                                        className={` mt-[105px] lg:mt-2 h-[90vh] overflow-scroll lg:overflow-hidden scrollbar-hide lg:h-[70%]  bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden ${
+                                        className={` mt-[105px] lg:mt-2 h-[90vh] lg:overflow-hidden scrollbar-hide lg:h-[70%]  bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden ${
                                           commentModel.image
                                             ? "w-[95%]   lg:w-[70%]"
                                             : "w-[95%] lg:w-[27%]"
@@ -1214,7 +1192,7 @@ const Home = () => {
                                           }`}
                                         >
                                           <img
-                                            src={commentModel.image}
+                                            // src={commentModel.image}
                                             alt="none"
                                             className="object-cover w-full h-full"
                                           />

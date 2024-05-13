@@ -190,40 +190,6 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
           </div>
         </div>
         <div className="h-[80%] w-[100%] flex flex-col items-center">
-          {/* <div className='w-[90%] h-[50%] mt-[3%] border-dotted rounded-lg border-2 border-gray-300 flex flex-col justify-center items-center'>
-            {!PDF ? (
-              <>
-                <div className='text-[12px] text-[#7E7E7E] pr-10 py-2 w-full'>
-                  <p className='w-full text-right italic'>Max File Size: 3 MB</p>
-                </div>
-                <div className='flex flex-col items-center mb-4'>
-                  <MdOutlineCloudUpload size={50} color='#7E7E7E' />
-                  <h1>Drag and drop or</h1>
-                  <h1 className='text-[#3F75F3] font-semibold cursor-pointer' onClick={uploadPDF}>
-                    Browse
-                  </h1>
-                  <p className='text-sm w-[100%] text-center text-[#7E7E7E]'>Add Appointment Letter</p>
-                </div>
-              </>
-            ) : (
-              <div className='relative flex items-center justify-center h-full w-full'>
-                <div className='flex items-center gap-2'>
-                  <BsFileEarmarkPdf size={30} />
-                  <p className='font-semibold text-xl'>{PDFname}</p>
-                </div>
-                <button className='absolute top-5 right-5' onClick={closeUploadPDF}>
-                  <IoCloseCircleSharp color='black' />
-                </button>
-              </div>
-            )}
-            <input
-              type='file'
-              accept='application/pdf'
-              ref={hiddenChoosePDF}
-              style={{ display: 'none' }}
-              onChange={handlePDFUpload}
-            />
-          </div> */}
           <form className="flex flex-wrap justify-between lg:mx-[4%] mt-4">
             <div className="flex gap-6 w-full">
               <div className="relative z-0 w-1/2 mb-4 group">

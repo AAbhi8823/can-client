@@ -53,7 +53,7 @@ const ChooseTitle = () => {
         `${baseurl}/profilelist/get-profile-list`,
         config
       );
-      console.log("data::>>>>", data.resData.data);
+      console.log("data::>>>>", data);
       if (data.resData.status === true) {
         setViewCategory(data.resData.data);
       }
@@ -127,7 +127,7 @@ const ChooseTitle = () => {
       </Dialog>
 
       {/* Your main content */}
-      <div className="grid flex justify-start center-1">
+      <div className="flex justify-start center-1">
         <NavLink to="/">
           <div className="flex px-10 w-[100%]">
             <img src={logo2} alt="" />
@@ -187,7 +187,6 @@ const ChooseTitle = () => {
                         </div>
                       ))
                     )}
-                    {/* Continue button */}
                     <button
                       className={`bg-[#C31A7F] ${
                         select ? "" : "opacity-50"

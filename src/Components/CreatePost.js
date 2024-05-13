@@ -53,10 +53,10 @@ const CreatePost = ({ close_createPost }) => {
     setInput(e.target.value);
   };
 
-
   const handlePost = async () => {
     setIsPosting(true);
     const token = Cookie.get("token");
+    console.log("token::>>",token)
     const formInfo = new FormData();
     formInfo.set("post_title", input);
     formInfo.set("media_files", mainImg);
@@ -72,7 +72,7 @@ const CreatePost = ({ close_createPost }) => {
           },
         }
       );
-  
+
       if (createPost) {
         toast.success("Posted Successfully!", {
           position: "top-center",
@@ -86,14 +86,12 @@ const CreatePost = ({ close_createPost }) => {
         });
         window.location.reload();
       }
-  
+
       setIsPosting(false);
     } catch (error) {
       console.log(error);
     }
   };
-  
-
 
   // const handlePost = async () => {
   //   setIsPosting(true);
