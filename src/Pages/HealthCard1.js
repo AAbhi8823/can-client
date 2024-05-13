@@ -1,35 +1,38 @@
 import React, { useRef, useState } from "react";
 import { CgAdd } from "react-icons/cg";
-import { MdOutlineCloudUpload } from "react-icons/md";
-import Page from "../Layouts/Pages";
-import { NavLink, useNavigate } from "react-router-dom";
+import { MdOutlineCloudUpload, MdOutlineModeEditOutline } from "react-icons/md";
 import { BsFileEarmarkPdf } from "react-icons/bs";
-import { MdOutlineModeEditOutline } from "react-icons/md";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-
+import Page from "../Layouts/Pages";
+import { NavLink, useNavigate } from "react-router-dom";
 const HealthCard1 = () => {
   const hiddenChoosePDF = useRef();
   const hiddenChoosePDF1 = useRef();
   const hiddenChoosePDF2 = useRef();
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [healthCardData, setHealthCardData] = useState([]);
-  const [emergencyContacts, setEmergencyContacts] = useState([
-    { name: "", phone: "" },
-  ]);
-  const [contactIndex, setContactIndex] = useState(0);
-  const [PDF, setPDF] = useState();
-  const [PDF2, setPDF2] = useState();
-  const [PDF3, setPDF3] = useState();
+  const [healthCardData, setHealthCardData] = useState({
+    patientsname: "",
+    gender: "",
+    date_of_birth: "",
+    blood_group: "",
+    height: "",
+    weight: "",
+    cancer_type: "",
+    cancer_stage: "",
+    presiding_doctor: "",
+    hospital_details_primary: "",
+    hospital_details: ""
+  });
+  const [emergencyContacts, setEmergencyContacts] = useState([{ name: "", phone: "" }]);
+  const [PDF, setPDF] = useState(null);
+  const [PDF2, setPDF2] = useState(null);
+  const [PDF3, setPDF3] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  let healthCardQueryParams = new URLSearchParams();
-  let emergencyContactsQueryParams = new URLSearchParams();
   const handleInputChange = (event) => {
     const { id, value } = event.target;
-
-    // If the input belongs to the emergency contact, update the corresponding contact
     if (id.startsWith("emergency_name_") || id.startsWith("emergency_phone_")) {
       const contactIndex = parseInt(id.split("_")[2], 10);
       const updatedContacts = [...emergencyContacts];
@@ -43,80 +46,35 @@ const HealthCard1 = () => {
 
       setEmergencyContacts(updatedContacts);
     } else {
-      // If the input is for healthCardData, update the healthCardData state
       setHealthCardData({
         ...healthCardData,
         [id]: value,
       });
     }
   };
-
   const handleAddEmergencyContact = () => {
     setEmergencyContacts([...emergencyContacts, { name: "", phone: "" }]);
   };
-
-  const [isSubmitting, setIsSubmitting] = useState();
-
   const handleOnsubmit = async () => {
     setIsSubmitting(true);
-    const userid = localStorage.getItem("active_user");
     const token = Cookies.get("token");
-    healthCardQueryParams = new URLSearchParams(healthCardData);
-    emergencyContacts.forEach((contact, index) => {
-      emergencyContactsQueryParams.set(`emergency_name_${index}`, contact.name);
-      emergencyContactsQueryParams.set(
-        `emergency_phone_${index}`,
-        contact.phone
-      );
-    });
-    const queryParamsString =
-      healthCardQueryParams.toString() +
-      "&" +
-      emergencyContactsQueryParams.toString();
-
     const formData = new FormData();
-
-    // Append the files to the FormData object
     formData.append("aadhaarCard", PDF);
     formData.append("fit_to_fly_Certificate", PDF2);
     formData.append("biopsy", PDF3);
-
-    // Add other form data to the FormData object
-    formData.append("userid", userid);
-    formData.append("healthCardData", healthCardData);
-    formData.append("patientsname", healthCardData.patientsname);
-    formData.append("date_of_birth", healthCardData.date_of_birth);
-    formData.append("blood_group", healthCardData.blood_group);
-    formData.append("height", healthCardData.height);
-    formData.append("weight", healthCardData.weight);
-    formData.append("cancer_type", healthCardData.cancer_type);
-    formData.append("cancer_stage", healthCardData.cancer_stage);
-    formData.append("current_treatment", healthCardData.current_treatment);
-    formData.append("last_treatment", healthCardData.last_treatment);
-    formData.append("presiding_doctor", healthCardData.presiding_doctor);
-    formData.append(
-      "hospital_details_primary",
-      healthCardData.hospital_details_primary
-    );
-    formData.append("hospital_details", healthCardData.hospital_details);
-
-    // emergencyContacts.forEach((contact, index) => {
-    //   console.log(contact);
-    //   formData.set("emergencyContacts", JSON.stringify(contact));
-    // });
-
+    for (const key in healthCardData) {
+      formData.append(key, healthCardData[key]);
+    }
     try {
       const response = await axios.post(
-        `${baseurl}/api/healthcard?token=${token}`,
+        `${baseurl}/healthcard/add-health-card`,
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Set content type to multipart/form-data for file upload
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      
-
       if (response) {
         toast.success("Health Card Created Successfully!", {
           position: "top-center",
@@ -128,24 +86,23 @@ const HealthCard1 = () => {
           progress: undefined,
           theme: "colored",
         });
-        setIsSubmitting(false);
-        console.log("without emergency", response.data);
-        const formData = new FormData();
-        formData.set("health_card_id", response.data.data._id);
-        formData.set("emergencyContacts", JSON.stringify(emergencyContacts));
-        console.log(formData);
+
+        const formData2 = new FormData();
+        formData2.set("health_card_id", response.data.data._id);
+        formData2.set("emergencyContacts", JSON.stringify(emergencyContacts));
+
         const response2 = await axios.post(
           `${baseurl}/api/add_emergencyContacts?token=${token}`,
-          formData
+          formData2
         );
+
         if (response2) {
-          // navigate("/HealthCard2");
           console.log(response2);
         } else {
           console.log("api error");
         }
       } else {
-        toast.success("All fields are required!", {
+        toast.error("Failed to create health card!", {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: true,
@@ -155,10 +112,9 @@ const HealthCard1 = () => {
           progress: undefined,
           theme: "colored",
         });
-        setIsSubmitting(false);
       }
     } catch (error) {
-      toast.success("All fields are required!", {
+      toast.error("Failed to create health card!", {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: true,
@@ -168,48 +124,49 @@ const HealthCard1 = () => {
         progress: undefined,
         theme: "colored",
       });
+    } finally {
       setIsSubmitting(false);
     }
   };
 
-  function handlePDFUpload(event) {
+  const handlePDFUpload = (event) => {
     const file = event.target.files[0];
     if (file.type === "application/pdf") {
       setPDF(file);
     } else {
       console.log("Invalid file type");
     }
-  }
+  };
 
-  function handlePDFUpload1(event) {
+  const handlePDFUpload1 = (event) => {
     const file = event.target.files[0];
     if (file.type === "application/pdf") {
       setPDF2(file);
     } else {
       console.log("Invalid file type");
     }
-  }
-  function handlePDFUpload2(event) {
+  };
+
+  const handlePDFUpload2 = (event) => {
     const file = event.target.files[0];
     if (file.type === "application/pdf") {
       setPDF3(file);
     } else {
       console.log("Invalid file type");
     }
-  }
+  };
 
-  function uploadPDF() {
+  const uploadPDF = () => {
     hiddenChoosePDF.current.click();
-  }
+  };
 
-  function uploadPDF1() {
+  const uploadPDF1 = () => {
     hiddenChoosePDF1.current.click();
-  }
+  };
 
-  function uploadPDF2() {
+  const uploadPDF2 = () => {
     hiddenChoosePDF2.current.click();
-  }
-
+  };
   return (
     <Page
       pageContent={
@@ -217,33 +174,6 @@ const HealthCard1 = () => {
           <div className="h-fit w-full bg-[#FEF8FD] flex flex-col gap-4 pb-5 justify-center items-center lg:px-20 px-3">
             <h1 className=" pt-6 font-semibold">Make Your Health Card</h1>
             <div className=" h-full  bg-white rounded-xl py-2">
-              {/* <div className="flex flex-col gap-2 items-center justify-center mt-4">
-                <input
-                  type="file"
-                  id="upload-button"
-                  style={{ display: "none" }}
-                  onChange={(e) => setSelectedImage(e.target.files[0])}
-                />
-                {selectedImage && (
-                  <img
-                    src={URL.createObjectURL(selectedImage)}
-                    alt="Selected"
-                    style={{
-                      borderRadius: "50%",
-                      width: "80px",
-                      height: "80px",
-                    }}
-                    className="object-cover"
-                  />
-                )}
-                <label
-                  htmlFor="upload-button"
-                  className="  text-[#C31A7F] cursor-pointer"
-                >
-                  Upload Picture
-                </label>
-              </div> */}
-
               <form className="flex flex-wrap items-center justify-center gap-7 mx-[4%] my-4">
                 <div className=" md:w-[46%] relative group w-full">
                   <input
@@ -397,36 +327,6 @@ const HealthCard1 = () => {
                     <option value="Stage IIB">Stage IIB</option>
                   </select>
                 </div>
-                {/* <div className="md:w-[46%] w-full  relative group">
-                  <input
-                    type="text"
-                    id="current_treatment"
-                    required
-                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
-                    onChange={handleInputChange}
-                  />
-                  <label
-                    for="current_treatment"
-                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
-                  >
-                    Current Treatment
-                  </label>
-                </div>
-                <div className="md:w-[46%] w-full  relative group">
-                  <input
-                    type="text"
-                    id="last_treatment"
-                    required
-                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
-                    onChange={handleInputChange}
-                  />
-                  <label
-                    for="last_treatment"
-                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
-                  >
-                    Last Treatment
-                  </label>
-                </div> */}
                 <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
@@ -646,8 +546,6 @@ const HealthCard1 = () => {
                   />
                 </div>
 
-                {/* Biopsy certificate */}
-
                 <div
                   className="p-2 m-2 w-full md:w-[30%]"
                   style={{
@@ -713,15 +611,12 @@ const HealthCard1 = () => {
                   <div className="h-10 w-28 bg-transparent text-[#7E7E7E] border-2 rounded-xl flex items-center justify-center cursor-pointer">
                     Cancel
                   </div>
-                  {/* <NavLink to={{ pathname: '/HealthCard2',
-                      state: { healthCardData: healthCardData, emergencyContacts: emergencyContacts, },}}> */}
                   <button
                     className="h-10 w-28 bg-[#C31A7F] text-[#FFFF] rounded-xl flex items-center justify-center cursor-pointer"
                     onClick={handleOnsubmit}
                   >
                     {isSubmitting ? "Saving..." : "Save"}
                   </button>
-                  {/* </NavLink> */}
                 </div>
               </div>
             </div>
