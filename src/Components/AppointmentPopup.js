@@ -1,35 +1,30 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { BsFileEarmarkPdf } from "react-icons/bs";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import apis from "../Api/baseUrl";
-import Cookies from "js-cookie";
-import { useEffect } from "react";
-
+import { base_token } from "../Api/baseUrl";
 const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
   const [pop, setPop] = useState(true);
+  const [formValues, setFormValues] = useState({
+    appointment_name: "",
+    doctor_name: "",
+    hospital_name: "",
+    hospital_address: "",
+    appointment_date: "",
+    appointment_time: "",
+    remarks: "",
+  });
+  const [isSaving, setIsSaving] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
   const navigate = useNavigate();
   const token = Cookies.get("token");
-  const [PDF, setPDF] = useState();
-  const hiddenChoosePDF = useRef();
-  const [PDFname, setPDFname] = useState("");
-  console.log("edit", edit, edit_id);
-
-  console.log("edit", edit, edit_id);
-
-  const [formValues, setFormValues] = useState({
-    appointmentName: "",
-    doctorName: "",
-    hospitalName: "",
-    hospitalAddress: "",
-    appointmentDate: "",
-    appointmentTime: "",
-    appointmentNote: "",
-  });
-
+  console.log("token::>>>>",base_token)
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
@@ -38,55 +33,21 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
     }));
   };
 
-  const handlePDFUpload = (event) => {
-    const file = event.target.files[0];
-    if (file.type === "application/pdf") {
-      setPDF(file);
-    } else {
-      console.log("Invalid file type");
-    }
-    setPDFname(file.name);
-  };
-
-  const handleSave = () => {
-    // Perform save operation or any other necessary actions
-
-    // Close the popup
-    setPop(!pop);
-
-    // Redirect to Appointment1 page with form values as URL parameters
-    const queryParams = new URLSearchParams(formValues);
-    navigate(`/appointment1?${queryParams}`);
-    let token = Cookies.get("token");
-
-    console.log(formValues);
-  };
-
-  const uploadPDF = () => {
-    hiddenChoosePDF.current.click();
-  };
-
-  const closeUploadPDF = () => {
-    setPDF(!PDF);
-  };
-
   const getsingle_appointment = async (id) => {
     try {
       const { data } = await axios.post(
         `${apis.SINGEL_FETCH_APPOINTMENT}/?token=${token}`,
-        {
-          appointment_Id: id,
-        }
+        { appointment_Id: id }
       );
-      if (data.status == true) {
+      if (data.status) {
         setFormValues({
-          appointmentName: data.data.appointmentName,
-          appointmentDate: data.data.date,
-          appointmentTime: data.data.time,
-          appointmentNote: data.data.note,
-          hospitalAddress: data.data.hospitalAddress,
-          hospitalName: data.data.hospitalName,
-          doctorName: data.data.doctorName,
+          appointment_name: data.data.appointment_name,
+          appointment_date: data.data.date,
+          appointment_time: data.data.time,
+          remarks: data.data.note,
+          hospital_address: data.data.hospital_address,
+          hospital_name: data.data.hospital_name,
+          doctor_name: data.data.doctor_name,
         });
       }
     } catch (err) {
@@ -98,38 +59,23 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
     if (edit && edit_id) {
       getsingle_appointment(edit_id);
     }
-  }, [edit_id]);
-
-  const [isEditing, setIsEditing] = useState();
+  }, [edit, edit_id]);
 
   const editappointment = async () => {
     setIsEditing(true);
     try {
-      let id = localStorage.getItem("active_user");
-      console.log();
-      let datas = {
+      const datas = {
         appointment_Id: edit_id,
-        appointmentName: formValues.appointmentName,
-        doctorName: formValues.doctorName,
-        hospitalName: formValues.hospitalName,
-        hospitalAddress: formValues.hospitalAddress,
-        date: formValues.appointmentDate,
-        note: formValues.appointmentNote,
-        time: formValues.appointmentTime,
+        ...formValues,
       };
       const { data } = await axios.put(
         `${apis.UPDATE_APPOINTMENT}/?token=${token}`,
         datas
       );
-      console.log(data);
-
-      if (data.status == true) {
-        console.log(data);
+      if (data.status) {
         setPop(false);
         setIsEditing(false);
-        let token = Cookies.get("token");
-        let id = localStorage.getItem("active_user");
-        getappointment(token, id);
+        getappointment(token, localStorage.getItem("active_user"));
       }
     } catch (error) {
       console.log(error);
@@ -137,41 +83,34 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
     }
   };
 
-  const [isSaving, setIsSaving] = useState();
   const createappointment = async () => {
     setIsSaving(true);
     try {
-      let id = localStorage.getItem("active_user");
-      console.log();
-      let datas = {
-        patients_id: id,
-        appointmentName: formValues.appointmentName,
-        doctorName: formValues.doctorName,
-        hospitalName: formValues.hospitalName,
-        hospitalAddress: formValues.hospitalAddress,
-        date: formValues.appointmentDate,
-        note: formValues.appointmentNote,
-        time: formValues.appointmentTime,
+      const datas = {
+        patients_id: base_token,
+        ...formValues,
       };
-      const { data } = await axios.post(
-        `${apis.CREATE_APPOINTMENT}/?token=${token}`,
-        datas
-      );
-      console.log(data);
-
-      if (data.status == true) {
-        console.log(data);
+  
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+  
+      const { data } = await axios.post(`${apis.CREATE_APPOINTMENT}`, datas, config);
+      if (data.status) {
         setPop(false);
-
-        navigate(`/appointment1`);
         setIsSaving(false);
-        // Redirect to Appointment1 page with form values as URL parameters
+        navigate("/appointment1");
       }
     } catch (error) {
       console.log(error);
       setIsSaving(false);
     }
   };
+  
+
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center p-2 bg-black bg-opacity-50 z-50 ${
@@ -195,9 +134,9 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
               <div className="relative z-0 w-1/2 mb-4 group">
                 <input
                   type="text"
-                  name="appointmentName"
-                  id="appointmentName"
-                  value={formValues.appointmentName}
+                  name="appointment_name"
+                  id="appointment_name"
+                  value={formValues.appointment_name}
                   onChange={handleInputChange}
                   className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
@@ -205,7 +144,7 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                 />
 
                 <label
-                  for="appointmentName"
+                  for="appointment_name"
                   className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -216,9 +155,9 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
               <div className="relative z-0 w-1/2 mb-4 group">
                 <input
                   type="text"
-                  name="doctorName"
-                  id="doctorName"
-                  value={formValues.doctorName}
+                  name="doctor_name"
+                  id="doctor_name"
+                  value={formValues.doctor_name}
                   onChange={handleInputChange}
                   className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
@@ -239,9 +178,9 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
               <div className="relative z-0 w-1/2 mb-4 group">
                 <input
                   type="text"
-                  name="hospitalName"
-                  id="hospitalName"
-                  value={formValues.hospitalName}
+                  name="hospital_name"
+                  id="hospital_name"
+                  value={formValues.hospital_name}
                   onChange={handleInputChange}
                   className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
@@ -249,7 +188,7 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                 />
 
                 <label
-                  for="hospitalName"
+                  for="hospital_name"
                   className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -260,9 +199,9 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
               <div className="relative z-0 w-1/2 mb-4 group">
                 <input
                   type="text"
-                  name="hospitalAddress"
-                  id="hospitalAddress"
-                  value={formValues.hospitalAddress}
+                  name="hospital_address"
+                  id="hospital_address"
+                  value={formValues.hospital_address}
                   onChange={handleInputChange}
                   className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
@@ -286,16 +225,16 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                   onFocus={(e) => {
                     e.target.type = "date";
                   }}
-                  value={formValues.appointmentDate}
+                  value={formValues.appointment_date}
                   onChange={handleInputChange}
-                  id="appointmentDate"
-                  name="appointmentDate"
+                  id="appointment_date"
+                  name="appointment_date"
                   className=" block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
                   required
                 />
                 <label
-                  for="appointmentDate"
+                  for="appointment_date"
                   className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -309,9 +248,9 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                   onFocus={(e) => {
                     e.target.type = "time";
                   }}
-                  id="appointmentTime"
-                  name="appointmentTime"
-                  value={formValues.appointmentTime}
+                  id="appointment_time"
+                  name="appointment_time"
+                  value={formValues.appointment_time}
                   onChange={handleInputChange}
                   className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
@@ -330,9 +269,9 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
             <div className="relative z-0 w-full mb-4 group">
               <input
                 type="text"
-                name="appointmentNote"
-                id="appointmentNote"
-                value={formValues.appointmentNote}
+                name="remarks"
+                id="remarks"
+                value={formValues.remarks}
                 onChange={handleInputChange}
                 className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                 placeholder=" "
@@ -340,7 +279,7 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
               />
 
               <label
-                for="appointmentNote"
+                htmlFor="remarks"
                 className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
               >
                 <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
