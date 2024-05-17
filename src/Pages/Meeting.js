@@ -64,8 +64,8 @@ const Meeting = () => {
 
         <div className="bg-[#FEF8FD] h-full">
           {/* top bar */}
-          <div className="pl-[10%] pr-[6%] flex justify-between pt-8">
-            <div className=" cursor-pointer ">
+          <div className="pl-[20px] pr-[20px]  lg:pl-[10%] lg:pr-[6%] flex justify-between pt-8 flex-col md:flex-row">
+            <div className=" cursor-pointer mb-3 md:mb-0">
               {selectedOption === "Today" && (
                 <h2 className="text-xl font-semibold flex items-center gap-2">
                   <TiMediaRecord color="red" />
@@ -82,7 +82,7 @@ const Meeting = () => {
               )}
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-col sm:flex-row">
               <div className="flex items-center bg-white gap-2 p-2 rounded-2xl shadow-lg px-4">
                 <FiSearch />
                 <input placeholder="search" className="outline-none" />
@@ -122,15 +122,15 @@ const Meeting = () => {
           {/* Join meeting sections */}
           {selectedOption === "Today" && (
             <>
-              <div className="pl-[10%] pr-[6%]  ">
-                <div className="bg-white shadow-xl mt-8 flex flex-wrap justify-between px-10 rounded-2xl py-2">
-                  <div className="flex items-center font-semibold text-[#CF4899]   w-[20%] ">
+              <div className="pl-[20px] pr-[20px]  lg:pl-[10%] lg:pr-[6%]">
+                <div className="bg-white shadow-xl mt-8 flex overflow-auto justify-between px-5 rounded-2xl py-2">
+                  <div className="flex items-center font-semibold text-[#CF4899]   w-[max-content] pr-2 ">
                     11:00 - 12:15PM
                   </div>
 
-                  <div className="flex items-center    w-[20%] ">
-                    <div className="w-[12%] rounded-full overflow-hidden shadow-md">
-                      <img src={account} alt="none" />
+                  <div className="flex items-center    w-[max-content] pr-2 ">
+                    <div className=" rounded-full overflow-hidden shadow-md">
+                      <img className="w-[60px]" src={account} alt="none" />
                     </div>
                     <div className="mx-2  ">
                       <h2 className="font-semibold">Sierra Ferguson</h2>
@@ -142,16 +142,16 @@ const Meeting = () => {
                     </div>
                   </div>
 
-                  <div className="flex w-max  w-[20%] ">
+                  <div className="flex w-max  w-[max-content] pr-2 ">
                     <h2 className=" w-full h-max ">
                       <p className="font-semibold ">Meeting description :-</p>{" "}
                       {meetingDesc}
                     </h2>
                   </div>
 
-                  <div className="flex items-center justify-center w-[20%] ">Active accounts</div>
+                  <div className="flex items-center justify-center w-[max-content] pr-2 ">Active accounts</div>
 
-                  <div className="flex items-center justify-center w-[20%] ">
+                  <div className="flex items-center justify-center w-[max-content] pr-2 ">
                     <h2
                       className="bg-[#C31A7F] text-white px-8 py-1 rounded-xl"
                       onClick={joinMeeting}
@@ -245,12 +245,12 @@ const Meeting = () => {
               </div>
 
               {/* upcoming meeting */}
-              <div className="pl-[10%] pr-[6%] ">
+              <div className="pl-[20px] pr-[20px]  lg:pl-[10%] lg:pr-[6%]">
                 <h1 className="text-xl font-semibold pt-10">
                   Upcoming meeting
                 </h1>
-                <div className="bg-white shadow-xl mt-8 flex justify-between px-10 rounded-2xl py-2">
-                  <div className="flex flex-col items-center w-[10%]">
+                <div className="bg-white overflow-auto shadow-xl mt-8 flex justify-between pl-5 rounded-2xl py-2 pr-5">
+                  <div className="flex flex-col items-center w-[max-content] pr-2">
                     <p className="text-xs">23 Dec</p>
                     <p className="text-sm">Start's On</p>
                     <p className="font-semibold text-[#CF4899] text-sm">
@@ -258,9 +258,9 @@ const Meeting = () => {
                     </p>
                   </div>
 
-                  <div className="flex items-center   w-[20%]">
-                    <div className="w-[12%] rounded-full overflow-hidden shadow-md">
-                      <img src={account} alt="none" />
+                  <div className="flex items-center   w-[max-content] pr-2">
+                    <div className=" rounded-full overflow-hidden shadow-md">
+                      <img className="w-[60px]" src={account} alt="none" />
                     </div>
                     <div className="mx-2  ">
                       <h2 className="font-semibold">Sierra Ferguson</h2>
@@ -272,14 +272,14 @@ const Meeting = () => {
                     </div>
                   </div>
 
-                  <div className="flex w-max ">
+                  <div className="flex w-max pr-2">
                     <h2 className=" w-full h-max ">
                       <p className="font-semibold ">Meeting description :-</p>{" "}
                       {meetingDesc}
                     </h2>
                   </div>
 
-                  <div className="flex items-center">Active accounts</div>
+                  <div className="flex items-center pr-2">Active accounts</div>
 
                   <div className="flex items-center">
                     <h2 className="bg-[#CF4899] text-white px-8 py-1 rounded-xl">
@@ -294,8 +294,8 @@ const Meeting = () => {
           {/* meeting page */}
           {selectedOption === "Meeting" && (
             <div className="">
-              <div className="pl-[10%] pr-[6%] ">
-                <div className="bg-white shadow-xl mt-8 flex justify-between px-10 rounded-2xl py-2">
+              <div className="pl-[20px] pr-[20px]  lg:pl-[10%] lg:pr-[6%]">
+                <div className="bg-white overflow-auto shadow-xl mt-8 flex justify-between px-10 rounded-2xl py-2">
                   <div className="flex flex-col items-center justify-center w-[10%]">
                     <p className="text-xs">23 Dec</p>
                     <p className="font-semibold text-[#CF4899] text-[14px] mt-1">
@@ -303,7 +303,7 @@ const Meeting = () => {
                     </p>
                   </div>
 
-                  <div className="flex items-center   w-[20%]">
+                  <div className="flex items-center   w-[max-content] pr-2">
                     <div className="w-[12%] rounded-full overflow-hidden shadow-md">
                       <img src={account} alt="none" />
                     </div>
@@ -357,8 +357,8 @@ const Meeting = () => {
           {/* History */}
           {selectedOption === "History" && (
             <div className="">
-              <div className="pl-[10%] pr-[6%] ">
-                <div className="bg-white shadow-xl mt-8 flex justify-between px-10 rounded-2xl py-2">
+              <div className="pl-[20px] pr-[20px]  lg:pl-[10%] lg:pr-[6%] ">
+                <div className="bg-white overflow-auto shadow-xl mt-8 flex justify-between px-10 rounded-2xl py-2">
                   <div className="flex flex-col items-center justify-center w-[10%]">
                     <p className="text-xs">23 Dec</p>
                     <p className="font-semibold text-[#CF4899]">
@@ -366,7 +366,7 @@ const Meeting = () => {
                     </p>
                   </div>
 
-                  <div className="flex items-center   w-[20%]">
+                  <div className="flex items-center   w-[max-content] pr-2">
                     <div className="w-[12%] rounded-full overflow-hidden shadow-md">
                       <img src={account} alt="none" />
                     </div>

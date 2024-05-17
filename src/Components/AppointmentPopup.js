@@ -179,7 +179,7 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
       }`}
       style={{ backdropFilter: "blur(2px)" }}
     >
-      <div className="lg:md:w-[40%] h-fit bg-white rounded-[24px] flex flex-col justify-center px-5 py-2 relative">
+      <div className="lg:md:w-[60%] h-fit bg-white rounded-[24px] flex flex-col justify-center px-5 py-2 relative">
         <div className="flex items-center justify-center font-semibold">
           <h1 className="text-lg">Add Appointment</h1>
           <div

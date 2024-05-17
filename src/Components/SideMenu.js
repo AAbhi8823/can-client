@@ -452,9 +452,6 @@ const SideMenu = () => {
                   >
                     <img src={more} alt="none" />
                   </div>
-                  <p className={`${isOpen ? " flex" : "mt-3"}`}>
-                    Show More
-                  </p>
                 </li>
 
               {showmore && (

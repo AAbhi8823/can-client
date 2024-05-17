@@ -77,30 +77,30 @@ function ProfileSuccessAdd() {
         </div>
       </div>
       <div className="flex justify-center p-[20px]">
-        <div className="p-[20px] md:w-[28%] profile_success">
+        <div className="p-[10px]  profile_success">
           <div className="flex justify-center p-[20px]">
             <img src={logo} alt="not found" className="w-[80px] h-[80px]" />
           </div>
-          <div className="text-[#C31A7F] font-semibold text-center lg:text-[1.7vw] text-[25px] p-[20px]  flex justify-center">
+          <div className="text-[#C31A7F] font-semibold text-center lg:text-[20px] text-[20px] pb-[20px]  flex justify-center">
             Profile Successfully added!
           </div>
-          <div className="justify-center bg-[#C31A7F] py-6 p-[10px] rounded-lg">
+          <div className="justify-center bg-[#C31A7F] p-[10px] rounded-lg">
             <div className="flex justify-center">
-              <div className="grid grid-cols-2 w-full lg:w-[100%] m-auto">
-                <div className="flex justify-unset items-center lg:w-[30%]">
+              <div className="flex w-full lg:w-[100%] m-auto">
+                <div className="flex justify-unset items-center">
                   <Avatar
                     alt=""
                     src={userData?.profile_photo}
-                    sx={{ width: 80, height: 80 }}
+                    sx={{ width: 70, height: 70 }}
                   />
                 </div>
-                <div className="flex flex-col justify-unset pl-4" style={{ wordWrap: 'break-word' }}>
-                  <p className="text-white text-lg">{userValue.username}</p>
-                  <p className="text-white font-[100] text-[16px]">
+                <div className="flex flex-col justify-center pl-3">
+                  <p className="text-white text-lg" style={{textTransform: "capitalize", fontWeight: '600'}}>{userValue.username}</p>
+                  <p className="text-white font-[100] text-[15px]" style={{ wordbreak: 'break-all', textTransform: "capitalize", fontWeight: '600'  }}>
                     {userValue.profile_category?.category_Name}{" "}
                     {userValue.gender}
                   </p>
-                  <p className="text-white font-[100] text-[16px]">
+                  <p className="text-white font-[100] text-[15px]">
                     {userValue.email}
                   </p>
                 </div>
@@ -111,13 +111,13 @@ function ProfileSuccessAdd() {
             </div>
           </div>
 
-          <div className="text-center p-[20px] text-[20px] lg:text-[1.2vw] ">
+          <div className="text-center p-[18px] text-[18px] pt-5 lg:text-[18px] ">
             Your account has been successfully Created.
           </div>
-          <div className="cursor-pointer py-[50px]  ">
+          <div className="cursor-pointer pt-3 pb-5">
             <div
               onClick={handleSuccess}
-              className="  text-[20px] lg:text-[1.2vw] bg-[#C31A7F]  text-center p-3 rounded-xl text-white font-semibold"
+              className="  text-[15px]  bg-[#C31A7F]  text-center py-2 p-3  rounded-xl text-white font-semibold"
             >
               Finish
             </div>
