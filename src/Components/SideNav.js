@@ -142,7 +142,7 @@ const SideNavbar = ({ OpenUpload }) => {
                   Meeting{" "}
                 </li>
               </NavLink>
-              <NavLink to="/chatpage">
+              {/* <NavLink to="/chatpage">
                 {" "}
                 <li className=" flex items-center gap-3">
                   <div
@@ -154,7 +154,7 @@ const SideNavbar = ({ OpenUpload }) => {
                   </div>
                   Chat{" "}
                 </li>
-              </NavLink>
+              </NavLink> */}
               <li className=" flex items-center gap-3" onClick={uploadPost}>
                 <div
                   className={`transition-all duration-500   ${

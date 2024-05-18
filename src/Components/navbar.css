@@ -10,3 +10,16 @@ nav {
   nav.expanded {
     width: 100vw;
   }
+  
+
+  @media screen and (max-width:1023px){
+    .logo{
+      justify-content:unset;
+    }
+    .logo-img{
+      width: 28%;
+    }
+  .navbar{
+      height: auto;
+    }
+  }

@@ -228,7 +228,7 @@ const SideMenu = () => {
                   <div
                     className={`${
                       isOpen
-                        ? "flex flex-col gap-1  hidden translate-x-0"
+                        ? "flex flex-col gap-1 translate-x-0"
                         : "ml-3"
                     }`}
                   >
@@ -337,7 +337,7 @@ const SideMenu = () => {
                   </div>
                 </NavLink>
 
-                <NavLink to="/chatpage" onClick={() => setActivePage("/chatpage")}>
+                {/* <NavLink to="/chatpage" onClick={() => setActivePage("/chatpage")}>
                   <li
                     className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${
                       activePage === "/chatpage"
@@ -352,7 +352,7 @@ const SideMenu = () => {
                       Chat
                     </p>
                   </li>
-                </NavLink>
+                </NavLink> */}
 
                 <NavLink
                   to="/HealthRecord"
@@ -452,9 +452,6 @@ const SideMenu = () => {
                   >
                     <img src={more} alt="none" />
                   </div>
-                  <p className={`${isOpen ? " flex hidden" : "mt-3"}`}>
-                    Show More
-                  </p>
                 </li>
 
               {showmore && (

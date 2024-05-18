@@ -81,13 +81,13 @@ function ContactUs() {
             Contact Us
           </h3>
         </div>
-        <div className="mapandits-element">
-        <div className="lg:w-[50%] md:w-[100%] mt-4 lg " style={{marginLeft:'2%'}}>
+        <div className="mapandits-element contact-wrap">
+        <div className="contact-map lg:w-[50%] md:w-[100%] mt-4 lg " style={{marginLeft:'2%', bboxShadow: '2px 2px 15px #1d0f0f3d', borderRadius: '5px',
+    border: 'unset'}}>
             <iframe
               ref={iframeRef}
               width={'100%'}
-              height={600}
-              style={{ border: "2px solid gray" }}
+              height={'100%'}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -113,19 +113,19 @@ function ContactUs() {
                   <div className="mr-4 mb-[20px] flex items-end ">
                     <img width="20" src={MessageI} alt="" />
                   </div>
-                  <div className="text-[22px]">support@carebynd.com</div>
+                  <div className="text-[16px]">support@carebynd.com</div>
                 </div>
                 <div className="flex">
                   <div className="mr-4 mb-[20px] flex items-end">
                     <img width="20" src={CallI} alt="" />
                   </div>
-                  <div className="text-[22px]">281-430-2345</div>
+                  <div className="text-[16px]">281-430-2345</div>
                 </div>
                 <div className="flex">
                   <div className="mr-4 mb-[20px] flex mt-[10px] items-start">
                     <img width="20" src={LocationI} alt="" />
                   </div>
-                  <div className="text-[22px] leading-[40px] ">
+                  <div className="text-[16px] leading-[40px] ">
                     A47, Lorem ipsum dummy, State, Country-01001
                   </div>
                 </div>
@@ -139,24 +139,24 @@ function ContactUs() {
                 <p className="text-[25px] font-bold ">Give us feedback</p>
                 <p>What do you think about this CAN?</p>
               </div>
-              <div className="lg:flex  py-[72px]">
+              <div className="contact-emoji lg:flex flex  py-[40px]">
                 <img
-                  className="md:mt-[15px] lg:mr-[63px]"
+                  className="md:mt-[15px] lg:mr-[10px] w-[50px]" 
                   src={sadEmoji}
                   alt=""
                 />
                 <img
-                  className="md:mt-[15px] lg:mr-[63px]"
+                  className="md:mt-[15px] lg:mr-[10px] w-[50px]" 
                   src={normalEmoji}
                   alt=""
                 />
                 <img
-                  className="md:mt-[15px] lg:mr-[63px]"
+                  className="md:mt-[15px] lg:mr-[10px] w-[50px]" 
                   src={smileEmoji}
                   alt=""
                 />
                 <img
-                  className="md:mt-[15px] lg:mr-[63px]"
+                  className="md:mt-[15px] lg:mr-[10px] w-[50px]" 
                   src={laughEmoji}
                   alt=""
                 />

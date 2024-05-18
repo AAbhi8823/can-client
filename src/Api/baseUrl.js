@@ -1,8 +1,6 @@
 import Cookies from "js-cookie";
 // export const baseurl = "https://t7hdgfzje2.ap-south-1.awsapprunner.com/api/v1";
 export const baseurl='http://35.154.186.54/api/v1'
-// export const base_token = Cookies.get("token");
-// export const base_token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1ZTk1ZTYxZGVkMTJmNDBiNmU3MzYxNyIsIkNBTklEIjoiQ0FONDAyMyIsInBob25lX251bWJlciI6Ijk4NzE5NDgxNzQiLCJ1c2VyX3Byb2ZpbGUiOiJGaWdodGVyIn0sImlhdCI6MTcxMDA1MTg0MywiZXhwIjoxNzEwMTM4MjQzfQ.kunZze_3drhzBGvESTuU-tlNCl9hJc34MdwDGK4kkHE'
 export const base_token=Cookies.get("token");
 
 console.log("ankurfjkwrbfjrgyfergyfreuy",base_token);
@@ -11,10 +9,8 @@ const apis = {
     // users
     GET_SINGLE_USER:`${baseurl}/api/singleuser`,
     SEARCH_USER:`${baseurl}/api/user-search`,
-
-
-    CREATE_APPOINTMENT: `${baseurl}/api/createappointment`,
-    GET_APPOINTMENT: `${baseurl}/api/allfetch_appointment_specificUser`,
+    CREATE_APPOINTMENT: `${baseurl}/appointment/add-appointment`,
+    GET_APPOINTMENT: `${baseurl}/appointment/get-appointments-list`,
     SINGEL_FETCH_APPOINTMENT: `${baseurl}/api/siglefetch_appointment`,
     UPDATE_APPOINTMENT: `${baseurl}/api/update_appointment_specificUser`,
     CREATE_MEDICINE: `${baseurl}/api/medicines`,

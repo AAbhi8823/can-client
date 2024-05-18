@@ -9,3 +9,6 @@
   .select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: #C31A7F !important;
 }
+.re-logo a img{
+  width: 45%;
+}

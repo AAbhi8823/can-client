@@ -16,6 +16,7 @@ import Cookies from "js-cookie";
 import { baseurl } from "../Api/baseUrl";
 import { BiMenu, BiX } from "react-icons/bi";
 import whyc from '../Photos/whyc.png'
+import "./navbar.css";
 import { NavLink } from "react-router-dom";
 export default function Example(props) {
   const [Nav, setNav] = useState(props);
@@ -111,7 +112,7 @@ export default function Example(props) {
       className={
         Nav
           ? "bg-white fixed flex  transition-[width] duration-[0.3s] ease-[ease] w-[100%] md:w-[100%] lg:pl-[150px] md:pl-0 pr-0 py-2.5 z-20 top-0"
-          : "bg-white transition-[width] w-[100%] md:w-[100%]  lg:w-[65vw] xl:w-[50vw]  duration-[0.3s] ease-[ease] absolute md:fixed w-3/5 lg:rounded-full md:p-0 lg:py-[10px] py-[10px] lg:px-8 h-[9vh]  z-20 lg:top-8 top-0 "
+          : "navbar bg-white transition-[width] w-[100%] md:w-[100%]  lg:w-[65vw] xl:w-[50vw]  duration-[0.3s] ease-[ease] absolute md:fixed w-3/5 lg:rounded-full md:p-0 lg:py-[10px] py-[10px] lg:px-8 h-[9vh]  z-20 lg:top-8 top-0 "
       }
       style={{ boxShadow: "0px 10px 30px 0px rgba(0, 0, 0, 0.1)" }}
     >
@@ -179,9 +180,9 @@ export default function Example(props) {
         </div>
         <div className=" flex relative mx-auto md:mx-auto lg:mx-0">
           <NavLink to="/">
-            <div className="flex relative flex-row cursor-pointer item-center justify-center">
+            <div className="logo flex relative flex-row cursor-pointer item-center justify-center">
               <img
-                className="w-[14vw] lg:w-[4vw] h-auto relative left-1/2 lg:left-0"
+                className="logo-img w-[14vw] lg:w-[4vw] h-auto relative left-1/2 lg:left-0"
                 src={LogoCAn}
                 alt="Logo"
               />

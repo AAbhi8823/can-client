@@ -54,9 +54,9 @@ const Settings = () => {
                     {/* background */}
                     <div className='px-20 py-6'><h1 className='font-[600] lg:md:text-[30px] text-[18px]'>Settings/ Change your Pin</h1></div>
                     <div className='flex lg:md:flex-row flex-col items-start justify-center h-calc(100% -[50px]) w-full lg:md:mx-0 px-2 gap-10'>
-                    <div className=' flex-col flex  lg:md:w-[35%] w-fit'>
+                    <div className=' flex-col flex w-[100%]'>
                     {/* left side settings */}
-                    <div className='flex flex-col w-auto flex-wrap'>
+                    <div className='flex flex-col w-[100%] flex-wrap'>
                         <div className='flex flex-col bg-white rounded-[25px] border-[0.5px] border-[#dfdede] cursor-pointer' style={{boxShadow:'0px 10px 30px 0px rgba(0, 0, 0, 0.05)'}}>
                            {/* notification */}
                            

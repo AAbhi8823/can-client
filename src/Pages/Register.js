@@ -22,7 +22,7 @@ const Register = () => {
   const selectRef = useRef(null);
   const [Username, setUsername] = useState("");
   const [mobilenumber,setMobilenumber]=useState()
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
 
@@ -115,9 +115,9 @@ const Register = () => {
 
   return (
     <>
-      <div className="grid flex justify-start center-1">
+      <div className="grid flex justify-center center-1 re-logo">
         <Link to="/">
-          <div className="flex px-10 w-[100%]">
+          <div className="flex justify-center px-10 w-[100%]">
             <img src={LogoCAn} className="lg:block md:block hidden" alt="" />
             <img src={LogoCAn} className="lg:hidden md:hidden block" alt="" />
           </div>
@@ -127,7 +127,7 @@ const Register = () => {
         <Craousel />
         <div className=" md:w-1/2 lg:w-[35%] px-5">
           <div>
-            <img src={elite1} className="w-[100%]" alt="none" />
+            <img src={elite1} className="w-[50%] m-[auto]"  alt="none" />
           </div>
 
           <div className="text-center text-[22px] lg:text-[1.95vw] font-semibold    text-[#C31A7F]">
@@ -221,7 +221,7 @@ const Register = () => {
               <div className="    inher-1 bg-[#000] h-[3.3vh] lg:h-[2.27vw] w-[0.5px]  text-[1.30vw] "></div>
 
               <label htmlFor="dateOfBirth"></label>
-              <DatePicker
+              {/* <DatePicker
                 type="date"
                 id="dateOfBirth"
                 selected={startDate}
@@ -229,7 +229,22 @@ const Register = () => {
                 onChange={handledobChange}
                 className="border-none w-full bg-transparent placeholder: outline-none  ml-3 text-[18px] lg:text-[1vw]"
                 placeholderText="Enter DOB"
-              />
+              /> */}
+
+              
+<DatePicker
+    type="date"
+    id="dateOfBirth"
+    selected={startDate}
+    max={currentDate}
+    onChange={handledobChange}
+    showYearDropdown
+    scrollableYearDropdown
+    className="border-none w-full bg-transparent placeholder: outline-none  ml-3 text-[18px] lg:text-[1vw]"
+    placeholderText="Enter DOB"
+/>
+
+
             </div>
           </div>
           <div className=" flex text-center justify-center mt-6 px-5">
