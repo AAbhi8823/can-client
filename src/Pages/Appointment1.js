@@ -11,6 +11,8 @@ import axios from "axios";
 import apis from "../Api/baseUrl";
 import Cookies from "js-cookie";
 import { base_token } from "../Api/baseUrl";
+import "./appointment.css";
+
 const Appointment1 = () => {
   //pop up
   const [pop, setPop] = useState(false);
@@ -139,15 +141,15 @@ const Appointment1 = () => {
                 )}
               </div>
 
-              <div className="bg-white min-h-[80vh] max-h-fit   mt-2 rounded-2xl shadow-xl flex flex-col items-center px-8 ">
+              <div className="bg-white min-h-[80vh] max-h-fit   mt-2 rounded-2xl shadow-xl flex flex-col items-center p-8 ">
                 <div className="py-5 scale-75">
                   <CalenderRecords />
                 </div>
 
-                <div className="bg-[#FEF8FD] relative min-h-[70%] max-h-fit w-full rounded-[24px] p-6 flex flex-col gap-3">
-                  <h1 className="">Today's Appointment</h1>
+                <div className="bg-[#FEF8FD] relative min-h-[70%] max-h-fit w-full rounded-[24px] pt-6 flex flex-col gap-3">
+                  <h1 className="px-6">Today's Appointment</h1>
                   <table
-                    className="relative table   justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 "
+                    className="appoint-table relative table   justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 "
                     style={{
                       borderCollapse: "separate",
                       borderSpacing: "0 8px",
@@ -158,7 +160,7 @@ const Appointment1 = () => {
                         console.log(index);
                         return (
                           <tr className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly  overflow-y-visible">
-                            <td className="flex flex-col items-center text-left justify-center   lg:border-[#C4C4C4] pr-4">
+                            <td className="flex flex-col items-center text-left justify-center pr-4">
                               <h1 className="font-semibold lg:text-[1vw] whitespace-nowrap text-[18px]">
                                 {new Date(index.appointment_date).toLocaleDateString()}
                               </h1>
@@ -167,7 +169,7 @@ const Appointment1 = () => {
                               </h1>
                             </td>
 
-                            <td className="flex flex-col lg:flex-col md:flex-row items-start text-left   px-4 gap-2 lg:border-r-[1px] lg:border-l-[1px] lg:border-[#C4C4C4]">
+                            <td className="flex flex-col lg:flex-col md:flex-row items-start text-left   px-4 gap-2">
                               <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
                                 Appointment name
                               </div>
@@ -175,7 +177,7 @@ const Appointment1 = () => {
                                 {index.appointment_name}
                               </div>
                             </td>
-                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2    lg:border-[#C4C4C4]">
+                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2 ">
                               <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
                                 Doctor's name
                               </div>
@@ -184,7 +186,7 @@ const Appointment1 = () => {
                               </div>
                             </td>
 
-                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2  lg:border-r-[1px] lg:border-l-[1px] lg:border-[#C4C4C4]">
+                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2 ">
                               <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
                                 Hospital's name
                               </div>
@@ -193,7 +195,7 @@ const Appointment1 = () => {
                               </div>
                             </td>
 
-                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2   lg:border-[#C4C4C4]">
+                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2 ">
                               <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
                                 Hospital's address
                               </div>
@@ -204,9 +206,9 @@ const Appointment1 = () => {
 
                             <td
                               colSpan={3}
-                              className="flex px-4  lg:border-l-[1px]  "
+                              className="flex px-4    "
                             >
-                              <table className="flex w-full h-full lg:justify-end justify-center md:justify-center items-center">
+                              <table className="appoint-table flex w-full h-full lg:justify-end justify-center md:justify-center items-center">
                                 <tr className=" ">
                                   <td className="pr-2">
                                     <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer">

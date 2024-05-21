@@ -207,7 +207,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
 
   return (
     <>
-      <div className="fixed inset-0 flex lg:items-end md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll lg:pt-0  px-5  py-[90px] ">
+      <div className="fixed inset-0 flex md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll   px-5  py-[90px] ">
         <div className=" flex flex-col bg-white rounded-[40px] lg:md:w-auto  w-full max-h-fit px-10 ">
           <div className="flex flex-row py-4 justify-between items-center w-full">
             <h1 className="text-[22px] font-[500]">Add Medicines</h1>
@@ -418,6 +418,30 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                 </div>
               </div>
 
+              
+              <div className="flex flex-row gap-0 lg:gap-6 py-2">
+                <button
+                  type="button"
+                  className="flex items-center bg-transparent border-0 text-pink-500 focus:outline-none"
+                  onClick={handleAddMedicine}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 mr-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  Add Another Medicine
+                </button>
+              </div>
               <div className="flex flex-row gap-0 lg:gap-6 py-2">
                 <input
                   type="checkbox"
@@ -455,7 +479,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                     All fields required
                   </span>
                 )}
-                {/* <button className='border px-6 py-2 rounded-[15px]' onClick={handleDeleteMedicine}>Cancel</button> */}
+                <button className='border px-6 py-2 rounded-[15px]' onClick={handleDeleteMedicine}>Cancel</button>
 
                 <button
                   className=" px-6 py-2 rounded-[15px] text-[#fff] bg-[#C31A7F]"
