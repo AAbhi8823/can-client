@@ -58,12 +58,12 @@ const CalenderRecords = () => {
     return (
       <div className="flex flex-col items-start space-y-2   justify-center">
         <div className="flex items-center justify-between  ">
-          {/* <div className="text-lg font-semibold">
+          <div className="text-lg font-semibold">
                     {new Date(currentYear, currentMonth).toLocaleString('default', {
                         month: 'long',
                         year: 'numeric',
                     })}
-                </div> */}
+                </div>
         </div>
 
         <div className="flex items-center  space-x-5 ">
