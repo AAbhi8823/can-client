@@ -12,7 +12,6 @@ import apis from "../Api/baseUrl";
 import Cookies from "js-cookie";
 import { base_token } from "../Api/baseUrl";
 const Appointment1 = () => {
-  //pop up
   const [pop, setPop] = useState(false);
   const [edit, setedit] = useState("");
   const [edit_id, setedit_id] = useState("");
@@ -39,7 +38,6 @@ const Appointment1 = () => {
   };
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-
   const appointmentName = queryParams.get("appointmentName");
   const doctorName = queryParams.get("doctorName");
   const hospitalName = queryParams.get("hospitalName");
@@ -54,26 +52,25 @@ const Appointment1 = () => {
   };
 
   const [appoinmentdatea, setappoinmentData] = useState([]);
-  const [temp, settemp] = useState(queryParams.get("edit"));
-
-  const getappointment = async () => {
-   
+  const getappointment = async (date) => {
     try {
-      console.log("Success::>>>",)
       const config = {
         headers: {
           Authorization: `Bearer ${base_token}`,
         },
+        params: {
+          date: "2024-05-15T00:00:00.000+00:00", // Format the date
+        },
       };
+      console.log("data:>>>>>>q" + data);
       const { data } = await axios.get(
         `${apis.GET_APPOINTMENT}`,
         config
       );
-      
-      console.log("Success::>>>1",data)
+      console.log("data:>>>>>>" + data);
+  
       if (data?.resData?.status === true) {
         setappoinmentData(data.resData.data);
-        console.log("Success::>>>1",data.resData.data)
       } else {
         setappoinmentData([]);
       }
@@ -82,10 +79,13 @@ const Appointment1 = () => {
     }
   };
   
+  
+  
   const deleteAppointment = () => {};
 
   useEffect(() => {
-    getappointment();
+    const currentDate = new Date().toISOString().split('T')[0]; 
+    getappointment(currentDate);
   },[]);
 
   return (

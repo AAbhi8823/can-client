@@ -15,7 +15,6 @@ const MedicineReminder = () => {
   let id = localStorage.getItem("active_user");
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-
   const getMedicines = async () => {
     const today = new Date();
     let dt =

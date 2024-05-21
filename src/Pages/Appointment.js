@@ -9,14 +9,11 @@ import apis from '../Api/baseUrl';
 import { NavLink } from 'react-router-dom';
 
 const Appointment = () => {
-  //pop up
   const [pop, setPop] = useState(false);
-
   function PopUp() {
     setPop(!pop);
   }
-
-
+  
   return (
     <Page
       pageContent={
