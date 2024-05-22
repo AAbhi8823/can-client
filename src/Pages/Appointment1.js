@@ -47,7 +47,7 @@ const Appointment1 = () => {
   const appointmentDate = queryParams.get("appointmentDate");
   const appointmentTime = queryParams.get("appointmentTime");
   const appointmentNote = queryParams.get("appointmentNote");
-
+  console.log("Appointment::>>>>")
   const [notePop, setNotePop] = useState(false);
   const handleNotePopUp = () => {
     setNotePop(!notePop);
@@ -61,7 +61,7 @@ const Appointment1 = () => {
           Authorization: `Bearer ${base_token}`,
         },
         params: {
-          date: "2024-05-15T00:00:00.000+00:00", // Format the date
+          date: "2024-05-15T00:00:00.000+00:00", 
         },
       };
       console.log("data:>>>>>>q" + data);

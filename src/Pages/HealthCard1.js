@@ -13,7 +13,7 @@ const HealthCard1 = () => {
   const hiddenChoosePDF1 = useRef();
   const hiddenChoosePDF2 = useRef();
   const [healthCardData, setHealthCardData] = useState({
-    patientsname: "",
+    name: "",
     gender: "",
     date_of_birth: "",
     blood_group: "",
@@ -21,11 +21,15 @@ const HealthCard1 = () => {
     weight: "",
     cancer_type: "",
     cancer_stage: "",
+    // last_treatment:"",
+    current_treatment: "",
     presiding_doctor: "",
     hospital_details_primary: "",
-    hospital_details: ""
+    // hospital_details: ""
   });
-  const [emergencyContacts, setEmergencyContacts] = useState([{ name: "", phone: "" }]);
+  const [emergencyContacts, setEmergencyContacts] = useState([
+    { name: "", phone: "" },
+  ]);
   const [PDF, setPDF] = useState(null);
   const [PDF2, setPDF2] = useState(null);
   const [PDF3, setPDF3] = useState(null);
@@ -59,9 +63,9 @@ const HealthCard1 = () => {
     setIsSubmitting(true);
     const token = Cookies.get("token");
     const formData = new FormData();
-    formData.append("aadhaarCard", PDF);
-    formData.append("fit_to_fly_Certificate", PDF2);
-    formData.append("biopsy", PDF3);
+    // formData.append("adhaar_card", PDF);
+    // formData.append("fit_to_fly_certificate", PDF2);
+    // formData.append("biopsy_certificate", PDF3);
     for (const key in healthCardData) {
       formData.append(key, healthCardData[key]);
     }
@@ -72,6 +76,7 @@ const HealthCard1 = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`, // Include token here
           },
         }
       );
@@ -178,7 +183,7 @@ const HealthCard1 = () => {
                 <div className=" md:w-[46%] relative group w-full">
                   <input
                     type="text"
-                    id="patientsname"
+                    id="name"
                     required
                     className="w-full h-12 px-4 text-sm peer  outline-none border rounded-lg "
                     onChange={handleInputChange}
@@ -204,11 +209,11 @@ const HealthCard1 = () => {
                     className="w-full h-12 px-4 text-sm peer outline-none border rounded-lg bg-white "
                     onChange={handleInputChange}
                   >
-                    <option className="hover:bg-[#EFC31933]" value="male">
+                    <option className="hover:bg-[#EFC31933]" value="Male">
                       Male
                     </option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
                 <div className="md:w-[46%] w-full  relative group">
@@ -245,14 +250,14 @@ const HealthCard1 = () => {
                     onChange={handleInputChange}
                   >
                     <option value="default"> </option>
-                    <option value="A +ive">A +ive</option>
-                    <option value="A -ive">A -ive</option>
-                    <option value="AB +ive">AB +ive</option>
-                    <option value="AB -ive">AB -ive</option>
-                    <option value="B +ive">B +ive</option>
-                    <option value="B -ive">B -ive</option>
-                    <option value="O +ive">O +ive</option>
-                    <option value="O -ive">O -ive</option>
+                    <option value="A+">A +ive</option>
+                    <option value="A-">A -ive</option>
+                    <option value="AB+">AB +ive</option>
+                    <option value="AB-">AB -ive</option>
+                    <option value="B+">B +ive</option>
+                    <option value="B-">B -ive</option>
+                    <option value="O+">O +ive</option>
+                    <option value="O-">O -ive</option>
                   </select>
                 </div>
                 <div className="md:w-[46%] w-full  relative group">
@@ -299,12 +304,15 @@ const HealthCard1 = () => {
                     className="w-full p-2 px-4 text-sm outline-none border rounded-lg bg-white h-12"
                     onChange={handleInputChange}
                   >
-                    <option value="default"> </option>
-                    <option value="Pancreatic Cancer">Pancreatic Cancer</option>
+                    <option value="Breast Cancer">Breast Cancer</option>
                     <option value="Lung Cancer">Lung Cancer</option>
-                    <option value="breast Cancer">breast Cancer</option>
-                    <option value="Colorectal Cancer">Colorectal Cancer</option>
                     <option value="Prostate Cancer">Prostate Cancer</option>
+                    <option value="Colon Cancer">Colon Cancer</option>
+                    <option value="Lymphoma">Lymphoma</option>
+                    <option value="Melanoma">Melanoma</option>
+                    <option value="Pancreatic Cancer">Pancreatic Cancer</option>
+                    <option value="Liver Cancer">Liver Cancer</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
 
@@ -321,12 +329,43 @@ const HealthCard1 = () => {
                     className="w-full p-2 px-4 text-sm  outline-none border rounded-lg bg-white h-12"
                     onChange={handleInputChange}
                   >
-                    <option value="default"> </option>
+                    <option value="Stage 0">Stage 0</option>
                     <option value="Stage IA">Stage IA</option>
                     <option value="Stage IB">Stage IB</option>
                     <option value="Stage IIB">Stage IIB</option>
+                    <option value="Stage IV">Stage IV</option>
                   </select>
                 </div>
+                <div className="md:w-[46%] w-full  relative group">
+                  <input
+                    type="text"
+                    id="current_treatment"
+                    required
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
+                    onChange={handleInputChange}
+                  />
+                  <label
+                    for="current_treatment"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                  >
+                    Current treatment
+                  </label>
+                </div>
+                {/* <div className="md:w-[46%] w-full  relative group">
+                  <input
+                    type="text"
+                    id="last_treatment"
+                    required
+                    className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12"
+                    onChange={handleInputChange}
+                  />
+                  <label
+                    for="last_treatment"
+                    className="transform peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                  >
+                  Last treatment
+                  </label>
+                </div> */}
                 <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
@@ -357,7 +396,7 @@ const HealthCard1 = () => {
                     Hospital Details (Primary)
                   </label>
                 </div>
-                <div className="md:w-[46%] w-full  relative group">
+                {/* <div className="md:w-[46%] w-full  relative group">
                   <input
                     type="text"
                     id="hospital_details"
@@ -371,7 +410,7 @@ const HealthCard1 = () => {
                   >
                     Hospital Details
                   </label>
-                </div>
+                </div> */}
                 <div className="md:w-[46%]"></div>
                 <div className="w-full">
                   <h1 className="font-semibold m-2">Emergency Contact</h1>

@@ -37,7 +37,7 @@ const Medicine = () => {
                      className="   bg-[#C31A7F] text-white  lg:text-[1.2vw] text-[16px] px-4 py-2 rounded-[20px] cursor-pointer"
                      onClick={toggleMedicine}
                    >
-                     Add Schedule
+                     Add Medicine
                    </div>
                    {medicine && (
                      <MedicinePopup toggleMedicine={toggleMedicine} />
