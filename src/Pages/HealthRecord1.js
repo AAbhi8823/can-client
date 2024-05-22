@@ -25,29 +25,20 @@ import { baseurl } from "../Api/baseUrl";
 import { toast } from "react-toastify";
 
 const HealthRecord1 = () => {
-  //vertical calender , appointments and Medicine
   const [vertical, setVertical] = useState("Upcoming");
   const [BiopsyuploadedPDFs, setBiopsyUploadedPDFs] = useState([]);
-
-  const toggleVertical = (item) => {
-    setVertical(item);
-  };
-
-  //open medicine upload
+  const [categories, setCategories] = useState();
   const [pop, setPop] = useState(false);
   const [model, setModel] = useState()
-
+  const [PDF, setPDF] = useState();
+  const [recoradName, setRecoradName] = useState("");
+  const hiddenChoosePDF = useRef();
+  const [file,setFile] = useState()
   const openUpload=(id)=> {
     setModel(id)
     setPop(!pop);
   }
-
-  //upload document
-  const [PDF, setPDF] = useState();
-
-  const hiddenChoosePDF = useRef();
-
-  const [file,setFile] = useState()
+ 
   function handlePDFUpload(event) {
     const file = event.target.files[0];
     console.log(file)
@@ -74,14 +65,13 @@ const HealthRecord1 = () => {
     }
   }
 
-  const [recoradName, setRecoradName] = useState("");
   const handleInputChange = (event) => {
     setRecoradName(event.target.value);
   };
-
   const userid = localStorage.getItem("active_user")
   const token = Cookies.get("token")
   const [isUploading, setIsUploading] = useState()
+
   const UploadDocument = async()=>{
     setIsUploading(true)
     const formInfo = new FormData();
@@ -91,11 +81,12 @@ const HealthRecord1 = () => {
     formInfo.set("healthCategoryId" , model);
     try {
         const responce = await axios.post(
-          `${baseurl}/api/createhealthRecorads?token=${token}`,
+          `${baseurl}/healthrecord/add-health-record`,
           formInfo,
           {
             headers: {
               "Content-Type": "multipart/formData",
+              Authorization: `Bearer ${token}`
             },
           }
         );
@@ -112,7 +103,6 @@ const HealthRecord1 = () => {
         setIsUploading(false);
     }
   }
-
   const[isDeleting, setIsDeleting] = useState()
   const deleteRecoard =async(id)=>{
     setIsDeleting(true)
@@ -146,26 +136,20 @@ const HealthRecord1 = () => {
         setIsDeleting(false);
     }
   }
-
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text); 
     alert("Link copied. Now You can share you file.")
   };
-  
 
   function uploadPDF() {
     hiddenChoosePDF.current.click();
   }
 
   const [PDFname, setPDFname] = useState("");
-
   function closeUploadPDF() {
     setPDF(!PDF);
   }
-
-  //Upload Button
   const [UploadBox, setUploadBox] = useState(false);
-
   const[userPdfData, setUserPdfData] = useState()
   const UploadFile = async(catId,index)=> {
     setUploadBox((prev) => ({
@@ -193,22 +177,24 @@ const HealthRecord1 = () => {
         console.log(error)
     }
   }
-  
-
   const toggleBiopsyContent = () => {
     setUploadBox(false); // Close the upload box
   };
-
-  const [categories, setCategories] = useState();
-
+  
   const getHealthCatrgory = async () => {
     const token = Cookies.get("token");
+    console.log('getHealthCatrgory:>>')
     try {
       const Data = await axios.get(
-        `${baseurl}/api/getAllhealthCategory?token=${token}`
+        `${baseurl}/healthrecord/get-health-record`,{
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
+      console.log('getHealthCatrgory:>>',Data)
       if (Data) {
-        setCategories(Data.data.data);
+        setCategories(Data.data.resData.data);
       } else {
         console.log("error");
       }
@@ -250,7 +236,7 @@ const HealthRecord1 = () => {
                                 className="font-semibold cursor-pointer"
                                 onClick={() => UploadFile(item._id)}
                               >
-                                {item?.categoryName}
+                                {item?.document_name}
                               </h1>
                               <p className="text-sm text-gray-400"></p>
                             </div>

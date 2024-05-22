@@ -137,7 +137,7 @@ const Register = () => {
             <div className=" text-center flex justify-center ">
               <p className="lg:text-[1.17vw] text-[20px]">Have an account?</p>
               <p className="text-[#3C37FF] px-2 lg:text-[1.17vw] text-[18px]">
-                <Link to={`/LoginForm`}>Sign in</Link>
+                <Link className="reg-sanc" to={`/LoginForm`}>Sign in</Link>
               </p>
             </div>
 
@@ -257,14 +257,14 @@ const Register = () => {
               />
               By Continuing, you would agree our{" "}
               <Link
-                className="underline font-semibold lg:text-[0.97vw] text-[13px]"
+                className="reg-anc underline font-semibold lg:text-[0.97vw] text-[13px]"
                 to={"/TermCondition"}
               >
                 Terms of Service <br />
               </Link>{" "}
               and{" "}
               <Link
-                className="underline font-semibold lg:text-[0.97vw] text-[13px]"
+                className="reg-anc underline font-semibold lg:text-[0.97vw] text-[13px]"
                 to={"/PrivatePolicy"}
               >
                 Privacy Policy.

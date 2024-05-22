@@ -55,13 +55,14 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   const handleTimeChange = (value) => {
     setTime(value && value.format("hh:mm A"));
   };
+
   const mealOptions = [
     { value: "Before Breakfast", label: "Before Breakfast" },
     { value: "After Breakfast", label: "After Breakfast" },
     { value: "Before Lunch", label: "Before Lunch" },
     { value: "After Lunch", label: "After Lunch" },
-    { value: "Before Dinner", label: "Before Dinner" },
-    { value: "After Dinner", label: "After Dinner" },
+    { value: "Before Meal", label: "Before Meal" },
+    { value: "After Meal", label: "After Meal" },
   ];
   const handleAddMedicine = () => {
     setMedicineCount(medicineCount + 1);
@@ -127,10 +128,6 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   
     return time12;
   }
-  
-  
-  
-
 
   const handleReminder = () => {
     setReminderTime(!reminderTime);
@@ -140,49 +137,55 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   const [isSubmitting, setIsSubmitting] = useState()
 
   const createMedicine = async (e) => {
-    setIsSubmitting(true)
     e.preventDefault();
+    setIsSubmitting(true);
+
     if (!validateForm()) {
       setIsSubmitting(false);
       return;
-    } else{
-      
     }
+
     try {
-      const creator = localStorage.getItem("active_user")
+      const creator = localStorage.getItem("active_user");
       const allMedicines = [];
 
       for (let i = 0; i < medicineCount; i++) {
         const medicine = {
-          medicineName: medicine_Data[`medicineName${i}`] || '',
+          medicine_name: medicine_Data[`medicineName${i}`] || '',
           medicine_type: medicine_Data[`medicine_type${i}`] || '',
-          dose: medicine_Data[`dose${i}`] || '',
+          medicine_dosage: medicine_Data[`dose${i}`] || '',
           unit: medicine_Data[`unit${i}`] || '',
-          medicine_meal: medicine_Data[`meal${i}`] || '',
-          remainder_time: convertTo12HourTime(medicine_Data[`medicineTime${i}`]) || '',
+          meal: medicine_Data[`meal${i}`] || '',
+          isReminderSet: reminderTime,
+          time_for_reminder: convertTo12HourTime(medicine_Data[`medicineTime${i}`]) || '',
+          medicine_start_date: medicDate.startFrom,
+          medicine_stop_date: medicDate.stopOn,
         };
         allMedicines.push(medicine);
       }
-      if (!validationError) {
-        const data = await axios.post(`${apis.CREATE_MEDICINE}?token=${token}`, { creater_Id: creator, medicine: allMedicines, startfrom: medicDate.startFrom, stopOn: medicDate.stopOn })
-        console.log(data, "ressssssss");
-        if (data.data.status === true) {
-          getMedicines()
-          toggleMedicine()
-          setIsSubmitting(false)
-        } else{
-          setIsSubmitting(false)
-        }
-      } else{
-        setIsSubmitting(false);
-      }
 
-      console.log("hellobrother", allMedicines, medicDate);
+      const token = Cookies.get("token");
+      const response = await axios.post(`${apis.CREATE_MEDICINE}`, {
+        creater_Id: creator,
+        medicines: allMedicines,
+      },
+      {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      });
+
+      if (response.data.status === true) {
+        getMedicines();
+        toggleMedicine();
+      }
     } catch (err) {
       console.error(err);
+    } finally {
       setIsSubmitting(false);
-    } 
+    }
   };
+
 
 
   const handleDeleteMedicine = () => {
@@ -204,10 +207,9 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
 
   }
 
-
   return (
     <>
-      <div className="fixed inset-0 flex lg:items-end md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll lg:pt-0  px-5  py-[90px] ">
+      <div className="fixed inset-0 flex md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll   px-5  py-[90px] ">
         <div className=" flex flex-col bg-white rounded-[40px] lg:md:w-auto  w-full max-h-fit px-10 ">
           <div className="flex flex-row py-4 justify-between items-center w-full">
             <h1 className="text-[22px] font-[500]">Add Medicines</h1>
@@ -238,7 +240,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                       />
 
                       <label
-                        for="medicine"
+                        htmlFor="medicine"
                         name="medicine_type"
                         className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                       >
@@ -260,7 +262,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                       />
 
                       <label
-                        for="type"
+                        htmlFor="type"
                         className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                       >
                         <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -283,7 +285,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                       />
 
                       <label
-                        for="dose"
+                        htmlFor="dose"
                         className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                       >
                         <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -304,7 +306,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                       />
 
                       <label
-                        for="unit"
+                        htmlFor="unit"
                         className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                       >
                         <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -356,7 +358,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                         placeholder=" "
                       />
                       <label
-                        for="medicineTime"
+                        htmlFor="medicineTime"
                         className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs flex-nowrap text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                       >
                         <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -384,7 +386,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                     placeholder=" "
                   />
                   <label
-                    for="startFrom"
+                    htmlFor="startFrom"
                     className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-1 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                   >
                     <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -408,7 +410,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                     placeholder=" "
                   />
                   <label
-                    for="stopOn"
+                    htmlFor="stopOn"
                     className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                   >
                     <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -418,6 +420,30 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                 </div>
               </div>
 
+{/*               
+              <div className="flex flex-row gap-0 lg:gap-6 py-2">
+                <button
+                  type="button"
+                  className="flex items-center bg-transparent border-0 text-pink-500 focus:outline-none"
+                  onClick={handleAddMedicine}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 mr-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
+                  </svg>
+                  Add Another Medicine
+                </button>
+              </div> */}
               <div className="flex flex-row gap-0 lg:gap-6 py-2">
                 <input
                   type="checkbox"
@@ -439,7 +465,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                       placeholder=" "
                     />
                     <label
-                      for="medicineTime"
+                      htmlFor="medicineTime"
                       className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                     >
                       <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -455,7 +481,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                     All fields required
                   </span>
                 )}
-                {/* <button className='border px-6 py-2 rounded-[15px]' onClick={handleDeleteMedicine}>Cancel</button> */}
+                <button className='border px-6 py-2 rounded-[15px]' onClick={handleDeleteMedicine}>Cancel</button>
 
                 <button
                   className=" px-6 py-2 rounded-[15px] text-[#fff] bg-[#C31A7F]"

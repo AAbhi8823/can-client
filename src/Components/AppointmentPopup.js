@@ -1,13 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { IoCloseCircleSharp } from "react-icons/io5";
-import { BsFileEarmarkPdf } from "react-icons/bs";
-import { MdOutlineCloudUpload } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import apis from "../Api/baseUrl";
-import { base_token } from "../Api/baseUrl";
+
 const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
   const [pop, setPop] = useState(true);
   const [formValues, setFormValues] = useState({
@@ -17,14 +14,13 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
     hospital_address: "",
     appointment_date: "",
     appointment_time: "",
-    remarks: "",
+    add_note: "",
   });
   const [isSaving, setIsSaving] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
   const navigate = useNavigate();
   const token = Cookies.get("token");
-  console.log("token::>>>>",base_token)
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormValues((prevValues) => ({
@@ -44,7 +40,7 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
           appointment_name: data.data.appointment_name,
           appointment_date: data.data.date,
           appointment_time: data.data.time,
-          remarks: data.data.note,
+          add_note: data.data.note,
           hospital_address: data.data.hospital_address,
           hospital_name: data.data.hospital_name,
           doctor_name: data.data.doctor_name,
@@ -87,35 +83,33 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
     setIsSaving(true);
     try {
       const datas = {
-        patients_id: base_token,
         ...formValues,
       };
-  
+
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       };
-  
+
       const { data } = await axios.post(`${apis.CREATE_APPOINTMENT}`, datas, config);
-      if (data.status) {
-        setPop(false);
+      console.log("data.status:::>>>1",data);
+      if (data?.resData?.status) {
+        setPop(!pop)
         setIsSaving(false);
         navigate("/appointment1");
+        console.log("data.status:::>>>",data.status);
       }
     } catch (error) {
       console.log(error);
       setIsSaving(false);
     }
   };
-  
 
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center p-2 bg-black bg-opacity-50 z-50 ${
-        !pop ? "hidden" : ""
-      }`}
+      className={`fixed inset-0 flex items-center justify-center p-2 bg-black bg-opacity-50 z-50 ${!pop ? "hidden" : ""}`}
       style={{ backdropFilter: "blur(2px)" }}
     >
       <div className="lg:md:w-[60%] h-fit bg-white rounded-[24px] flex flex-col justify-center px-5 py-2 relative">
@@ -138,14 +132,13 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                   id="appointment_name"
                   value={formValues.appointment_name}
                   onChange={handleInputChange}
-                  className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                  className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
                   required
                 />
-
                 <label
-                  for="appointment_name"
-                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
+                  htmlFor="appointment_name"
+                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
                     Appointment Name
@@ -159,14 +152,13 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                   id="doctor_name"
                   value={formValues.doctor_name}
                   onChange={handleInputChange}
-                  className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                  className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
                   required
                 />
-
                 <label
-                  for="DoctorName"
-                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
+                  htmlFor="DoctorName"
+                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
                     Doctor's Name
@@ -182,14 +174,13 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                   id="hospital_name"
                   value={formValues.hospital_name}
                   onChange={handleInputChange}
-                  className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                  className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
                   required
                 />
-
                 <label
-                  for="hospital_name"
-                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
+                  htmlFor="hospital_name"
+                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
                     Hospital's Name
@@ -203,14 +194,13 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                   id="hospital_address"
                   value={formValues.hospital_address}
                   onChange={handleInputChange}
-                  className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                  className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
                   required
                 />
-
                 <label
-                  for="hospitalAdd"
-                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400  duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
+                  htmlFor="hospitalAdd"
+                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
                     Hospital's Address
@@ -229,13 +219,13 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                   onChange={handleInputChange}
                   id="appointment_date"
                   name="appointment_date"
-                  className=" block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                  className=" block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
                   required
                 />
                 <label
-                  for="appointment_date"
-                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
+                  htmlFor="appointment_date"
+                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
                     DD/MM/YYYY
@@ -252,13 +242,13 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                   name="appointment_time"
                   value={formValues.appointment_time}
                   onChange={handleInputChange}
-                  className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                  className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                   placeholder=" "
                   required
                 />
                 <label
-                  for="time"
-                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
+                  htmlFor="time"
+                  className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
                     Time
@@ -269,18 +259,17 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
             <div className="relative z-0 w-full mb-4 group">
               <input
                 type="text"
-                name="remarks"
-                id="remarks"
-                value={formValues.remarks}
+                name="add_note"
+                id="add_note"
+                value={formValues.add_note}
                 onChange={handleInputChange}
-                className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black  dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                 placeholder=" "
                 required
               />
-
               <label
-                htmlFor="remarks"
-                className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
+                htmlFor="add_note"
+                className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
               >
                 <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
                   Add note
@@ -298,22 +287,16 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
             {!edit ? (
               <button
                 type="submit"
-                className="  bg-[#C31A7F] px-2 py-1 md:lg:w-[15%] text-white text-center rounded-[12px]"
-                // onClick={handleSave}
-                onClick={() => {
-                  createappointment();
-                }}
+                className="bg-[#C31A7F] px-2 py-1 md:lg:w-[15%] text-white text-center rounded-[12px]"
+                onClick={createappointment}
               >
                 {isSaving ? "Creating..." : "Save"}
               </button>
             ) : (
               <button
                 type="submit"
-                className="  bg-[#C31A7F] px-2 py-1 md:lg:w-[15%] text-white text-center rounded-[12px]"
-                // onClick={handleSave}
-                onClick={() => {
-                  editappointment();
-                }}
+                className="bg-[#C31A7F] px-2 py-1 md:lg:w-[15%] text-white text-center rounded-[12px]"
+                onClick={editappointment}
               >
                 {isEditing ? "Saving..." : "Edit"}
               </button>
@@ -326,4 +309,3 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
 };
 
 export default AppointmentPopup;
-
