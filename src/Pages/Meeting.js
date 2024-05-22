@@ -9,6 +9,7 @@ import Page from "../Layouts/Pages";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
+import './Meeting.css'
 
 
 const Meeting = () => {
@@ -123,7 +124,7 @@ const Meeting = () => {
           {selectedOption === "Today" && (
             <>
               <div className="pl-[20px] pr-[20px]  lg:pl-[10%] lg:pr-[6%]">
-                <div className="bg-white shadow-xl mt-8 flex overflow-auto justify-between px-5 rounded-2xl py-2">
+                <div id="mmet-box" className="meet-box bg-white shadow-xl mt-8 flex overflow-auto justify-between px-5 rounded-2xl py-2">
                   <div className="flex items-center font-semibold text-[#CF4899]   w-[max-content] pr-2 ">
                     11:00 - 12:15PM
                   </div>
@@ -249,7 +250,7 @@ const Meeting = () => {
                 <h1 className="text-xl font-semibold pt-10">
                   Upcoming meeting
                 </h1>
-                <div className="bg-white overflow-auto shadow-xl mt-8 flex justify-between pl-5 rounded-2xl py-2 pr-5">
+                <div id="mmet-box" className="meet-box bg-white overflow-auto shadow-xl mt-8 flex justify-between pl-5 rounded-2xl py-2 pr-5">
                   <div className="flex flex-col items-center w-[max-content] pr-2">
                     <p className="text-xs">23 Dec</p>
                     <p className="text-sm">Start's On</p>

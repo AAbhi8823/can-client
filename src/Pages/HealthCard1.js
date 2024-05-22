@@ -443,6 +443,7 @@ const HealthCard1 = () => {
                         required
                         className="w-full p-2 px-4 text-sm peer  outline-none border rounded-lg h-12 "
                         onChange={handleInputChange}
+                        style={{border:'1px solid #6B7280'}}
                       />
                       <label
                         for={`emergency_phone_${index}`}
@@ -510,7 +511,7 @@ const HealthCard1 = () => {
                       />
                       <BsFileEarmarkPdf size={25} />
 
-                      <div className="text-[16px] ">{PDF.name}</div>
+                      <div className="text-[16px] " style={{overflow:' hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', width:'88%'}}>{PDF.name}</div>
                       <div className="text-[14px] ">{PDF.size}</div>
                       <div className="text-[16px]  font-semibold">
                         Adhaar Card
@@ -569,7 +570,7 @@ const HealthCard1 = () => {
                       />
                       <BsFileEarmarkPdf size={25} />
 
-                      <div className="text-[16px] ">{PDF2.name}</div>
+                      <div className="text-[16px] " style={{overflow:' hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', width:'88%'}}>{PDF2.name}</div>
                       <div className="text-[14px] ">{PDF2.size}</div>
                       <div className="text-[16px]  font-semibold">
                         Fit to Fly Certificate
@@ -626,7 +627,7 @@ const HealthCard1 = () => {
                       />
                       <BsFileEarmarkPdf size={25} />
 
-                      <div className="text-[16px] ">{PDF3.name}</div>
+                      <div className="text-[16px] " style={{overflow:' hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', width:'88%'}}>{PDF3.name}</div>
                       <div className="text-[14px] ">{PDF3.size}</div>
                       <div className="text-[16px]  font-semibold">
                         Biopsy Certificate

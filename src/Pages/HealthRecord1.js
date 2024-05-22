@@ -231,7 +231,7 @@ const HealthRecord1 = () => {
                             <div>
                               <img src={Healthrecfolder} alt="folder.jpg" />
                             </div>
-                            <div>
+                            <div style={{display:'flex', alignItems:'center'}}>
                               <h1
                                 className="font-semibold cursor-pointer"
                                 onClick={() => UploadFile(item._id)}
@@ -363,17 +363,17 @@ const HealthRecord1 = () => {
 
                     {PDF && (
                       <div className="relative flex items-center justify-center h-full">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2" style={{width:'100%', padding:'5px'}}>
                           <BsFileEarmarkPdf
                             className="cursor-pointer"
                             size={30}
                           />
-                          <p className="font-semibold text-xl">{PDFname}</p>
+                          <p style={{fontSize:'13px', fontWeight:'500', lineHeight:'1.7', overflow:' hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', width:'88%'}}>{PDFname}</p>
                           {/* <embed src={URL.createObjectURL(PDF)} className='h-[38%]' type='application/pdf' />    actual PDF */}
                         </div>
 
                         <button
-                          className="absolute top-5 right-5"
+                          className="absolute" style={{top:'50%', right:'12px', transform:'translate(-0%, -50%)'}}
                           onClick={closeUploadPDF}
                         >
                           <IoCloseCircleSharp color="black" />
@@ -400,19 +400,20 @@ const HealthRecord1 = () => {
                       className="outline-none w-[90%]"
                       onChange={handleInputChange}
                       value={recoradName}
+                      style={{fontSize:'14px'}}
                     />
                   </div>
 
                   <div className="flex justify-end w-[90%] mt-4 gap-4">
                     <h1
                       className="px-2 py-2 border-2 border-[#ABABAB] rounded-xl cursor-pointer"
-                      onClick={openUpload}
+                      onClick={openUpload} style={{display:'flex', alignItems:'center', fontSize:'14px', fontWeight:'500', padding:'5px 20px'}}
                     >
                       Cancel
                     </h1>
                     <h1
                       className="px-2 py-2 bg-[#C31A7F] rounded-xl text-white cursor-pointer"
-                      onClick={UploadDocument}
+                      onClick={UploadDocument} style={{display:'flex', alignItems:'center', fontSize:'14px', fontWeight:'500', padding:'5px 20px'}}
                     >
                       {isUploading ? "Uploading..." : "Upload"}
                     </h1>
