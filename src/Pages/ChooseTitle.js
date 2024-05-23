@@ -13,6 +13,7 @@ import Craousel from "../Components/Craousel";
 import { Skeleton } from "@mui/material";
 import fighter11 from "../Photos/fighter11.png";
 import { base_token } from "../Api/baseUrl";
+import './choosetitle.css';
 
 const ChooseTitle = () => {
   const [viewCategory, setViewCategory] = useState([]);
@@ -174,14 +175,14 @@ const ChooseTitle = () => {
                           onClick={() => handleSelect(cata.role)}
                           className={`flex justify-center cursor-pointer ${
                             select !== null && select !== cata.role
-                              ? "filter blur-lg"
+                              ? "choose-d"
                               : ""
                           }`}
                         >
                           <img
                             src={cata.profile_image}
                             alt="not found"
-                            className="w-[90%] relative"
+                            className="cimg w-[90%] relative"
                           />
                           {console.log("Select::>>>", cata)}
                         </div>
