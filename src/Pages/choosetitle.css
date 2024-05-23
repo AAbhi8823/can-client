@@ -1,0 +1,7 @@
+.cimg{
+    box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.5);
+}
+.choose-d .cimg{
+    opacity: .8;
+    box-shadow: unset !important;
+}
