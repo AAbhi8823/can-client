@@ -32,3 +32,7 @@
 .appoint-table tr td table tr td{
     border: unset;
 }
+.table-height{
+    height: 80vh;
+    overflow: auto;
+}
