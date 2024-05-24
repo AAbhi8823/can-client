@@ -5,3 +5,23 @@
     opacity: .8;
     box-shadow: unset !important;
 }
+.health-form input:focus{
+    outline: unset !important;
+    border: 2px solid #b30f73;
+    --tw-ring-color:unset;
+}
+.health-form select:focus{
+    outline: unset !important;
+    border: 2px solid #b30f73;
+    --tw-ring-color:unset;
+}
+.health-form select option:hover{
+    background-color: #b30f73 !important;
+    color: #fff !important;
+}
+.health-form label{
+    top: -10px !important;
+    background-color: #fff !important;
+    height: auto !important;
+    left: 10px !important;
+}

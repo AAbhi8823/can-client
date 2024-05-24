@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import Page from "../Layouts/Pages";
 import { useNavigate } from "react-router-dom";
+import './choosetitle.css';
 
 const HealthCard1 = () => {
   const hiddenChoosePDF = useRef();
@@ -153,7 +154,7 @@ const HealthCard1 = () => {
         <div className="h-fit w-full bg-[#FEF8FD] flex flex-col gap-4 pb-5 justify-center items-center lg:px-20 px-3">
           <h1 className="pt-6 font-semibold">Make Your Health Card</h1>
           <div className="h-full bg-white rounded-xl py-2">
-            <form className="flex flex-wrap items-center justify-center gap-7 mx-[4%] my-4">
+            <form className="health-form flex flex-wrap items-center justify-center gap-7 mx-[4%] my-4">
               {Object.keys(healthCardData).map((key) => (
                 key !== "gender" &&
                 key !== "blood_group" &&
@@ -170,7 +171,7 @@ const HealthCard1 = () => {
                     />
                     <label
                       htmlFor={key}
-                      className="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                      className="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                     >
                       {key.replace(/_/g, " ")}
                     </label>
@@ -209,7 +210,7 @@ const HealthCard1 = () => {
                   </select>
                   <label
                     htmlFor={key}
-                    className="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                    className="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                   >
                     {key.replace(/_/g, " ")}
                   </label>
@@ -230,7 +231,7 @@ const HealthCard1 = () => {
                     />
                     <label
                       htmlFor={`emergency_${field}_${index}`}
-                      className="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute top-0 z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
+                      className="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                     >
                       Emergency Contact {index + 1} {field.charAt(0).toUpperCase() + field.slice(1)}
                     </label>

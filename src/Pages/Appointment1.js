@@ -155,7 +155,7 @@ const Appointment1 = () => {
                   <CalenderRecords />
                 </div>
 
-                <div className="bg-[#FEF8FD] relative min-h-[70%] max-h-fit w-full rounded-[24px] pt-6 flex flex-col gap-3">
+                <div className="table-height bg-[#FEF8FD] relative min-h-[70%] max-h-fit w-full rounded-[24px] pt-6 flex flex-col gap-3">
                   <h1 className="px-6">Today's Appointment</h1>
                   <table
                     className="appoint-table relative table justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1"
