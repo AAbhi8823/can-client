@@ -144,7 +144,7 @@ const ChooseTitle = () => {
             <form>
               {/* Form Content */}
               <div
-                className=" lg:w-[490px] w-[330px] h-[670px]  lg:mr-[140px] bg-opacity-10 z-10 backdrop-blur-md rounded-[20px]"
+                className=" lg:w-[490px] w-[330px]  lg:mr-[140px] bg-opacity-10 z-10 backdrop-blur-md rounded-[20px]"
                 style={{ boxShadow: "0px 0px 50px rgba(0, 0, 0, 0.1)" }}
               >
                 <div>
