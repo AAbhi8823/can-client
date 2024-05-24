@@ -178,6 +178,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
       if (response.data.status === true) {
         getMedicines();
         toggleMedicine();
+        window.location.reload();
       }
     } catch (err) {
       console.error(err);
