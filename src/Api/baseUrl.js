@@ -12,11 +12,12 @@ const apis = {
     CREATE_APPOINTMENT: `${baseurl}/appointment/add-appointment`,
     GET_APPOINTMENT: `${baseurl}/appointment/get-appointment-by-date`,
     SINGEL_FETCH_APPOINTMENT: `${baseurl}/appointment/get-appointment-by-date`,
-    UPDATE_APPOINTMENT: `${baseurl}/api/update_appointment_specificUser`,
+    UPDATE_APPOINTMENT: `${baseurl}/api/appointment/update-appointment`,
     CREATE_MEDICINE: `${baseurl}/medicine/add-medicine`,
     GET_MEDICINE: `${baseurl}/api/medicines`,
     UPDATE_MEDICINE: `${baseurl}/api/medicines`,
     DELETE_MEDICINE: `${baseurl}/api/medicine/delete`,
+    REMOVE_APPOINTMENTS: `${baseurl}/appointment/delete-appointment`,
 
     // CHAT APIS
     GET_ACCPECT_FRIEND_LIST: `${baseurl}/api/fetchFriendList`,

@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CalenderRecords from "../Components/CalenderRecords";
 import { MdDeleteOutline, MdOutlineModeEditOutline } from "react-icons/md";
-import { AiOutlineFilePdf } from "react-icons/ai";
 import { TfiClipboard } from "react-icons/tfi";
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -9,86 +8,94 @@ import AppointmentPopup from "../Components/AppointmentPopup";
 import Page from "../Layouts/Pages";
 import axios from "axios";
 import apis from "../Api/baseUrl";
-import Cookies from "js-cookie";
 import { base_token } from "../Api/baseUrl";
 import "./appointment.css";
 
 const Appointment1 = () => {
   const [pop, setPop] = useState(false);
-  const [edit, setedit] = useState("");
+  const [edit, setedit] = useState(false);
   const [edit_id, setedit_id] = useState("");
-  function PopUp() {
+  const [appointmentData, setAppointmentData] = useState([]);
+  const [isClickedAppointment, setIsClickedAppointment] = useState(true);
+  const [notePopups, setNotePopups] = useState({});
+  const [initialData, setInitialData] = useState(null);
+  const location = useLocation();
+  const filterdate = location.search.split("=")[1];
+  const [openAppointments,setOpenAppointments]=useState(false);
+  const PopUp = () => {
     setPop(!pop);
-  }
-  const getcurrentdate = () => {
-    const currentDate = new Date();
-
-    const currentHours = currentDate.getHours();
-    const currentMinutes = currentDate.getMinutes();
-    const currentSeconds = currentDate.getSeconds();
-    console.log(`${currentHours}:${currentMinutes}:${currentSeconds}`);
-    return currentHours + "/" + currentMinutes + "/" + currentSeconds;
   };
 
-  const [isClickedAppointment, setIsClickedAppointment] = useState(true);
+  const addAppointments=()=>{
+    setOpenAppointments(!openAppointments)
+  }
   const handleIsClickedAppointment = () => {
     setIsClickedAppointment(!isClickedAppointment);
   };
-  const [isClickedMedicine, setIsClickedMedicine] = useState(false);
-  const handleIsClickedMedicine = () => {
-    setIsClickedMedicine(!isClickedMedicine);
-  };
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const appointmentName = queryParams.get("appointmentName");
-  const doctorName = queryParams.get("doctorName");
-  const hospitalName = queryParams.get("hospitalName");
-  const hospitalAddress = queryParams.get("hospitalAddress");
-  const appointmentDate = queryParams.get("appointmentDate");
-  const appointmentTime = queryParams.get("appointmentTime");
-  const appointmentNote = queryParams.get("appointmentNote");
-  console.log("Appointment::>>>>")
-  const [notePop, setNotePop] = useState(false);
-  const handleNotePopUp = () => {
-    setNotePop(!notePop);
+
+  const toggleNotePopup = (index) => {
+    setNotePopups((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
+    }));
   };
 
-  const [appoinmentdatea, setappoinmentData] = useState([]);
-  const getappointment = async (date) => {
+  const getAppointment = async (date) => {
     try {
       const config = {
         headers: {
           Authorization: `Bearer ${base_token}`,
         },
-        params: {
-          date: "2024-05-15T00:00:00.000+00:00", 
-        },
       };
-      console.log("data:>>>>>>q" + data);
-      const { data } = await axios.get(
-        `${apis.GET_APPOINTMENT}`,
-        config
-      );
-      console.log("data:>>>>>>" + data);
-  
+      const apiUrl = `${apis.GET_APPOINTMENT}/${date}`;
+      const { data } = await axios.get(apiUrl, config);
       if (data?.resData?.status === true) {
-        setappoinmentData(data.resData.data);
+        setAppointmentData(data.resData.data);
       } else {
-        setappoinmentData([]);
+        setAppointmentData([]);
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error:", error);
     }
   };
-  
-  
-  
-  const deleteAppointment = () => {};
+
+  const deleteAppointment = async (id) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${base_token}`,
+        },
+      };
+      const apiUrl = `${apis.REMOVE_APPOINTMENTS}/${id}`;
+      await axios.delete(apiUrl, config);
+      setAppointmentData((prevAppointments) =>
+        prevAppointments.filter((appointment) => appointment._id !== id)
+      );
+    } catch (error) {
+      console.log("Error deleting appointment:", error);
+    }
+  };
+
+  const fetchAppointmentDetails = async (id) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${base_token}`,
+        },
+      };
+      const apiUrl = `${apis.GET_APPOINTMENT_DETAILS}/${id}`; // Assuming you have an endpoint to get appointment details by ID
+      const { data } = await axios.get(apiUrl, config);
+      if (data?.resData?.status === true) {
+        setInitialData(data.resData.data);
+      }
+    } catch (error) {
+      console.log("Error fetching appointment details:", error);
+    }
+  };
 
   useEffect(() => {
-    const currentDate = new Date().toISOString().split('T')[0]; 
-    getappointment(currentDate);
-  },[]);
+    getAppointment(filterdate);
+  }, [filterdate]);
 
   return (
     <Page
@@ -97,51 +104,53 @@ const Appointment1 = () => {
           {/* background */}
           <div className="bg-[#FEF8FD] w-full h-full flex flex-row relative">
             <div className="flex flex-col w-full lg:md:mx-[5%] py-10 mx-auto ">
-              <div className="  mt-6 flex justify-between m-4  ">
-                <div className={`flex lg:md:gap-8 gap-3  lg:md:w-[50%] w-full`}>
+              <div className="mt-6 flex justify-between m-4">
+                <div className={`flex lg:md:gap-8 gap-3 lg:md:w-[50%] w-full`}>
                   <NavLink to="/appointment1">
-                    {" "}
                     <button
-                      className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-6 p-2 rounded-[15px] w-fit text-center h-fit '  ${
+                      className={`lg:text-[1.20vw] flex lg:md:py-2 lg:md:px-6 p-2 rounded-[15px] w-fit text-center h-fit ${
                         isClickedAppointment
                           ? "bg-white shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)]"
-                          : "bg-[#ffffff7b] "
-                      } `}
-                      onClick={() => handleIsClickedAppointment()}
+                          : "bg-[#ffffff7b]"
+                      }`}
+                      onClick={handleIsClickedAppointment}
                     >
                       Appointments
-                    </button>{" "}
+                    </button>
                   </NavLink>
-                  {/* <NavLink to='/Medicine1'><button className={`lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-10 p-2 shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)] rounded-[15px] w-fit h-fit text-center ${isClickedMedicine ? 'bg-white shadow-lg' : 'bg-[#ffffff7b] '}`} onClick={() => { handleIsClickedMedicine() }}> Medicine</button>    </NavLink> */}
                 </div>
                 <div>
                   <button
-                    className="lg:text-[1.20vw] text-[16px] lg:h-[5vh] lg:block  hidden  text-sm  end-2 z-10 lg:z-0  bottom-4 lg:bottom-0  lg:py-2 lg:px-6 p-2   bg-[#C31A7F] text-white  shadow-lg rounded-[15px] w-fit text-center"
-                    onClick={PopUp}
+                    className="lg:text-[1.20vw] text-[16px] lg:h-[5vh] lg:block hidden text-sm end-2 z-10 lg:z-0 bottom-4 lg:bottom-0 lg:py-2 lg:px-6 p-2 bg-[#C31A7F] text-white shadow-lg rounded-[15px] w-fit text-center"
+                    onClick={addAppointments}
                   >
-                    {" "}
-                    Add Appointment{" "}
+                    Add Appointment
                   </button>
                   <button
-                    className="lg:text-[1.20vw] text-[16px] lg:h-[5vh] lg:hidden  block  text-sm  end-2 z-10 lg:z-0  bottom-4 lg:bottom-0  lg:py-2 lg:px-6 p-2   bg-[#C31A7F] text-white  shadow-lg rounded-[15px] w-fit text-center"
+                    className="lg:text-[1.20vw] text-[16px] lg:h-[5vh] lg:hidden block text-sm end-2 z-10 lg:z-0 bottom-4 lg:bottom-0 lg:py-2 lg:px-6 p-2 bg-[#C31A7F] text-white shadow-lg rounded-[15px] w-fit text-center"
                     onClick={PopUp}
                   >
-                    {" "}
-                    Add{" "}
+                    Add
                   </button>
                 </div>
 
                 {/* pop up */}
-                {pop && (
+                {openAppointments && (
                   <AppointmentPopup
-                    edit={edit}
-                    edit_id={edit_id}
-                    getappointment={getappointment}
+                    // edit={edit}
+                    // edit_id={edit_id}
+                    // getAppointment={getAppointment}
+                    // initialData={initialData}
+                    // closePopup={() => {
+                    //   setPop(false);
+                    //   setedit(false);
+                    //   setInitialData(null);
+                    // }}
                   />
                 )}
               </div>
 
-              <div className="bg-white min-h-[80vh] max-h-fit   mt-2 rounded-2xl shadow-xl flex flex-col items-center p-8 ">
+              <div className="bg-white min-h-[80vh] max-h-fit mt-2 rounded-2xl shadow-xl flex flex-col items-center p-8">
                 <div className="py-5 scale-75">
                   <CalenderRecords />
                 </div>
@@ -149,118 +158,95 @@ const Appointment1 = () => {
                 <div className="bg-[#FEF8FD] relative min-h-[70%] max-h-fit w-full rounded-[24px] pt-6 flex flex-col gap-3">
                   <h1 className="px-6">Today's Appointment</h1>
                   <table
-                    className="appoint-table relative table   justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 "
+                    className="appoint-table relative table justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1"
                     style={{
                       borderCollapse: "separate",
                       borderSpacing: "0 8px",
                     }}
                   >
-                    {appoinmentdatea &&
-                      appoinmentdatea.map((index,value) => {
-                        console.log(index);
-                        return (
-                          <tr className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly  overflow-y-visible">
-                            <td className="flex flex-col items-center text-left justify-center pr-4">
-                              <h1 className="font-semibold lg:text-[1vw] whitespace-nowrap text-[18px]">
-                                {new Date(index.appointment_date).toLocaleDateString()}
-                              </h1>
-                              <h1 className="text-[#7E7E77] px-6 lg:text-[1vw] lg:px-0">
-                                {index.appointment_time}
-                              </h1>
-                            </td>
+                    {appointmentData &&
+                      appointmentData.map((index) => (
+                        <tr className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly overflow-y-visible" key={index._id}>
+                          <td className="flex flex-col items-center text-left justify-center pr-4">
+                            <h1 className="font-semibold lg:text-[1vw] whitespace-nowrap text-[18px]">
+                              {new Date(index.appointment_date).toLocaleDateString()}
+                            </h1>
+                            <h1 className="text-[#7E7E77] px-6 lg:text-[1vw] lg:px-0">
+                              {index.appointment_time}
+                            </h1>
+                          </td>
 
-                            <td className="flex flex-col lg:flex-col md:flex-row items-start text-left   px-4 gap-2">
-                              <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
-                                Appointment name
-                              </div>
-                              <div className="font-semibold lg:text-[1vw] text-[15px]">
-                                {index.appointment_name}
-                              </div>
-                            </td>
-                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2 ">
-                              <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
-                                Doctor's name
-                              </div>
-                              <div className="font-semibold lg:text-[1vw] text-[15px]">
-                                {index.doctor_name}
-                              </div>
-                            </td>
+                          <td className="flex flex-col lg:flex-col md:flex-row items-start text-left px-4 gap-2">
+                            <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
+                              Appointment name
+                            </div>
+                            <div className="font-semibold lg:text-[1vw] text-[15px]">
+                              {index.appointment_name}
+                            </div>
+                          </td>
+                          <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2">
+                            <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
+                              Doctor's name
+                            </div>
+                            <div className="font-semibold lg:text-[1vw] text-[15px]">
+                              {index.doctor_name}
+                            </div>
+                          </td>
 
-                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2 ">
-                              <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
-                                Hospital's name
-                              </div>
-                              <div className="font-semibold lg:text-[1vw] text-[15px]">
-                                {index.hospital_name}
-                              </div>
-                            </td>
+                          <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2">
+                            <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
+                              Hospital's name
+                            </div>
+                            <div className="font-semibold lg:text-[1vw] text-[15px]">
+                              {index.hospital_name}
+                            </div>
+                          </td>
 
-                            <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2 ">
-                              <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
-                                Hospital's address
-                              </div>
-                              <div className="font-semibold lg:text-[1vw] text-[15px] text-left">
-                                {index.hospital_address}
-                              </div>
-                            </td>
+                          <td className="flex flex-col lg:flex-col md:flex-row text-left px-4 gap-2">
+                            <div className="whitespace-nowrap lg:text-[1vw] text-[13px] font-semibold text-[#7E7E77]">
+                              Hospital's address
+                            </div>
+                            <div className="font-semibold lg:text-[1vw] text-[15px] text-left">
+                              {index.hospital_address}
+                            </div>
+                          </td>
 
-                            <td
-                              colSpan={3}
-                              className="flex px-4    "
-                            >
-                              <table className="appoint-table flex w-full h-full lg:justify-end justify-center md:justify-center items-center">
-                                <tr className=" ">
-                                  <td className="pr-2">
-                                    <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer">
-                                      {notePop && (
-                                        <div
-                                          className="absolute"
-                                          onClick={handleNotePopUp}
-                                        >
-                                          <div className="relative lg:-left-24 -left-10 top-5 min-w-[100px] flex flex-col flex-wrap p-2 items-start text-left bg-white shadow-md rounded-[15px]">
-                                            <h4 className="text-[#7E7E77]">
-                                              Note
-                                            </h4>
-                                            <p className="flex flex-wrap max-w-[200px]">
-                                              {index.note}
-                                            </p>
-                                          </div>
+                          <td colSpan={3} className="flex px-4">
+                            <table className="appoint-table flex w-full h-full lg:justify-end justify-center md:justify-center items-center">
+                              <tr>
+                                <td className="pr-2">
+                                  <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer">
+                                    {notePopups[index._id] && (
+                                      <div className="absolute" onClick={() => toggleNotePopup(index._id)}>
+                                        <div className="relative lg:-left-24 -left-10 top-5 min-w-[100px] flex flex-col flex-wrap p-2 items-start text-left bg-white shadow-md rounded-[15px]">
+                                          <h4 className="text-[#7E7E77]">Note</h4>
+                                          <p className="flex flex-wrap max-w-[200px]">{index.add_note}</p>
                                         </div>
-                                      )}
-                                      <TfiClipboard onClick={handleNotePopUp} />
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer">
-                                      <MdDeleteOutline
-                                        onClick={deleteAppointment(index._id)}
-                                      />
-                                    </div>
-                                  </td>
-                                  <td className="pl-2">
-                                    <div
-                                      className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer"
-                                      onClick={() => {
-                                        setPop(!pop);
-                                        setedit_id(index._id);
-                                        setedit(true);
-                                      }}
-                                    >
-                                      <MdOutlineModeEditOutline
-                                        onClick={() => {
-                                          setPop(!pop);
-                                          setedit_id(index._id);
-                                          setedit(true);
-                                        }}
-                                      />
-                                    </div>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                        );
-                      })}
+                                      </div>
+                                    )}
+                                    <TfiClipboard onClick={() => toggleNotePopup(index._id)} />
+                                  </div>
+                                </td>
+                                <td>
+                                  <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer">
+                                    <MdDeleteOutline onClick={() => deleteAppointment(index._id)} />
+                                  </div>
+                                </td>
+                                <td className="pl-2">
+                                  <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer" onClick={async () => {
+                                    setPop(true);
+                                    setedit_id(index._id);
+                                    setedit(true);
+                                    await fetchAppointmentDetails(index._id);
+                                  }}>
+                                    <MdOutlineModeEditOutline />
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      ))}
                   </table>
                 </div>
               </div>

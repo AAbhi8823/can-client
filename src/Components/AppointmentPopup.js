@@ -56,6 +56,7 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
       getsingle_appointment(edit_id);
     }
   }, [edit, edit_id]);
+  
 
   const editappointment = async () => {
     setIsEditing(true);
@@ -65,7 +66,7 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
         ...formValues,
       };
       const { data } = await axios.put(
-        `${apis.UPDATE_APPOINTMENT}/?token=${token}`,
+        `${apis.UPDATE_APPOINTMENT}}`,
         datas
       );
       if (data.status) {
