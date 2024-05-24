@@ -24,8 +24,8 @@ const Appointment1 = () => {
   const [openAppointments, setOpenAppointments] = useState(false);
   const [openEditPopups, setOpenEditPopups] = useState(false);
   const [editInfor,seEditinfo] = useState([]);
+  
   const editPopup = (index) => {
-   
     setOpenEditPopups(!openEditPopups);
     seEditinfo(index)
   };
@@ -34,6 +34,7 @@ const Appointment1 = () => {
   const addAppointments = () => {
     setOpenAppointments(!openAppointments);
   };
+
   const handleIsClickedAppointment = () => {
     setIsClickedAppointment(!isClickedAppointment);
   };

@@ -7,14 +7,14 @@ console.log("ankurfjkwrbfjrgyfergyfreuy",base_token);
 const apis = {
 
     // users
-    GET_SINGLE_USER:`${baseurl}/api/singleuser`,
+    GET_SINGLE_USER:`${baseurl}/user/get-user-profile`,
     SEARCH_USER:`${baseurl}/api/user-search`,
     CREATE_APPOINTMENT: `${baseurl}/appointment/add-appointment`,
     GET_APPOINTMENT: `${baseurl}/appointment/get-appointment-by-date`,
     SINGEL_FETCH_APPOINTMENT: `${baseurl}/appointment/get-appointment-by-date`,
     UPDATE_APPOINTMENT: `${baseurl}/api/appointment/update-appointment`,
     CREATE_MEDICINE: `${baseurl}/medicine/add-medicine`,
-    GET_MEDICINE: `${baseurl}/api/medicines`,
+    GET_MEDICINE: `${baseurl}/medicine/get-medicine-by-date`,
     UPDATE_MEDICINE: `${baseurl}/api/medicines`,
     DELETE_MEDICINE: `${baseurl}/api/medicine/delete`,
     REMOVE_APPOINTMENTS: `${baseurl}/appointment/delete-appointment`,

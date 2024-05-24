@@ -9,61 +9,54 @@ import apis from "../Api/baseUrl";
 import axios from "axios";
 import UpdatePopup from "../Components/UpdatePopup";
 import Cookies from "js-cookie";
-
+import { base_token } from "../Api/baseUrl";
 const MedicineReminder = () => {
-  let token = Cookies.get("token");
-  let id = localStorage.getItem("active_user");
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const getMedicines = async () => {
-    const today = new Date();
-    let dt =
-      today.getDate.toString().length == 1
-        ? 0 + today.getDate().toString()
-        : today.getDate();
 
-    let date = queryParams.get("date")
-      ? queryParams.get("date")
-      : today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + dt;
-    console.log("date", date);
-    const { data } = await axios.get(
-      `${apis.GET_MEDICINE}?creater_Id=${id}&token=${token}&date=${date}`
-    );
-    setMedicines(data?.data);
-    console.log("med", data.data);
+  const [medicines, setMedicines] = useState([]);
+  const [isClickedMedicine, setIsClickedMedicine] = useState(true);
+  const [isClickedAppointment, setIsClickedAppointment] = useState(false);
+  const [medicinePopup, setMedicinePopup] = useState(false);
+  const [updatePopup, setUpdatePopup] = useState(false);
+  const [updatedata, setupdateData] = useState(null);
+  const [isDeleting, setIsDeleting] = useState();
+  const location = useLocation();
+  const filterdate = location?.search?.split("=")[1];
+  console.log("filter::::>>",medicines)
+
+  const getMedicines = async (date) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+      },
+    };
+    const apiUrl = `${apis.GET_MEDICINE}/${date}`;
+    const { data } = await axios.get(apiUrl, config);
+    console.log("data::::::::",data?.resData?.data);
+    setMedicines(data?.resData?.data);
   };
-  const [medicines, setMedicines] = useState(null);
 
   useEffect(() => {
-    let id = localStorage.getItem("active_user");
-    if (token && id) {
-      getMedicines();
-    }
-  }, [queryParams.get("date")]);
+    getMedicines(filterdate);
+  }, [filterdate]);
 
-  console.log("mdesiccsasd", medicines);
-
-  const [isClickedAppointment, setIsClickedAppointment] = useState(false);
+  
   const handleIsClickedAppointment = () => {
     setIsClickedAppointment(!isClickedAppointment);
   };
-  const [isClickedMedicine, setIsClickedMedicine] = useState(true);
+  
   const handleIsClickedMedicine = () => {
     setIsClickedMedicine(!isClickedMedicine);
   };
-  const [updatedata, setupdateData] = useState(null);
-
-  const [medicinePopup, setMedicinePopup] = useState(false);
-  const [updatePopup, setUpdatePopup] = useState(false);
+ 
   const toggleMedicine = () => {
     setMedicinePopup(!medicinePopup);
   };
+
   const toggleMedicineUpdate = (data) => {
     console.log("data", data);
     setUpdatePopup(!updatePopup);
   };
-  const [isDeleting, setIsDeleting] = useState();
-
+ 
   const handleDeleteMedicine = async (args) => {
     setIsDeleting(true);
     let token = Cookies.get("token");
@@ -82,6 +75,7 @@ const MedicineReminder = () => {
       setIsDeleting(false);
     }
   };
+
   return (
     <Page
       pageContent={
@@ -154,10 +148,10 @@ const MedicineReminder = () => {
                       }}
                     >
                       {medicines &&
-                        medicines?.map((item, ind) => {
-                          // itemId?.push(item?._id)
-                          // console.log("iddddd", item);
+                        medicines?.map((item, e) => {
+                         
                           if (item?.medicine)
+                          {console.log("itemId:::",item)}
                             return item?.medicine?.map((it, index) => {
                               return (
                                 <tr

@@ -15,10 +15,8 @@ import { BsBookmarkDash } from "react-icons/bs";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import SingleLineCalendar from "../Components/SingleLineCalender";
 import VerticalSLC from "../Components/VericalSLC";
-
 import FloatingChat from "../Components/FloatingChat";
 import Page from "../Layouts/Pages";
-
 import { RxCross2 } from "react-icons/rx";
 import gallery from "../Photos/gallery.png";
 import gificon from "../Photos/gifIcon.png";
@@ -56,11 +54,9 @@ import Cookies from "js-cookie";
 import Roles_Fighter from "../Photos/Roles_Fighter.png";
 import account2 from "../Photos/account2.jpg";
 import UserProfile from "../Photos/UserProfile.png";
-
 import SlideBox from "../Components/SlideBox";
 import TabPanel from "../Components/TabPanel";
 import MyStory from "../Components/MyStory";
-
 import Chart from "react-apexcharts";
 import { FiSearch } from "react-icons/fi";
 import {
@@ -101,30 +97,29 @@ import MeetingProfile from "../Components/MeetingProfile";
 import Saved from "../Components/Saved";
 import { MdOutlineEdit } from "react-icons/md";
 import HealthProfile from "../Components/HealthProfile";
-import { baseurl } from "../Api/baseUrl";
 import axios from "axios";
-
+import { baseurl, base_token } from "../Api/baseUrl";
+import apis from "../Api/baseUrl";
 const ProfileUser = () => {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState("");
   const [value, setValue] = React.useState(0);
   const [vertical, setVertical] = useState("Upcoming");
   const navigate = useNavigate();
   console.log("navigator>>>>>:::", navigator.geolocation);
+
   const LandingData = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+        'Content-Type': 'application/json',
+      },
+    };
     try {
-      const token = Cookies.get("token");
-      const homeUser = localStorage.getItem("active_user");
-      const response = await axios.post(
-        `${baseurl}/v1/userprofile/get-user-profile-list`,
-        {
-          headers: {
-            // Headers
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const response = await axios(
+        `${apis.GET_SINGLE_USER}`,config
       );
-      setUserData(response.data.data);
-      console.log("response.data", response.data);
+      console.log("response:response " + JSON.stringify(response?.data?.resData?.data))
+      setUserData(response?.data?.resData?.data);
     } catch (error) {
       console.log(error);
     }
@@ -156,6 +151,11 @@ const ProfileUser = () => {
 
   const toggleVertical = (item) => {
     setVertical(item);
+  };
+  console.log("toggleVertical:::::",userData)
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   return (
@@ -198,7 +198,7 @@ const ProfileUser = () => {
                     <div>
                       <Avatar
                         className="w-[10vw] p-1 rounded-full"
-                        src={UserProfile}
+                        src={userData?.profile_image}
                         sx={{
                           width: 150,
                           height: 150,
@@ -210,12 +210,12 @@ const ProfileUser = () => {
                     <div className=" w-full h-max flex justify-between  ml-5 mt-1  ">
                       <div className=" mt-1">
                         <h1 className=" text-[1.4vw] text-12  font-semibold">
-                          {/* {userData?.username} */}
-                          User Name
+                          {userData?.full_name}
+                          {/* User Name */}
                         </h1>
                         <h2 className="  text-[#C31A7F] text-12 text-[1.1vw]">
-                          {/* {userData?.profile_category?.category_Name} */}
-                          category Name
+                          {userData?.user_profile}
+                          {/* category Name */}
                         </h2>
                         <h2
                           className="text-[1.2vw] text-12"
@@ -225,14 +225,14 @@ const ProfileUser = () => {
                             fontWeight: "500",
                           }}
                         >
-                          {/* Joined on {formattedDate} */}
-                          Joined on 2023
+                          Joined on {formatDate(userData.updatedAt)}
+                          {/* Joined on 2023 */}
                         </h2>
                       </div>
                       <div className="mt-1 px-10">
                         <h2 className="text-[1vw] text-12">
                           {/* CANID:{userData?.can_id} */}
-                          CANID:Shri2121
+                          CANID:{userData.CANID}
                         </h2>
                         <div
                           className="flex py-2 bg-[#f5d7e8ff] rounded-full "
