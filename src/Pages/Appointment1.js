@@ -21,14 +21,19 @@ const Appointment1 = () => {
   const [initialData, setInitialData] = useState(null);
   const location = useLocation();
   const filterdate = location.search.split("=")[1];
-  const [openAppointments,setOpenAppointments]=useState(false);
-  const PopUp = () => {
-    setPop(!pop);
+  const [openAppointments, setOpenAppointments] = useState(false);
+  const [openEditPopups, setOpenEditPopups] = useState(false);
+  const [editInfor,seEditinfo] = useState([]);
+  const editPopup = (index) => {
+   
+    setOpenEditPopups(!openEditPopups);
+    seEditinfo(index)
   };
+  console.log("editInfor::::::::::")
 
-  const addAppointments=()=>{
-    setOpenAppointments(!openAppointments)
-  }
+  const addAppointments = () => {
+    setOpenAppointments(!openAppointments);
+  };
   const handleIsClickedAppointment = () => {
     setIsClickedAppointment(!isClickedAppointment);
   };
@@ -126,26 +131,19 @@ const Appointment1 = () => {
                   >
                     Add Appointment
                   </button>
-                  <button
+                  {/* <button
                     className="lg:text-[1.20vw] text-[16px] lg:h-[5vh] lg:hidden block text-sm end-2 z-10 lg:z-0 bottom-4 lg:bottom-0 lg:py-2 lg:px-6 p-2 bg-[#C31A7F] text-white shadow-lg rounded-[15px] w-fit text-center"
-                    onClick={PopUp}
+                    onClick={editPopup}
                   >
                     Add
-                  </button>
+                  </button> */}
                 </div>
-
-                {/* pop up */}
-                {openAppointments && (
+                {openAppointments && <AppointmentPopup />}
+                {openEditPopups && (
                   <AppointmentPopup
-                    // edit={edit}
-                    // edit_id={edit_id}
-                    // getAppointment={getAppointment}
-                    // initialData={initialData}
-                    // closePopup={() => {
-                    //   setPop(false);
-                    //   setedit(false);
-                    //   setInitialData(null);
-                    // }}
+                    edit={edit}
+                    getAppointment={getAppointment}
+                    initialData={initialData}
                   />
                 )}
               </div>
@@ -155,7 +153,7 @@ const Appointment1 = () => {
                   <CalenderRecords />
                 </div>
 
-                <div className="table-height bg-[#FEF8FD] relative min-h-[70%] max-h-fit w-full rounded-[24px] pt-6 flex flex-col gap-3">
+                <div className="bg-[#FEF8FD] relative min-h-[70%] max-h-fit w-full rounded-[24px] pt-6 flex flex-col gap-3">
                   <h1 className="px-6">Today's Appointment</h1>
                   <table
                     className="appoint-table relative table justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1"
@@ -166,10 +164,15 @@ const Appointment1 = () => {
                   >
                     {appointmentData &&
                       appointmentData.map((index) => (
-                        <tr className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly overflow-y-visible" key={index._id}>
+                        <tr
+                          className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly overflow-y-visible"
+                          key={index._id}
+                        >
                           <td className="flex flex-col items-center text-left justify-center pr-4">
                             <h1 className="font-semibold lg:text-[1vw] whitespace-nowrap text-[18px]">
-                              {new Date(index.appointment_date).toLocaleDateString()}
+                              {new Date(
+                                index.appointment_date
+                              ).toLocaleDateString()}
                             </h1>
                             <h1 className="text-[#7E7E77] px-6 lg:text-[1vw] lg:px-0">
                               {index.appointment_time}
@@ -217,28 +220,41 @@ const Appointment1 = () => {
                                 <td className="pr-2">
                                   <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer">
                                     {notePopups[index._id] && (
-                                      <div className="absolute" onClick={() => toggleNotePopup(index._id)}>
+                                      <div
+                                        className="absolute"
+                                        onClick={() =>
+                                          toggleNotePopup(index._id)
+                                        }
+                                      >
                                         <div className="relative lg:-left-24 -left-10 top-5 min-w-[100px] flex flex-col flex-wrap p-2 items-start text-left bg-white shadow-md rounded-[15px]">
-                                          <h4 className="text-[#7E7E77]">Note</h4>
-                                          <p className="flex flex-wrap max-w-[200px]">{index.add_note}</p>
+                                          <h4 className="text-[#7E7E77]">
+                                            Note
+                                          </h4>
+                                          <p className="flex flex-wrap max-w-[200px]">
+                                            {index.add_note}
+                                          </p>
                                         </div>
                                       </div>
                                     )}
-                                    <TfiClipboard onClick={() => toggleNotePopup(index._id)} />
+                                    <TfiClipboard
+                                      onClick={() => toggleNotePopup(index._id)}
+                                    />
                                   </div>
                                 </td>
                                 <td>
                                   <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer">
-                                    <MdDeleteOutline onClick={() => deleteAppointment(index._id)} />
+                                    <MdDeleteOutline
+                                      onClick={() =>
+                                        deleteAppointment(index._id)
+                                      }
+                                    />
                                   </div>
                                 </td>
                                 <td className="pl-2">
-                                  <div className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer" onClick={async () => {
-                                    setPop(true);
-                                    setedit_id(index._id);
-                                    setedit(true);
-                                    await fetchAppointmentDetails(index._id);
-                                  }}>
+                                  <div
+                                    className="bg-[#c31a7f38] p-2 rounded-[12px] cursor-pointer"
+                                    onClick={()=>{editPopup(index)}}
+                                  >
                                     <MdOutlineModeEditOutline />
                                   </div>
                                 </td>
