@@ -98,7 +98,7 @@ const HealthCard1 = () => {
     setIsSubmitting(true);
     const token = Cookies.get("token");
     const formData = new FormData();
-    formData.append("emergencyContacts", JSON.stringify(emergencyContacts));
+    formData.append("emergency_contact", JSON.stringify(emergencyContacts));
 
     for (const key in healthCardData) {
       formData.append(key, healthCardData[key]);
