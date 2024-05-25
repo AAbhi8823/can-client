@@ -18,6 +18,8 @@ const apis = {
     UPDATE_MEDICINE: `${baseurl}/api/medicines`,
     DELETE_MEDICINE: `${baseurl}/api/medicine/delete`,
     REMOVE_APPOINTMENTS: `${baseurl}/appointment/delete-appointment`,
+    GET_PERSONAL_POST:`${baseurl}/mystory/get-my-story-list`,
+    GET_POST_COMMENT:`${baseurl}/comments/add-comment`,
 
     // CHAT APIS
     GET_ACCPECT_FRIEND_LIST: `${baseurl}/api/fetchFriendList`,

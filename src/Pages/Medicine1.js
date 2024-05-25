@@ -23,7 +23,7 @@ const MedicineReminder = () => {
   const filterdate = location?.search?.split("=")[1];
   console.log("filter::::>>",medicines)
 
-  const getMedicines = async (date) => {
+  const getMedicines = async (date = new Date().toISOString().split('T')[0]) => {
     const config = {
       headers: {
         Authorization: `Bearer ${base_token}`,
@@ -149,7 +149,7 @@ const MedicineReminder = () => {
                     >
                       {medicines &&
                         medicines?.map((item, e) => {
-                         
+                          console.log("item:::::>>",item)
                           if (item?.medicine)
                           {console.log("itemId:::",item)}
                             return item?.medicine?.map((it, index) => {

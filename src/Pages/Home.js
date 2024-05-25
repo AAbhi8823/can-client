@@ -108,7 +108,6 @@ const Home = () => {
     setUserBlock(!userBlock);
   };
 
-  // location and GIF
   const toggleLocation = () => {
     setShowLacation(!showlocation);
   };
@@ -117,72 +116,12 @@ const Home = () => {
     setShowgif(!showgif);
   };
 
-  // emoji
   const addEmoji = (e) => {
     const sym = e.unified.split("_");
     const codeArray = [];
     sym.forEach((el) => codeArray.push("0x" + el));
     let emoji = String.fromCodePoint(...codeArray);
     setInput(input + emoji);
-  };
-
-  // share button functionality
-  const checkList = [
-    {
-      id: 1,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 2,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 3,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 4,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 5,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 6,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 7,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-  ];
-
-  const handleCheck = (event, item) => {
-    if (event.target.checked) {
-      // setChecked([...checked, item]);
-      console.log(item);
-    } else {
-      setChecked(checked.filter((checkedItem) => checkedItem.id !== item.id));
-    }
-  };
-
-  const handleRemoveItem = (item) => {
-    setChecked(checked.filter((checkedItem) => checkedItem.id !== item.id));
   };
 
   const toggleShareButton = (postid) => {
@@ -314,16 +253,7 @@ const Home = () => {
       [postId]: !prev[postId],
     }));
   }
-
-  const handleClickOutsidethreeDots = (event) => {
-    if (
-      threeDotsOutClick.current &&
-      !threeDotsOutClick.current.contains(event.target)
-    ) {
-      setThreeDots(false);
-    }
-  };
-
+ 
   useEffect(() => {
     const activeUser = async () => {
       const token = Cookie.get("token");
@@ -592,7 +522,6 @@ const Home = () => {
           <ToastContainer />
           <div className=" h-[100%] y-scrl ">
             <div className=" lg:flex">
-              {/* background */}
               <div className="bg-[#FEF8FD] lg:px-0 px-2 lg:px-10 w-[100%] flex flex-wrap justify-around">
                 {/* post */}
                 <div className="flex flex-col  ml-0  w-full  lg:w-[55%] ">
@@ -818,6 +747,7 @@ const Home = () => {
                     <>
                       {homePost?.map((homePostItems, index) => {
                         const createdAt = new Date(homePostItems?.createdAt);
+                        console.log("Created::>>>>>>",homePostItems?.user_id)
                         const formattedDate = createdAt.toLocaleDateString(
                           "en-GB",
                           {
@@ -837,13 +767,13 @@ const Home = () => {
                           >
                             <div className=" flex items-center gap-2">
                               <FlippingImage
-                                data={homePostItems?.userId?.profile_photo}
+                                data={homePostItems?.user_id?.profile_image}
                               />
                               <div className="flex  w-full items-center justify-between">
                                 <div>
                                   <div className="flex items-center gap-2">
                                     <h1 className="font-semibold">
-                                      {homePostItems?.userId?.username}
+                                      {homePostItems?.user_id?.full_name}
                                     </h1>
                                     <p className="text-xs text-[#7E7E7E]">
                                       {formattedDate}
@@ -852,8 +782,7 @@ const Home = () => {
                                   <div className="flex flex-row items-center gap-2">
                                     <p className="text-[12px] font-semibold   text-[#C31A7F]">
                                       {
-                                        homePostItems?.userId?.profile_category
-                                          ?.category_Name
+                                        homePostItems?.user_id?.user_profile
                                       }
                                     </p>
                                   </div>
@@ -1747,8 +1676,6 @@ const Home = () => {
               </div>
             </div>
             <FloatingChat />
-
-            {/* emoji  */}
             {showEmoji && (
               <div
                 className="absolute top-52 left-3 lg:top-56 lg:left-96"
