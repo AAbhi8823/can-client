@@ -20,6 +20,7 @@ const ChooseTitle = () => {
   const [loading, setLoading] = useState(true);
   const [select, setSelect] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,8 +91,6 @@ const ChooseTitle = () => {
     }
   };
 
-  const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -102,7 +101,6 @@ const ChooseTitle = () => {
 
   return (
     <>
-      {/* Dialog Component */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -110,24 +108,20 @@ const ChooseTitle = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogContent>
-          {/* Dialog Content */}
           <div className="flex justify-end">
             <RxCross2 size={15} onClick={handleClose} />
           </div>
           <DialogContentText id="alert-dialog-description">
-            {/* Dialog Text Content */}
             <p className=" font-bold py-2 border-b-2 ">
               <span className="text-[#C31A7F]">Fighter</span> : Embrace your
               inner superhero and join a <br /> league of warriors ready to face
               cancer head-on
               <br /> with strength and determination.
             </p>
-            {/* More content */}
           </DialogContentText>
         </DialogContent>
       </Dialog>
 
-      {/* Your main content */}
       <div className="flex justify-start center-1">
         <NavLink to="/">
           <div className="flex px-10 w-[100%]">
@@ -136,7 +130,6 @@ const ChooseTitle = () => {
         </NavLink>
       </div>
 
-      {/* Main Content */}
       <div>
         <div className="flex lg:flex-row lg:p-0 p-2 items-center justify-center">
           <Craousel />

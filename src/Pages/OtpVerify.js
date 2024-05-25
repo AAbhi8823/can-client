@@ -77,7 +77,6 @@ const OtpVerify = () => {
     } finally {
       setIsLoading(false); // Set loading to false regardless of success or failure
     }
-    // console.log("helloOTP")
   }
 
   return (

@@ -32,22 +32,8 @@ function ProfileSuccessAdd() {
   }, [token, location.state]);
 
   const handleSuccess = async () => {
-    try {
-      const response = await axios.post(
-        `${baseurl}/user/user-register`,
-        userValue,
-        {}
-      );
-      if (response.status === 200) {
-        console.log("Data sent successfully:", response.data);
-        localStorage.clear();
-        navigate("/");
-      } else {
-        console.error("Error sending data to the server");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    localStorage.clear();
+    navigate("/");
   };
 
   const showData = async (token) => {
