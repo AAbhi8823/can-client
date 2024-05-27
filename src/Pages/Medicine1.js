@@ -122,7 +122,7 @@ const MedicineReminder = () => {
                   )}
                 </div>
 
-                <div className="bg-[#FEF8FD]   mt-2 rounded-2xl shadow-xl flex flex-col items-center ">
+                <div className="bg-[#fff]   mt-2 rounded-2xl shadow-xl flex flex-col items-center p-5">
                   <div className="flex flex-wrap justify-center md:justify-between lg:justify-between">
                     <div></div>
                     <div className="py-5 scale-75">
@@ -137,11 +137,11 @@ const MedicineReminder = () => {
                     </div>
                   </div>
 
-                  <div className="bg-[#FEF8FD] h-[70%] w-full rounded-[24px] p-6 flex flex-col gap-3 overflow-y-visible">
+                  <div className="bg-[#FEF8FD] w-full rounded-[24px] p-6 flex flex-col gap-3 overflow-y-visible">
                     <h1 className="font-semibold">Today's Medicine</h1>
 
                     <table
-                      className="relative table   justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 "
+                      className="relative table   "
                       style={{
                         borderCollapse: "separate",
                         borderSpacing: "0 8px",
@@ -154,7 +154,7 @@ const MedicineReminder = () => {
                             return item?.medicines?.map((it, index) => {
                               return (
                                 <tr
-                                  className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly  overflow-y-visible "
+                                  className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly  overflow-y-visible justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 mb-4"
                                   key={it?._id}
                                 >{console.log("sdhcdschbsdcbcbsdcbds",it)}
                                   <div className="text-center justify-center flex">
