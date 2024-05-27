@@ -146,26 +146,25 @@ const MedicineReminder = () => {
                         borderCollapse: "separate",
                         borderSpacing: "0 8px",
                       }}
-                    >
+                    >{console.log("Today::::::::::",medicines)}
                       {medicines &&
                         medicines?.map((item, e) => {
                           console.log("item:::::>>",item)
-                          if (item?.medicine)
-                          {console.log("itemId:::",item)}
-                            return item?.medicine?.map((it, index) => {
+                          if (item?.medicines)     
+                            return item?.medicines?.map((it, index) => {
                               return (
                                 <tr
                                   className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly  overflow-y-visible "
                                   key={it?._id}
-                                >
+                                >{console.log("sdhcdschbsdcbcbsdcbds",it)}
                                   <div className="text-center justify-center flex">
                                     <td className="w-[18vw] lg:text-center flex flex-col px-5 gap-4 py-3 ">
                                       <div>
                                         <h2 className="text-[18px] font-[500] text-center flex-nowrap">
-                                          {it?.medicine_meal}
+                                          {it?.meal}
                                         </h2>
                                         <h3 className="text-[#7E7E7E] text-[14px] font-[500] flex-nowrap">
-                                          {it?.remainder_time}
+                                          {it?.time_for_reminder}
                                         </h3>
                                       </div>
                                     </td>
@@ -178,7 +177,7 @@ const MedicineReminder = () => {
                                         <p className="text-[#7E7E7E] text-[14px] font-[500]">
                                           Medicine1
                                         </p>
-                                        {it?.medicineName}
+                                        {it?.medicine_name}
                                       </div>
                                       <div className="  lg:border-l-2 lg:border-r-2 overflow-auto lg:text-center lg:flex  px-10 py-3 gap-4">
                                         <div className="lg:pr-10 ">
@@ -194,7 +193,7 @@ const MedicineReminder = () => {
                                             <p className="text-[#7E7E7E] text-[14px] font-[500] mb-4">
                                               Dose
                                             </p>
-                                            {it?.dose}
+                                            {it?.medicine_dosage}
                                           </div>
                                         </div>
                                       </div>
