@@ -148,7 +148,6 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
     try {
       const creator = localStorage.getItem("active_user");
       const allMedicines = [];
-
       for (let i = 0; i < medicineCount; i++) {
         const medicine = {
           medicine_name: medicine_Data[`medicineName${i}`] || '',
@@ -163,7 +162,6 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
         };
         allMedicines.push(medicine);
       }
-
       const token = Cookies.get("token");
       const response = await axios.post(`${apis.CREATE_MEDICINE}`, {
         creater_Id: creator,

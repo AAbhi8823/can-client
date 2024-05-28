@@ -122,7 +122,7 @@ const MedicineReminder = () => {
                   )}
                 </div>
 
-                <div className="bg-[#FEF8FD]   mt-2 rounded-2xl shadow-xl flex flex-col items-center ">
+                <div className="bg-[#fff]   mt-2 rounded-2xl shadow-xl flex flex-col items-center p-5">
                   <div className="flex flex-wrap justify-center md:justify-between lg:justify-between">
                     <div></div>
                     <div className="py-5 scale-75">
@@ -137,35 +137,34 @@ const MedicineReminder = () => {
                     </div>
                   </div>
 
-                  <div className="bg-[#FEF8FD] h-[70%] w-full rounded-[24px] p-6 flex flex-col gap-3 overflow-y-visible">
+                  <div className="bg-[#FEF8FD] w-full rounded-[24px] p-6 flex flex-col gap-3 overflow-y-visible">
                     <h1 className="font-semibold">Today's Medicine</h1>
 
                     <table
-                      className="relative table   justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 "
+                      className="relative table   "
                       style={{
                         borderCollapse: "separate",
                         borderSpacing: "0 8px",
                       }}
-                    >
+                    >{console.log("Today::::::::::",medicines)}
                       {medicines &&
                         medicines?.map((item, e) => {
                           console.log("item:::::>>",item)
-                          if (item?.medicine)
-                          {console.log("itemId:::",item)}
-                            return item?.medicine?.map((it, index) => {
+                          if (item?.medicines)     
+                            return item?.medicines?.map((it, index) => {
                               return (
                                 <tr
-                                  className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly  overflow-y-visible "
+                                  className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly  overflow-y-visible justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 mb-4"
                                   key={it?._id}
-                                >
+                                >{console.log("sdhcdschbsdcbcbsdcbds",it)}
                                   <div className="text-center justify-center flex">
                                     <td className="w-[18vw] lg:text-center flex flex-col px-5 gap-4 py-3 ">
                                       <div>
                                         <h2 className="text-[18px] font-[500] text-center flex-nowrap">
-                                          {it?.medicine_meal}
+                                          {it?.meal}
                                         </h2>
                                         <h3 className="text-[#7E7E7E] text-[14px] font-[500] flex-nowrap">
-                                          {it?.remainder_time}
+                                          {it?.time_for_reminder}
                                         </h3>
                                       </div>
                                     </td>
@@ -178,7 +177,7 @@ const MedicineReminder = () => {
                                         <p className="text-[#7E7E7E] text-[14px] font-[500]">
                                           Medicine1
                                         </p>
-                                        {it?.medicineName}
+                                        {it?.medicine_name}
                                       </div>
                                       <div className="  lg:border-l-2 lg:border-r-2 overflow-auto lg:text-center lg:flex  px-10 py-3 gap-4">
                                         <div className="lg:pr-10 ">
@@ -194,7 +193,7 @@ const MedicineReminder = () => {
                                             <p className="text-[#7E7E7E] text-[14px] font-[500] mb-4">
                                               Dose
                                             </p>
-                                            {it?.dose}
+                                            {it?.medicine_dosage}
                                           </div>
                                         </div>
                                       </div>
