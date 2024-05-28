@@ -113,7 +113,7 @@ const MedicineReminder = () => {
                       {" "}
                       Add Medicine{" "}
                     </button>
-                  </div>
+                  </div>                  ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
                   {medicinePopup && (
                     <MedicinePopup
                       toggleMedicine={toggleMedicine}
