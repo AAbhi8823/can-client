@@ -41,6 +41,8 @@ import Cookie from "js-cookie";
 import Tooltip from "@mui/material/Tooltip";
 import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
+import { base_token } from "../Api/baseUrl";
+import apis from "../Api/baseUrl";
 const Home = () => {
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
@@ -490,6 +492,7 @@ const Home = () => {
     if (!token) {
       navigate("/loginform");
     }
+    getProfile()
   }, []);
 
   const commentLike = async (commentId) => {
@@ -514,6 +517,28 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  const [userData,setUserData]=useState(null)
+  
+  const getProfile = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const response = await axios(
+        `${apis.GET_SINGLE_USER}`,config
+      );
+      console.log("response:response " + JSON.stringify(response?.data?.resData?.data))
+      setUserData(response?.data?.resData?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log('response::>>>>',userData)
 
   return (
     <Page
@@ -1101,7 +1126,8 @@ const Home = () => {
                                       }
                                     />
                                     <p className="text-[12px] font-bold">
-                                      {homePostItems.CommentsCount}
+                                      {homePostItems?.comments?.length}
+                                      {console.log("Comments::>>>",homePostItems)}
                                     </p>
                                   </div>
                                   {showContent && (
@@ -1134,6 +1160,9 @@ const Home = () => {
                                           }`}
                                         >
                                           <div className="h-[15%] ">
+                                            {
+                                              console.log("Comment::>>>>>>>>",commentModel)
+                                            }
                                             <div className=" flex h-max items-center gap-2">
                                               <div className="rounded-full overflow-hidden h-max w-[15%]">
                                                 {commentModel.userId
