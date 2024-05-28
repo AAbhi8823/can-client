@@ -21,7 +21,7 @@ const Register = () => {
   const [isOtpSending, setIsOtpSending] = useState(false);
   const selectRef = useRef(null);
   const [Username, setUsername] = useState("");
-  const [mobilenumber,setMobilenumber]=useState()
+  const [mobilenumber, setMobilenumber] = useState();
   const [startDate, setStartDate] = useState(new Date());
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Register = () => {
     const userData = {
       full_name: Username,
       phone_number: mobilenumber,
-      email:email,
+      email: email,
       gender: gender,
       date_of_birth: startDate.toString(), // Ensure correct date format
       agreed_To_Terms: check,
@@ -86,9 +86,9 @@ const Register = () => {
     }
   };
 
-  const numberChage=(event)=>{
-    setMobilenumber(event.target.value)
-  }
+  const numberChage = (event) => {
+    setMobilenumber(event.target.value);
+  };
   const changeUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -127,7 +127,7 @@ const Register = () => {
         <Craousel />
         <div className=" md:w-1/2 lg:w-[35%] px-5">
           <div>
-            <img src={elite1} className="w-[50%] m-[auto]"  alt="none" />
+            <img src={elite1} className="w-[50%] m-[auto]" alt="none" />
           </div>
 
           <div className="text-center text-[22px] lg:text-[1.95vw] font-semibold    text-[#C31A7F]">
@@ -137,7 +137,9 @@ const Register = () => {
             <div className=" text-center flex justify-center ">
               <p className="lg:text-[1.17vw] text-[20px]">Have an account?</p>
               <p className="text-[#3C37FF] px-2 lg:text-[1.17vw] text-[18px]">
-                <Link className="reg-sanc" to={`/LoginForm`}>Sign in</Link>
+                <Link className="reg-sanc" to={`/LoginForm`}>
+                  Sign in
+                </Link>
               </p>
             </div>
 
@@ -214,37 +216,22 @@ const Register = () => {
               onClick={openDatePicker}
             >
               <h1 className="font-bold flex items-center w-max h-full px-3 lg:text-[1.30vw] text-[18px]">
-                {/* <TodayIcon className="" /> */}
-
                 <AiOutlineCalendar />
               </h1>
-              <div className="    inher-1 bg-[#000] h-[3.3vh] lg:h-[2.27vw] w-[0.5px]  text-[1.30vw] "></div>
+              <div className="inher-1 bg-[#000] h-[3.3vh] lg:h-[2.27vw] w-[0.5px] text-[1.30vw] "></div>
 
               <label htmlFor="dateOfBirth"></label>
-              {/* <DatePicker
+              <DatePicker
                 type="date"
                 id="dateOfBirth"
                 selected={startDate}
                 max={currentDate}
                 onChange={handledobChange}
+                showYearDropdown
+                scrollableYearDropdown
                 className="border-none w-full bg-transparent placeholder: outline-none  ml-3 text-[18px] lg:text-[1vw]"
                 placeholderText="Enter DOB"
-              /> */}
-
-              
-<DatePicker
-    type="date"
-    id="dateOfBirth"
-    selected={startDate}
-    max={currentDate}
-    onChange={handledobChange}
-    showYearDropdown
-    scrollableYearDropdown
-    className="border-none w-full bg-transparent placeholder: outline-none  ml-3 text-[18px] lg:text-[1vw]"
-    placeholderText="Enter DOB"
-/>
-
-
+              />
             </div>
           </div>
           <div className=" flex text-center justify-center mt-6 px-5">

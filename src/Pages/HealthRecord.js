@@ -18,7 +18,6 @@ const HealthRecord = () => {
     const toggleVertical = (item) => {
         setVertical(item)
     }
-
     return (
       <Page
         pageContent={
@@ -37,11 +36,11 @@ const HealthRecord = () => {
                     Add your document here of easy access anytime anywhere.
                   </div>
                   <div className="flex gap-4">
-                    <NavLink to="/HealthRecord1">
+                    {/* <NavLink to="/HealthRecord1">
                       <div className="    bg-[#C31A7F] text-white lg:text-[1.20vw]  text-[16px] px-4 py-2 rounded-[20px] cursor-pointer">
                         Add health Record
                       </div>
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink
                       to={"/HealthRecord1"}
                       className="  bg-[#C31A7F] text-white lg:text-[1.20vw]  text-[16px] px-4 py-2 rounded-[20px] cursor-pointer"
