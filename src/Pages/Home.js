@@ -64,9 +64,7 @@ const Home = () => {
   const [userBlocked, setUserBlocked] = useState(false);
   const [commentModel, setcommentModel] = useState([]);
   const [postCommentModel, setPostCommentModel] = useState();
-  const [isCommentLoadin, setIsCommentLoading] = useState();
-  const [commentLikeCount, setCommentLikeCount] = useState();
-  const [LikeID, setLikeID] = useState(false);
+  const [isCommentLoadin, setIsCommentLoading] = useState(true);
   const [likedPosts, setLikedPosts] = useState({});
   const [singlePostId, setSinglePostId] = useState();
   const [isShared, setIsShared] = useState();
@@ -153,7 +151,7 @@ const Home = () => {
   };
 
   const toggleContent = async (commentItem) => {
-    setIsCommentLoading(true);
+    // setIsCommentLoading(true);
     const post_id = commentItem._id;
     const posttoken = Cookie.get("token");
     setShowContent(!showContent);
@@ -167,7 +165,7 @@ const Home = () => {
         }
       );
       if (singlePostCommentData) {
-        setIsCommentLoading(false);
+        // setIsCommentLoading(false);
         setPostCommentModel(singlePostCommentData.data.data);
       } else {
       }
@@ -177,7 +175,7 @@ const Home = () => {
   };
 
   const toggleContent2 = async (commentItem) => {
-    setIsCommentLoading(true);
+    // setIsCommentLoading(true);
     const post_id = commentItem._id;
     const posttoken = Cookie.get("token");
     setcommentModel(commentItem);
@@ -190,7 +188,7 @@ const Home = () => {
         }
       );
       if (singlePostCommentData) {
-        setIsCommentLoading(false);
+        // setIsCommentLoading(false);
         setPostCommentModel(singlePostCommentData.data.data);
       } else {
       }
@@ -218,7 +216,7 @@ const Home = () => {
   const likeButton = async (likeID) => {
     document.getElementById("likeButtonColorless").style.color = "red";
     console.log(likeID);
-    const postID = likeID; // Renamed Postid to postID for consistency
+    const postID = likeID; 
     const postToken = Cookie.get("token");
 
     try {
@@ -303,9 +301,7 @@ const Home = () => {
     setVertical(item);
   };
   const postApidata = (postData) => {
-    // console.log(postData.data.msg)
     if (postData.data.msg === "post create successfully") {
-      // console.log("successfully created")
       setCreatePost(false);
       toast.success("Posted Successfully!", {
         position: "top-center",
@@ -325,11 +321,12 @@ const Home = () => {
       const HomePosttoken = Cookie.get("token");
       const homePost = await axios.get(`${baseurl}/mystory/get-story-list`, {
         headers: {
-          Authorization: `Bearer ${HomePosttoken}`, // Include the authorization header
+          Authorization: `Bearer ${HomePosttoken}`,
         },
       });
       console.log("homePost::>>>", homePost.data.resData.data);
       sethomePost(homePost.data.resData.data);
+      setIsCommentLoading(true)
       console.log(homePost.data.resData.data);
     } catch (error) {
       console.log(error);
@@ -421,7 +418,6 @@ const Home = () => {
     const formInfo = new FormData();
     formInfo.set("content", input);
     formInfo.set("userId", activeUser);
-    // formInfo.set("post_image", activeUser);
 
     try {
       const createPost = await axios.post(
@@ -434,7 +430,7 @@ const Home = () => {
           },
         }
       );
-
+      
       if (createPost) {
         setIsPosting(false);
         toast.success("Posted Successfully!", {
@@ -1132,24 +1128,25 @@ const Home = () => {
                                       {console.log("Comments::>>>",homePostItems)}
                                     </p>
                                   </div>
+                                  {console.log("commentModel::>>>",commentModel)}
                                   {showContent && (
                                     <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#98989806]  ">
                                       <div
                                         className={` mt-[105px] lg:mt-2 h-[90vh] lg:overflow-hidden scrollbar-hide lg:h-[70%]  bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden ${
-                                          commentModel.image
+                                          commentModel?.image
                                             ? "w-[95%]   lg:w-[70%]"
                                             : "w-[95%] lg:w-[27%]"
                                         }`}
                                       >
                                         <div
                                           className={`lg:w-[60%] ${
-                                            commentModel.image
+                                            commentModel?.image
                                               ? "block"
                                               : "hidden"
                                           }`}
                                         >
                                           <img
-                                            // src={commentModel.image}
+                                            src={commentModel.media_files[0]}
                                             alt="none"
                                             className="object-cover w-full h-full"
                                           />
@@ -1167,13 +1164,11 @@ const Home = () => {
                                             }
                                             <div className=" flex h-max items-center gap-2">
                                               <div className="rounded-full overflow-hidden h-max w-[15%]">
-                                                {commentModel?.user_id
-                                                  .profile_image
+                                                {commentModel?.user_id?.profile_image
                                                   ? (
                                                   <img
                                                     src={
-                                                      commentModel.user_id
-                                                        .profile_photo
+                                                      commentModel?.user_id?.profile_image
                                                     }
                                                     alt="User Profile"
                                                     className="rounded-full  h-12 "
@@ -1191,8 +1186,7 @@ const Home = () => {
                                                   <div className="flex flex-row gap-2 items-center">
                                                     <h1 className="font-semibold">
                                                       {
-                                                        commentModel.user_id
-                                                          .CANID
+                                                        commentModel?.user_id?.CANID
                                                       }
                                                     </h1>
                                                     <p className="text-xs text-[#7E7E7E]">
@@ -1225,7 +1219,8 @@ const Home = () => {
                                           </div>
                                           <div className="flex-1 overflow-y-auto">
                                             <div key={reloadFlag}>
-                                              {isCommentLoadin ? (
+                                              {console.log("reload:::>>>",commentModel)}
+                                              {!isCommentLoadin ? (
                                                 <div className="flex items-center">
                                                   <Skeleton
                                                     variant="circular"
@@ -1240,12 +1235,14 @@ const Home = () => {
                                                   />
                                                 </div>
                                               ) : (
-                                                postCommentModel.map(
+                                                commentModel?.comments?.map(
                                                   (item, index) => (
                                                     <div
                                                       className="mt-[25px] flex items-center"
                                                       key={item.commentId}
                                                     >
+                                                      {/* {commentModel} */}
+                                                    {console.log("Comment::>>>>",item)}
                                                       <div className="w-[10%] rounded-full overflow-hidden">
                                                         {item.userId
                                                           .profile_photo ? (
@@ -1345,10 +1342,11 @@ const Home = () => {
                                             <div className="  bg-[#FDF4F9]">
                                               <div className="flex gap-3 w-full ">
                                                 <div className="relative w-full flex items-center">
-                                                  {commentModel.profile_photo ? (
+                                                  {console.log("commentModel::>>>>>>",userDetails)}
+                                                  {commentModel.media_files[0] ? (
                                                     <img
                                                       src={
-                                                        userDetails.profile_photo
+                                                        commentModel.media_files[0]
                                                       }
                                                       className="absolute left-3 h-10 w-10 rounded-full"
                                                       alt="mage"
