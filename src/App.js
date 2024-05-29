@@ -55,7 +55,7 @@ import HealthCard2 from './Pages/HealthCard2'
 import KnowMore from './Pages/KnowMore'
 import WhyCan from './Pages/WhyCan'
 import TermsConditions from './Pages/TermsConditions'
-import PrivacyPolicy from './Pages/PrivacyPolicy'
+// import PrivacyPolicy from './Pages/PrivacyPolicy'
 import ProfileSuccessAdd from './Pages/ProfileSuccessAdd'
 import SplitButton from './Components/Splitbutton'
 import SelectLabels from './Components/SelectLabels'
@@ -70,6 +70,7 @@ import AdminContent from './Admin Pannel/Content'
 import AdminUserManagement from './Admin Pannel/AdminUserManagement'
 import Animate from './Pages/Animate'
 import ContactUs from './Pages/ContactUs'
+import PrivacyPolicy from './Pages/ PrivacyPolicies'
 import ProfileUser from './Pages/ProfileUser'
 import SlideBox from './Components/SlideBox'
 import TabPanel from './Components/TabPanel'
@@ -92,6 +93,7 @@ const App = () => {
         <Routes>
           <Route exact path='/' element={<BeforeLoginHome />} />
           <Route exact path='/contactUs' element={<ContactUs />} />
+          <Route exact path='/PrivacyPolicy' element={<PrivacyPolicy />} />
           <Route exact path='/KnowMore' element={<KnowMore />} />
           <Route exact path='/Whycan' element={<WhyCan />} />
           <Route exact path='choosetitle' element={<ChooseTitle />} />
