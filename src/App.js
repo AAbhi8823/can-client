@@ -85,6 +85,7 @@ import HealthProfile from './Components/HealthProfile'
 import MedicineBank  from './Pages/MedicineBank'
 import MobileCraousel  from './Components/MobileCraousel'
 import MagickLink from './Pages/MagickLink'
+import TermsService from './Pages/TermsService'
 const App = () => {
   let token = Cookies.get("authToken")
   return (
@@ -94,6 +95,7 @@ const App = () => {
           <Route exact path='/' element={<BeforeLoginHome />} />
           <Route exact path='/contactUs' element={<ContactUs />} />
           <Route exact path='/PrivacyPolicy' element={<PrivacyPolicy />} />
+          <Route exact path='/TermsService' element={<TermsService />} />
           <Route exact path='/KnowMore' element={<KnowMore />} />
           <Route exact path='/Whycan' element={<WhyCan />} />
           <Route exact path='choosetitle' element={<ChooseTitle />} />
