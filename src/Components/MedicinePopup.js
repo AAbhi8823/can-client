@@ -1,28 +1,25 @@
 import React, { useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
+import { NavLink } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import apis from '../Api/baseUrl';
+import Cookies from 'js-cookie';
 
 const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   const [validationError, setValidationError] = useState(false);
   const [medicineData, setMedicineData] = useState({});
+  const [error, setError] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [medicineCount, setMedicineCount] = useState(1);
+  const [deleteMedicine, setDeleteMedicine] = useState(false);
   const [reminderTime, setReminderTime] = useState(false);
-  const [medicDate, setMedicDate] = useState({ startFrom: '', stopOn: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSelectClicked, setIsSelectClicked] = useState(false);
+  const [reminderTimeValue, setReminderTimeValue] = useState(''); // State for reminder time
 
-  const mealOptions = [
-    { value: 'Before Breakfast', label: 'Before Breakfast' },
-    { value: 'After Breakfast', label: 'After Breakfast' },
-    { value: 'Before Lunch', label: 'Before Lunch' },
-    { value: 'After Lunch', label: 'After Lunch' },
-    { value: 'Before Meal', label: 'Before Meal' },
-    { value: 'After Meal', label: 'After Meal' },
-  ];
+  const [medicDate, setMedicDate] = useState({
+    startFrom: '',
+    stopOn: ''
+  });
 
   const validateForm = () => {
     let isValid = true;
@@ -46,15 +43,63 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
     }
 
     setValidationError(!isValid);
+
     return isValid;
   };
 
-  const handleSelectClick = () => {
-    setIsSelectClicked(true);
+  const handleTimeChange = (value) => {
+    setReminderTimeValue(value && value.format('hh:mm A'));
   };
 
-  const handleReminder = () => {
-    setReminderTime(!reminderTime);
+  const mealOptions = [
+    { value: 'Before Breakfast', label: 'Before Breakfast' },
+    { value: 'After Breakfast', label: 'After Breakfast' },
+    { value: 'Before Lunch', label: 'Before Lunch' },
+    { value: 'After Lunch', label: 'After Lunch' },
+    { value: 'Before Meal', label: 'Before Meal' },
+    { value: 'After Meal', label: 'After Meal' }
+  ];
+
+  const handleAddMedicine = () => {
+    setMedicineCount(medicineCount + 1);
+  };
+
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: 'white',
+      color: 'black',
+      '&:hover': {
+        backgroundColor: '#EFC31968',
+        color: 'white'
+      }
+    }),
+    menu: (provided) => ({
+      ...provided,
+      width: '70%',
+      zIndex: '20'
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      width: '100%',
+      padding: '4px',
+      border: '2px solid #D1D5DB',
+      borderRadius: '20px',
+      backgroundColor: 'transparent',
+      boxShadow: 'none',
+      position: 'relative'
+    }),
+    placeholder: (provided, state) => ({
+      position: 'absolute',
+      left: '3px',
+      fontSize: '14px',
+      color: '#7C7C7C',
+      transform: state.isFocused
+        ? 'translateY(-20px) scale(0)'
+        : 'translateY(0) scale(1)',
+      transition: 'transform 0.2s',
+      padding: '4px 4px'
+    })
   };
 
   const convertTo12HourTime = (time24) => {
@@ -62,20 +107,15 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
     const hoursNumber = parseInt(hours);
     const period = hoursNumber >= 12 ? 'PM' : 'AM';
     const hours12 = hoursNumber % 12 || 12;
-    return `${hours12}:${minutes} ${period}`;
+    const time12 = `${hours12}:${minutes} ${period}`;
+    return time12;
   };
 
-  const handleAddMedicine = () => {
-    setMedicineCount(medicineCount + 1);
+  const handleReminder = () => {
+    setReminderTime(!reminderTime);
   };
 
-  const handleChange = (e, index, select) => {
-    if (select) {
-      setMedicineData({ ...medicineData, [`meal${index}`]: e.value });
-    } else {
-      setMedicineData({ ...medicineData, [`${e.target.name}${index}`]: e.target.value });
-    }
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const createMedicine = async (e) => {
     e.preventDefault();
@@ -99,7 +139,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
           isReminderSet: reminderTime,
           time_for_reminder: convertTo12HourTime(medicineData[`medicineTime${i}`]) || '',
           medicine_start_date: medicDate.startFrom,
-          medicine_stop_date: medicDate.stopOn,
+          medicine_stop_date: medicDate.stopOn
         };
         allMedicines.push(medicine);
       }
@@ -108,18 +148,18 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
         `${apis.CREATE_MEDICINE}`,
         {
           creater_Id: creator,
-          medicines: allMedicines,
+          medicines: allMedicines
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            Authorization: `Bearer ${token}`
+          }
         }
       );
 
       if (response?.data?.resData?.status === true) {
-        getMedicines();
-        toggleMedicine();
+        // getMedicines();
+        // toggleMedicine();
         window.location.reload();
       }
     } catch (err) {
@@ -129,206 +169,285 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
     }
   };
 
-  const customStyles = {
-    option: (provided) => ({
-      ...provided,
-      backgroundColor: 'white',
-      color: 'black',
-      '&:hover': {
-        backgroundColor: '#EFC31968',
-        color: 'white',
-      },
-    }),
-    menu: (provided) => ({
-      ...provided,
-      width: '70%',
-      zIndex: '20',
-    }),
-    control: (provided) => ({
-      ...provided,
-      width: '100%',
-      padding: '4px',
-      border: '2px solid #D1D5DB',
-      borderRadius: '20px',
-      backgroundColor: 'transparent',
-      boxShadow: 'none',
-      position: 'relative',
-    }),
-    placeholder: (provided, state) => ({
-      position: 'absolute',
-      left: '3px',
-      fontSize: '14px',
-      color: '#7C7C7C',
-      transform: state.isFocused ? 'translateY(-20px) scale(0)' : 'translateY(0) scale(1)',
-      transition: 'transform 0.2s',
-      padding: '4px 4px',
-    }),
+  const handleDeleteMedicine = () => {
+    setDeleteMedicine(true);
+  };
+
+  const [isSelectClicked, setIsSelectClicked] = useState(false);
+
+  const handleSelectClick = () => {
+    setIsSelectClicked(true);
+  };
+
+  const handleChange = (e, index, select) => {
+    if (select) {
+      setMedicineData({ ...medicineData, ['meal' + index]: e.value });
+    } else {
+      setMedicineData({ ...medicineData, [e.target.name + index]: e.target.value });
+    }
   };
 
   return (
-    <div className="fixed inset-0 flex md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll px-5 py-[90px]">
-      <div className="flex flex-col bg-white rounded-[40px] lg:md:w-auto w-full max-h-fit px-10">
-        <div className="flex flex-row py-4 justify-between items-center w-full">
-          <h1 className="text-[22px] font-[500]">Add Medicines</h1>
-          <RxCross2 className="lg:md:ml-80 cursor-pointer" onClick={toggleMedicine} />
-        </div>
-        <div className="flex flex-col">
-          <form>
-            {[...Array(medicineCount)].map((_, index) => (
-              <div key={index}>
-                <label className="text-[16px] font-[500]"> Medicine {index + 1} </label>
-                <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col py-2 gap-6">
-                  <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
-                    <input
-                      type="text"
-                      name="medicineName"
-                      className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
-                      onChange={(e) => handleChange(e, index)}
-                      placeholder=" "
-                    />
-                    <label className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                      <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
-                        Medicine {index + 1}
-                      </p>
-                    </label>
+    <>
+      <div className="fixed inset-0 flex md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll px-5 py-[90px]">
+        <div className="flex flex-col bg-white rounded-[40px] lg:md:w-auto w-full max-h-fit px-10">
+          <div className="flex flex-row py-4 justify-between items-center w-full">
+            <h1 className="text-[22px] font-[500]">Add Medicines</h1>
+            <RxCross2 className="lg:md:ml-80 cursor-pointer" onClick={toggleMedicine} />
+          </div>
+          <div className="flex flex-col">
+            <form>
+              {[...Array(medicineCount)].map((_, index) => (
+                <div key={index}>
+                  <label className="text-[16px] font-[500]"> Medicine {index + 1} </label>
+                  <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col py-2 gap-6">
+                    <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
+                      <input
+                        type="text"
+                        name="medicineName"
+                        id="medicine"
+                        className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                        onChange={(e) => {
+                          handleChange(e, index);
+                        }}
+                        placeholder=" "
+                      />
+                      <label
+                        htmlFor="medicine"
+                        name="medicine_type"
+                        className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >
+                        <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
+                          Medicine {index + 1}
+                        </p>
+                      </label>
+                    </div>
+                    <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
+                      <input
+                        type="text"
+                        name="medicine_type"
+                        id="type"
+                        className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                        onChange={(e) => {
+                          handleChange(e, index);
+                        }}
+                        placeholder=" "
+                      />
+                      <label
+                        htmlFor="type"
+                        name="medicine_type"
+                        className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >
+                        <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
+                          Type
+                        </p>
+                      </label>
+                    </div>
                   </div>
-                  <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
-                    <input
-                      type="text"
-                      name="medicine_type"
-                      onChange={(e) => handleChange(e, index)}
-                      className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
-                      placeholder=" "
-                    />
-                    <label className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                      <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
-                        Medicine Type
-                      </p>
-                    </label>
+                  <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col py-2 gap-6">
+                    <div className="relative z-0 lg:w-1/3 w-full mb-4 group">
+                      <input
+                        type="text"
+                        name="dose"
+                        id="dose"
+                        className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                        onChange={(e) => {
+                          handleChange(e, index);
+                        }}
+                        placeholder=" "
+                      />
+                      <label
+                        htmlFor="dose"
+                        name="dose"
+                        className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >
+                        <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
+                          Dosage
+                        </p>
+                      </label>
+                    </div>
+                    <div className="relative z-0 lg:w-1/3 w-full mb-4 group">
+                      <input
+                        type="text"
+                        name="unit"
+                        id="unit"
+                        className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                        onChange={(e) => {
+                          handleChange(e, index);
+                        }}
+                        placeholder=" "
+                      />
+                      <label
+                        htmlFor="unit"
+                        name="unit"
+                        className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >
+                        <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
+                          Unit
+                        </p>
+                      </label>
+                    </div>
+                    <div className="relative z-0 lg:w-1/3 w-full mb-4 group">
+                      <Select
+                        options={mealOptions}
+                        onChange={(e) => {
+                          handleChange(e, index, 'meal');
+                        }}
+                        styles={customStyles}
+                        placeholder={
+                          <p className="text-[12px] text-[#4B5563] font-[400]">Select meal</p>
+                        }
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col gap-6">
-                  <div className="relative z-0 lg:w-1/4 w-full mb-4 group">
-                    <input
-                      type="text"
-                      name="dose"
-                      onChange={(e) => handleChange(e, index)}
-                      className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
-                      placeholder=" "
-                    />
-                    <label className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                      <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">Dosage</p>
-                    </label>
-                  </div>
-                  <div className="relative z-0 lg:w-1/4 w-full mb-4 group">
-                    <input
-                      type="text"
-                      name="unit"
-                      onChange={(e) => handleChange(e, index)}
-                      className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
-                      placeholder=" "
-                    />
-                    <label className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                      <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">Unit</p>
-                    </label>
-                  </div>
-                  <div className="relative z-0 lg:w-1/4 w-full mb-4 group">
+                  <div className="relative z-0 lg:w-full w-full mb-4 group">
                     <input
                       type="time"
                       name="medicineTime"
-                      onChange={(e) => handleChange(e, index)}
+                      id="time"
                       className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                      onChange={(e) => {
+                        handleChange(e, index);
+                      }}
                       placeholder=" "
                     />
-                    <label className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                      <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">Time</p>
+                    <label
+                      htmlFor="time"
+                      name="time"
+                      className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
+                        Time
+                      </p>
                     </label>
                   </div>
-                  <div className="relative z-0 lg:w-1/4 w-full mb-4 group">
-                    <Select
-                      styles={customStyles}
-                      options={mealOptions}
-                      name={`meal${index}`}
-                      onChange={(e) => handleChange(e, index, true)}
-                      placeholder={isSelectClicked ? '' : 'Select an option'}
-                      onFocus={handleSelectClick}
-                      className="rounded-[20px]"
+                  {deleteMedicine && medicineCount !== 1 ? (
+                    <NavLink>
+                      <button
+                        className="bg-[#F94D44] text-white text-sm px-6 py-1 rounded-[20px] mb-2"
+                        onClick={() => setMedicineCount(medicineCount - 1)}
+                      >
+                        Delete
+                      </button>
+                    </NavLink>
+                  ) : null}
+                </div>
+              ))}
+              <div className="lg:md:ml-[45%] ml-[10%]">
+                <NavLink>
+                  <button
+                    className="text-[#304747] text-sm py-1 font-semibold mb-2"
+                    onClick={() => handleAddMedicine()}
+                  >
+                    + Add more medicine
+                  </button>
+                </NavLink>
+              </div>
+              <div className="relative z-0 lg:w-full w-full mb-4 group">
+                <div className="flex">
+                  <input
+                    type="checkbox"
+                    name="setReminder"
+                    id="reminder"
+                    className="mr-2"
+                    checked={reminderTime}
+                    onChange={handleReminder}
+                  />
+                  <label
+                    htmlFor="reminder"
+                    className="text-sm text-gray-700 dark:text-gray-400"
+                  >
+                    Remind me to take medicine
+                  </label>
+                </div>
+                {reminderTime && (
+                  <div className="relative z-0 lg:w-full w-full mt-2 mb-4 group">
+                    <input
+                      type="time"
+                      name="reminderTime"
+                      id="reminderTime"
+                      value={reminderTimeValue}
+                      onChange={(e) => setReminderTimeValue(e.target.value)}
+                      className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
                     />
+                    <label
+                      htmlFor="reminderTime"
+                      className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    >
+                      <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
+                        Reminder Time
+                      </p>
+                    </label>
                   </div>
+                )}
+              </div>
+              <div className="flex flex-col w-full mt-5 mb-10">
+                <div className="relative z-0 w-full mb-4 group">
+                  <input
+                    type="date"
+                    name="startFrom"
+                    id="startFrom"
+                    className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                    onChange={(e) =>
+                      setMedicDate({ ...medicDate, startFrom: e.target.value })
+                    }
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor="startFrom"
+                    name="startFrom"
+                    className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
+                      Start from
+                    </p>
+                  </label>
+                </div>
+                <div className="relative z-0 w-full mb-4 group">
+                  <input
+                    type="date"
+                    name="stopOn"
+                    id="stopOn"
+                    className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
+                    onChange={(e) =>
+                      setMedicDate({ ...medicDate, stopOn: e.target.value })
+                    }
+                    placeholder=" "
+                  />
+                  <label
+                    htmlFor="stopOn"
+                    name="stopOn"
+                    className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
+                      Stop on
+                    </p>
+                  </label>
                 </div>
               </div>
-            ))}
-
-            {validationError && (
-              <p className="text-sm text-red-600">All fields are required. Please fill out all fields before submitting.</p>
-            )}
-
-            <div className="flex flex-row">
-              <div className="flex flex-row mt-4 mb-6">
-                <input type="checkbox" onChange={handleReminder} />
-                <p className="mx-2 text-[16px] font-[500]"> Set Reminder </p>
+              <div className="flex justify-center mb-10">
+                {validationError && (
+                  <p className="text-[#FF0000] font-normal text-[14px]">
+                    Please fill in all fields.
+                  </p>
+                )}
               </div>
-            </div>
-
-            <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col gap-6">
-              <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
-                <input
-                  type="date"
-                  name="startFrom"
-                  onChange={(e) => setMedicDate({ ...medicDate, startFrom: e.target.value })}
-                  className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
-                  placeholder=" "
-                />
-                <label className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                  <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent"> Start From </p>
-                </label>
-              </div>
-              <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
-                <input
-                  type="date"
-                  name="stopOn"
-                  onChange={(e) => setMedicDate({ ...medicDate, stopOn: e.target.value })}
-                  className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer"
-                  placeholder=" "
-                />
-                <label className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                  <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent"> Stop On </p>
-                </label>
-              </div>
-            </div>
-
-            <div className="flex justify-between mt-3 mb-6 w-full">
-              <div className="flex flex-row">
+              <div className="flex justify-center mb-10">
                 <button
-                  className="text-[#EFC319] font-[600] text-[18px] bg-white border border-[#EFC319] py-3 rounded-[20px] w-[120px] hover:bg-[#EFC319] hover:text-white hover:scale-90 duration-300 ease-in-out"
-                  type="button"
-                  onClick={handleAddMedicine}
-                >
-                  Add More
-                </button>
-              </div>
-              <div className="flex flex-row">
-                <button
-                  type="button"
-                  className="text-[#EFC319] font-[600] text-[18px] bg-white border border-[#EFC319] py-3 rounded-[20px] w-[120px] hover:bg-[#EFC319] hover:text-white hover:scale-90 duration-300 ease-in-out"
-                  onClick={toggleMedicine}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="text-white font-[600] text-[18px] bg-[#EFC319] py-3 rounded-[20px] w-[120px] ml-4 hover:bg-[#EFC319] hover:scale-90 duration-300 ease-in-out"
+                  className={`w-1/2 text-[16px] rounded-[20px] py-3 px-7 bg-[#EFC319] text-[#304747] font-[600] ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                   onClick={createMedicine}
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                  {isSubmitting ? 'Submitting...' : 'Add'}
                 </button>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
