@@ -4,9 +4,7 @@ import LogoCAN from '../Photos/LogoCAn.png'
 import { useLocation } from "react-router-dom";
 import Logo from '../Photos/CANPink.png'
 import Cookies from "js-cookie";
-
 const LandingPageFooter = () => {
-
   useEffect(() => {
     const scrollToSection = () => {
       if (window.location.hash && window.location.hash === "#aboutus") {
@@ -22,8 +20,6 @@ const LandingPageFooter = () => {
   const location = useLocation();
     return (
       <>
-        {/* footer */}
-
         <footer className=" text-white py-8 px-4">
           <div className="container mx-auto flex flex-col items-center justify-center md:flex-row md:justify-between">
             <div className="flex flex-wrap md:flex-row w-full md:w-auto md:flex-grow  justify-between sm:justify-around container">
@@ -72,7 +68,24 @@ const LandingPageFooter = () => {
                       href="/ContactUs"
                       className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
                     >
-                      Contact us/Help&Support
+                      Contact us
+                    </a>
+                  </li>
+                  <li className="mb-2">
+                    <a
+                      href="/PrivacyPolicy"
+                      className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
+                    >
+                     Privacy Policies
+                    </a>
+                  </li>
+                  
+                  <li className="mb-2">
+                    <a
+                      href="/TermsService"
+                      className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
+                    >
+                     Terms Service
                     </a>
                   </li>
                 </ul>

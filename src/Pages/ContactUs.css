@@ -7,6 +7,36 @@
     margin-right: 10px;
 }
 
+.pri ul{
+    list-style:Disc;
+    padding-left:25px;
+}
+.pri ul li{
+    font-size: 17px;
+}
+.pri p{
+    font-size: 17px;
+}
+.pri h4{
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color:#084943;
+    font-size:22px;
+    font-weight:600; 
+    padding-top:30px; 
+    padding-bottom:10px;
+}
+.list-space li{
+    margin-bottom: 15px;
+}
+.list-space ul{
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+.list-space ul li{
+    margin: 0px;
+}
+
 @media screen and (max-width:1023px){
     .contact-wrap{
       flex-direction:column;
@@ -17,3 +47,10 @@
         margin-left: 0px;
     }
   }
+  @media screen and (max-width:991px){
+    .ris-home{
+        display: none;
+      }
+  }
+
+  

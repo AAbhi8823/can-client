@@ -43,6 +43,8 @@ import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
 import { base_token } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
+import './ContactUs.css'
+
 const Home = () => {
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
@@ -772,7 +774,7 @@ const Home = () => {
                     <>
                       {homePost?.map((homePostItems, index) => {
                         const createdAt = new Date(homePostItems?.createdAt);
-                        console.log("Created::>>>>>>",homePostItems?.user_id)
+                        console.log("Created::>>>>>>",homePostItems)
                         const formattedDate = createdAt.toLocaleDateString(
                           "en-GB",
                           {
@@ -1165,11 +1167,12 @@ const Home = () => {
                                             }
                                             <div className=" flex h-max items-center gap-2">
                                               <div className="rounded-full overflow-hidden h-max w-[15%]">
-                                                {commentModel.userId
-                                                  .profile_photo ? (
+                                                {commentModel?.user_id
+                                                  .profile_image
+                                                  ? (
                                                   <img
                                                     src={
-                                                      commentModel.userId
+                                                      commentModel.user_id
                                                         .profile_photo
                                                     }
                                                     alt="User Profile"
@@ -1188,8 +1191,8 @@ const Home = () => {
                                                   <div className="flex flex-row gap-2 items-center">
                                                     <h1 className="font-semibold">
                                                       {
-                                                        commentModel.userId
-                                                          .username
+                                                        commentModel.user_id
+                                                          .CANID
                                                       }
                                                     </h1>
                                                     <p className="text-xs text-[#7E7E7E]">
@@ -1210,16 +1213,14 @@ const Home = () => {
                                                 <div className="flex gap-2 items-center ">
                                                   <h1 className="text-xs font-semibold text-[#C31A7F]">
                                                     {
-                                                      commentModel.userId
-                                                        .profile_category
-                                                        .category_Name
+                                                      commentModel?.user_id?.user_profile
                                                     }
                                                   </h1>
                                                 </div>
                                               </div>
                                             </div>
                                             <div className="text-[16px] py-[15px] ">
-                                              {commentModel.content}
+                                              {commentModel?.post_title}
                                             </div>
                                           </div>
                                           <div className="flex-1 overflow-y-auto">
@@ -1344,7 +1345,7 @@ const Home = () => {
                                             <div className="  bg-[#FDF4F9]">
                                               <div className="flex gap-3 w-full ">
                                                 <div className="relative w-full flex items-center">
-                                                  {userDetails.profile_photo ? (
+                                                  {commentModel.profile_photo ? (
                                                     <img
                                                       src={
                                                         userDetails.profile_photo
@@ -1540,7 +1541,7 @@ const Home = () => {
                     </>
                   )}
                 </div>
-                <div className="lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
+                <div className="ris-home lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
                   <div className=" mt-8 p-5 pb-4 rounded-[30px] w-[100%] bg-[#FFFFFF] border-[0.5px] border-[#C31A7F33]">
                     <p className="flex flex-wrap text-center text-[17px]">
                       What time is best suited for you to join the meeting?
