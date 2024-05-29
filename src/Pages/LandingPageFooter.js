@@ -80,6 +80,14 @@ const LandingPageFooter = () => {
                     </a>
                   </li>
                   
+                  <li className="mb-2">
+                    <a
+                      href="/TermsService"
+                      className="hover:underline text-[16px] lg:text-[1vw] cursor-pointer text-[#5E5E5E]"
+                    >
+                     Terms Service
+                    </a>
+                  </li>
                 </ul>
               </div>
 

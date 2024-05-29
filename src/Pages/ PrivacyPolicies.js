@@ -170,6 +170,110 @@ research to improve CANs products, services, and customer communications.</li>
 <h4>Collection and Use of Non-Personal Information</h4>
 <p>We also collect data in a form that does not, on its own, permit direct association with any specific individual. We may
 collect, use, transfer, and disclose non-personal information for any purpose. The following are some examples of nonpersonal information that we collect and how we may use it-</p>
+<ul>
+  <li>We may collect information such as occupation, language, zip code, area code, unique device identifier, referrer URL,
+location, and the time zone where a CAN product is used so that we can better understand customer behavior and
+improve our products, services, and advertising±</li>
+<li>We may collect information regarding customer activities on our website services and from our other products and
+services. This information is aggregated and used to help us provide more useful information to our customers and to
+understand which parts of our website, products, and services are of most interest. Aggregated data is considered
+non-personal information for the purposes of this Privacy Policy.</li>
+<li>We may collect and store details of how you use our services, including search queries. This information may be used
+to improve the relevancy of results provided by our services. Except in limited instances to ensure the quality of our
+services over the Internet, such information will not be associated with your IP address.</li>
+<li>With your explicit consent, we may collect data about how you use your device and applications in order to help
+developers improve their websites/apps.</li>
+</ul>
+<p>If we do combine non-personal information with personal information the combined information will be treated as
+personal information for as long as it remains combined.</p>
+
+<h4>Cookies and Other Technologies</h4>
+<p>CANs websites, online services, interactive applications, email messages, and advertisements may use  cookies and
+other technologies such as pixel tags and web beacons. These technologies help us better understand user behavior, tell
+us which parts of our websites people have visited, and facilitate and measure the effectiveness of advertisements and
+web searches. We treat information collected by cookies and other technologies as non-personal information. However,
+to the extent that Internet Protocol (IP) addresses or similar identifiers are considered personal information by local law,
+we also treat these identifiers as personal information. Similarly, to the extent that non-personal information is combined
+with personal information, we treat the combined information as personal information for the purposes of this Privacy
+Policy.</p>
+<p>CAN and our partners also use cookies and other technologies to remember personal information when you use our
+website, online services, and applications. Our goal in these cases is to make your experience with CAN more convenient
+and personal. If you want to disable cookies and you re using the Safari web browser, go to Safari preferences and then to
+the privacy pane to manage your preferences. </p>
+<p>As is true of most internet services, we gather some information automatically and store it in log files. This information
+includes Internet Protocol (IP) addresses, browser type and language, Internet service provider (ISP), referring and exit
+websites and applications, operating system, date.time stamp, and clickstream data.</p>
+<p>We use this information to understand and analyze trends, to administer the site, to learn about user behavior on the site,
+to improve our product and services, and to gather demographic information about our user base as a whole. CAN may
+use this information in our marketing and advertising services.</p>
+<p>In some of our email messages, we use a “click-through URL” linked to content on the CAN website. When customers
+click one of these URLs, they pass through a separate web server before arriving at the destination page on our website.
+We track this click-through data to help us determine interest in particular topics and measure the effectiveness of our
+customer communications. If you prefer not to be tracked in this way, you should not click text or graphic links in the
+email messages.</p>
+<p>Pixel tags enable us to send email messages in a format customers can read, and they tell us whether mail has been
+opened. We may use this information to reduce or eliminate messages sent to customers.</p>
+
+<h4>Disclosure to Third Parties</h4>
+<p>At times CAN may make certain personal information available to strategic partners that work with CAN to provide
+products and services, or that help CAN market to customers. </p>
+
+<h4>Service Providers</h4>
+<p>CAN shares personal information with companies who provide services such as information processing, extending credit,
+fulfilling customer orders, delivering products to you, managing and enhancing customer data, providing customer
+service, assessing your interest in our products and services, and conducting customer research or satisfaction surveys.
+These companies are obligated to protect your information and may be located wherever CAN operates.</p>
+
+<h4>Disclosure to Government Agency</h4>
+<p>It may be necessary by law, legal process, litigation, and.or requests from public and governmental authorities within or
+outside your country of residence for CAN to disclose your personal information. We may also disclose information
+about you if we determine that for purposes of national security, law enforcement, or other issues of public importance,
+disclosure is necessary or appropriate.</p>
+<p>We may also disclose information about you if we determine that disclosure is reasonably necessary to enforce our terms
+and conditions or protect our operations or users. Additionally, in the event of a reorganization, merger, or sale we may
+transfer any and all personal information we collect to the relevant third party.</p>
+
+<h4>Protection of Personal Information</h4>
+<p>CAN takes the security of your personal information very seriously. When your personal data is stored by CAN, we use
+computer systems with limited access housed in facilities using physical security measures. 
+
+When you use some CAN products, services, or applications or post on a CAN forum, chat room, or social networking
+service, the personal information and content you share is visible to other users and can be read, collected, or used by
+them. You are responsible for the personal information you choose to share or submit in these instances. For example, if
+you list your name and email address in a forum posting, that information is public. Please take care when using these
+features.</p>
+
+<h4>Integrity and Retention of Personal Information</h4>
+<p>CAN makes it easy for you to keep your personal information accurate, complete, and up to date. We will retain your
+personal information for the period necessary to fulfill the purposes outlined in this Privacy Policy and our service specific
+privacy summaries. When assessing these periods we carefully examine our need to collect personal information at all
+and if we establish a relevant need we only retain it for the shortest possible period to realize the purpose of collection
+unless a longer retention period is required by law.</p>
+
+<h4>Third-Party Sites and Services</h4>
+<p>CAN websites, products, applications, and services may contain links to third-party websites, products, and services. Our
+products and services may also use or offer products or services from third parties 
+
+Information collected by third parties, which may include such things as location data or contact details, is governed by
+their privacy practices. We encourage you to learn about the privacy practices of those third parties.</p>
+
+<h4>When this policy applies</h4>
+<p>This Privacy Policy applies to all of the services offered by CAN and its affiliates, and services offered on third-party
+sites. This Privacy Policy doesn t apply to services that have separate privacy policies that do not incorporate this Privacy
+Policy.</p>
+
+<h4>Changes to this policy</h4>
+<p>We change this privacy policy from time to time. We will not reduce your rights under the Privacy Policy without your
+explicit consent. We always indicate the date the last changes were published. If changes are significant, we ll provide a
+more prominent notice.</p>
+
+<h4>Grievance Resolution</h4>
+<p>We are fully dedicated in providing a resolution to the grievance with regard to the privacy policy.</p>
+<p>Our dedicated grievance redressal officer - <strong>Pushkar Shaw</strong></p>
+<p>You can write to him.us at <strong> cansupport@welcometocan.com </strong> in case of any grievance. </p>
+<br></br>
+<p>Our privacy policy adviser and formulator - <strong>Adv. Varun Katiyar </strong></p>
+<p>You can write to him at <strong> <a href="mailto:adv.varunkatiyar@gmail.com">adv.varunkatiyar@gmail.com</a></strong></p>
         </div>
         <div className="mapandits-element contact-wrap">
         </div>

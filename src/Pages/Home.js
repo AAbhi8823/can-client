@@ -43,6 +43,8 @@ import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
 import { base_token } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
+import './ContactUs.css'
+
 const Home = () => {
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
@@ -1539,7 +1541,7 @@ const Home = () => {
                     </>
                   )}
                 </div>
-                <div className="lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
+                <div className="ris-home lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
                   <div className=" mt-8 p-5 pb-4 rounded-[30px] w-[100%] bg-[#FFFFFF] border-[0.5px] border-[#C31A7F33]">
                     <p className="flex flex-wrap text-center text-[17px]">
                       What time is best suited for you to join the meeting?
