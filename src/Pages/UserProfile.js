@@ -270,12 +270,6 @@ const UserProfile = () => {
 
   const [comVal, setComVal] = useState();
 
-  const takeValue = (e) => {
-    // e.preventDefault()
-    setComVal(e.target.value);
-  };
-
-  const handleCom = () => console.log(comVal);
 
   const [personalData, setPersonaldata] = useState();
 
@@ -309,7 +303,6 @@ const UserProfile = () => {
 
   // Options for formatting the date
   const options = { day: "numeric", month: "short", year: "numeric" };
-  const formattedDate = date.toLocaleDateString("en-US", options);
 
   const [Count, setCount] = useState(0);
 

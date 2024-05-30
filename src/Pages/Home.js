@@ -455,15 +455,22 @@ const Home = () => {
   const savePost = async (posiID) => {
     const token = Cookie.get("token");
     const userId = localStorage.getItem("active_user");
+    const postToken = Cookie.get("token");
+
     try {
       const saveThePost = await axios.post(
-        `${baseurl}/api/savepost?token=${token}`,
+        `${baseurl}/mystory/add-save-story`,
         {
-          postid: posiID._id,
-          userid: userId,
+          story_id: posiID,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${postToken}`,
+          },
         }
       );
-      if (saveThePost.data.status === true) {
+      console.log("saveThePost::>>",saveThePost?.data?.resData?.status)
+      if (saveThePost?.data?.resData?.status === true) {
         toast.success("Post Saved", {
           position: "top-center",
           autoClose: 2000,
@@ -502,11 +509,9 @@ const Home = () => {
         comment_id: commentId,
       });
       if (response.data.status === true) {
-        // console.log(response.data.status);
-        // setCommentLiked(true)
         setCommentLiked((prevLikes) => ({
           ...prevLikes,
-          [commentId]: true, // Marking the comment as liked
+          [commentId]: true,
         }));
       } else {
         console.log("api error");
@@ -1510,7 +1515,7 @@ const Home = () => {
                               >
                                 {isSaved ? (
                                   <div className="flex flex-row items-center gap-2 cursor-pointer">
-                                    <img
+                                    <imgz
                                       src={saved}
                                       className="w-4"
                                       alt="none"
