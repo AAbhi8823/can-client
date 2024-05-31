@@ -23,85 +23,32 @@ import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import DesignTabs from "./DesignTab";
 import AvatarGroup from "@mui/material/AvatarGroup";
-import account2 from '../Photos/account2.jpg'
+import account2 from "../Photos/account2.jpg";
 
 const UserProfile = () => {
-  const [selected, setSelected] = useState("My Story");
-
-  function selectedOption(item) {
-    setSelected(item);
-  }
+  const [vertical, setVertical] = useState("Upcoming");
+  const [isHovered, setIsHovered] = useState(false);
+  const emojiButtonRef = useRef(null);
+  const pickerRef = useRef(null);
+  const [input, setInput] = useState("");
+  const [showEmoji, setShowEmoji] = useState(false);
+  const [threeDots, setThreeDots] = useState(false);
+  const [details, setDetails] = useState(false);
+  const [personalData, setPersonaldata] = useState();
+  const [MainPost, setMainPost] = useState();
+  const [savedPost, setSavedPost] = useState();
+  const [Count, setCount] = useState(0);
+  const threeDotsOutClick = useRef(null);
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  const [isHoveredVideo, setIsHoveredVideo] = useState(false);
-
-  const handleMouseEnterVideo = () => {
-    setIsHoveredVideo(true);
-  };
-
-  const handleMouseLeaveVideo = () => {
-    setIsHoveredVideo(false);
-  };
-  const [details, setDetails] = useState(false);
-
+ 
   function ShowDetails() {
     setDetails(true);
   }
-  const [isHovered, setIsHovered] = useState(false);
-
-  const emojiButtonRef = useRef(null);
-  const pickerRef = useRef(null);
-  const [heart, setHeart] = useState();
-  const [heart1, setHeart1] = useState();
-  const [createPost, setCreatePost] = useState(false);
-  const [showFullContent, setShowFullContent] = useState(false);
-  const [input, setInput] = useState("");
-  const [showEmoji, setShowEmoji] = useState(false);
-  const [showContent, setShowContent] = useState(false);
-  const [shareButton, setShareButton] = useState(false);
-  const [reportButton, setReportButton] = useState(false);
-  const [checked, setChecked] = useState([]);
-  const [showThanku, setThanku] = useState(false);
-  const [showlocation, setShowLacation] = useState(false);
-  const [showgif, setShowgif] = useState(false);
-  const [userBlock, setUserBlock] = useState(false);
-  const [userblocked, setUserBlocked] = useState(false);
-
-  //  gif data
-  const GifImage = [
-    { id: 1, image: "climberEverest.Webp" },
-    { id: 2, image: "climberEverest.Webp" },
-    { id: 3, image: "climberEverest.Webp" },
-    { id: 4, image: "climberEverest.Webp" },
-    { id: 5, image: "climberEverest.Webp" },
-    { id: 6, image: "climberEverest.Webp" },
-  ];
-
-  // blocked user
-  const toggleBlockedTab = () => {
-    setUserBlocked(!userblocked);
-  };
-
-  // block user
-  const toggleBlockTab = () => {
-    setUserBlock(!userBlock);
-  };
-
-  // location and GIF
-  const toggleLocation = () => {
-    setShowLacation(!showlocation);
-  };
-
-  const toggleGif = () => {
-    setShowgif(!showgif);
-  };
-
-  // emoji
   const addEmoji = (e) => {
     const sym = e.unified.split("_");
     const codeArray = [];
@@ -109,117 +56,6 @@ const UserProfile = () => {
     let emoji = String.fromCodePoint(...codeArray);
     setInput(input + emoji);
   };
-
-  // share button functionality
-  const checkList = [
-    {
-      id: 1,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 2,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 3,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 4,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 5,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 6,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 7,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-  ];
-
-  const handleCheck = (event, item) => {
-    if (event.target.checked) {
-      setChecked([...checked, item]);
-    } else {
-      setChecked(checked.filter((checkedItem) => checkedItem.id !== item.id));
-    }
-  };
-
-  const handleRemoveItem = (item) => {
-    setChecked(checked.filter((checkedItem) => checkedItem.id !== item.id));
-  };
-
-  const isChecked = (item) => {
-    return checked.some((checkedItem) => checkedItem.id === item.id);
-  };
-
-  const toggleShareButton = () => {
-    setShareButton(!shareButton);
-  };
-
-  const toggleContent = () => {
-    setShowContent(!showContent);
-  };
-
-  const handleInput = (e) => {
-    setInput(e.target.value);
-  };
-
-  const handleReadMore = () => {
-    setShowFullContent(true);
-  };
-
-  const toggleReportButton = () => {
-    setReportButton(!reportButton);
-  };
-
-  const togglethanku = () => {
-    setThanku(!showThanku);
-  };
-
-  function likeButton() {
-    setHeart(!heart);
-  }
-  function likeButton1() {
-    setHeart1(!heart1);
-  }
-
-  function open_post() {
-    setCreatePost(true);
-  }
-
-  const para =
-    "Bethany was running in a half marathon when she began to feel ill. She thought that her celiac disease may have flared up due to something she had eaten, but when she didn’t get better, she decided to see a doctor. What followed was a series of misdiagnoses is the etc";
-
-  // three dots
-  const [threeDots, setThreeDots] = useState(false);
-
-  function threeDotsToggle() {
-    setThreeDots(!threeDots);
-  }
-
-  //outclick from three dots
-  const threeDotsOutClick = useRef(null);
-
   const handleClickOutsidethreeDots = (event) => {
     if (
       threeDotsOutClick.current &&
@@ -228,7 +64,6 @@ const UserProfile = () => {
       setThreeDots(false);
     }
   };
-
   useEffect(() => {
     document.addEventListener("click", handleClickOutsidethreeDots, true);
     return () => {
@@ -236,7 +71,6 @@ const UserProfile = () => {
     };
   }, []);
 
-  // emoji
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -256,30 +90,17 @@ const UserProfile = () => {
     };
   }, []);
 
-  // emoji
   const handlePickerFocus = () => {
     setShowEmoji(true);
   };
-
-  //vertical calender , appointments and Medicine
-  const [vertical, setVertical] = useState("Upcoming");
-
+  
   const toggleVertical = (item) => {
     setVertical(item);
   };
 
-  const [comVal, setComVal] = useState();
-
-
-  const [personalData, setPersonaldata] = useState();
-
   const getSingleUser = async () => {
     const Usertoken = Cookies.get("token");
-    // console.log(Usertoken)
-
     const userID = localStorage.getItem("active_user");
-    // console.log(userID)
-
     try {
       const resData = await axios.post(
         `${baseurl}/api/singleuser?token=${Usertoken}`,
@@ -287,7 +108,7 @@ const UserProfile = () => {
           id: `${userID}`,
         }
       );
-      console.log("profileuser" , resData.data.data)
+      console.log("profileuser", resData.data.data);
       setPersonaldata(resData.data.data);
     } catch (error) {
       console.log(error);
@@ -298,19 +119,9 @@ const UserProfile = () => {
     getSingleUser();
   }, []);
 
-  const isoDateString = personalData?.date_of_birth;
-  const date = new Date(isoDateString);
-
-  // Options for formatting the date
-  const options = { day: "numeric", month: "short", year: "numeric" };
-
-  const [Count, setCount] = useState(0);
-
   const handleState = (state) => {
     setCount(state);
   };
-
-  const [MainPost, setMainPost] = useState();
 
   const PostData = async () => {
     const ActUser = localStorage.getItem("active_user");
@@ -330,8 +141,6 @@ const UserProfile = () => {
     }
   };
 
-  const [savedPost, setSavedPost] = useState()
-
   const showSavedPosts = async () => {
     const token = Cookies.get("token");
     const userId = localStorage.getItem("active_user");
@@ -342,9 +151,9 @@ const UserProfile = () => {
         { userid: userId }
       );
 
-      if (savedPosts.data.data.length >=0) {
+      if (savedPosts.data.data.length >= 0) {
         console.log("saved posts", savedPosts.data);
-        setSavedPost(savedPosts.data.data)
+        setSavedPost(savedPosts.data.data);
       } else {
         console.log("Api error");
       }
@@ -352,8 +161,6 @@ const UserProfile = () => {
       console.log(error);
     }
   };
-
-  
 
   useEffect(() => {
     PostData();
@@ -382,25 +189,25 @@ const UserProfile = () => {
                     <div className="flex items-center absolute bottom-5 left-[10%] space-x-4">
                       {/* User Image */}
                       <div>
-                      <img
-                        src={personalData?.profile_photo}
-                        alt="User"
-                        className="w-[130px] h-[120px] rounded-full border-4 border-white"
-                      />
+                        <img
+                          src={personalData?.profile_photo}
+                          alt="User"
+                          className="w-[130px] h-[120px] rounded-full border-4 border-white"
+                        />
 
-                      <div>
-                        <h1 className="lg:text-[1.7vw] text-[17px] font-semibold py-2">
-                          {personalData?.profile_category.category_Name}
-                        </h1>
-                        <h2>XYZ NAME</h2>
-                        <p className="lg:text-[1.1vw] text-12">
-                          {personalData?.profile_category.descritption}
-                        </p>
+                        <div>
+                          <h1 className="lg:text-[1.7vw] text-[17px] font-semibold py-2">
+                            {personalData?.profile_category.category_Name}
+                          </h1>
+                          <h2>XYZ NAME</h2>
+                          <p className="lg:text-[1.1vw] text-12">
+                            {personalData?.profile_category.descritption}
+                          </p>
+                        </div>
                       </div>
+                      <div className="">
+                        <p>SHRI1212</p>
                       </div>
-                    <div className="">
-                       <p>SHRI1212</p>
-                    </div>
                     </div>
 
                     {/* NavLinks */}
@@ -431,8 +238,6 @@ const UserProfile = () => {
                               );
                             })}
                           </div>
-
-                     
                         </div>
                         <p className="text-right cursor-pointer text-[#1877F2]">
                           See more
@@ -723,30 +528,6 @@ const UserProfile = () => {
                               </div>
                             </div>
                           )}
-
-                          {/* {isHovered && (
-                                                            <div className='absolute left-[40px] top-0 mt-4 text-white bg-[#00000063] h-[220px] w-full' onClick={ShowDetails}>
-                                                                <p className='absolute right-2 '>
-                                                                    2w
-                                                                </p>
-                                                                <div className='absolute bottom-0 text-sm'>
-                                                                    <div className='flex gap-2 px-2'>
-                                                                        <h1>Iqra Aziz</h1>
-                                                                        <p>Cancer Fighter</p>
-                                                                    </div>
-                                                                    <div className='flex gap-2 px-2'>
-                                                                        Cancer Survivor Stories Bethany
-                                                                    </div>
-
-                                                                    <div className='flex gap-2 px-2 items-center'>
-                                                                        <AiOutlineHeart size={18} /> 2k
-                                                                        <FaRegComment size={16} /> 1k
-                                                                        <SlPaperPlane size={16} /> 1.5k
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        )} */}
                         </div>
                         <p className="text-right cursor-pointer text-[#1877F2]">
                           See more
@@ -809,10 +590,7 @@ const UserProfile = () => {
                         >
                           <div className="w-[45%] h-[100%]">
                             <div className="h-full  rounded-3xl flex flex-col justify-center items-center">
-                              <Avatar
-                                alt="Cindy Baker"
-                                src={account2}
-                              />
+                              <Avatar alt="Cindy Baker" src={account2} />
                               <h1 className="font-semibold text-lg ">Sierra</h1>
                               <p className="text-sm text-center">Caregiver</p>
                               <img
