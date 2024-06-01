@@ -48,7 +48,6 @@ import './ContactUs.css'
 const Home = () => {
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
-  const [heart1, setHeart1] = useState();
   const [createPost, setCreatePost] = useState(false);
   const [showFullContent, setShowFullContent] = useState(false);
   const [input, setInput] = useState("");
@@ -56,7 +55,6 @@ const Home = () => {
   const [showContent, setShowContent] = useState(false);
   const [shareButton, setShareButton] = useState(false);
   const [reportButton, setReportButton] = useState(false);
-  const [checked, setChecked] = useState([]);
   const [showThanku, setThanku] = useState(false);
   const [showlocation, setShowLacation] = useState(false);
   const [showgif, setShowgif] = useState(false);
@@ -74,22 +72,16 @@ const Home = () => {
   const [vertical, setVertical] = useState("Upcoming");
   const [comVal, setComVal] = useState();
   const [Loading, setLoading] = useState(true);
-  const [filter, setfilter] = useState("new");
   const location = useLocation();
   const querysearch = new URLSearchParams(location.search);
   const varFilter = querysearch.get("filter");
   const [myFriends, setMyFriends] = useState();
   const [reloadFlag, setReloadFlag] = useState(false);
-  const [forceRerender, setForceRerender] = useState(false);
   const [isCommenting, setIsCommenting] = useState();
   const [homePost, sethomePost] = useState();
-  const [page, setPage] = useState(1);
-  const [alresdyLiked, setAlreadyLiked] = useState(false);
   const [isPosting, setIsPosting] = useState();
-  const [isChecked, setIsChecked] = useState(false);
   const [isSaved, setIsSaved] = useState();
   const [isCommentLiked, setCommentLiked] = useState(false);
-  const [likeNumber, setLikenumber] = useState(0);
   const navigate = useNavigate();
 
   const GifImage = [
@@ -151,7 +143,6 @@ const Home = () => {
   };
 
   const toggleContent = async (commentItem) => {
-    // setIsCommentLoading(true);
     const post_id = commentItem._id;
     const posttoken = Cookie.get("token");
     setShowContent(!showContent);
@@ -175,7 +166,6 @@ const Home = () => {
   };
 
   const toggleContent2 = async (commentItem) => {
-    // setIsCommentLoading(true);
     const post_id = commentItem._id;
     const posttoken = Cookie.get("token");
     setcommentModel(commentItem);
@@ -385,7 +375,6 @@ const Home = () => {
       if (CommentData) {
         setIsCommenting(false);
         toggleContent2(homePostItems);
-        handleReloadClick();
         setComVal("");
         toast.success("Commented Successfully!", {
           position: "top-center",
@@ -405,10 +394,6 @@ const Home = () => {
       console.log(error);
       setIsCommenting(false);
     }
-  };
-
-  const handleReloadClick = () => {
-    console.log("loading");
   };
 
   const handlePost = async () => {
@@ -455,15 +440,22 @@ const Home = () => {
   const savePost = async (posiID) => {
     const token = Cookie.get("token");
     const userId = localStorage.getItem("active_user");
+    const postToken = Cookie.get("token");
+
     try {
       const saveThePost = await axios.post(
-        `${baseurl}/api/savepost?token=${token}`,
+        `${baseurl}/mystory/add-save-story`,
         {
-          postid: posiID._id,
-          userid: userId,
+          story_id: posiID,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${postToken}`,
+          },
         }
       );
-      if (saveThePost.data.status === true) {
+      console.log("saveThePost::>>",saveThePost?.data?.resData?.status)
+      if (saveThePost?.data?.resData?.status === true) {
         toast.success("Post Saved", {
           position: "top-center",
           autoClose: 2000,
@@ -502,11 +494,9 @@ const Home = () => {
         comment_id: commentId,
       });
       if (response.data.status === true) {
-        // console.log(response.data.status);
-        // setCommentLiked(true)
         setCommentLiked((prevLikes) => ({
           ...prevLikes,
-          [commentId]: true, // Marking the comment as liked
+          [commentId]: true,
         }));
       } else {
         console.log("api error");
@@ -1510,7 +1500,7 @@ const Home = () => {
                               >
                                 {isSaved ? (
                                   <div className="flex flex-row items-center gap-2 cursor-pointer">
-                                    <img
+                                    <imgz
                                       src={saved}
                                       className="w-4"
                                       alt="none"

@@ -7,34 +7,41 @@ import share from "../Photos/MoreIcons/share.png";
 import { BsDownload } from "react-icons/bs";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { useLocation } from "react-router-dom";
-
+import Cookie from "js-cookie";
+import apis from "../Api/baseUrl";
+import axios from "axios";
+import { baseurl } from "../Api/baseUrl";
 function HealthProfile({ value }) {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const blood_group = queryParams.get("blood_group");
-  const height = queryParams.get("height");
-  const weight = queryParams.get("weight");
-  const name = queryParams.get("name");
-  const dob = queryParams.get("dob");
-  const gender = queryParams.get("gender");
-  const cancer_type = queryParams.get("cancer_type");
-  const cancer_stage = queryParams.get("cancer_stage");
-  const current_treatment = queryParams.get("current_treatment");
-  const last_treatment = queryParams.get("last_treatment");
-  const presiding_doctor = queryParams.get("presiding_doctor");
+ const [helthdata,setHelthdata]=useState(null)
 
-  const hospital_details_primary = queryParams.get("hospital_details_primary");
-  const hospital_details = queryParams.get("hospital_details");
-  const emergencyContacts = [];
-  for (const key of queryParams.keys()) {
-    if (key.startsWith("emergency_name_")) {
-      const index = key.substring("emergency_name_".length);
-      const name = queryParams.get(`emergency_name_${index}`);
-      const phone = queryParams.get(`emergency_phone_${index}`);
-      emergencyContacts.push({ name, phone });
+
+  const gethelthCard = async () => {
+    const postToken = Cookie.get("token");
+    console.log("saveThePost::>>",postToken)
+    try {
+      const gethelthCarddata = await axios.get(
+        `${baseurl}/healthcard/get-health-card`,
+        {
+          headers: {
+            Authorization: `Bearer ${postToken}`,
+          },
+        }
+      );
+      console.log("saveThePost::>>",gethelthCarddata)
+      if (gethelthCarddata?.data?.resData?.status === true) {
+        setHelthdata(gethelthCarddata?.data?.resData?.data[0]);
+      } else {
+        console.log("api error");
+      }
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
+  useEffect(()=>{
+    gethelthCard()
+  },[])
+  console.log("helthdata::>>",helthdata)
   return (
     <>
       <TabPanel value={value} index={3}>
@@ -76,11 +83,11 @@ function HealthProfile({ value }) {
                     </div>
                   </div>
                   <div className="flex justify-center text-center ">
-                    <p className="font-[600] text-[18px]">{name}</p>
+                    <p className="font-[600] text-[18px]">{helthdata?.name}</p>
                   </div>
                   <div className="flex flex-row gap-4 py-4 px-14 items-center justify-center">
                     <div className="flex flex-col text-[12px] font-500">
-                      <p className="text-[12px] font-[500]">Fighter</p>
+                      {/* <p className="text-[12px] font-[500]">{helthdata}</p> */}
                     </div>
                     <div className="color-[#C4C4C4] w-1 flex"> |</div>
                     <div className="flex flex-col flex-nowrap">
@@ -93,19 +100,19 @@ function HealthProfile({ value }) {
                     <h2 className="lg:text-[12px] text-[14px]   px-2  text-[#C31A7F]">
                       Weight
                     </h2>
-                    <p>{weight}</p>
-                  </div>
+                    <p>{helthdata?.weight}</p>
+                  </div>s
                   <div className="flex flex-col border-r-2 border-[#C4C4C4]">
                     <h2 className="lg:text-[12px] text-[14px]  px-2  text-[#C31A7F]">
                       Height
                     </h2>
-                    <p>{height} </p>
+                    {/* <p>{height} </p> */}
                   </div>
                   <div className="flex flex-col">
                     <h2 className="lg:text-[12px] text-[14px] px-2   text-[#C31A7F]">
                       Blood
                     </h2>
-                    <p>{blood_group}</p>
+                    {/* <p>{blood_group}</p> */}
                   </div>
                 </div>
               </div>
@@ -116,13 +123,14 @@ function HealthProfile({ value }) {
                       <h2 className="lg:text-[12px] text-[14px]    text-[#C31A7F]">
                         Cancer
                       </h2>
-                      <p>{cancer_type}</p>
+                    <p className="font-[600] text-[18px]">{helthdata?.name}</p>
+                      <p>{helthdata?.cancer_type}</p>
                     </div>
                     <div className="flex flex-col px-2">
                       <h2 className="lg:text-[12px] text-[14px]    text-[#C31A7F]">
                         Stage
                       </h2>
-                      <p>{cancer_stage}</p>
+                      <p>{helthdata?.cancer_stage}</p>
                     </div>
                   </div>
                   <hr className="w-full border-[#C4C4C4] my-2" />
@@ -131,13 +139,13 @@ function HealthProfile({ value }) {
                       <h2 className="lg:text-[12px] text-[14px] flex  px-2  text-[#C31A7F] ">
                         Current Treatment
                       </h2>
-                      <p>{current_treatment}</p>
+                      <p>{helthdata?.current_treatment}</p>
                     </div>
                     <div className="flex flex-col">
                       <h2 className="lg:text-[12px] text-[14px]    text-[#C31A7F]">
                         Last Treatment
                       </h2>
-                      <p>{last_treatment}</p>
+                      {/* <p>{last_treatment}</p> */}
                     </div>
                   </div>
                 </div>
@@ -145,7 +153,7 @@ function HealthProfile({ value }) {
                   <h2 className="lg:text-[12px] text-[14px]    text-[#C31A7F] ">
                     Emergency Contact
                   </h2>
-                  {emergencyContacts.map((contact, index) => (
+                  {helthdata?.emergency_contact?.map((contact, index) => (
                     <div key={index} className="flex flex-row justify-between">
                       <p>{contact.name}</p>
                       <p>{contact.phone}</p>
@@ -161,13 +169,13 @@ function HealthProfile({ value }) {
                       <h2 className="lg:text-[12px] text-[14px]   text-[#C31A7F] ">
                         Presiding Doctor
                       </h2>
-                      <p>{presiding_doctor}</p>
+                      <p>{helthdata?.presiding_doctor}</p>
                     </div>
                     <div className="flex flex-col px-2">
                       <h2 className="lg:text-[12px] text-[14px]    text-[#C31A7F]">
                         Hospital Details (primary)
                       </h2>
-                      <p>{hospital_details_primary}</p>
+                      <p>{helthdata?.hospital_details_primary}</p>
                     </div>
                   </div>
                   <hr className="w-full border-[#C4C4C4] my-4" />
@@ -175,7 +183,7 @@ function HealthProfile({ value }) {
                     <h2 className="lg:text-[12px] text-[14px]   text-[#C31A7F] ">
                       Hospital Details
                     </h2>
-                    <p>{hospital_details}</p>
+                    {/* <p>{hospital_details}</p> */}
                   </div>
                 </div>
               </div>

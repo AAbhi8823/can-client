@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import TabPanel from "./TabPanel";
 import FlippingImage from "../Components/FlipImage";
 import account from "../Photos/account.jpg";
-import premium from "../Photos/premium.png";
 import { BsThreeDots } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
@@ -16,7 +15,7 @@ import { CiSearch } from "react-icons/ci";
 import { BsLink45Deg } from "react-icons/bs";
 import { CiFaceSmile } from "react-icons/ci";
 import blockuser from "../Photos/blockuser.png";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { base_token } from "../Api/baseUrl";
 import axios from "axios";
@@ -38,7 +37,6 @@ function MyStory({ value }) {
   const [isPostLoading, setPostLoading] = useState(true);
   const [comVal, setComVal] = useState();
   const [threeDots, setThreeDots] = useState(false);
-  const [LikeID, setLikeID] = useState(false);
   const [likedPosts, setLikedPosts] = useState({});
   const [commentModel, setcommentModel] = useState([]);
   const threeDotsOutClick = useRef(null);
@@ -49,24 +47,6 @@ function MyStory({ value }) {
   }, []);
 
   useEffect(() => {
-    const activeUser = async () => {
-      const token = Cookie.get("token");
-      const homeUser = localStorage.getItem("active_user");
-      try {
-        const userData = await axios.post(
-          `${baseurl}/api/singleuser?token=${token}`,
-          {
-            id: `${homeUser}`,
-          }
-        );
-        console.log("Home:", userData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    activeUser();
-
     const handleClickOutside = (event) => {
       if (
         (emojiButtonRef.current &&
@@ -76,14 +56,13 @@ function MyStory({ value }) {
         return;
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
-  console.log("================================",comVal)
+
   const handleComment = async (posiID) => {
     const config = {
       headers: {
@@ -102,10 +81,7 @@ function MyStory({ value }) {
         body,
         config
       );
-      // setcommentModel(data);
       setComVal("")
-      
-      console.log("commentData:", data);
     } catch (error) {
       console.error("Error posting comment:", error);
     }
@@ -223,28 +199,29 @@ function MyStory({ value }) {
   const likeButton = async (likeID) => {
     document.getElementById("likeButtonColorless").style.color = "red";
     console.log(likeID);
-    const Postid = likeID;
-    const postUserId = localStorage.getItem("active_user");
-    const posttoken = Cookie.get("token");
+    const postID = likeID; 
+    const postToken = Cookie.get("token");
 
     try {
-      const LikeData = await axios.post(
-        `${baseurl}/api/createLike?token=${posttoken}`,
+      const likeData = await axios.post(
+        `${baseurl}/mystory/like-story`,
         {
-          post_id: `${Postid}`,
-          userId: `${postUserId}`,
-          is_like: true,
+          story_id: postID,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${postToken}`,
+          },
         }
       );
-      setLikeID(true);
-      if (LikeData) {
+      if (likeData) {
         setLikedPosts((prevLikedPosts) => ({
           ...prevLikedPosts,
           [likeID]: true,
         }));
-        // HomePost();
+        HomePost();
       } else {
-        console.log("api error");
+        console.log("API error");
       }
     } catch (error) {
       console.log(error);
@@ -266,7 +243,6 @@ function MyStory({ value }) {
     };
     try {
       const homePost = await axios(`${apis.GET_PERSONAL_POST}`, config);
-      console.log("homePost::>>>>>", homePost);
       sethomePost(homePost?.data?.resData?.data);
       setPostLoading(false);
     } catch (error) {
@@ -282,17 +258,21 @@ function MyStory({ value }) {
   };
 
   const savePost = async (posiID) => {
-    const token = Cookie.get("token");
-    const userId = localStorage.getItem("active_user");
+    const postToken = Cookie.get("token");
     try {
       const saveThePost = await axios.post(
-        `${baseurl}/api/savepost?token=${token}`,
+        `${baseurl}/mystory/add-save-story`,
         {
-          postid: posiID._id,
-          userid: userId,
+          story_id: posiID,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${postToken}`,
+          },
         }
       );
-      if (saveThePost.data.status == true) {
+      console.log("saveThePost::>>",saveThePost?.data?.resData?.status)
+      if (saveThePost?.data?.resData?.status === true) {
         toast.success("Post Saved", {
           position: "top-center",
           autoClose: 2000,
@@ -302,6 +282,7 @@ function MyStory({ value }) {
           draggable: false,
           progress: undefined,
           theme: "colored",
+          className: "mt-[81px] ",
         });
         setIsSaved(true);
       } else {
