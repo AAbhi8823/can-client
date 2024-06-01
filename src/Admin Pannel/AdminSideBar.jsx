@@ -150,9 +150,9 @@ const SideMenu = () => {
                                 </NavLink>
 
 
-                                <NavLink to='/chatpage' onClick={() => setActivePage('/chatpage')}>
+                                {/* <NavLink to='/chatpage' onClick={() => setActivePage('/chatpage')}>
                                     <li className={`flex flex-row items-center gap-2 h-12 text-[14px] text-[#444] font-semibold  ${activePage === '/chatpage' ? 'bg-[#efc4197c] border-l-[3px] lg:border-[#084943]' : ''}`}><div className={`ml-10 `}><img style={{ width: "19px" }} className='w-4' src={AdminMeeting} alt='none' /></div><p className={` ${isOpen ? '  hidden translate-x-0' : ''}`}>Meeting</p></li>
-                                </NavLink>
+                                </NavLink> */}
 
 
                                 <div onClick={() => setActivePage('/CreatePose')} >

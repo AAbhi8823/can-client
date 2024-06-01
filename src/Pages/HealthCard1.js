@@ -24,8 +24,8 @@ const HealthCard1 = () => {
     cancer_stage: "",
     current_treatment: "",
     presiding_doctor: "",
+    hospital_detail:"",
     hospital_details_primary: "",
-    
   });
   const [emergencyContacts, setEmergencyContacts] = useState([]);
   const [showEmergencyContacts, setShowEmergencyContacts] = useState(false);
