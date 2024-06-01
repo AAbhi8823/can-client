@@ -16,18 +16,17 @@ const ForgotPassword = () => {
   const [error, setError] = useState("");
   const [showInput, setShowInput] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
-
+  const navigate = useNavigate();
   const getLink = async () => {
     try {
       const response = await axios.post(`${baseurl}/user/user-password-reset`, {
         email: email,
       });
-      console.log("response::>>", response?.data?.resData?.data);
+      console.log("response::>>", response);
       if (response?.data?.resData.status === true) {
-        localStorage.setItem('resetId', response?.data?.resData?.data);
-        setShowInput(false);
-        setShowMessage(true);
-        // navigate("/OtpVerify");
+        // setShowInput(false);
+        // setShowMessage(true);
+        navigate("/OtpVerify");
       } else {
         setError("(Phone number not found)");
       }

@@ -43,7 +43,7 @@ import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
 import { base_token } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
-import './ContactUs.css'
+import "./ContactUs.css";
 
 const Home = () => {
   const emojiButtonRef = useRef(null);
@@ -70,7 +70,7 @@ const Home = () => {
   const [userDetails, setUserDetails] = useState();
   const threeDotsOutClick = useRef(null);
   const [vertical, setVertical] = useState("Upcoming");
-  const [comVal, setComVal] = useState();
+  const [comVal, setComVal] = useState("");
   const [Loading, setLoading] = useState(true);
   const location = useLocation();
   const querysearch = new URLSearchParams(location.search);
@@ -81,7 +81,6 @@ const Home = () => {
   const [homePost, sethomePost] = useState();
   const [isPosting, setIsPosting] = useState();
   const [isSaved, setIsSaved] = useState();
-  const [isCommentLiked, setCommentLiked] = useState(false);
   const navigate = useNavigate();
 
   const GifImage = [
@@ -141,52 +140,29 @@ const Home = () => {
     } catch (error) {}
     console.log(share_userid, singlePostId);
   };
+  const handleComment = async (posiID) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+      },
+    };
+    const body = {
+      story_id: posiID,
+      comment:comVal
+    };
 
-  const toggleContent = async (commentItem) => {
-    const post_id = commentItem._id;
-    const posttoken = Cookie.get("token");
-    setShowContent(!showContent);
-    setcommentModel(commentItem);
-    console.log("coment", commentItem);
     try {
-      const singlePostCommentData = await axios.post(
-        `${baseurl}/api/get-comment?token=${posttoken}`,
-        {
-          post_id: `${post_id}`,
-        }
+      console.log("commentData:", posiID);
+      const { data } = await axios.post(
+        `${apis.GET_POST_COMMENT}`,
+        body,
+        config
       );
-      if (singlePostCommentData) {
-        // setIsCommentLoading(false);
-        setPostCommentModel(singlePostCommentData.data.data);
-      } else {
-      }
+      setShowContent(false);
     } catch (error) {
-      console.log(error);
+      console.error("Error posting comment:", error);
     }
   };
-
-  const toggleContent2 = async (commentItem) => {
-    const post_id = commentItem._id;
-    const posttoken = Cookie.get("token");
-    setcommentModel(commentItem);
-    console.log("coment", commentItem);
-    try {
-      const singlePostCommentData = await axios.post(
-        `${baseurl}/api/get-comment?token=${posttoken}`,
-        {
-          post_id: `${post_id}`,
-        }
-      );
-      if (singlePostCommentData) {
-        // setIsCommentLoading(false);
-        setPostCommentModel(singlePostCommentData.data.data);
-      } else {
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleInput = (e) => {
     setInput(e.target.value);
   };
@@ -206,7 +182,7 @@ const Home = () => {
   const likeButton = async (likeID) => {
     document.getElementById("likeButtonColorless").style.color = "red";
     console.log(likeID);
-    const postID = likeID; 
+    const postID = likeID;
     const postToken = Cookie.get("token");
 
     try {
@@ -245,7 +221,7 @@ const Home = () => {
       [postId]: !prev[postId],
     }));
   }
- 
+
   useEffect(() => {
     const activeUser = async () => {
       const token = Cookie.get("token");
@@ -316,7 +292,7 @@ const Home = () => {
       });
       console.log("homePost::>>>", homePost.data.resData.data);
       sethomePost(homePost.data.resData.data);
-      setIsCommentLoading(true)
+      setIsCommentLoading(!isCommentLoadin);
       console.log(homePost.data.resData.data);
     } catch (error) {
       console.log(error);
@@ -352,48 +328,8 @@ const Home = () => {
     HomePost();
     friendList();
   }, [varFilter]);
-
-  useEffect(() => {}, []);
   const handleComInput = (e) => {
     setComVal(e.target.value);
-  };
-
-  const handleComment = async (homePostItems) => {
-    setIsCommenting(true);
-    const CommentToken = Cookie.get("token");
-    const commentUserId = localStorage.getItem("active_user");
-    const postComID = commentModel._id;
-    try {
-      const CommentData = await axios.post(
-        `${baseurl}/api/createcomment?token=${CommentToken}`,
-        {
-          post_id: postComID,
-          userId: commentUserId,
-          message: comVal,
-        }
-      );
-      if (CommentData) {
-        setIsCommenting(false);
-        toggleContent2(homePostItems);
-        setComVal("");
-        toast.success("Commented Successfully!", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
-          theme: "colored",
-        });
-      } else {
-        console.log("api error");
-        setIsCommenting(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setIsCommenting(false);
-    }
   };
 
   const handlePost = async () => {
@@ -415,7 +351,7 @@ const Home = () => {
           },
         }
       );
-      
+
       if (createPost) {
         setIsPosting(false);
         toast.success("Posted Successfully!", {
@@ -438,8 +374,6 @@ const Home = () => {
   };
 
   const savePost = async (posiID) => {
-    const token = Cookie.get("token");
-    const userId = localStorage.getItem("active_user");
     const postToken = Cookie.get("token");
 
     try {
@@ -454,7 +388,7 @@ const Home = () => {
           },
         }
       );
-      console.log("saveThePost::>>",saveThePost?.data?.resData?.status)
+      console.log("saveThePost::>>", saveThePost?.data?.resData?.status);
       if (saveThePost?.data?.resData?.status === true) {
         toast.success("Post Saved", {
           position: "top-center",
@@ -478,55 +412,55 @@ const Home = () => {
 
   useEffect(() => {
     const token = Cookies.get("token");
-
     if (!token) {
       navigate("/loginform");
     }
-    getProfile()
+    getProfile();
   }, []);
 
-  const commentLike = async (commentId) => {
-    const user = localStorage.getItem("active_user");
-    try {
-      const response = await axios.post(`${baseurl}/api/comment-like-unlike`, {
-        userId: user,
-        type: "like",
-        comment_id: commentId,
-      });
-      if (response.data.status === true) {
-        setCommentLiked((prevLikes) => ({
-          ...prevLikes,
-          [commentId]: true,
-        }));
-      } else {
-        console.log("api error");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [userData, setUserData] = useState(null);
 
-  const [userData,setUserData]=useState(null)
-  
   const getProfile = async () => {
     const config = {
       headers: {
         Authorization: `Bearer ${base_token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
     try {
-      const response = await axios(
-        `${apis.GET_SINGLE_USER}`,config
+      const response = await axios(`${apis.GET_SINGLE_USER}`, config);
+      console.log(
+        "response:response " + JSON.stringify(response?.data?.resData?.data)
       );
-      console.log("response:response " + JSON.stringify(response?.data?.resData?.data))
       setUserData(response?.data?.resData?.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log('response::>>>>',userData)
+  const [commentImage, setCommentImage] = useState(null);
+  const getComment = async (postID, postData) => {
+    try {
+      const HomePosttoken = Cookie.get("token");
+      const homePost = await axios.post(
+        `${baseurl}/comments/get-comments`,
+        {
+          story_id: postID,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${HomePosttoken}`,
+          },
+        }
+      );
+      console.log("Post:>><><><<>>>::>>", homePost);
+      setShowContent(!showContent);
+      setCommentImage(postData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  {console.log("commentImage::",commentImage)}
 
   return (
     <Page
@@ -760,7 +694,7 @@ const Home = () => {
                     <>
                       {homePost?.map((homePostItems, index) => {
                         const createdAt = new Date(homePostItems?.createdAt);
-                        console.log("Created::>>>>>>",homePostItems)
+                        console.log("Created::>>>>>>", homePostItems);
                         const formattedDate = createdAt.toLocaleDateString(
                           "en-GB",
                           {
@@ -794,9 +728,7 @@ const Home = () => {
                                   </div>
                                   <div className="flex flex-row items-center gap-2">
                                     <p className="text-[12px] font-semibold   text-[#C31A7F]">
-                                      {
-                                        homePostItems?.user_id?.user_profile
-                                      }
+                                      {homePostItems?.user_id?.user_profile}
                                     </p>
                                   </div>
                                 </div>
@@ -1043,7 +975,7 @@ const Home = () => {
                               {homePostItems?.media_files ? (
                                 <div className="rounded-3xl w-full overflow-hidden h-[40vh]">
                                   <img
-                                    src={homePostItems.media_files} // Use homePostItems.media_files instead of homePostItems?.media_files
+                                    src={homePostItems.media_files}
                                     className="w-full h-full object-contain"
                                     alt="Not found"
                                   />
@@ -1095,7 +1027,6 @@ const Home = () => {
                                     />
                                   )}
                                   <p className="text-[12px] font-bold">
-                                    {" "}
                                     {console.log(
                                       "homePostItems::>>",
                                       homePostItems.likes.length
@@ -1103,6 +1034,7 @@ const Home = () => {
                                     {homePostItems.likes.length}
                                   </p>
                                 </div>
+
                                 <div>
                                   <div className="flex flex-row items-center gap-2">
                                     <img
@@ -1110,269 +1042,157 @@ const Home = () => {
                                       className="w-6 cursor-pointer"
                                       alt="none"
                                       onClick={() =>
-                                        toggleContent(homePostItems)
+                                        getComment(
+                                          homePostItems._id,
+                                          homePostItems
+                                        )
                                       }
                                     />
+                                    {console.log("commentImage::",commentImage)}
                                     <p className="text-[12px] font-bold">
                                       {homePostItems?.comments?.length}
-                                      {console.log("Comments::>>>",homePostItems)}
                                     </p>
                                   </div>
-                                  {console.log("commentModel::>>>",commentModel)}
                                   {showContent && (
-                                    <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#98989806]  ">
-                                      <div
-                                        className={` mt-[105px] lg:mt-2 h-[90vh] lg:overflow-hidden scrollbar-hide lg:h-[70%]  bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden ${
-                                          commentModel?.image
-                                            ? "w-[95%]   lg:w-[70%]"
-                                            : "w-[95%] lg:w-[27%]"
-                                        }`}
-                                      >
-                                        <div
-                                          className={`lg:w-[60%] ${
-                                            commentModel?.image
-                                              ? "block"
-                                              : "hidden"
-                                          }`}
-                                        >
+                                    <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#989898] bg-opacity-[0.03]">
+                                      <div className="w-[95%] lg:w-[70%] lg:h-[70%] bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden">
+                                        <div className="lg:w-[60%]">
                                           <img
-                                            src={commentModel.media_files[0]}
+                                            src={commentImage?.media_files[0]}
                                             alt="none"
                                             className="object-cover w-full h-full"
                                           />
                                         </div>
-                                        <div
-                                          className={`lg:w-[40%] h-[68%] lg:h-[100%] flex flex-col justify-between gap-4 p-4 relative ${
-                                            commentModel.image
-                                              ? ""
-                                              : "lg:w-full"
-                                          }`}
-                                        >
-                                          <div className="h-[15%] ">
-                                            {
-                                              console.log("Comment::>>>>>>>>",commentModel)
-                                            }
-                                            <div className=" flex h-max items-center gap-2">
-                                              <div className="rounded-full overflow-hidden h-max w-[15%]">
-                                                {commentModel?.user_id?.profile_image
-                                                  ? (
+                                        <div className="lg:w-[40%] flex flex-col justify-between gap-4 p-4 relative">
+                                          <div
+                                            style={{
+                                              height: "90%",
+                                              overflowY: "scroll",
+                                            }}
+                                          >
+                                            <div className="flex h-max items-center gap-2">
+                                              <div className="rounded-full overflow-hidden h-max w-[20%]">
+                                                {commentImage?.user_id?.profile_image ? (
                                                   <img
                                                     src={
-                                                      commentModel?.user_id?.profile_image
+                                                      commentImage?.user_id?.profile_image
                                                     }
                                                     alt="User Profile"
-                                                    className="rounded-full  h-12 "
+                                                    className="rounded-full h-12"
                                                   />
                                                 ) : (
                                                   <img
                                                     src={blockuser}
                                                     alt="Fallback User Profile"
-                                                    className="rounded-full  h-12"
+                                                    className="rounded-full"
                                                   />
                                                 )}
                                               </div>
-                                              <div className="flex flex-col  w-full">
+                                              <div className="flex flex-col w-full">
                                                 <div className="flex flex-row items-center justify-between w-full">
                                                   <div className="flex flex-row gap-2 items-center">
                                                     <h1 className="font-semibold">
-                                                      {
-                                                        commentModel?.user_id?.CANID
-                                                      }
+                                                      {commentImage?.user_id?.CANID}
                                                     </h1>
                                                     <p className="text-xs text-[#7E7E7E]">
-                                                      {commentModel.createdAt
-                                                        ? commentModel.createdAt.split(
-                                                            "T"
-                                                          )[0]
-                                                        : ""}
+                                                      {commentImage?.createdAt}
                                                     </p>
                                                   </div>
                                                   <div
                                                     className="cursor-pointer absolute right-8 top- lg:right- lg:"
-                                                    onClick={toggleContent}
+                                                    onClick={()=>setShowContent(false)}
                                                   >
-                                                    <IoMdClose className="lg:text-[#000] " />
+                                                    <IoMdClose className="lg:text-[#000]" />
                                                   </div>
                                                 </div>
-                                                <div className="flex gap-2 items-center ">
+                                                <div className="flex gap-2 items-center">
                                                   <h1 className="text-xs font-semibold text-[#C31A7F]">
-                                                    {
-                                                      commentModel?.user_id?.user_profile
-                                                    }
+                                                  {commentImage?.user_id?.user_profile}
                                                   </h1>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div className="text-[16px] py-[15px] ">
-                                              {commentModel?.post_title}
+                                            <div className="text-[16px] py-[15px]">
+                                              {commentImage?.post_title}
                                             </div>
-                                          </div>
-                                          <div className="flex-1 overflow-y-auto">
-                                            <div key={reloadFlag}>
-                                              {console.log("reload:::>>>",commentModel)}
-                                              {!isCommentLoadin ? (
-                                                <div className="flex items-center">
-                                                  <Skeleton
-                                                    variant="circular"
-                                                    width={40}
-                                                    height={40}
-                                                  />
-                                                  <Skeleton
-                                                    variant="rounded"
-                                                    width={210}
-                                                    height={40}
-                                                    className="ml-4"
-                                                  />
-                                                </div>
-                                              ) : (
-                                                commentModel?.comments?.map(
-                                                  (item, index) => (
-                                                    <div
-                                                      className="mt-[25px] flex items-center"
-                                                      key={item.commentId}
-                                                    >
-                                                      {/* {commentModel} */}
-                                                    {console.log("Comment::>>>>",item)}
-                                                      <div className="w-[10%] rounded-full overflow-hidden">
-                                                        {item.userId
-                                                          .profile_photo ? (
-                                                          <img
-                                                            src={
-                                                              item.userId
-                                                                .profile_photo
-                                                            }
-                                                            alt=""
-                                                          />
-                                                        ) : (
-                                                          <img
-                                                            src={userIcon}
-                                                            alt="d"
-                                                          />
-                                                        )}
+                                            {commentImage?.comments?.length >
+                                            0 ? (
+                                              commentImage.comments.map(
+                                                (comment) => (
+                                                  <div
+                                                    className="mt-[25px] flex items-center"
+                                                    key={comment._id}
+                                                  >
+                                                    {console.log(
+                                                      "comment:>>",
+                                                      comment
+                                                    )}
+                                                    <div className="w-[10%] rounded-full overflow-hidden">
+                                                      <img
+                                                        src={
+                                                          comment?.profile_image
+                                                        }
+                                                        alt="none"
+                                                      />
+                                                    </div>
+                                                    <div className="w-full">
+                                                      <div className="flex justify-between items-center">
+                                                        <div className="flex items-center gap-3">
+                                                          <h1 className="font-semibold">
+                                                            {comment?.CANID}
+                                                          </h1>
+                                                          <p className="text-xs text-[#C31A7F]">
+                                                            Cancer Fighter
+                                                          </p>
+                                                          <p className="text-xs items-center">
+                                                            <AiOutlineHeart />
+                                                          </p>
+                                                        </div>
+                                                        <div className="text-xs text-[#7E7E7E]">
+                                                          {comment.createdAt}
+                                                        </div>
                                                       </div>
-                                                      <div className="w-full ml-2">
-                                                        <div className="flex justify-between items-center">
-                                                          <div className="flex items-center gap-3">
-                                                            <h1 className="font-semibold">
-                                                              {
-                                                                item.userId
-                                                                  .username
-                                                              }
-                                                            </h1>
-                                                            <p className="text-xs text-[#C31A7F]">
-                                                              Cancer Fighter
-                                                            </p>
-                                                            <div className="flex items-center">
-                                                              <p className="text-xs items-centera cursor-pointer">
-                                                                {item.comment_like_user.includes(
-                                                                  activeUser
-                                                                ) ? (
-                                                                  <AiFillHeart
-                                                                    className="cursor-pointer"
-                                                                    color="red"
-                                                                    size={16}
-                                                                  />
-                                                                ) : isCommentLiked[
-                                                                    item._id
-                                                                  ] ? (
-                                                                  <AiFillHeart
-                                                                    className="cursor-pointer"
-                                                                    color="red"
-                                                                    size={16}
-                                                                  />
-                                                                ) : (
-                                                                  <div
-                                                                    onClick={() =>
-                                                                      commentLike(
-                                                                        item._id
-                                                                      )
-                                                                    }
-                                                                  >
-                                                                    <AiOutlineHeart
-                                                                      size={16}
-                                                                    />
-                                                                  </div>
-                                                                )}
-                                                              </p>
-                                                              <p
-                                                                className="text-xs ml-1 "
-                                                                id="commentLikes"
-                                                              >
-                                                                {
-                                                                  item.like_count
-                                                                }
-                                                              </p>
-                                                            </div>
-                                                          </div>
-                                                          <div className="text-xs text-[#7E7E7E]">
-                                                            {item.updatedAt
-                                                              ? item.updatedAt.split(
-                                                                  "T"
-                                                                )[0]
-                                                              : ""}
-                                                          </div>
-                                                        </div>
-                                                        <div
-                                                          className="text-sm w-[90%]"
-                                                          style={{
-                                                            wordBreak:
-                                                              "break-word",
-                                                          }}
-                                                        >
-                                                          {item.message}
-                                                        </div>
+                                                      <div className="text-sm">
+                                                        {comment.comment}
                                                       </div>
                                                     </div>
-                                                  )
-                                                )
-                                              )}
-                                            </div>
-                                          </div>
-                                          <div className="h-[14.33%] ">
-                                            <div className="  bg-[#FDF4F9]">
-                                              <div className="flex gap-3 w-full ">
-                                                <div className="relative w-full flex items-center">
-                                                  {console.log("commentModel::>>>>>>",userDetails)}
-                                                  {commentModel.media_files[0] ? (
-                                                    <img
-                                                      src={
-                                                        commentModel.media_files[0]
-                                                      }
-                                                      className="absolute left-3 h-10 w-10 rounded-full"
-                                                      alt="mage"
-                                                    />
-                                                  ) : (
-                                                    <img
-                                                      src=""
-                                                      className="absolute left-3 h-10 w-10 rounded-full"
-                                                      alt=""
-                                                    />
-                                                  )}
-                                                  <input
-                                                    type="text"
-                                                    value={comVal}
-                                                    onChange={handleComInput}
-                                                    className="pl-14 pr-12 py-3 w-full border border-gray-300 rounded-lg w-64 focus:outline-none"
-                                                    placeholder="Add a comment.."
-                                                  />
-                                                  <button className="absolute right-3 h-8 w-8 flex items-center justify-center  rounded-md hover:bg-gray-300 focus:outline-none">
-                                                    &#x1F60A;
-                                                  </button>
-                                                </div>
-                                                <div className="flex justify-end ">
-                                                  <div
-                                                    onClick={() =>
-                                                      handleComment(
-                                                        commentModel
-                                                      )
-                                                    }
-                                                    className="bg-[#C31A7F] text-white cursor-pointer  px-3 py-3 rounded-xl"
-                                                  >
-                                                    {isCommenting
-                                                      ? "Posting..."
-                                                      : "Post"}
                                                   </div>
-                                                </div>
+                                                )
+                                              )
+                                            ) : (
+                                              <div>No comments</div>
+                                            )}
+                                          </div>
+                                          <div className="bottom-4">
+                                            <div className="flex gap-3 w-full bg-transparent">
+                                              <img
+                                                src=  {commentImage?.user_id?.profile_image}
+                                                alt="none"
+                                                className="rounded-full w-[10%] h-[60%] shadow-md"
+                                              />
+                                              <input
+                                                placeholder="Write here..."
+                                                onChange={handleComInput}
+                                                className="outline-none w-full bg-transparent"
+                                              />
+                                              <div className="flex-col cursor-pointer items-end flex justify-center">
+                                                <img
+                                                  src={smily}
+                                                  className="w-6"
+                                                  alt="none"
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="flex justify-end mt-2">
+                                              <div
+                                                onClick={() =>
+                                                  handleComment(
+                                                    commentImage._id
+                                                  )
+                                                }
+                                                className="bg-[#C31A7F] text-white cursor-pointer px-[17px] py-[7px] rounded-xl"
+                                              >
+                                                Post
                                               </div>
                                             </div>
                                           </div>
