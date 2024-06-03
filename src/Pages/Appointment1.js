@@ -82,23 +82,6 @@ const Appointment1 = () => {
     }
   };
 
-  const fetchAppointmentDetails = async (id) => {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${base_token}`,
-        },
-      };
-      const apiUrl = `${apis.GET_APPOINTMENT_DETAILS}/${id}`; // Assuming you have an endpoint to get appointment details by ID
-      const { data } = await axios.get(apiUrl, config);
-      if (data?.resData?.status === true) {
-        setInitialData(data.resData.data);
-      }
-    } catch (error) {
-      console.log("Error fetching appointment details:", error);
-    }
-  };
-
   useEffect(() => {
     getAppointment(filterdate);
   }, [filterdate]);
