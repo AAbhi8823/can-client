@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef,forwardRef } from "react";
+import React, { useEffect, useState, useRef, forwardRef } from "react";
 import { BiBell } from "react-icons/bi";
 import { TiTick } from "react-icons/ti";
 import { RxCrossCircled } from "react-icons/rx";
@@ -22,7 +22,7 @@ import vector from "../Photos/Vector.svg";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import FeedTable from "../Components/FeedTable";
-
+import { base_token } from "../Api/baseUrl";
 
 const HomeNav = (props) => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const HomeNav = (props) => {
   const [navUser, setNavuser] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUsers] = useState([]);
-  
+  const [userdata, setUserdata] = useState();
   const [Nav, setNav] = useState(props);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -49,20 +49,26 @@ const HomeNav = (props) => {
   }, [props]);
 
   useEffect(() => {
-    const LandingData = async () => {
-      try {
-        const { data } = await axios.post(
-          `${baseurl}/api/singleuser?token=${token}`,
-          { id: `${activeuser}` }
-        );
-        setNavuser(data.data);
-      } catch (error) {
-        console.log(error);
-      }
+    userProfile();
+  }, []);
+  const userProfile = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+        "Content-Type": "application/json",
+      },
     };
-
-    LandingData();
-  }, [activeuser, token]);
+    try {
+      const response = await axios(`${apis.GET_SINGLE_USER}`, config);
+      console.log(
+        "response:response " + JSON.stringify(response?.data?.resData?.data)
+      );
+      setUserdata(response?.data?.resData?.data);
+      console.log("response:response>>>>", response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -117,29 +123,8 @@ const HomeNav = (props) => {
     setIsOpen(!isOpen);
   };
 
-  const Tooltip = forwardRef((props, ref) => {
-    const { title, children } = props;
-  
-    // your component logic here
-  
-    return (
-      <div ref={ref}>
-        {/* your Tooltip content */}
-        {children}
-      </div>
-    );
-  });
-  
-  const showFriendreq = () => {
-    setFriend(!friend);
-  };
-
   const exploreMore = () => {
     setExplore(!explore);
-  };
-
-  const notificationToggle = () => {
-    setNotification(!notification);
   };
 
   const handleLogOut = () => {
@@ -171,7 +156,6 @@ const HomeNav = (props) => {
   }, [search, getSearchUser]);
   return (
     <>
-
       <div className="z-10">
         <div
           className="flex  p-3     border-b-[1px] border-[#D9EAFF] "
@@ -191,7 +175,7 @@ const HomeNav = (props) => {
                 className=" w-full h-9 outline-none rounded-xl placeholder:text-[14px] px-8 placeholder:font-semibold   bg-[#FEF8FD]  "
               />
             </div>
-             <FeedTable  /> 
+            <FeedTable />
 
             <div className="flex   pointer-cursor ">
               <div className=" flex items-center pointer-cursor gap-4 ">
@@ -403,7 +387,7 @@ const HomeNav = (props) => {
                                 <img
                                   src={account}
                                   className="rounded-full h-12 w-12"
-                                  alt='account'
+                                  alt="account"
                                 />
                               </div>
 
@@ -652,10 +636,7 @@ const HomeNav = (props) => {
                         ) : (
                           <div>
                             <NavLink to={"/LoginForm"}>
-                              <div
-                                className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white "
-                                style={{}}
-                              >
+                              <div className="py-[10px] cursor-pointer hover:bg-[#A94360]  hover:text-white ">
                                 Profile
                               </div>
                             </NavLink>
@@ -714,7 +695,7 @@ const HomeNav = (props) => {
                             className="w-[8vw] md:w-[5vw] lg:w-[2vw] "
                           />
                           <p className="flex items-center ml-4">
-                            Hi {navUser?.username}
+                            Hi {userdata?.full_name}
                           </p>
                           <RiArrowDropDownLine className="text-[1vw] " />
                         </div>
@@ -724,8 +705,7 @@ const HomeNav = (props) => {
                         <div>
                           <img
                             alt="vector"
-                            // src={navUser?.profile_photo}
-                            src={vector}
+                            src={userdata?.profile_image || vector}
                             className="w-[8vw] md:w-[5vw] lg:w-[2vw] "
                           />
                           <p className="flex items-center ml-4">Hi</p>

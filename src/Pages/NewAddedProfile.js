@@ -11,17 +11,19 @@ import bottomGrass from "../Photos/bottomGrass.png";
 import leavesPic from "../Photos/leaves.png";
 import leaveSecPic from "../Photos/cornerLeaf.png";
 import logo from "../Photos/LogoCAn.png";
-
-function ProfileSuccessAdd() {
+function ProfileSuccessAdd(props) {
   const [userData, setUserData] = useState({});
   const [data, setData] = useState(null);
-  const location = useLocation();
   const navigate = useNavigate();
   const token = Cookies.get("token");
   const userValue = JSON.parse(localStorage.getItem("userValue")) || {};
   const fullDate = userValue.date_of_birth;
   const dateOfBirth = fullDate ? fullDate.split("T")[0] : "";
+  const location = useLocation();
+  // const userData = location.state?.userData;
+  // const userValue = location.state?.userValue;
 
+  console.log("props:::><><><>",location)
   useEffect(() => {
     if (token) {
       showData(token);
@@ -31,6 +33,7 @@ function ProfileSuccessAdd() {
     }
   }, [token, location.state]);
 
+  console.log("done::>>>>>>>>",userValue);
   const handleSuccess = async () => {
     localStorage.clear();
     navigate("/");
