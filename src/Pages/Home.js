@@ -694,7 +694,8 @@ const Home = () => {
                     <>
                       {homePost?.map((homePostItems, index) => {
                         const createdAt = new Date(homePostItems?.createdAt);
-                        console.log("Created::>>>>>>", homePostItems);
+                        const userID='6655c2e56b00a7357ff66ad3'
+                        console.log("Created::>>>>>>", userID);
                         const formattedDate = createdAt.toLocaleDateString(
                           "en-GB",
                           {
@@ -712,6 +713,7 @@ const Home = () => {
                                 "0px 10px 60px 0px rgba(0, 0, 0, 0.10)",
                             }}
                           >
+                            {console.log("userid::>>>>>>>",homePostItems?.user_id?._id)}
                             <div className=" flex items-center gap-2">
                               <FlippingImage
                                 data={homePostItems?.user_id?.profile_image}
@@ -820,7 +822,7 @@ const Home = () => {
                                           </div>
                                         </div>
                                       )}
-                                      <NavLink to="/profile">
+                                      <NavLink to={{pathname:"/profile", state: { userID } }}>
                                         <p className="p-2 px-4 cursor-pointer hover:text-[#fff]  hover:bg-[#C31A7F]">
                                           About this account
                                         </p>
