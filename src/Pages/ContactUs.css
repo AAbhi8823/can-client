@@ -53,4 +53,24 @@
       }
   }
 
+
+  /* width */
+ .comment-box::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+   .comment-box::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Handle */
+   .comment-box::-webkit-scrollbar-thumb {
+    background: #c31a7f;
+    border-radius: 10px;
+  }
+  .css-1pqm26d-MuiAvatar-img{
+    border-radius: 50%;
+  }
+
   

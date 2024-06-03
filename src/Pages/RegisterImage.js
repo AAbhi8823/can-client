@@ -7,7 +7,8 @@ import five from '../Photos/five.gif';
 import logo2 from "../Photos/logo2.png";
 import arrow22 from '../Photos/arrow22.png';
 import Craousel from '../Components/Craousel';
-import { baseurl, base_token } from "../Api/baseUrl";
+import { baseurl } from "../Api/baseUrl";
+
 const RegisterImage = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
@@ -32,28 +33,30 @@ const RegisterImage = () => {
 
   const uploadData = async () => {
     const userValue = JSON.parse(localStorage.getItem("userValue")) || {};
+    const formData = new FormData();
+
     if (imgFile) {
-      const formData = new FormData();
       formData.append('profile_image', imgFile);
-      Object.keys(userValue).forEach(key => {
-        formData.append(key, userValue[key]);
+    }
+
+    Object.keys(userValue).forEach(key => {
+      formData.append(key, userValue[key]);
+    });
+
+    try {
+      const response = await fetch(`${baseurl}/user/user-register`, {
+        method: 'POST',
+        body: formData
       });
 
-      try {
-        const response = await fetch(`${baseurl}/user/user-register`, {
-          method: 'POST',
-          body: formData
-        });
-
-        if (response.ok) {
-          console.log("Data uploaded successfully");
-          navigate("/newaddedprofile");
-        } else {
-          console.error("Failed to upload data");
-        }
-      } catch (error) {
-        console.error("Error uploading data:", error);
+      if (response.ok) {
+        console.log("Data uploaded successfully",response);
+        navigate("/newaddedprofile", { state: { response } })
+      } else {
+        console.error("Failed to upload data");
       }
+    } catch (error) {
+      console.error("Error uploading data:", error);
     }
   };
 
@@ -63,7 +66,26 @@ const RegisterImage = () => {
   };
 
   const addLater = () => {
-    navigate("/newaddedprofile");
+    const userValue = JSON.parse(localStorage.getItem("userValue")) || {};
+
+    fetch(`${baseurl}/user/user-register`, {
+      method: 'POST',
+      body: JSON.stringify(userValue),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log("Data uploaded successfully without image",response);
+          navigate("/newaddedprofile", { state: { response } })
+        } else {
+          console.error("Failed to upload data without image");
+        }
+      })
+      .catch(error => {
+        console.error("Error uploading data without image:", error);
+      });
   };
 
   return (
@@ -161,8 +183,8 @@ const RegisterImage = () => {
                   <div className="flex justify-center px-2 py-2 w-[50%]">
                     <button
                       type="button"
-                      className="bg-[#C31A7F] opacity-50 lg:text-[1.1vw] w-[86%] text-[20px] px-2 py-4 p-3 text-center rounded-xl text-white w-[100%]"
-                      disabled
+                      onClick={addLater}
+                      className="bg-[#C31A7F] lg:text-[1.1vw] text-[20px] w-[86%] px-2 py-4 p-3 text-center rounded-xl text-white w-full"
                     >
                       Continue
                     </button>

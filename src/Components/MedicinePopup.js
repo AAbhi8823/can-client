@@ -190,18 +190,18 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   return (
     <>
       <div className="fixed inset-0 flex md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll px-5 py-[90px]">
-        <div className="flex flex-col bg-white rounded-[40px] lg:md:w-auto w-full max-h-fit px-10">
-          <div className="flex flex-row py-4 justify-between items-center w-full">
+        <div className="flex flex-col bg-white rounded-[40px] lg:md:w-auto w-full max-h-fit px-10 py-5" style={{position:'absolute', top:'120px'}}>
+          <div className="flex flex-row pb-4 justify-between items-center w-full">
             <h1 className="text-[22px] font-[500]">Add Medicines</h1>
             <RxCross2 className="lg:md:ml-80 cursor-pointer" onClick={toggleMedicine} />
           </div>
           <div className="flex flex-col">
             <form>
               {[...Array(medicineCount)].map((_, index) => (
-                <div key={index}>
+                <div className='mb-3' key={index}>
                   <label className="text-[16px] font-[500]"> Medicine {index + 1} </label>
-                  <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col py-2 gap-6">
-                    <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
+                  <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col py-2 pb-0  gap-6">
+                    <div className="relative z-0 lg:w-1/2 w-full group">
                       <input
                         type="text"
                         name="medicineName"
@@ -222,7 +222,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                         </p>
                       </label>
                     </div>
-                    <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
+                    <div className="relative z-0 lg:w-1/2 w-full group">
                       <input
                         type="text"
                         name="medicine_type"
@@ -244,8 +244,8 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                       </label>
                     </div>
                   </div>
-                  <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col py-2 gap-6">
-                    <div className="relative z-0 lg:w-1/3 w-full mb-4 group">
+                  <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col py-2 pb-0 gap-6">
+                    <div className="relative z-0 lg:w-1/3 w-full group">
                       <input
                         type="text"
                         name="dose"
@@ -266,7 +266,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                         </p>
                       </label>
                     </div>
-                    <div className="relative z-0 lg:w-1/3 w-full mb-4 group">
+                    <div className="relative z-0 lg:w-1/3 w-full group">
                       <input
                         type="text"
                         name="unit"
@@ -287,7 +287,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                         </p>
                       </label>
                     </div>
-                    <div className="relative z-0 lg:w-1/3 w-full mb-4 group">
+                    <div className="relative z-0 lg:w-1/3 w-full group">
                       <Select
                         options={mealOptions}
                         onChange={(e) => {
@@ -300,7 +300,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                       />
                     </div>
                   </div>
-                  <div className="relative z-0 lg:w-full w-full mb-4 group">
+                  <div className="relative z-0 lg:w-full w-full group mt-3">
                     <input
                       type="time"
                       name="medicineTime"
@@ -333,7 +333,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                   ) : null}
                 </div>
               ))}
-              <div className="lg:md:ml-[45%] ml-[10%]">
+              <div className="=text-center mt-3 mb-0">
                 <NavLink>
                   <button
                     className="text-[#304747] text-sm py-1 font-semibold mb-2"
@@ -343,7 +343,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                   </button>
                 </NavLink>
               </div>
-              <div className="relative z-0 lg:w-full w-full mb-4 group">
+              <div className="relative z-0 lg:w-full w-full group">
                 <div className="flex">
                   <input
                     type="checkbox"
@@ -361,7 +361,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                   </label>
                 </div>
                 {reminderTime && (
-                  <div className="relative z-0 lg:w-full w-full mt-2 mb-4 group">
+                  <div className="relative z-0 lg:w-full w-full mt-2 group">
                     <input
                       type="time"
                       name="reminderTime"
@@ -381,8 +381,8 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col w-full mt-5 mb-10">
-                <div className="relative z-0 w-full mb-4 group">
+              <div className="flex flex-col w-full mt-5 mb-0">
+                <div className="relative z-0 w-full group mb-3">
                   <input
                     type="date"
                     name="startFrom"
@@ -403,7 +403,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                     </p>
                   </label>
                 </div>
-                <div className="relative z-0 w-full mb-4 group">
+                <div className="relative z-0 w-full group">
                   <input
                     type="date"
                     name="stopOn"
@@ -432,9 +432,9 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                   </p>
                 )}
               </div>
-              <div className="flex justify-center mb-10">
-                <button
-                  className={`w-1/2 text-[16px] rounded-[20px] py-3 px-7 bg-[#EFC319] text-[#304747] font-[600] ${
+              <div className="flex justify-center">
+                <button style={{color:'#fff'}}
+                  className={`w-1/2 text-[16px] rounded-[20px] py-3 px-7 bg-[#c31a7f] text-[#304747] font-[500] ${
                     isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                   onClick={createMedicine}
