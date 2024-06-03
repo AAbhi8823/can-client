@@ -21,6 +21,8 @@ import HealthProfile from "../Components/HealthProfile";
 import axios from "axios";
 import { baseurl, base_token } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
+import "./ContactUs.css";
+
 const ProfileUser = () => {
   const [userData, setUserData] = useState("");
   const [value, setValue] = React.useState(0);
@@ -101,7 +103,7 @@ const ProfileUser = () => {
                       fontSize: "2rem",
                     }}
                   >
-                    Fighte <br />I will defeat cancer.
+                    Fighter <br />I will defeat cancer.
                   </p>
 
                   {/* <div className='rounded-full overflow-hidden absolute top-[40%] left-[10%] w-[20%] h-[%] bg-white flex justify-center items-center '> */}

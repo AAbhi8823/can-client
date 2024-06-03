@@ -23,6 +23,7 @@ import { baseurl } from "../Api/baseUrl";
 import Cookie from "js-cookie";
 import Cookies from "js-cookie";
 import apis from "../Api/baseUrl";
+
 function MyStory({ value }) {
   const [showFullContent, setShowFullContent] = useState(false);
   const emojiButtonRef = useRef(null);
@@ -438,15 +439,15 @@ function MyStory({ value }) {
                               className="object-cover w-full h-full"
                             />
                           </div>
-                          <div className="lg:w-[40%] flex flex-col justify-between gap-4 p-4 relative">
-                            <div style={{height:'90%',overflowY:'scroll'}}>
+                          <div className="lg:w-[40%] flex flex-col justify-between p-4 relative">
+                            <div className="comment-box pb-[10px]" style={{height:'100%', overflowY:'scroll'}}>
                               <div className="flex h-max items-center gap-2">
                                 <div className="rounded-full overflow-hidden h-max w-[20%]">
                                   {userdata?.profile_image ? (
                                     <img
                                       src={userdata?.profile_image}
                                       alt="User Profile"
-                                      className="rounded-full h-12"
+                                      className="w-[45px] h-[45px]" style={{borderRadius:'50%', objectFit:'cover'}}
                                     />
                                   ) : (
                                     <img
@@ -495,10 +496,10 @@ function MyStory({ value }) {
                                     key={comment._id}
                                   >
                                     {console.log("comment:>>", comment)}
-                                    <div className="w-[10%] rounded-full overflow-hidden">
-                                      <img
+                                    <div className="overflow-hidden mr-[10px]">
+                                      <img className="w-[50px] h-[45px] overflow-hidden"
                                         src={comment?.profile_image}
-                                        alt="none"
+                                        alt="none" style={{borderRadius:'50%', objectFit:'cover'}}
                                       />
                                     </div>
                                     <div className="w-full">
@@ -528,12 +529,12 @@ function MyStory({ value }) {
                                 <div>No comments</div>
                               )}
                             </div>
-                            <div className="bottom-4">
+                            <div className="bottom-4" style={{paddingTop:'10px', borderTop:'1px solid #8080803d'}}>
                               <div className="flex gap-3 w-full bg-transparent">
                                 <img
                                   src={userdata?.profile_image}
                                   alt="none"
-                                  className="rounded-full w-[10%] h-[60%] shadow-md"
+                                  className="w-[55px] h-[45px] shadow-md" style={{borderRadius:'50%', objectFit:'cover'}}
                                 />
                                 <input
                                   placeholder="Write here..."

@@ -1053,6 +1053,8 @@ const Home = () => {
                                       {homePostItems?.comments?.length}
                                     </p>
                                   </div>
+
+                                  
                                   {showContent && (
                                     <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#989898] bg-opacity-[0.03]">
                                       <div className="w-[95%] lg:w-[70%] lg:h-[70%] bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden">
@@ -1063,11 +1065,11 @@ const Home = () => {
                                             className="object-cover w-full h-full"
                                           />
                                         </div>
-                                        <div className="lg:w-[40%] flex flex-col justify-between gap-4 p-4 relative">
-                                          <div
+                                        <div className="lg:w-[40%] flex flex-col justify-between p-4 relative">
+                                          <div className="comment-box pb-[10px]"
                                             style={{
-                                              height: "90%",
-                                              overflowY: "scroll",
+                                              height: "100%",
+                                              overflowY: "scroll", 
                                             }}
                                           >
                                             <div className="flex h-max items-center gap-2">
@@ -1078,7 +1080,7 @@ const Home = () => {
                                                       commentImage?.user_id?.profile_image
                                                     }
                                                     alt="User Profile"
-                                                    className="rounded-full h-12"
+                                                    className="w-[45px] h-[45px]" style={{borderRadius:'50%', objectFit:'cover'}}
                                                   />
                                                 ) : (
                                                   <img
@@ -1127,8 +1129,8 @@ const Home = () => {
                                                       "comment:>>",
                                                       comment
                                                     )}
-                                                    <div className="w-[10%] rounded-full overflow-hidden">
-                                                      <img
+                                                    <div className="mr-[10px] overflow-hidden">
+                                                      <img className="w-[45px] h-[40px]" style={{borderRadius:'50%', objectFit:'cover'}}
                                                         src={
                                                           comment?.profile_image
                                                         }
@@ -1163,12 +1165,12 @@ const Home = () => {
                                               <div>No comments</div>
                                             )}
                                           </div>
-                                          <div className="bottom-4">
+                                          <div className="bottom-4" style={{paddingTop:'10px', borderTop:'1px solid #8080803d'}}>
                                             <div className="flex gap-3 w-full bg-transparent">
                                               <img
                                                 src=  {commentImage?.user_id?.profile_image}
                                                 alt="none"
-                                                className="rounded-full w-[10%] h-[60%] shadow-md"
+                                                className="w-[55px] h-[45px] shadow-md" style={{borderRadius:'50%', objectFit:'cover'}}
                                               />
                                               <input
                                                 placeholder="Write here..."
@@ -1200,6 +1202,8 @@ const Home = () => {
                                       </div>
                                     </div>
                                   )}
+
+
                                 </div>
 
                                 <div>
