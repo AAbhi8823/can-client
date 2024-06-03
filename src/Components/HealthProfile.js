@@ -47,7 +47,7 @@ function HealthProfile({ value }) {
           boxShadow: "0px 10px 60px 0px rgba(0, 0, 0, 0.10)",
         }}
       >
-        <div className="bg-white flex flex-col rounded-[30px] gap-6 relative">
+        <div className="bg-white flex flex-col rounded-[30px] gap-4 relative">
           <div className="w-fit left-0 top-0 absolute ml-0 flex flex-nowrap gap-4 p-4 flex-row bg-[#EFC31933]">
             <p>Fit to Fly</p>
             <img src={flight} alt="flight" />
@@ -67,8 +67,8 @@ function HealthProfile({ value }) {
             </div>
           </div>
 
-          <div className="lg:flex-row flex-col flex lg:gap-10 lg:px-10 px-2 gap-2 lg:justify-center">
-            <div className="flex flex-col bg-transparent gap-10 w-full lg:w-1/3 lg:h-full px-3">
+          <div className="lg:flex-row flex-col flex lg:justify-center">
+            <div className="flex flex-col bg-transparent gap-5 w-full lg:w-[50%] lg:h-full px-3">
               <div className="border-[#C4C4C4] flex border-[1px] bg-[#FCF5FA] rounded-[20px] flex-col w-full">
                 <div className="flex flex-nowrap relative flex-row py-4 px-14 items-center justify-center">
                   <div className="absolute flex top-1 left-0">
@@ -87,22 +87,28 @@ function HealthProfile({ value }) {
                   </div>
                 </div>
               </div>
-              <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] flex-row py-6 justify-evenly w-full">
-                <div className="flex flex-col border-r-2 border-[#C4C4C4]">
-                  <h2 className="lg:text-[12px] text-[14px] px-2 text-[#C31A7F]">Weight</h2>
-                  <p>{helthdata?.weight}</p>
+              <div className="flex lg:px-0 xl:mb-[0px] mb-[20px]">
+              <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] lg:h-fit gap-4 flex-col items-start py-6 px-4 justify-evenly w-full">
+                <div className="flex flex-row justify-evenly items-start w-full">
+                  <div className="flex flex-col items-start px-4 border-r-2 border-[#C4C4C4]">
+                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Presiding Doctor</h2>
+                    <p>{helthdata?.presiding_doctor}</p>
+                  </div>
+                  <div className="flex flex-col px-2">
+                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Hospital Details (primary)</h2>
+                    <p>{helthdata?.hospital_details_primary}</p>
+                  </div>
                 </div>
-                <div className="flex flex-col border-r-2 border-[#C4C4C4]">
-                  <h2 className="lg:text-[12px] text-[14px] px-2 text-[#C31A7F]">Height</h2>
-                  <p>{helthdata?.height}</p>
-                </div>
-                <div className="flex flex-col">
-                  <h2 className="lg:text-[12px] text-[14px] px-2 text-[#C31A7F]">Blood</h2>
-                  <p>{helthdata?.blood_group}</p>
+                <hr className="w-full border-[#C4C4C4] my-4" />
+                <div className="flex flex-col justify-center items-center w-full">
+                  <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Hospital Details</h2>
+                  <p>{helthdata?.hospital_details}</p>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col bg-transparent gap-10 w-full lg:w-1/3 px-3">
+              
+            </div>
+            <div className="flex flex-col bg-transparent gap-5 w-full lg:w-[50%] px-3">
               <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] gap-4 flex-col items-start py-6 px-4 justify-evenly w-full h-full">
                 <div className="flex flex-row justify-around items-start w-full">
                   <div className="flex flex-col items-start px-3 border-r-2 border-[#C4C4C4]">
@@ -126,6 +132,20 @@ function HealthProfile({ value }) {
                   </div>
                 </div>
               </div>
+              <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] flex-row py-6 justify-evenly w-full">
+                <div className="flex flex-col border-r-2 border-[#C4C4C4]">
+                  <h2 className="lg:text-[12px] text-[14px] px-2 text-[#C31A7F]">Weight</h2>
+                  <p>{helthdata?.weight}</p>
+                </div>
+                <div className="flex flex-col border-r-2 border-[#C4C4C4]">
+                  <h2 className="lg:text-[12px] text-[14px] px-2 text-[#C31A7F]">Height</h2>
+                  <p>{helthdata?.height}</p>
+                </div>
+                <div className="flex flex-col">
+                  <h2 className="lg:text-[12px] text-[14px] px-2 text-[#C31A7F]">Blood</h2>
+                  <p>{helthdata?.blood_group}</p>
+                </div>
+              </div>
               <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] flex-col py-6 px-4 justify-evenly w-full">
                 <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Emergency Contact</h2>
                 {helthdata?.emergency_contact?.map((contact, index) => (
@@ -136,30 +156,11 @@ function HealthProfile({ value }) {
                 ))}
               </div>
             </div>
-            <div className="flex px-3 lg:px-0 lg:w-1/3">
-              <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] lg:h-fit gap-4 flex-col items-start py-6 px-4 justify-evenly w-full">
-                <div className="flex flex-row justify-evenly items-start w-full">
-                  <div className="flex flex-col items-start px-4 border-r-2 border-[#C4C4C4]">
-                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Presiding Doctor</h2>
-                    <p>{helthdata?.presiding_doctor}</p>
-                  </div>
-                  <div className="flex flex-col px-2">
-                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Hospital Details (primary)</h2>
-                    <p>{helthdata?.hospital_details_primary}</p>
-                  </div>
-                </div>
-                <hr className="w-full border-[#C4C4C4] my-4" />
-                <div className="flex flex-col justify-center items-center w-full">
-                  <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Hospital Details</h2>
-                  <p>{helthdata?.hospital_details}</p>
-                </div>
-              </div>
-            </div>
           </div>
-          <div className="flex flex-row px-10">
+          <div className="flex flex-row px-3">
             <h1 className="lg:text-[22px] text-[20px] text-[#C31A7F]">Certificates</h1>
           </div>
-          <div className="flex lg:flex-row flex-col w-full gap-10 px-10">
+          <div className="flex lg:flex-row flex-col w-full gap-10 px-3">
             <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] flex-row py-6 px-4 justify-evenly lg:w-1/2 w-full">
               <h2 className="lg:text-[16px] text-[14px] text-[#C31A7F]">Aadhar Card</h2>
               <p className="text-[#7E7E7E]">{helthdata?.aadhar_card}</p>
