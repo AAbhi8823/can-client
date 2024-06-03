@@ -82,6 +82,7 @@ function MyStory({ value }) {
         body,
         config
       );
+      setShowContent(false);
       setComVal("")
     } catch (error) {
       console.error("Error posting comment:", error);

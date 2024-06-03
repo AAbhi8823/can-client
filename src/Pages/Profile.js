@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import HomeNav from "../Components/HomeNav";
-import premium from "../Photos/premium.png";
-import SingleLineCalendar from "../Components/SingleLineCalender";
-import VerticalSLC from "../Components/VericalSLC";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { AiOutlineCamera } from "react-icons/ai";
 import { BsCameraReels } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
@@ -18,19 +14,15 @@ import { HiOutlineGif } from "react-icons/hi2";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { GrEmoji } from "react-icons/gr";
 import FloatingChat from "../Components/FloatingChat";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import lock from "../Photos/lock.png";
+import { useLocation } from "react-router-dom";
 
 const Profile = () => {
-  const [selected, setSelected] = useState("My Story");
-
-  function selectedOption(item) {
-    setSelected(item);
-  }
-
-  //hover image
+  const [details, setDetails] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isHoveredVideo, setIsHoveredVideo] = useState(false);
+  const location = useLocation();
+  const { userID } = location.state || {};
+  console.log("Profile::::;;::;;",location)
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -40,9 +32,6 @@ const Profile = () => {
     setIsHovered(false);
   };
 
-  //hover Video
-  const [isHoveredVideo, setIsHoveredVideo] = useState(false);
-
   const handleMouseEnterVideo = () => {
     setIsHoveredVideo(true);
   };
@@ -50,9 +39,6 @@ const Profile = () => {
   const handleMouseLeaveVideo = () => {
     setIsHoveredVideo(false);
   };
-
-  // show details
-  const [details, setDetails] = useState(false);
 
   function ShowDetails() {
     setDetails(!details);
@@ -101,47 +87,14 @@ const Profile = () => {
 
               <div className="flex justify-between">
                 <h2 className="  text-[#C31A7F]">Cancer fighter</h2>
-                <div className="flex items-center gap-2 p-2 bg-[#c31a7f37] rounded-2xl">
+                {/* <div className="flex items-center gap-2 p-2 bg-[#c31a7f37] rounded-2xl">
                   <MdOutlineModeEdit />
                   <h2 className="">Edit profile</h2>
-                </div>
+                </div> */}
               </div>
 
               <div className="mt-4">
                 <hr />
-              </div>
-
-              <div className="flex gap-6 font-semibold h-full items-end ">
-                <h1
-                  className={
-                    selected === "Meeting"
-                      ? "border-b-2 border-[#C31A7F] pb-1"
-                      : "text-[#7E7E7E]"
-                  }
-                  onClick={() => selectedOption("Meeting")}
-                >
-                  Meeting
-                </h1>
-                <h1
-                  className={
-                    selected === "My Story"
-                      ? "border-b-2 border-[#C31A7F] pb-1"
-                      : "text-[#7E7E7E]"
-                  }
-                  onClick={() => selectedOption("My Story")}
-                >
-                  My Story
-                </h1>
-                <h1
-                  className={
-                    selected === "Saved"
-                      ? "border-b-2 border-[#C31A7F] pb-1"
-                      : "text-[#7E7E7E]"
-                  }
-                  onClick={() => selectedOption("Saved")}
-                >
-                  Saved
-                </h1>
               </div>
             </div>
           </div>
@@ -344,104 +297,6 @@ const Profile = () => {
             </div>
             <p className="text-right text-[#1877F2]">See more</p>
           </div>
-
-          {/* right side */}
-          <div className="w-max pt-8 px-4 h-max absolute right-[3.6%]">
-            <div className="h-[100%]  flex lg:items-center">
-              <div
-                className=" md:w-[360px] lg:w-[301px]  sm:w-[330px]  bg-[#fff]    backdrop-blur-md rounded-[20px]"
-                style={{
-                  boxShadow: "0px 0px 50px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <div>
-                  {/* <img src={vtwo}   className='object-contain rounded-[20px]' alt='none' /> */}
-                </div>
-
-                <div className="p-4 mx-4 mt-3 lg:text-[14px]  text-[14px] font-semibold text-center">
-                  <h1 className="spce-1 ">
-                    You can add the profile of your <br /> Caregiver byclicking
-                    on the Add profile button.
-                  </h1>
-                </div>
-                <div className="h-[60%] w-[100%] pb-5 px-[10%]   flex justify-between  relative">
-                  <div
-                    className="w-[49%] h-[40%] pb-3  bg-[#FEE5EA] rounded-3xl flex flex-col justify-center items-center cursor-pointer "
-                    style={{ boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.05)" }}
-                  >
-                    <Avatar
-                      alt="Cindy Baker"
-                      src="/static/images/avatar/3.jpg"
-                    />
-                    <h1 className="font-semibold text-lg mt-1 ">Sierra</h1>
-                    <p className="text-sm">Caregiver</p>
-                    <img src={lock} alt="none" className="h-5 w-5 mt-1" />
-                    <div className="absolute -top-5 rounded-full overflow-hidden bg-white w-[15%] h-[] ">
-                      {/* <img src={account} alt='none' className='p-1 rounded-full' /> */}
-                    </div>
-                  </div>
-
-                  <div
-                    className="w-[49%] h-[40%] pb-3  bg-[#FEE5EA] rounded-3xl flex flex-col justify-center items-center cursor-pointer "
-                    style={{ boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.05)" }}
-                  >
-                    <Avatar
-                      alt="Cindy Baker"
-                      src="/static/images/avatar/3.jpg"
-                    />
-                    <h1 className="font-semibold text-lg mt-1 ">Sierra</h1>
-                    <p className="text-sm">Caregiver</p>
-                    <img src={lock} alt="none" className="h-5 w-5 mt-1" />
-                    <div className="absolute -top-5 rounded-full overflow-hidden bg-white w-[15%] h-[] ">
-                      {/* <img src={account} alt='none' className='p-1 rounded-full' /> */}
-                    </div>
-                  </div>
-
-                  <div
-                    className="w-[49%] h-[40%] pb-3 bg-[#FEE5EA] rounded-3xl flex flex-col justify-center items-center cursor-pointer "
-                    style={{ boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.05)" }}
-                  >
-                    <div className="w-[45%] h-[100%]">
-                      <div className="h-full  rounded-3xl flex flex-col justify-center items-center ">
-                        {/* <h1 className='font-semibold text-lg'><IoAddCircleOutline /></h1> */}
-                        <Avatar
-                          alt="Cindy Baker"
-                          src="/static/images/avatar/3.jpg"
-                        />
-                        <h1 className="font-semibold text-lg mt-1 ">Sierra</h1>
-                        <p className="text-sm text-center">Caregiver</p>
-                        <img src={lock} alt="none" className="h-5 w-5 mt-1" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* calender */}
-          <div className="h-[60%] w-[20%] bg-white top-[70%] left-[76%] absolute  rounded-2xl shadow-xl overflow-hidden px-2">
-            <div className="overflow-hidden pt-2">
-              <SingleLineCalendar />
-            </div>
-
-            <div className="p-4">
-              <hr />
-            </div>
-
-            <div className="px-3 font-semibold flex justify-between">
-              <h1>Upcoming</h1>
-              <h1 className="text-[#C4C4C4]">Appointment</h1>
-              <h1 className="text-[#C4C4C4]">Medicines</h1>
-            </div>
-
-            <div className="flex">
-              <div className=" w-full">
-                <VerticalSLC />
-              </div>
-            </div>
-          </div>
-
-          {/* floating chat */}
           <FloatingChat />
         </div>
       </div>

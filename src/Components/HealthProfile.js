@@ -35,9 +35,9 @@ function HealthProfile({ value }) {
     gethelthCard();
   }, []);
 
-  if (!helthdata) {
-    return <div>Loading...</div>;
-  }
+  // if (!helthdata) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <TabPanel value={value} index={3}>
