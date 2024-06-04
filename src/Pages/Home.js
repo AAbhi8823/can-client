@@ -140,6 +140,7 @@ const Home = () => {
     } catch (error) {}
     console.log(share_userid, singlePostId);
   };
+
   const handleComment = async (posiID) => {
     const config = {
       headers: {
@@ -163,6 +164,7 @@ const Home = () => {
       console.error("Error posting comment:", error);
     }
   };
+  
   const handleInput = (e) => {
     setInput(e.target.value);
   };
@@ -266,6 +268,7 @@ const Home = () => {
   const toggleVertical = (item) => {
     setVertical(item);
   };
+
   const postApidata = (postData) => {
     if (postData.data.msg === "post create successfully") {
       setCreatePost(false);
@@ -743,6 +746,7 @@ const Home = () => {
                                       }
                                     />
                                   </div>
+                                  {console.log("homePostItems:>>>",homePostItems)}
                                   {threeDots[homePostItems?._id] && (
                                     <div
                                       className=" w-max h-max bg-white  shadow-2xl absolute top-0 right-7 pt-2 pb-2"
@@ -752,7 +756,7 @@ const Home = () => {
                                         className="p-2 px-4 cursor-pointer hover:bg-[#C31A7F] hover:text-[#fff] "
                                         onClick={toggleBlockTab}
                                       >
-                                        Block Sierra
+                                       Block {homePostItems?.user_id?.full_name}
                                       </p>
                                       {userBlock && (
                                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
@@ -766,7 +770,7 @@ const Home = () => {
                                             </div>
                                             <div className="flex flex-col items-center gap-3">
                                               <h1 className="  text-[#C31A7F]  text-[18px] font-semibold">
-                                                Block Sierra Ferguson
+                                                Block {homePostItems?.user_id?.full_name}
                                               </h1>
                                               <p className="text-[14px] text-[#7E7E7E] font-semibold">
                                                 Do you really want to block this
@@ -803,13 +807,13 @@ const Home = () => {
                                                     <div>
                                                       <img
                                                         className="w-28"
-                                                        src={blockuser}
+                                                        src={homePostItems?.user_id?.profile_image}
                                                         alt="none"
                                                       />
                                                     </div>
                                                     <div className="flex flex-col items-center gap-1">
                                                       <h1 className="  text-[#C31A7F] text-[18px] font-semibold">
-                                                        Sierra Ferguson
+                                                      src={homePostItems?.user_id?.full_name}
                                                       </h1>
                                                       <p className="text-[14px] text-[#7E7E7E] font-semibold">
                                                         Has been Blocked
@@ -822,7 +826,7 @@ const Home = () => {
                                           </div>
                                         </div>
                                       )}
-                                      <NavLink to={{pathname:"/profile", state: { userID } }}>
+                                      <NavLink to={{pathname:"/profile", value: { userID } }}>
                                         <p className="p-2 px-4 cursor-pointer hover:text-[#fff]  hover:bg-[#C31A7F]">
                                           About this account
                                         </p>
@@ -831,7 +835,7 @@ const Home = () => {
                                         className="p-2 px-4 cursor-pointer hover:text-[#fff] hover:bg-[#C31A7F]"
                                         onClick={toggleReportButton}
                                       >
-                                        Report Sierra Ferguson
+                                        Report {homePostItems?.user_id?.full_name}
                                       </p>
                                       {reportButton && (
                                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
@@ -1356,7 +1360,7 @@ const Home = () => {
                   )}
                 </div>
                 <div className="ris-home lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
-                  <div className=" mt-8 p-5 pb-4 rounded-[30px] w-[100%] bg-[#FFFFFF] border-[0.5px] border-[#C31A7F33]">
+                  {/* <div className=" mt-8 p-5 pb-4 rounded-[30px] w-[100%] bg-[#FFFFFF] border-[0.5px] border-[#C31A7F33]">
                     <p className="flex flex-wrap text-center text-[17px]">
                       What time is best suited for you to join the meeting?
                     </p>
@@ -1382,7 +1386,7 @@ const Home = () => {
                         <div className="w-2 h-2 rounded-full bg-[#E7E7E7]"></div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="w-[100%]   mt-3  relative">
                     <div>

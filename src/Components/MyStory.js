@@ -112,12 +112,16 @@ function MyStory({ value }) {
   };
 
   const deletePost = async (postid) => {
-    console.log(postid);
-    const token = Cookies.get("token");
+    console.log("postid1",postid);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+        "Content-Type": "application/json",
+      },
+    };
     try {
-      const data = await axios.delete(
-        `${baseurl}/deletepost/${postid}?token=${token}`
-      );
+      const data = await  axios.delete(`${baseurl}/mystory/delete-story/${postid}`, config);
+      console.log("delete-story::>>",data)
       if (data) {
         console.log(data);
       } else {
@@ -580,7 +584,7 @@ function MyStory({ value }) {
                       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ">
                         <div className=" ">
                           <div className="lg:w-[500px]   w-[350px] bg-[#FFFFFF] flex flex-col gap-5 rounded-[20px]  ">
-                            <div>
+                            {/* <div>
                               <div className="flex flex-row items-center justify-center relative pt-4 ">
                                 <h1 className="text-[16px] font-semibold">
                                   Share with your friends
@@ -665,7 +669,7 @@ function MyStory({ value }) {
                                   </div>
                                 ))}
                               </div>
-                            </div>
+                            </div> */}
                             <div className="w-full bg-[#FEF8FD] rounded-b-[20px]  ">
                               <div className="p-4 flex flex-row items-center ">
                                 <div className="flex flex-row gap-2 items-center w-full">
