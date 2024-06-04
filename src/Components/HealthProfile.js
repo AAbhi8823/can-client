@@ -23,6 +23,7 @@ function HealthProfile({ value }) {
       });
       if (response.data?.resData?.status === true) {
         setHelthdata(response.data.resData.data[0]);
+        console.log("response::>>",response)
       } else {
         console.log("API error");
       }
@@ -34,10 +35,8 @@ function HealthProfile({ value }) {
   useEffect(() => {
     gethelthCard();
   }, []);
+  console.log("value:>>>>",value)
 
-  // if (!helthdata) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <TabPanel value={value} index={3}>

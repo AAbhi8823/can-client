@@ -39,9 +39,11 @@ const UserProfile = () => {
   const [savedPost, setSavedPost] = useState();
   const [Count, setCount] = useState(0);
   const threeDotsOutClick = useRef(null);
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
+
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
@@ -49,6 +51,7 @@ const UserProfile = () => {
   function ShowDetails() {
     setDetails(true);
   }
+
   const addEmoji = (e) => {
     const sym = e.unified.split("_");
     const codeArray = [];
@@ -56,6 +59,7 @@ const UserProfile = () => {
     let emoji = String.fromCodePoint(...codeArray);
     setInput(input + emoji);
   };
+
   const handleClickOutsidethreeDots = (event) => {
     if (
       threeDotsOutClick.current &&
@@ -64,6 +68,7 @@ const UserProfile = () => {
       setThreeDots(false);
     }
   };
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutsidethreeDots, true);
     return () => {
@@ -140,7 +145,7 @@ const UserProfile = () => {
       console.log(error);
     }
   };
-
+  
   const showSavedPosts = async () => {
     const token = Cookies.get("token");
     const userId = localStorage.getItem("active_user");
