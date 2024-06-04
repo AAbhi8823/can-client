@@ -8,11 +8,12 @@ import { BsDownload } from "react-icons/bs";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import Cookie from "js-cookie";
 import axios from "axios";
-import { baseurl } from "../Api/baseUrl";
+import { baseurl,base_token } from "../Api/baseUrl";
+import apis from "../Api/baseUrl";
 
 function HealthProfile({ value }) {
   const [helthdata, setHelthdata] = useState(null);
-
+  const [userData, setUserData] = useState("");
   const gethelthCard = async () => {
     const postToken = Cookie.get("token");
     try {
@@ -23,6 +24,7 @@ function HealthProfile({ value }) {
       });
       if (response.data?.resData?.status === true) {
         setHelthdata(response.data.resData.data[0]);
+        console.log("response::>>",response)
       } else {
         console.log("API error");
       }
@@ -33,11 +35,29 @@ function HealthProfile({ value }) {
 
   useEffect(() => {
     gethelthCard();
+    LandingData();
   }, []);
 
-  // if (!helthdata) {
-  //   return <div>Loading...</div>;
-  // }
+
+  const LandingData = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios(`${apis.GET_SINGLE_USER}`, config);
+      console.log(
+        "response:response " + JSON.stringify(response?.data?.resData?.data)
+      );
+      setUserData(response?.data?.resData?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log("value:>>>>",userData)
+
 
   return (
     <TabPanel value={value} index={3}>
@@ -75,7 +95,7 @@ function HealthProfile({ value }) {
                     <img src={Icon} alt="icon" />
                   </div>
                   <div className="flex rounded-full overflow-hidden justify-center items-center">
-                    <img src={account} width={100} alt="account" />
+                    <img src={userData?.profile_image} width={100} alt="account" />
                   </div>
                 </div>
                 <div className="flex justify-center text-center">

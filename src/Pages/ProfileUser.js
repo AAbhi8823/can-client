@@ -22,11 +22,14 @@ import axios from "axios";
 import { baseurl, base_token } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
 import "./ContactUs.css";
+import EditProfile from "../Components/EditProfile";
 
 const ProfileUser = () => {
   const [userData, setUserData] = useState("");
   const [value, setValue] = React.useState(0);
   const [vertical, setVertical] = useState("Upcoming");
+  const [editProfile, setEditProfile] = useState(false);
+  const [editProfileId, setEditProfileId] = useState(null);
   const navigate = useNavigate();
 
   const LandingData = async () => {
@@ -69,6 +72,11 @@ const ProfileUser = () => {
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const openEditPoup = (id) => {
+    setEditProfileId(id);
+    setEditProfile(!editProfile);
   };
 
   return (
@@ -124,11 +132,9 @@ const ProfileUser = () => {
                       <div className=" mt-1">
                         <h1 className=" text-[1.4vw] text-12  font-semibold">
                           {userData?.full_name}
-                          {/* User Name */}
                         </h1>
                         <h2 className="  text-[#C31A7F] text-12 text-[1.1vw]">
                           {userData?.user_profile}
-                          {/* category Name */}
                         </h2>
                         <h2
                           className="text-[1.2vw] text-12"
@@ -139,12 +145,10 @@ const ProfileUser = () => {
                           }}
                         >
                           Joined on {formatDate(userData.updatedAt)}
-                          {/* Joined on 2023 */}
                         </h2>
                       </div>
                       <div className="mt-1 px-10">
                         <h2 className="text-[1vw] text-12">
-                          {/* CANID:{userData?.can_id} */}
                           CANID:{userData.CANID}
                         </h2>
                         <div
@@ -155,6 +159,9 @@ const ProfileUser = () => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
+                          onClick={() => {
+                            openEditPoup(userData?._id);
+                          }}
                         >
                           <MdOutlineEdit />
                           <h4
@@ -164,6 +171,7 @@ const ProfileUser = () => {
                             Edit Profile
                           </h4>
                         </div>
+                        {editProfile && <EditProfile id={editProfileId} onClose={editProfile} />}
                       </div>
                     </div>
                     <div className="mt-4">
@@ -186,69 +194,6 @@ const ProfileUser = () => {
             </div>
             <div className="flex-grow px-20 hidden lg:block ">
               <div className="lg:flex lg:flex-col lg:gap-4 lg:items-center    ">
-                {/* right side */}
-
-                <div className="h-[35%] justify-center  w-[100%] flex mt-8 ">
-                  <div
-                    className=" md:w-[360px] lg:w-[331px]  sm:w-[330px]  bg-[#fff] mt-2   backdrop-blur-md rounded-[20px]"
-                    style={{
-                      boxShadow: "0px 0px 50px rgba(0, 0, 0, 0.1)",
-                    }}
-                  >
-                    <div>
-                      {/* <img src={vtwo}   className='object-contain rounded-[20px]' alt='none' /> */}
-                    </div>
-
-                    <div className="p-4 mx-4 mt-3 lg:text-[14px]   text-[14px] text-center">
-                      <h1 className="spce-1 w-[100%] font-semibold ">
-                        You can add the profile of your <br /> Caregiver
-                        byclicking on the Add profile button.
-                      </h1>
-                    </div>
-                    <div className="h-[50%] w-[100%] px-[12px] items-center flex justify-between relative">
-                      <div
-                        className="w-[46%] h-[75%] pb-8 bg-[#FEE5EA] rounded-3xl flex flex-col justify-center items-center cursor-pointer "
-                        style={{
-                          boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.05)",
-                        }}
-                      >
-                        <Avatar alt="Cindy Baker" src={UserProfile} />
-                        <h1 className="font-semibold text-lg ">
-                          {/* {userData?.username} */}
-                          username
-                        </h1>
-                        <p className="text-sm">
-                          {/* {userData?.profile_category?.category_Name} */}
-                          Category Name
-                        </p>
-                        <img src={lock} alt="none" className="h-5 w-5 mt-1" />
-                        <div className="absolute -top-5 rounded-full overflow-hidden bg-white w-[15%] h-[] ">
-                          {/* <img src={account} alt='none' className='p-1 rounded-full' /> */}
-                        </div>
-                      </div>
-
-                      <div
-                        className="w-[46%] h-[75%] pb-8  bg-[#FEE5EA] rounded-3xl flex flex-col justify-center items-center cursor-pointer "
-                        style={{
-                          boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.05)",
-                        }}
-                      >
-                        <div className="w-[45%] h-[100%]">
-                          <div className="h-full  rounded-3xl flex flex-col justify-center items-center">
-                            <Avatar alt="Cindy Baker" src={account2} />
-                            <h1 className="font-semibold text-lg ">Sierra</h1>
-                            <p className="text-sm text-center">Caregiver</p>
-                            <img
-                              src={lock}
-                              alt="none"
-                              className="h-5 w-5 mt-1"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div
                   className="p-6 bg-white max-h-screen relative mt-4 pb-10  rounded-[30px]  overflow-hidden border-[1px] border-solid border-[#D9EAFF]  "
                   style={{
