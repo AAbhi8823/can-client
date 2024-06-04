@@ -74,7 +74,6 @@ const Home = () => {
   const [Loading, setLoading] = useState(true);
   const location = useLocation();
   const querysearch = new URLSearchParams(location.search);
-  const varFilter = querysearch.get("filter");
   const [myFriends, setMyFriends] = useState();
   const [reloadFlag, setReloadFlag] = useState(false);
   const [isCommenting, setIsCommenting] = useState();
@@ -92,9 +91,34 @@ const Home = () => {
     { id: 6, image: "climberEverest.Webp" },
   ];
 
-  const toggleBlockedTab = () => {
-    setUserBlocked(!userBlocked);
+  const toggleBlockedTab = async (userID) => {
+    console.log("postid1", userID);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+        "Content-Type": "application/json",
+      },
+    };
+  
+    try {
+      const response = await axios.post(
+        `${baseurl}/user/block-user`,
+        { user_id: userID }, // Sending userID in the request body
+        config
+      );
+      console.log("delete-story::>>", response);
+      if (response) {
+        console.log(response.data); // Log response data
+        setUserBlocked(!userBlocked);
+      } else {
+        console.log("api error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+   
   };
+  
 
   // block user
   const toggleBlockTab = () => {
@@ -149,7 +173,7 @@ const Home = () => {
     };
     const body = {
       story_id: posiID,
-      comment:comVal
+      comment: comVal,
     };
 
     try {
@@ -164,7 +188,7 @@ const Home = () => {
       console.error("Error posting comment:", error);
     }
   };
-  
+
   const handleInput = (e) => {
     setInput(e.target.value);
   };
@@ -330,7 +354,8 @@ const Home = () => {
   useEffect(() => {
     HomePost();
     friendList();
-  }, [varFilter]);
+  }, []);
+
   const handleComInput = (e) => {
     setComVal(e.target.value);
   };
@@ -442,6 +467,7 @@ const Home = () => {
   };
 
   const [commentImage, setCommentImage] = useState(null);
+
   const getComment = async (postID, postData) => {
     try {
       const HomePosttoken = Cookie.get("token");
@@ -463,7 +489,30 @@ const Home = () => {
       console.error(error);
     }
   };
-  {console.log("commentImage::",commentImage)}
+
+  const deletePost = async (postid) => {
+    console.log("postid1", postid);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${base_token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const data = await axios.delete(
+        `${baseurl}/mystory/delete-story/${postid}`,
+        config
+      );
+      console.log("delete-story::>>", data);
+      if (data) {
+        console.log(data);
+      } else {
+        console.log("api error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Page
@@ -697,7 +746,7 @@ const Home = () => {
                     <>
                       {homePost?.map((homePostItems, index) => {
                         const createdAt = new Date(homePostItems?.createdAt);
-                        const userID='6655c2e56b00a7357ff66ad3'
+                        const userID = "6655c2e56b00a7357ff66ad3";
                         console.log("Created::>>>>>>", userID);
                         const formattedDate = createdAt.toLocaleDateString(
                           "en-GB",
@@ -716,7 +765,10 @@ const Home = () => {
                                 "0px 10px 60px 0px rgba(0, 0, 0, 0.10)",
                             }}
                           >
-                            {console.log("userid::>>>>>>>",homePostItems?.user_id?._id)}
+                            {console.log(
+                              "userid::>>>>>>>",
+                              homePostItems?.user_id?._id
+                            )}
                             <div className=" flex items-center gap-2">
                               <FlippingImage
                                 data={homePostItems?.user_id?.profile_image}
@@ -746,203 +798,240 @@ const Home = () => {
                                       }
                                     />
                                   </div>
-                                  {console.log("homePostItems:>>>",homePostItems)}
+                                  {console.log(
+                                    "homePostItems:>>>",
+                                    homePostItems
+                                  )}
                                   {threeDots[homePostItems?._id] && (
                                     <div
                                       className=" w-max h-max bg-white  shadow-2xl absolute top-0 right-7 pt-2 pb-2"
                                       ref={threeDotsOutClick}
                                     >
-                                      <p
-                                        className="p-2 px-4 cursor-pointer hover:bg-[#C31A7F] hover:text-[#fff] "
-                                        onClick={toggleBlockTab}
-                                      >
-                                       Block {homePostItems?.user_id?.full_name}
-                                      </p>
-                                      {userBlock && (
-                                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
-                                          <div className=" bg-[#FFFFFF] flex flex-col items-center py-10 gap-6 rounded-[30px] px-16 ">
-                                            <div>
-                                              <img
-                                                className="w-14"
-                                                src={blockuser}
-                                                alt="none"
-                                              />
-                                            </div>
-                                            <div className="flex flex-col items-center gap-3">
-                                              <h1 className="  text-[#C31A7F]  text-[18px] font-semibold">
-                                                Block {homePostItems?.user_id?.full_name}
-                                              </h1>
-                                              <p className="text-[14px] text-[#7E7E7E] font-semibold">
-                                                Do you really want to block this
-                                                user
-                                              </p>
-                                            </div>
-                                            <div className="flex flex-row items-center gap-5">
-                                              <p
-                                                className="w-20 rounded-lg h-9 bg-transparent border-[#7E7E7E] border-2 flex items-center justify-center text-[14px] text-[#7E7E7E] font-semibold"
-                                                onClick={toggleBlockTab}
-                                              >
-                                                Cancel
-                                              </p>
-                                              <p
-                                                className="w-20 rounded-lg h-9 bg-[#C31A7F] text-[#FFFFFF] flex items-center justify-center text-[14px] font-semibold"
-                                                onClick={toggleBlockedTab}
-                                              >
-                                                Block
-                                              </p>
-                                              {userBlocked && (
-                                                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
-                                                  <div
-                                                    className="bg-[#FFFFFF] flex flex-col items-center py-11 gap-7 rounded-[30px] px-32 relative "
-                                                    ref={threeDotsOutClick}
-                                                  >
-                                                    <div className="absolute right-6 top-6  cursor-pointer">
-                                                      <IoMdClose
-                                                        size={18}
-                                                        onClick={
-                                                          toggleBlockedTab
-                                                        }
-                                                      />
-                                                    </div>
-                                                    <div>
-                                                      <img
-                                                        className="w-28"
-                                                        src={homePostItems?.user_id?.profile_image}
-                                                        alt="none"
-                                                      />
-                                                    </div>
-                                                    <div className="flex flex-col items-center gap-1">
-                                                      <h1 className="  text-[#C31A7F] text-[18px] font-semibold">
-                                                      src={homePostItems?.user_id?.full_name}
-                                                      </h1>
-                                                      <p className="text-[14px] text-[#7E7E7E] font-semibold">
-                                                        Has been Blocked
-                                                      </p>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              )}
-                                            </div>
-                                          </div>
-                                        </div>
-                                      )}
-                                      <NavLink to={{pathname:"/profile", value: { userID } }}>
-                                        <p className="p-2 px-4 cursor-pointer hover:text-[#fff]  hover:bg-[#C31A7F]">
-                                          About this account
+                                      {homePostItems?.user_id?._id ===
+                                      userData?._id ? (
+                                        // If the user is the self user, show the delete option
+                                        <p
+                                          className="p-2 px-4 cursor-pointer hover:bg-[#C31A7F] hover:text-[#fff] "
+                                          onClick={() =>
+                                            deletePost(homePostItems?._id)
+                                          }
+                                        >
+                                          Delete Post
                                         </p>
-                                      </NavLink>
-                                      <p
-                                        className="p-2 px-4 cursor-pointer hover:text-[#fff] hover:bg-[#C31A7F]"
-                                        onClick={toggleReportButton}
-                                      >
-                                        Report {homePostItems?.user_id?.full_name}
-                                      </p>
-                                      {reportButton && (
-                                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
-                                          <div className="w-[500px] bg-[#FFFFFF] flex flex-col p-7 gap-3 rounded-[30px] relative">
-                                            <h1 className="text-[18px] font-semibold">
-                                              Report
-                                            </h1>
-                                            <div className="absolute right-6 top-6  cursor-pointer">
-                                              <IoMdClose
-                                                size={18}
-                                                onClick={toggleReportButton}
-                                              />
-                                            </div>
-                                            <div>
-                                              <hr />
-                                            </div>
-                                            <div className="flex items-start text-[18px] font-semibold">
-                                              <p>
-                                                Why are you reporting this post
-                                              </p>
-                                            </div>
-                                            <div>
-                                              <hr />
-                                            </div>
-                                            <div className="flex items-center justify-between text-center">
-                                              <p className="text-[14px] font-semibold">
-                                                It's a spam
-                                              </p>
-                                              <HiOutlineChevronRight
-                                                className="cursor-pointer"
-                                                color="#7E7E7E"
-                                                onClick={togglethanku}
-                                              />
-
-                                              {showThanku && (
-                                                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
-                                                  <div className="w-[430px] bg-[#FFFFFF] flex flex-col items-center p-14 gap-7 rounded-[30px]">
-                                                    <div>
-                                                      <BiCheckCircle
-                                                        color="#C31A7F"
-                                                        size={75}
-                                                      />
-                                                    </div>
-
-                                                    <div className="flex flex-col gap-2">
-                                                      <h1 className="text-[18px] font-semibold">
-                                                        Thanks for letting us
-                                                        know
-                                                      </h1>
-                                                      <p className="text-[14px] text-[#7E7E7E] font-semibold">
-                                                        Your feedback is
-                                                        important in helping us
-                                                        keep the CAN community
-                                                        safe
-                                                      </p>
-                                                    </div>
-                                                    <div
-                                                      className="w-40 h-9 flex items-center justify-center rounded-[10px] bg-[#C31A7F] "
-                                                      onClick={togglethanku}
-                                                    >
-                                                      <p className="text-[#FFFFFF] text-[13px] font-semibold cursor-pointer">
-                                                        Close
-                                                      </p>
-                                                    </div>
-                                                  </div>
+                                      ) : (
+                                        // If the user is not the self user, show the three options
+                                        <>
+                                          <p
+                                            className="p-2 px-4 cursor-pointer hover:bg-[#C31A7F] hover:text-[#fff] "
+                                            onClick={toggleBlockTab}
+                                          >
+                                            Block{" "}
+                                            {homePostItems?.user_id?.full_name}
+                                          </p>
+                                          {userBlock && (
+                                            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
+                                              <div className=" bg-[#FFFFFF] flex flex-col items-center py-10 gap-6 rounded-[30px] px-16 ">
+                                                <div>
+                                                  <img
+                                                    className="w-14"
+                                                    src={blockuser}
+                                                    alt="none"
+                                                  />
                                                 </div>
-                                              )}
+                                                <div className="flex flex-col items-center gap-3">
+                                                  <h1 className="  text-[#C31A7F]  text-[18px] font-semibold">
+                                                    Block{" "}
+                                                    {
+                                                      homePostItems?.user_id
+                                                        ?.full_name
+                                                    }
+                                                  </h1>
+                                                  <p className="text-[14px] text-[#7E7E7E] font-semibold">
+                                                    Do you really want to block
+                                                    this user?
+                                                  </p>
+                                                </div>
+                                                <div className="flex flex-row items-center gap-5">
+                                                  <p
+                                                    className="w-20 rounded-lg h-9 bg-transparent border-[#7E7E7E] border-2 flex items-center justify-center text-[14px] text-[#7E7E7E] font-semibold"
+                                                    onClick={toggleBlockTab}
+                                                  >
+                                                    Cancel
+                                                  </p>
+                                                  <p
+                                                    className="w-20 rounded-lg h-9 bg-[#C31A7F] text-[#FFFFFF] flex items-center justify-center text-[14px] font-semibold"
+                                                    onClick={()=>{toggleBlockedTab(homePostItems?.user_id?._id)}}
+                                                  >
+                                                    Block
+                                                  </p>
+                                                  {userBlocked && (
+                                                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
+                                                      <div
+                                                        className="bg-[#FFFFFF] flex flex-col items-center py-11 gap-7 rounded-[30px] px-32 relative "
+                                                        ref={threeDotsOutClick}
+                                                      >
+                                                        <div className="absolute right-6 top-6  cursor-pointer">
+                                                          <IoMdClose
+                                                            size={18}
+                                                            onClick={
+                                                              toggleBlockedTab
+                                                            }
+                                                          />
+                                                        </div>
+                                                        <div>
+                                                          <img
+                                                            className="w-28"
+                                                            src={
+                                                              homePostItems
+                                                                ?.user_id
+                                                                ?.profile_image
+                                                            }
+                                                            alt="none"
+                                                          />
+                                                        </div>
+                                                        <div className="flex flex-col items-center gap-1">
+                                                          <h1 className="  text-[#C31A7F] text-[18px] font-semibold">
+                                                            {
+                                                              homePostItems
+                                                                ?.user_id
+                                                                ?.full_name
+                                                            }
+                                                          </h1>
+                                                          <p className="text-[14px] text-[#7E7E7E] font-semibold">
+                                                            Has been Blocked
+                                                          </p>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  )}
+                                                </div>
+                                              </div>
                                             </div>
-                                            <div>
-                                              <hr />
+                                          )}
+                                          <NavLink
+                                            to={{
+                                              pathname: "/profile",
+                                              value: { userID },
+                                            }}
+                                          >
+                                            <p className="p-2 px-4 cursor-pointer hover:text-[#fff]  hover:bg-[#C31A7F]">
+                                              About this account
+                                            </p>
+                                          </NavLink>
+                                          <p
+                                            className="p-2 px-4 cursor-pointer hover:text-[#fff] hover:bg-[#C31A7F]"
+                                            onClick={toggleReportButton}
+                                          >
+                                            Report{" "}
+                                            {homePostItems?.user_id?.full_name}
+                                          </p>
+                                          {reportButton && (
+                                            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
+                                              <div className="w-[500px] bg-[#FFFFFF] flex flex-col p-7 gap-3 rounded-[30px] relative">
+                                                <h1 className="text-[18px] font-semibold">
+                                                  Report
+                                                </h1>
+                                                <div className="absolute right-6 top-6  cursor-pointer">
+                                                  <IoMdClose
+                                                    size={18}
+                                                    onClick={toggleReportButton}
+                                                  />
+                                                </div>
+                                                <div>
+                                                  <hr />
+                                                </div>
+                                                <div className="flex items-start text-[18px] font-semibold">
+                                                  <p>
+                                                    Why are you reporting this
+                                                    post?
+                                                  </p>
+                                                </div>
+                                                <div>
+                                                  <hr />
+                                                </div>
+                                                <div className="flex items-center justify-between text-center">
+                                                  <p className="text-[14px] font-semibold">
+                                                    It's a spam
+                                                  </p>
+                                                  <HiOutlineChevronRight
+                                                    className="cursor-pointer"
+                                                    color="#7E7E7E"
+                                                    onClick={togglethanku}
+                                                  />
+                                                  {showThanku && (
+                                                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
+                                                      <div className="w-[430px] bg-[#FFFFFF] flex flex-col items-center p-14 gap-7 rounded-[30px]">
+                                                        <div>
+                                                          <BiCheckCircle
+                                                            color="#C31A7F"
+                                                            size={75}
+                                                          />
+                                                        </div>
+                                                        <div className="flex flex-col gap-2">
+                                                          <h1 className="text-[18px] font-semibold">
+                                                            Thanks for letting
+                                                            us know
+                                                          </h1>
+                                                          <p className="text-[14px] text-[#7E7E7E] font-semibold">
+                                                            Your feedback is
+                                                            important in helping
+                                                            us keep the CAN
+                                                            community safe
+                                                          </p>
+                                                        </div>
+                                                        <div
+                                                          className="w-40 h-9 flex items-center justify-center rounded-[10px] bg-[#C31A7F] "
+                                                          onClick={togglethanku}
+                                                        >
+                                                          <p className="text-[#FFFFFF] text-[13px] font-semibold cursor-pointer">
+                                                            Close
+                                                          </p>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  )}
+                                                </div>
+                                                <div>
+                                                  <hr />
+                                                </div>
+                                                <div className="flex items-center justify-between text-center">
+                                                  <p className="text-[14px] font-semibold">
+                                                    Hate speech or symbols
+                                                  </p>
+                                                  <HiOutlineChevronRight color="#7E7E7E" />
+                                                </div>
+                                                <div>
+                                                  <hr />
+                                                </div>
+                                                <div className="flex items-center justify-between text-center">
+                                                  <p className="text-[14px] font-semibold">
+                                                    Violence of dangerous
+                                                    organization
+                                                  </p>
+                                                  <HiOutlineChevronRight color="#7E7E7E" />
+                                                </div>
+                                                <div>
+                                                  <hr />
+                                                </div>
+                                                <div className="flex items-center justify-between text-center">
+                                                  <p className="text-[14px] font-semibold">
+                                                    False information
+                                                  </p>
+                                                  <HiOutlineChevronRight color="#7E7E7E" />
+                                                </div>
+                                                <div>
+                                                  <hr />
+                                                </div>
+                                                <div className="flex items-center justify-between text-center">
+                                                  <p className="text-[14px] font-semibold">
+                                                    I just don't like it
+                                                  </p>
+                                                  <HiOutlineChevronRight color="#7E7E7E" />
+                                                </div>
+                                              </div>
                                             </div>
-                                            <div className="flex items-center justify-between text-center">
-                                              <p className="text-[14px] font-semibold">
-                                                Hate speech or symbols
-                                              </p>
-                                              <HiOutlineChevronRight color="#7E7E7E" />
-                                            </div>
-                                            <div>
-                                              <hr />
-                                            </div>
-                                            <div className="flex items-center justify-between text-center">
-                                              <p className="text-[14px] font-semibold">
-                                                Violence of dangerous
-                                                organization
-                                              </p>
-                                              <HiOutlineChevronRight color="#7E7E7E" />
-                                            </div>
-                                            <div>
-                                              <hr />
-                                            </div>
-                                            <div className="flex items-center justify-between text-center">
-                                              <p className="text-[14px] font-semibold">
-                                                False information
-                                              </p>
-                                              <HiOutlineChevronRight color="#7E7E7E" />
-                                            </div>
-                                            <div>
-                                              <hr />
-                                            </div>
-                                            <div className="flex items-center justify-between text-center">
-                                              <p className="text-[14px] font-semibold">
-                                                I just don't like it
-                                              </p>
-                                              <HiOutlineChevronRight color="#7E7E7E" />
-                                            </div>
-                                          </div>
-                                        </div>
+                                          )}
+                                        </>
                                       )}
                                     </div>
                                   )}
@@ -1054,13 +1143,15 @@ const Home = () => {
                                         )
                                       }
                                     />
-                                    {console.log("commentImage::",commentImage)}
+                                    {console.log(
+                                      "commentImage::",
+                                      commentImage
+                                    )}
                                     <p className="text-[12px] font-bold">
                                       {homePostItems?.comments?.length}
                                     </p>
                                   </div>
 
-                                  
                                   {showContent && (
                                     <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#989898] bg-opacity-[0.03]">
                                       <div className="w-[95%] lg:w-[70%] lg:h-[70%] bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden">
@@ -1072,21 +1163,28 @@ const Home = () => {
                                           />
                                         </div>
                                         <div className="lg:w-[40%] flex flex-col justify-between p-4 relative">
-                                          <div className="comment-box pb-[10px]"
+                                          <div
+                                            className="comment-box pb-[10px]"
                                             style={{
                                               height: "100%",
-                                              overflowY: "scroll", 
+                                              overflowY: "scroll",
                                             }}
                                           >
                                             <div className="flex h-max items-center gap-2">
                                               <div className="rounded-full overflow-hidden h-max w-[20%]">
-                                                {commentImage?.user_id?.profile_image ? (
+                                                {commentImage?.user_id
+                                                  ?.profile_image ? (
                                                   <img
                                                     src={
-                                                      commentImage?.user_id?.profile_image
+                                                      commentImage?.user_id
+                                                        ?.profile_image
                                                     }
                                                     alt="User Profile"
-                                                    className="w-[45px] h-[45px]" style={{borderRadius:'50%', objectFit:'cover'}}
+                                                    className="w-[45px] h-[45px]"
+                                                    style={{
+                                                      borderRadius: "50%",
+                                                      objectFit: "cover",
+                                                    }}
                                                   />
                                                 ) : (
                                                   <img
@@ -1100,7 +1198,10 @@ const Home = () => {
                                                 <div className="flex flex-row items-center justify-between w-full">
                                                   <div className="flex flex-row gap-2 items-center">
                                                     <h1 className="font-semibold">
-                                                      {commentImage?.user_id?.CANID}
+                                                      {
+                                                        commentImage?.user_id
+                                                          ?.CANID
+                                                      }
                                                     </h1>
                                                     <p className="text-xs text-[#7E7E7E]">
                                                       {commentImage?.createdAt}
@@ -1108,14 +1209,19 @@ const Home = () => {
                                                   </div>
                                                   <div
                                                     className="cursor-pointer absolute right-8 top- lg:right- lg:"
-                                                    onClick={()=>setShowContent(false)}
+                                                    onClick={() =>
+                                                      setShowContent(false)
+                                                    }
                                                   >
                                                     <IoMdClose className="lg:text-[#000]" />
                                                   </div>
                                                 </div>
                                                 <div className="flex gap-2 items-center">
                                                   <h1 className="text-xs font-semibold text-[#C31A7F]">
-                                                  {commentImage?.user_id?.user_profile}
+                                                    {
+                                                      commentImage?.user_id
+                                                        ?.user_profile
+                                                    }
                                                   </h1>
                                                 </div>
                                               </div>
@@ -1136,7 +1242,12 @@ const Home = () => {
                                                       comment
                                                     )}
                                                     <div className="mr-[10px] overflow-hidden">
-                                                      <img className="w-[45px] h-[40px]" style={{borderRadius:'50%', objectFit:'cover'}}
+                                                      <img
+                                                        className="w-[45px] h-[40px]"
+                                                        style={{
+                                                          borderRadius: "50%",
+                                                          objectFit: "cover",
+                                                        }}
                                                         src={
                                                           comment?.profile_image
                                                         }
@@ -1171,12 +1282,25 @@ const Home = () => {
                                               <div>No comments</div>
                                             )}
                                           </div>
-                                          <div className="bottom-4" style={{paddingTop:'10px', borderTop:'1px solid #8080803d'}}>
+                                          <div
+                                            className="bottom-4"
+                                            style={{
+                                              paddingTop: "10px",
+                                              borderTop: "1px solid #8080803d",
+                                            }}
+                                          >
                                             <div className="flex gap-3 w-full bg-transparent">
                                               <img
-                                                src=  {commentImage?.user_id?.profile_image}
+                                                src={
+                                                  commentImage?.user_id
+                                                    ?.profile_image
+                                                }
                                                 alt="none"
-                                                className="w-[55px] h-[45px] shadow-md" style={{borderRadius:'50%', objectFit:'cover'}}
+                                                className="w-[55px] h-[45px] shadow-md"
+                                                style={{
+                                                  borderRadius: "50%",
+                                                  objectFit: "cover",
+                                                }}
                                               />
                                               <input
                                                 placeholder="Write here..."
@@ -1208,8 +1332,6 @@ const Home = () => {
                                       </div>
                                     </div>
                                   )}
-
-
                                 </div>
 
                                 <div>
@@ -1360,34 +1482,6 @@ const Home = () => {
                   )}
                 </div>
                 <div className="ris-home lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
-                  {/* <div className=" mt-8 p-5 pb-4 rounded-[30px] w-[100%] bg-[#FFFFFF] border-[0.5px] border-[#C31A7F33]">
-                    <p className="flex flex-wrap text-center text-[17px]">
-                      What time is best suited for you to join the meeting?
-                    </p>
-
-                    <div className="flex flex-col gap-4">
-                      <div className="flex flex-row items-center justify-center gap-3 pt-3">
-                        <div className="w-24 h-9 bg-[#C31A7F] text-[#FFFFFF] cursor-pointer flex flex-row items-center justify-center rounded-[15px] ">
-                          <p>8:00</p>
-                          <p>PM</p>
-                        </div>
-                        <div className="w-24 h-9 bg-[#FFFFFF]   text-[#C31A7F] cursor-pointer flex flex-row items-center border-[1px] border-[#C31A7F] justify-center rounded-[15px]">
-                          <p>9:00</p>
-                          <p>PM</p>
-                        </div>
-                        <div className="w-24 h-9 bg-[#FFFFFF]   text-[#C31A7F] cursor-pointer flex flex-row items-center border-[1px] border-[#C31A7F] justify-center rounded-[15px]">
-                          <p>12:00</p>
-                          <p>AM</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-row items-center justify-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-[#C31A7F]"></div>
-                        <div className="w-2 h-2 rounded-full bg-[#E7E7E7]"></div>
-                        <div className="w-2 h-2 rounded-full bg-[#E7E7E7]"></div>
-                      </div>
-                    </div>
-                  </div> */}
-
                   <div className="w-[100%]   mt-3  relative">
                     <div>
                       <div
