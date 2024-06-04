@@ -691,7 +691,7 @@ const HomeNav = (props) => {
                         <div className="flex justify-center items-center">
                           <Avatar
                             alt=""
-                            src={navUser?.profile_photo}
+                            src={userdata?.profile_image || vector}
                             className="w-[8vw] md:w-[5vw] lg:w-[2vw] "
                           />
                           <p className="flex items-center ml-4">
