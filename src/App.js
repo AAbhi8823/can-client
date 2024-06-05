@@ -87,6 +87,7 @@ import MedicineBank  from './Pages/MedicineBank'
 import MobileCraousel  from './Components/MobileCraousel'
 import MagickLink from './Pages/MagickLink'
 import TermsService from './Pages/TermsService'
+import { AllFeeds } from './Admin Pannel/AllFeeds'
 const App = () => {
   let token = Cookies.get("authToken")
   return (
@@ -183,8 +184,7 @@ const App = () => {
           <Route exact path='AdminContent' element={<AdminContent />} />
           <Route exact path='AdminUserManagement' element={<AdminUserManagement />} />
           <Route exact path='AdminMeetingSchedule' element={<AdminMeetingSchedule />} />
-          
-          
+          <Route exact path='AllFeeds' element={<AllFeeds />} />
         </Routes>
       </BrowserRouter>
     </>
