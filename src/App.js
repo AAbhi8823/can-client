@@ -68,6 +68,7 @@ import NewAddedProfile from './Pages/NewAddedProfile'
 import AdminLogin from './Admin Pannel/AdminLogin'
 import AdminContent from './Admin Pannel/Content'
 import AdminUserManagement from './Admin Pannel/AdminUserManagement'
+import AdminMeetingSchedule from './Admin Pannel/AdminMeetingSchedule'
 import Animate from './Pages/Animate'
 import ContactUs from './Pages/ContactUs'
 import PrivacyPolicy from './Pages/ PrivacyPolicies'
@@ -181,6 +182,8 @@ const App = () => {
           <Route exact path='AdminLogin' element={<AdminLogin />} />
           <Route exact path='AdminContent' element={<AdminContent />} />
           <Route exact path='AdminUserManagement' element={<AdminUserManagement />} />
+          <Route exact path='AdminMeetingSchedule' element={<AdminMeetingSchedule />} />
+          
           
         </Routes>
       </BrowserRouter>
