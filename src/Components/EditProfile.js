@@ -101,7 +101,7 @@ const EditProfile = ({ id,onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll px-5 py-[90px]">
+    <div className="edit-profile fixed inset-0 flex md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll px-5 py-[90px]">
       <div
         className="flex flex-col bg-white rounded-[40px] lg:md:w-auto w-full max-h-fit px-10 py-5"
         style={{ position: "absolute", top: "120px" }}
@@ -183,10 +183,10 @@ const EditProfile = ({ id,onClose }) => {
                 </p>
               </div>
             )}
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-[20px]">
               <button
                 type="submit"
-                className={`w-1/2 text-[16px] rounded-[20px] py-3 px-7 bg-[#c31a7f] text-white font-[500] ${
+                className={`w-1/2 text-[15px] rounded-[20px] py-3 px-2 bg-[#c31a7f] text-white font-[500] ${
                   isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 disabled={isSubmitting}

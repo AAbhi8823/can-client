@@ -94,8 +94,8 @@ function HealthProfile({ value }) {
                   <div className="absolute flex top-1 left-0">
                     <img src={Icon} alt="icon" />
                   </div>
-                  <div className="flex rounded-full overflow-hidden justify-center items-center">
-                    <img src={userData?.profile_image} width={100} alt="account" />
+                  <div className="flex overflow-hidden justify-center items-center">
+                    <img src={userData?.profile_image} alt="account" style={{objectFit:'cover', borderRadius:'50%', width:'100px', height:'100px'}}/>
                   </div>
                 </div>
                 <div className="flex justify-center text-center">

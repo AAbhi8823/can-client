@@ -9,17 +9,15 @@ import account from "../Photos/account.jpg";
 import account2 from "../Photos/account2.jpg";
 // import SideNav from "./SideNav";
 import Home from "../Pages/Home";
-import { CiSearch } from 'react-icons/ci'
-import AdminMainUser from '../Photos/AdminIcons/AdminMainUser.svg'
+import { CiSearch } from "react-icons/ci";
+import AdminMainUser from "../Photos/AdminIcons/AdminMainUser.svg";
 import { NavLink } from "react-router-dom";
-import axios from 'axios'
-import { baseurl } from '../Api/baseUrl'
-import  Cookie  from 'js-cookie'
+import axios from "axios";
+import { baseurl } from "../Api/baseUrl";
+import Cookie from "js-cookie";
 import { Avatar } from "@mui/material";
 
-
-
-const HomeNav = ({ }) => {
+const HomeNav = ({}) => {
   const [friend, setFriend] = useState(false);
   const [notification, setNotification] = useState(false);
   const [explore, setExplore] = useState(true);
@@ -65,8 +63,7 @@ const HomeNav = ({ }) => {
   };
 
   useEffect(() => {
-
-    activeUser()
+    activeUser();
 
     document.addEventListener("click", handleClickOutsidenotification, true);
     return () => {
@@ -78,37 +75,26 @@ const HomeNav = ({ }) => {
     };
   }, []);
 
-
-  const [navUser, setNavuser] = useState()
-
-
+  const [navUser, setNavuser] = useState();
 
   const activeUser = async () => {
-    const token = Cookie.get('token')
-    const homeUser = localStorage.getItem('active_user')
+    const token = Cookie.get("token");
+    const homeUser = localStorage.getItem("active_user");
     try {
-      const userData = await axios.post(`${baseurl}/api/singleuser?token=${token}`, {
-        id: `${homeUser}`
-      })
+      const userData = await axios.post(
+        `${baseurl}/api/singleuser?token=${token}`,
+        {
+          id: `${homeUser}`,
+        }
+      );
       // console.log("Navbar:",userData.data.data)
-      setNavuser(userData.data.data)
-
+      setNavuser(userData.data.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  console.log(navUser&&navUser)
-
-
-
-
-
-
-
-
-
-
+  console.log(navUser && navUser);
 
   //Open upload from side nav
 
@@ -119,52 +105,63 @@ const HomeNav = ({ }) => {
       {/* <SideNav /> */}
       {/* </div> */}
 
-      <div className="z-10" >
-        <div className="flex  p-3     border-b-[1px] border-[#D9EAFF] " style={{ boxShadow: '0px 10px 40px 0px rgba(231, 237, 243, 0.40)' }}>
+      <div className="z-10">
+        <div
+          className="flex  p-3     border-b-[1px] border-[#D9EAFF] "
+          style={{ boxShadow: "0px 10px 40px 0px rgba(231, 237, 243, 0.40)" }}
+        >
           {/* <div className=" w-[30%]"></div> */}
           <div className="flex w-full justify-between md:justify-between">
             <div className="md:w-[50%] md:relative flex items-center justify-center md:ml-40 ml-8 ">
-              <CiSearch size={20} className="md:absolute md:top-2 md:left-2 absolute left-12  top-6" />
+              <CiSearch
+                size={20}
+                className="md:absolute md:top-2 md:left-2 absolute left-12  top-6"
+              />
               <input
                 placeholder="Search"
                 className=" w-full h-9 outline-none rounded-xl placeholder:text-[14px] px-8 placeholder:font-semibold   bg-[#FEF8FD]  "
               />
             </div>
             <div className="flex mx-10  pointer-cursor ">
-            <div className=" flex items-center pointer-cursor gap-4 ">
-              {/* Icons */}
-              <div className="hidden">
-                <div className="" onClick={showFriendreq}>
-                  <VscBellDot color="#C31A7F" size={22} />
-                </div>
-                {friend && (
-                  <div ref={outclick} className="bg-white lg:w-[20%] lg:h-[80%] z-10 absolute right-[8%] top-[8%] shadow-2xl">
-                    {/* friend req container */}
-                    <div>
-                      {" "}
-                      {/* notifications items */}
-                      <div className="flex justify-between px-4 pt-6 items-center">
-                        <h2 className="font-semibold">Friend Request</h2>
-                        <p className="text-[#EFC319] text-xs">See All</p>
-                      </div>
-                      <div className="p-4">
-                        <hr />
-                      </div>
-                      {/* friend reqs */}
-                      <div className="flex items-center justify-between ">
-                        <div className="flex items-center">
-                          <div className="w-max px-3">
-                            <img
-                              src={account}
-                              className="rounded-full h-12 w-12"
-                            />
-                          </div>
+              <div className=" flex items-center pointer-cursor gap-4 ">
+                {/* Icons */}
+                <div className="hidden">
+                  <div className="" onClick={showFriendreq}>
+                    <VscBellDot color="#C31A7F" size={22} />
+                  </div>
+                  {friend && (
+                    <div
+                      ref={outclick}
+                      className="bg-white lg:w-[20%] lg:h-[80%] z-10 absolute right-[8%] top-[8%] shadow-2xl"
+                    >
+                      {/* friend req container */}
+                      <div>
+                        {" "}
+                        {/* notifications items */}
+                        <div className="flex justify-between px-4 pt-6 items-center">
+                          <h2 className="font-semibold">Friend Request</h2>
+                          <p className="text-[#EFC319] text-xs">See All</p>
+                        </div>
+                        <div className="p-4">
+                          <hr />
+                        </div>
+                        {/* friend reqs */}
+                        <div className="flex items-center justify-between ">
+                          <div className="flex items-center">
+                            <div className="w-max px-3">
+                              <img
+                                src={account}
+                                className="rounded-full h-12 w-12"
+                              />
+                            </div>
 
                             <div className="">
                               <h1 className="text-sm font-semibold">
                                 Sierra Ferguson
                               </h1>
-                              <p className="text-xs">Works at National Museum</p>
+                              <p className="text-xs">
+                                Works at National Museum
+                              </p>
                             </div>
                           </div>
 
@@ -190,7 +187,9 @@ const HomeNav = ({ }) => {
                               <h1 className="text-sm font-semibold">
                                 Sierra Ferguson
                               </h1>
-                              <p className="text-xs">Works at National Museum</p>
+                              <p className="text-xs">
+                                Works at National Museum
+                              </p>
                             </div>
                           </div>
 
@@ -216,7 +215,9 @@ const HomeNav = ({ }) => {
                               <h1 className="text-sm font-semibold">
                                 Sierra Ferguson
                               </h1>
-                              <p className="text-xs">Works at National Museum</p>
+                              <p className="text-xs">
+                                Works at National Museum
+                              </p>
                             </div>
                           </div>
 
@@ -242,7 +243,9 @@ const HomeNav = ({ }) => {
                               <h1 className="text-sm font-semibold">
                                 Sierra Ferguson
                               </h1>
-                              <p className="text-xs">Works at National Museum</p>
+                              <p className="text-xs">
+                                Works at National Museum
+                              </p>
                             </div>
                           </div>
 
@@ -406,7 +409,9 @@ const HomeNav = ({ }) => {
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
-                          <p className="flex-wrap text-[12px]">sent you a message</p>
+                          <p className="flex-wrap text-[12px]">
+                            sent you a message
+                          </p>
                         </div>
                       </div>
 
@@ -417,7 +422,9 @@ const HomeNav = ({ }) => {
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
-                          <p className="flex-wrap text-[12px]">liked your photo</p>
+                          <p className="flex-wrap text-[12px]">
+                            liked your photo
+                          </p>
                         </div>
                       </div>
 
@@ -428,7 +435,9 @@ const HomeNav = ({ }) => {
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
-                          <p className="flex-wrap text-[12px]">liked your video</p>
+                          <p className="flex-wrap text-[12px]">
+                            liked your video
+                          </p>
                         </div>
                       </div>
 
@@ -439,7 +448,9 @@ const HomeNav = ({ }) => {
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
-                          <p className="flex-wrap text-[12px]">sent you a message</p>
+                          <p className="flex-wrap text-[12px]">
+                            sent you a message
+                          </p>
                         </div>
                       </div>
 
@@ -450,7 +461,9 @@ const HomeNav = ({ }) => {
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
-                          <p className="flex-wrap text-[12px]">sent you a message</p>
+                          <p className="flex-wrap text-[12px]">
+                            sent you a message
+                          </p>
                         </div>
                       </div>
                       <div className="flex mt-3">
@@ -460,7 +473,9 @@ const HomeNav = ({ }) => {
                         />
                         <div className=" ">
                           <p className="font-semibold text-[14px]">Iqra Aziz</p>
-                          <p className="flex-wrap text-[12px]">sent you a message</p>
+                          <p className="flex-wrap text-[12px]">
+                            sent you a message
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -474,7 +489,10 @@ const HomeNav = ({ }) => {
                   >
                     <div className=" flex">
                       {/* <img className="md:w-9 w-12 rounded-full" src={account} /> */}
-                      <Avatar alt="Cindy Baker" src={ `${baseurl}/${navUser?.profile_photo}`} />
+                      <Avatar
+                        alt="Cindy Baker"
+                        src={`${baseurl}/${navUser?.profile_photo}`}
+                      />
                     </div>
                     <div className=" hidden md:block">Admin User</div>
                   </NavLink>
