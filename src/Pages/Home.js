@@ -1153,7 +1153,7 @@ const Home = () => {
                                   </div>
 
                                   {showContent && (
-                                    <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#989898] bg-opacity-[0.03]">
+                                    <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50" style={{backgroundColor:'rgb(46 46 46 / 30%)',}}>
                                       <div className="w-[95%] lg:w-[70%] lg:h-[70%] bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden">
                                         <div className="lg:w-[60%]">
                                           <img
@@ -1226,7 +1226,7 @@ const Home = () => {
                                                 </div>
                                               </div>
                                             </div>
-                                            <div className="text-[16px] py-[15px]">
+                                            <div className="text-[16px] py-[15px]" style={{borderBottom: '1px solid rgba(128, 128, 128, 0.24)'}}>
                                               {commentImage?.post_title}
                                             </div>
                                             {commentImage?.comments?.length >
@@ -1234,7 +1234,7 @@ const Home = () => {
                                               commentImage.comments.map(
                                                 (comment) => (
                                                   <div
-                                                    className="mt-[25px] flex items-center"
+                                                    className="mt-[15px] flex items-center" style={{backgroundColor:'#f9f9f9', padding:'5px', borderRadius:'10px', boxShadow:'2px 2px 15px #8080802b'}}
                                                     key={comment._id}
                                                   >
                                                     {console.log(
@@ -1285,8 +1285,10 @@ const Home = () => {
                                           <div
                                             className="bottom-4"
                                             style={{
-                                              paddingTop: "10px",
-                                              borderTop: "1px solid #8080803d",
+                                              padding: "15px 12px",
+                                              border: "1px solid #8080803d", 
+                                              backgroundColor:'#fff',
+                                              borderRadius:'10px'
                                             }}
                                           >
                                             <div className="flex gap-3 w-full bg-transparent">
