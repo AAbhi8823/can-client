@@ -1,4 +1,5 @@
 import React from 'react'
+import "./MeetingSchedule.css";
 
 export const MeetingSchedule = () => {
   return (
