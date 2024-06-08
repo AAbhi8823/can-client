@@ -33,6 +33,7 @@ import Cookies from "js-cookie";
 import { base_token } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import "./AdminHostPost.css";
 export const AdminHomePost = () => {
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
@@ -362,9 +363,9 @@ export const AdminHomePost = () => {
 
   return (
     <>
-      <div className=" h-[100%] y-scrl ">
+      <div className=" h-[100%] y-scrl xl:w-[100%] adminhost">
         <div className=" lg:flex">
-          <div className="bg-[#FEF8FD] lg:px-0 px-2 lg:px-10 w-[100%] flex flex-wrap justify-around">
+          <div className="bg-[#f4fbff] lg:px-0 px-2 lg:px-10 w-[100%] flex flex-wrap justify-around">
 
             <div className="flex flex-col  ml-0  w-full  lg:w-[55%] ">
             <div className="text-end space-x-5 mt-2">
@@ -1148,14 +1149,14 @@ export const AdminHomePost = () => {
             </div>
             <div className="ris-home lg:flex lg:flex-col lg:gap-4 lg:items-center w-full lg:w-[40%] xl:w-[30%]">
               <div
-                className="w-[100%] p-6 px-0 bg-white max-h-screen relative mt-3 rounded-[30px] overflow-hidden border-[1px] border-solid border-[#D9EAFF]"
+                className="w-[100%] p-6 px-0 bg-white max-h-screen relative mt-[70px] rounded-[30px] overflow-hidden border-[1px] border-solid border-[#D9EAFF]"
                 style={{ boxShadow: "0px 10px 30px 0px rgba(0, 0, 0, 0.05)" }}
               >
-                <div className="flex items-center justify-between p-4">
-                  <h2>Total Posts</h2>
+                <div className="flex items-center justify-between p-4 pt-0">
+                  <h2 style={{fontWeight:'600', fontSize:'18px'}}>Total Posts</h2>
                   <button
                     onClick={toggleDropdown}
-                    className="flex items-center bg-[#c31a7f3c] p-2 rounded-3xl"
+                    className="flex items-center bg-[transparent] p-2 rounded-3xl" style={{color:'gray', fontSize:'14px'}} 
                   >
                     All <RiArrowDropDownLine size={26} />
                   </button>
@@ -1178,9 +1179,9 @@ export const AdminHomePost = () => {
                   </div>
                 )}
 
-                <div className="flex justify-center mt-4">
-                  <div className="flex items-center justify-center w-20 h-20 border-[10px] border-solid border-[#D9EAFF] rounded-full">
-                    <p>Some Text</p>
+                <div className="flex justify-center mt-4 mb-[16px]">
+                  <div className="flex items-center justify-center w-[49%] h-[200px] border-[40px] border-solid border-[#f16e8b] rounded-full">
+                    <p className="text-center" style={{fontSize:'22px', fontWeight:'600' }}>5850 <br></br><span style={{fontSize:'18px', fontWeight:'600' }}>Live Post</span></p>
                   </div>
                 </div>
               </div>

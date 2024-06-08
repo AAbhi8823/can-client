@@ -88,6 +88,7 @@ import MobileCraousel  from './Components/MobileCraousel'
 import MagickLink from './Pages/MagickLink'
 import TermsService from './Pages/TermsService'
 import { AllFeeds } from './Admin Pannel/AllFeeds'
+import {UserActivity} from './Admin Pannel/UserActivity'
 const App = () => {
   let token = Cookies.get("authToken")
   return (
@@ -185,6 +186,8 @@ const App = () => {
           <Route exact path='AdminUserManagement' element={<AdminUserManagement />} />
           <Route exact path='AdminMeetingSchedule' element={<AdminMeetingSchedule />} />
           <Route exact path='AllFeeds' element={<AllFeeds />} />
+          <Route exact path='UserActivity' element={<UserActivity />} />
+          
         </Routes>
       </BrowserRouter>
     </>
