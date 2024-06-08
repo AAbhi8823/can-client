@@ -8,13 +8,11 @@ import AppointmentPopup from "../Components/AppointmentPopup";
 import Page from "../Layouts/Pages";
 import axios from "axios";
 import apis from "../Api/baseUrl";
-import { base_token } from "../Api/baseUrl";
 import "./appointment.css";
-
+import Cookies from "js-cookie";
 const Appointment1 = () => {
-  const [pop, setPop] = useState(false);
+  const base_token=Cookies.get("token");
   const [edit, setedit] = useState(false);
-  const [edit_id, setedit_id] = useState("");
   const [appointmentData, setAppointmentData] = useState([]);
   const [isClickedAppointment, setIsClickedAppointment] = useState(true);
   const [notePopups, setNotePopups] = useState({});

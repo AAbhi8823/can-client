@@ -12,8 +12,9 @@ import LoginCraousel from "../Components/LoginCraousel";
 import LogoCAn from "../Photos/LogoCAn.png";
 import vtwo from "../Photos/vtwo.gif";
 import lock from "../Photos/lock.png";
-import { base_token } from "../Api/baseUrl";
 const AddProfile = () => {
+  const base_token=Cookies.get("token");
+
   const [pin, setPin] = useState("");
   const [repin, setRepin] = useState("");
   const [error, setError] = useState("");

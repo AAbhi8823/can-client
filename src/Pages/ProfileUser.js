@@ -19,12 +19,13 @@ import Saved from "../Components/Saved";
 import { MdOutlineEdit } from "react-icons/md";
 import HealthProfile from "../Components/HealthProfile";
 import axios from "axios";
-import { baseurl, base_token } from "../Api/baseUrl";
+import { baseurl } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
 import "./ContactUs.css";
 import EditProfile from "../Components/EditProfile";
 
 const ProfileUser = () => {
+  const base_token=Cookies.get("token");
   const [userData, setUserData] = useState("");
   const [value, setValue] = React.useState(0);
   const [vertical, setVertical] = useState("Upcoming");

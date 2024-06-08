@@ -1,9 +1,6 @@
 import Cookies from "js-cookie";
 // export const baseurl = "https://t7hdgfzje2.ap-south-1.awsapprunner.com/api/v1";
 export const baseurl='http://35.154.186.54/api/v1'
-export const base_token=Cookies.get("token");
-
-console.log("ankurfjkwrbfjrgyfergyfreuy",base_token);
 const apis = {
 
     // users

@@ -15,9 +15,9 @@ import Avatar from "@mui/material/Avatar";
 import logo2 from "../Photos/logo2.png";
 import Craousel from "../Components/Craousel";
 import lock from "../Photos/lock.png";
-import { base_token } from "../Api/baseUrl";
-
 const ShowProfile = () => {
+  const base_token=Cookies.get("token");
+
   const navigate = useNavigate();
   const [singleuserData, setsingleuserData] = useState([]);
   const [personId, setPersonId] = useState();

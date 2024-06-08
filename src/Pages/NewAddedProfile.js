@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { baseurl, base_token } from "../Api/baseUrl";
+import { baseurl } from "../Api/baseUrl";
 import Cookies from "js-cookie";
 import { useLocation, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
@@ -12,6 +12,7 @@ import leavesPic from "../Photos/leaves.png";
 import leaveSecPic from "../Photos/cornerLeaf.png";
 import logo from "../Photos/LogoCAn.png";
 function ProfileSuccessAdd(props) {
+  const base_token=Cookies.get("token");
   const [userData, setUserData] = useState({});
   const [data, setData] = useState(null);
   const navigate = useNavigate();

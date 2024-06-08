@@ -22,9 +22,9 @@ import vector from "../Photos/Vector.svg";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import FeedTable from "../Components/FeedTable";
-import { base_token } from "../Api/baseUrl";
 
 const HomeNav = (props) => {
+  const base_token=Cookies.get("token");
   const dispatch = useDispatch();
   const [friend, setFriend] = useState(false);
   const [notification, setNotification] = useState(false);
