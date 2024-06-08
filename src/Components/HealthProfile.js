@@ -8,11 +8,13 @@ import { BsDownload } from "react-icons/bs";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import Cookie from "js-cookie";
 import axios from "axios";
-import { baseurl,base_token } from "../Api/baseUrl";
+import { baseurl } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
 import { NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function HealthProfile({ value }) {
+  const base_token=Cookies.get("token");
   const [helthdata, setHelthdata] = useState(null);
   const [userData, setUserData] = useState("");
   const gethelthCard = async () => {

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import account from '../Photos/account.jpg';
-import { baseurl, base_token } from '../Api/baseUrl';
+import { baseurl } from '../Api/baseUrl';
 import axios from 'axios';
-
+import Cookies from "js-cookie";
 const BlockedAccounts = () => {
+  const base_token=Cookies.get("token");
+
   const [blockUserData, setBlockuserdata] = useState([]);
 
   useEffect(() => {

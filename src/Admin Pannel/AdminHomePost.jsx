@@ -30,11 +30,12 @@ import Cookie from "js-cookie";
 import Tooltip from "@mui/material/Tooltip";
 import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
-import { base_token } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import "./AdminHostPost.css";
 export const AdminHomePost = () => {
+  const base_token=Cookies.get("token");
+
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
   const [createPost, setCreatePost] = useState(false);

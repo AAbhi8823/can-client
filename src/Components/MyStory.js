@@ -17,7 +17,6 @@ import { CiFaceSmile } from "react-icons/ci";
 import blockuser from "../Photos/blockuser.png";
 import {toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { base_token } from "../Api/baseUrl";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import Cookie from "js-cookie";
@@ -25,6 +24,7 @@ import Cookies from "js-cookie";
 import apis from "../Api/baseUrl";
 
 function MyStory({ value }) {
+  const base_token=Cookies.get("token");
   const [showFullContent, setShowFullContent] = useState(false);
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
@@ -41,6 +41,7 @@ function MyStory({ value }) {
   const [likedPosts, setLikedPosts] = useState({});
   const [commentModel, setcommentModel] = useState([]);
   const threeDotsOutClick = useRef(null);
+  const postToken = Cookie.get("token");
 
   useEffect(() => {
     HomePost();
@@ -132,67 +133,6 @@ function MyStory({ value }) {
     }
   };
 
-  const checkList = [
-    {
-      id: 1,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 2,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 3,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 4,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 5,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 6,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-    {
-      id: 7,
-      name: "Sierra Ferguson",
-      image: "account2.jpg",
-      description: "Works at National Museum",
-    },
-  ];
-
-  const handleCheck = (event, item) => {
-    if (event.target.checked) {
-      setChecked([...checked, item]);
-    } else {
-      setChecked(checked.filter((checkedItem) => checkedItem.id !== item.id));
-    }
-  };
-
-  const handleRemoveItem = (item) => {
-    setChecked(checked.filter((checkedItem) => checkedItem.id !== item.id));
-  };
-
-  const isChecked = (item) => {
-    return checked.some((checkedItem) => checkedItem.id === item.id);
-  };
-
   const toggleShareButton = () => {
     setShareButton(!shareButton);
   };
@@ -242,6 +182,7 @@ function MyStory({ value }) {
   }
 
   const HomePost = async () => {
+      const postToken = Cookie.get("token");
     const config = {
       headers: {
         Authorization: `Bearer ${base_token}`,

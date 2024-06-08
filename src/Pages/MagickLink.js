@@ -7,9 +7,10 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import loadingImg from "../Photos/GIF/loader.gif";
-import base_token from "../Api/baseUrl";
+
 const MagickLink = () => {
 
+  
   const [resetId, setResetId] = useState('');
   useEffect(() => {
     const storedId = localStorage.getItem('resetId');

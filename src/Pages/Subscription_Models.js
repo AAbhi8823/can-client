@@ -72,7 +72,9 @@ const SubscriptionModels = () => {
             >
               <h2 className="font-bold text-[18px] px-7">{subscription.duration}</h2>
             </div>
-            <div className=" text-[20px] font-bold py-3">{subscription.price}</div>
+            <div className=" text-[15px] font-bold py-2"><del>{subscription?.price}</del></div>
+            <div className=" text-[20px] font-bold py-3">{subscription?.offer_price}</div>
+
             <ul className="list-none w-full px-[35px]">
                 {console.log("subscription::>>>>",subscription)}
               {subscription.plan_features.map((feature, idx) => (
