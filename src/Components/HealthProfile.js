@@ -10,6 +10,7 @@ import Cookie from "js-cookie";
 import axios from "axios";
 import { baseurl,base_token } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
+import { NavLink } from "react-router-dom";
 
 function HealthProfile({ value }) {
   const [helthdata, setHelthdata] = useState(null);
@@ -81,9 +82,9 @@ function HealthProfile({ value }) {
               <div className="bg-[#c31a7f38] text-[#C31A7F] px-3 py-2 rounded-[12px] cursor-pointer flex justify-center shadow-md w-9 items-center">
                 <BsDownload className="flex flex-grow" />
               </div>
-              <div className="bg-[#c31a7f38] text-[#C31A7F] px-3 py-2 bold rounded-[12px] cursor-pointer flex justify-center shadow-md w-9 items-center">
+              <NavLink className="bg-[#c31a7f38] text-[#C31A7F] px-3 py-2 bold rounded-[12px] cursor-pointer flex justify-center shadow-md w-9 items-center" to='/HealthCard1'>
                 <MdOutlineModeEditOutline className="flex flex-grow" />
-              </div>
+              </NavLink>
             </div>
           </div>
 

@@ -9,7 +9,7 @@ import { baseurl } from "../Api/baseUrl";
 import Cookie from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import apis from "../Api/baseUrl";
 const CreatePost = ({ close_createPost }) => {
   const navigate = useNavigate();
   const hiddenChooseImage = useRef(null);
@@ -18,25 +18,29 @@ const CreatePost = ({ close_createPost }) => {
   const [input, setInput] = useState("");
   const [navUser, setNavuser] = useState(null);
   const [isPosting, setIsPosting] = useState(false);
-
+  const token = Cookie.get("token");
   useEffect(() => {
-    const activeUser = async () => {
-      const token = Cookie.get("token");
-      const homeUser = localStorage.getItem("active_user");
-      try {
-        const userData = await axios.post(
-          `${baseurl}/api/singleuser?token=${token}`,
-          {
-            id: `${homeUser}`,
-          }
-        );
-        setNavuser(userData.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    activeUser();
+    userProfile();
   }, []);
+  const userProfile = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios(`${apis.GET_SINGLE_USER}`, config);
+      console.log(
+        "response:response " + JSON.stringify(response?.data?.resData?.data)
+      );
+      setNavuser(response?.data?.resData?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log("done:::>>>",navUser)
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -93,45 +97,6 @@ const CreatePost = ({ close_createPost }) => {
     }
   };
 
-  // const handlePost = async () => {
-  //   setIsPosting(true);
-  //   const token = Cookie.get("token");
-  //   const activeUser = localStorage.getItem("active_user");
-  //   const formInfo = new FormData();
-  //   formInfo.set("content", input);
-  //   formInfo.set("post_image", mainImg);
-  //   formInfo.set("userId", activeUser);
-  //   try {
-  //     const createPost = await axios.post(
-  //       `${baseurl}/mystory/add-story`,
-  //       formInfo,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/formData",
-  //         },
-  //       }
-  //     );
-
-  //     if (createPost) {
-  //       toast.success("Posted Successfully!", {
-  //         position: "top-center",
-  //         autoClose: 2000,
-  //         hideProgressBar: true,
-  //         closeOnClick: true,
-  //         pauseOnHover: false,
-  //         draggable: false,
-  //         progress: undefined,
-  //         theme: "colored",
-  //       });
-  //       window.location.reload();
-  //     }
-
-  //     setIsPosting(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 bg-[#989898] bg-opacity-[0.5]">
@@ -146,14 +111,14 @@ const CreatePost = ({ close_createPost }) => {
 
           <div className="w-full pt-1 px-5  rounded-full overflow-hidden flex gap-2 ">
             <Avatar
-              alt={navUser?.username}
+              alt={navUser?.CANID}
               sx={{ width: 46, height: 46 }}
-              src={navUser?.profile_photo}
+              src={navUser?.profile_image}
             />
             <div className="flex justify-center flex-col">
-              <p className="text-[18px] font-[500]">{navUser?.username}</p>
+              <p className="text-[18px] font-[500]">{navUser?.full_name}</p>
               <p className="text-[12px] font-semibold text-[#C31A7F]">
-                {navUser?.profile_category.category_Name}
+                {navUser?.profile_category}
               </p>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { CgAdd } from "react-icons/cg";
 import { MdOutlineCloudUpload, MdOutlineModeEditOutline } from "react-icons/md";
 import { BsFileEarmarkPdf } from "react-icons/bs";
@@ -8,25 +8,27 @@ import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import Page from "../Layouts/Pages";
 import "./choosetitle.css";
-
+import Cookie from "js-cookie";
 const HealthCard1 = () => {
   const hiddenChoosePDF = useRef();
   const hiddenChoosePDF1 = useRef();
   const hiddenChoosePDF2 = useRef();
+  const [helthdata, setHelthdata] = useState(null);
   const [healthCardData, setHealthCardData] = useState({
-    name: "",
-    gender: "",
-    date_of_birth: "",
-    blood_group: "",
-    height: "",
-    weight: "",
-    cancer_type: "",
-    cancer_stage: "",
-    current_treatment: "",
-    presiding_doctor: "",
+    name: helthdata?.name,
+    gender: helthdata?.gender,
+    date_of_birth: helthdata?.date_of_birth,
+    blood_group:helthdata?.blood_group,
+    height: helthdata?.height,
+    weight: helthdata?.weight,
+    cancer_type: helthdata?.cancer_type,
+    cancer_stage: helthdata?.cancer_stage,
+    current_treatment:helthdata?.current_treatment,
+    presiding_doctor: helthdata?.presiding_doctor,
     hospital_detail:"",
-    hospital_details_primary: "",
+    hospital_details_primary: helthdata?.hospital_details_primary,
   });
+  console.log("ankursingh::>>>",helthdata)
   const [emergencyContacts, setEmergencyContacts] = useState([]);
   const [showEmergencyContacts, setShowEmergencyContacts] = useState(false);
   const [PDF, setPDF] = useState(null);
@@ -34,7 +36,32 @@ const HealthCard1 = () => {
   const [PDF3, setPDF3] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [healthCardId, setHealthCardId] = useState(null);
+  
+  useEffect(() => {
+    gethelthCard();
+    fetchData();
+  }, []);
 
+  const fetchData = async () => {
+    const token = Cookies.get("token");
+    try {
+      const response = await axios.get(`${baseurl}/healthcard/get-health-card`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.data.success && response.data.data) {
+        setHealthCardData(response.data.data);
+        setEmergencyContacts(response.data.data.emergency_contact || []);
+        setHealthCardId(response.data.data._id);
+        setIsUpdate(true);
+      }
+    } catch (error) {
+      console.error("Failed to fetch data", error);
+    }
+  };
   const handleInputChange = (event) => {
     const { id, value } = event.target;
     if (id.startsWith("emergency_")) {
@@ -107,43 +134,52 @@ const HealthCard1 = () => {
     if (PDF3) formData.append("biopsy_certificate", PDF3);
 
     try {
-      const response = await axios.post(
-        `${baseurl}/healthcard/add-health-card`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const url = isUpdate ? `${baseurl}/healthcard/update-health-card/${healthCardId}` : `${baseurl}/healthcard/add-health-card`;
+      const method = isUpdate ? 'put' : 'post';
+      
+      const response = await axios({
+        method,
+        url,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.data.success) {
-        toast.success("Health Card Created Successfully!");
-        const formData2 = new FormData();
-        formData2.append("health_card_id", response.data.data._id);
-        formData2.append(
-          "emergencyContacts",
-          JSON.stringify(emergencyContacts)
-        );
-
-        await axios.post(`${baseurl}/api/add_emergencyContacts`, formData2, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        toast.success(`Health Card ${isUpdate ? 'Updated' : 'Created'} Successfully!`);
         window.location.reload();
       } else {
-        toast.error("Failed to create health card!");
+        toast.error(`Failed to ${isUpdate ? 'update' : 'create'} health card!`);
       }
     } catch (error) {
-      toast.error("Failed to create health card!");
+      toast.error(`Failed to ${isUpdate ? 'update' : 'create'} health card!`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const uploadPDF = (ref) => ref.current.click();
+
+  const gethelthCard = async () => {
+    const postToken = Cookie.get("token");
+    try {
+      const response = await axios.get(`${baseurl}/healthcard/get-health-card`, {
+        headers: {
+          Authorization: `Bearer ${postToken}`,
+        },
+      });
+      if (response.data?.resData?.status === true) {
+        setHelthdata(response.data.resData.data[0]);
+        console.log("response::>>",response)
+      } else {
+        console.log("API error");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Page
@@ -166,6 +202,7 @@ const HealthCard1 = () => {
                         required
                         className="w-full h-12 px-4 text-sm peer outline-none border rounded-lg"
                         onChange={handleInputChange}
+                        value={healthCardData[key]}
                       />
                       <label
                         htmlFor={key}
@@ -194,8 +231,9 @@ const HealthCard1 = () => {
                     required
                     className="w-full h-12 px-4 text-sm peer outline-none border rounded-lg"
                     onChange={handleInputChange}
+                    value={healthCardData[key]}
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select {key.replace(/_/g, " ")}
                     </option>
                     {key === "gender" &&
@@ -278,6 +316,7 @@ const HealthCard1 = () => {
                         required
                         className="w-full h-12 px-4 text-sm peer outline-none border rounded-lg"
                         onChange={handleInputChange}
+                        value={contact[field]}
                       />
                       <label
                         htmlFor={`emergency_${field}_${index}`}
