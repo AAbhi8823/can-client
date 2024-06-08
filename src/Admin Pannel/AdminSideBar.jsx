@@ -4,7 +4,6 @@ import AdminDashboard from "../Photos/AdminIcons/AdminDashboard.png";
 import AdminUser from "../Photos/AdminIcons/AdminUsers.png";
 import AdminMeeting from "../Photos/AdminIcons/AdminMeeting.png";
 import AdminPost from "../Photos/AdminIcons/AdminPost.png";
-import AdminChat from "../Photos/AdminIcons/AdminChat.png";
 import AdminTransaction from "../Photos/AdminIcons/AdminTransaction.png";
 import AdminReport from "../Photos/AdminIcons/AdminReport.png";
 import AdminSetting from "../Photos/AdminIcons/AdminSetting.png";
@@ -54,8 +53,7 @@ const SideMenu = () => {
     { to: "/AdminContent", icon: AdminDashboard, label: "Dashboard" },
     { to: "/AdminUserManagement", icon: AdminUser, label: "Users" },
     { to: "/AdminMeetingSchedule", icon: AdminMeeting, label: "Meeting" },
-    { to: "/CreatePost", icon: AdminPost, label: "Post" },
-    { to: "/AdminChat", icon: AdminChat, label: "Chats" },
+    { to: "/AllFeeds", icon: AdminPost, label: "AllFeeds" },
     { to: "/HealthRecord", icon: AdminTransaction, label: "Transaction" },
     { to: "/HealthCard", icon: AdminReport, label: "Reports" },
     { to: "/Appointment", icon: AdminSetting, label: "Setting" },

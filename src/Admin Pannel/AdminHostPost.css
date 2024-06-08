@@ -1,0 +1,65 @@
+.adminhost .css-1x39mar-MuiButtonBase-root-MuiButton-root{
+    border: 2px solid #408e8e;
+    background-color: transparent;
+}
+
+.adminhost .css-1x39mar-MuiButtonBase-root-MuiButton-root:hover{
+    background-color: #fff;
+}
+.adminhost .css-1x39mar-MuiButtonBase-root-MuiButton-root p{
+    color:#408e8e;
+}
+.adminhost .css-av6jw0-MuiButtonBase-root-MuiButton-root{
+    border: 2px solid #408e8e;
+    background-color: transparent;
+}
+.adminhost .css-av6jw0-MuiButtonBase-root-MuiButton-root p{
+    color:#408e8e;
+}
+.adminhost .css-av6jw0-MuiButtonBase-root-MuiButton-root:hover{
+    background-color: #fff;
+}
+.adminhost .css-1ywzljh-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+    border: 2px solid #408e8e;
+    background-color: transparent;
+    color:#408e8e;
+}
+
+.adminhost .css-1ywzljh-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root:hover{
+    background-color: #fff;
+    color: #408e8e;
+}
+
+.user-lists{
+    padding-left: 25px;
+}
+.user-lists li{
+    margin-bottom: 15px;
+    color: gray;
+    font-weight: 500;
+    font-size: 15px;
+    position: relative;
+}
+.user-lists li:last-child{
+    margin-bottom: 0px;
+}
+.user-lists li a{
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+    transition: .3s;
+    text-decoration: underline;
+}
+.user-lists li a:hover{
+    color: #f16e8b;
+}
+.user-lists li:before {
+    content:"·";
+    font-size:120px;
+    vertical-align:middle;
+    line-height:20px;
+    color:  #f16e8b;
+    position: absolute;
+    left: -35px;
+}
+
