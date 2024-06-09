@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
-import { RxCross2 } from 'react-icons/rx';
-import { NavLink } from 'react-router-dom';
-import Select from 'react-select';
-import axios from 'axios';
-import apis from '../Api/baseUrl';
-import Cookies from 'js-cookie';
+import React, { useState } from "react";
+import { RxCross2 } from "react-icons/rx";
+import { NavLink } from "react-router-dom";
+import Select from "react-select";
+import axios from "axios";
+import apis from "../Api/baseUrl";
+import Cookies from "js-cookie";
 
 const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   const [validationError, setValidationError] = useState(false);
   const [medicineData, setMedicineData] = useState({});
-  const [error, setError] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [medicineCount, setMedicineCount] = useState(1);
   const [deleteMedicine, setDeleteMedicine] = useState(false);
   const [reminderTime, setReminderTime] = useState(false);
-  const [reminderTimeValue, setReminderTimeValue] = useState(''); // State for reminder time
+  const [reminderTimeValue, setReminderTimeValue] = useState(""); // State for reminder time
 
   const [medicDate, setMedicDate] = useState({
-    startFrom: '',
-    stopOn: ''
+    startFrom: "",
+    stopOn: "",
   });
 
   const validateForm = () => {
@@ -32,7 +30,14 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
       const meal = medicineData[`meal${i}`];
       const medicineTime = medicineData[`medicineTime${i}`];
 
-      if (!medicineName || !medicineType || !dose || !unit || !meal || !medicineTime) {
+      if (
+        !medicineName ||
+        !medicineType ||
+        !dose ||
+        !unit ||
+        !meal ||
+        !medicineTime
+      ) {
         isValid = false;
         break;
       }
@@ -47,17 +52,14 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
     return isValid;
   };
 
-  const handleTimeChange = (value) => {
-    setReminderTimeValue(value && value.format('hh:mm A'));
-  };
 
   const mealOptions = [
-    { value: 'Before Breakfast', label: 'Before Breakfast' },
-    { value: 'After Breakfast', label: 'After Breakfast' },
-    { value: 'Before Lunch', label: 'Before Lunch' },
-    { value: 'After Lunch', label: 'After Lunch' },
-    { value: 'Before Meal', label: 'Before Meal' },
-    { value: 'After Meal', label: 'After Meal' }
+    { value: "Before Breakfast", label: "Before Breakfast" },
+    { value: "After Breakfast", label: "After Breakfast" },
+    { value: "Before Lunch", label: "Before Lunch" },
+    { value: "After Lunch", label: "After Lunch" },
+    { value: "Before Meal", label: "Before Meal" },
+    { value: "After Meal", label: "After Meal" },
   ];
 
   const handleAddMedicine = () => {
@@ -67,45 +69,45 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: 'white',
-      color: 'black',
-      '&:hover': {
-        backgroundColor: '#EFC31968',
-        color: 'white'
-      }
+      backgroundColor: "white",
+      color: "black",
+      "&:hover": {
+        backgroundColor: "#EFC31968",
+        color: "white",
+      },
     }),
     menu: (provided) => ({
       ...provided,
-      width: '70%',
-      zIndex: '20'
+      width: "70%",
+      zIndex: "99999999",
     }),
     control: (provided, state) => ({
       ...provided,
-      width: '100%',
-      padding: '4px',
-      border: '2px solid #D1D5DB',
-      borderRadius: '20px',
-      backgroundColor: 'transparent',
-      boxShadow: 'none',
-      position: 'relative'
+      width: "100%",
+      padding: "4px",
+      border: "2px solid #D1D5DB",
+      borderRadius: "20px",
+      backgroundColor: "transparent",
+      boxShadow: "none",
+      position: "relative",
     }),
     placeholder: (provided, state) => ({
-      position: 'absolute',
-      left: '3px',
-      fontSize: '14px',
-      color: '#7C7C7C',
+      position: "absolute",
+      left: "3px",
+      fontSize: "14px",
+      color: "#7C7C7C",
       transform: state.isFocused
-        ? 'translateY(-20px) scale(0)'
-        : 'translateY(0) scale(1)',
-      transition: 'transform 0.2s',
-      padding: '4px 4px'
-    })
+        ? "translateY(-20px) scale(0)"
+        : "translateY(0) scale(1)",
+      transition: "transform 0.2s",
+      padding: "4px 4px",
+    }),
   };
 
   const convertTo12HourTime = (time24) => {
-    const [hours, minutes] = time24.split(':');
+    const [hours, minutes] = time24.split(":");
     const hoursNumber = parseInt(hours);
-    const period = hoursNumber >= 12 ? 'PM' : 'AM';
+    const period = hoursNumber >= 12 ? "PM" : "AM";
     const hours12 = hoursNumber % 12 || 12;
     const time12 = `${hours12}:${minutes} ${period}`;
     return time12;
@@ -127,39 +129,38 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
     }
 
     try {
-      const creator = localStorage.getItem('active_user');
+      const creator = localStorage.getItem("active_user");
       const allMedicines = [];
       for (let i = 0; i < medicineCount; i++) {
         const medicine = {
-          medicine_name: medicineData[`medicineName${i}`] || '',
-          medicine_type: medicineData[`medicine_type${i}`] || '',
-          medicine_dosage: medicineData[`dose${i}`] || '',
-          unit: medicineData[`unit${i}`] || '',
-          meal: medicineData[`meal${i}`] || '',
+          medicine_name: medicineData[`medicineName${i}`] || "",
+          medicine_type: medicineData[`medicine_type${i}`] || "",
+          medicine_dosage: medicineData[`dose${i}`] || "",
+          unit: medicineData[`unit${i}`] || "",
+          meal: medicineData[`meal${i}`] || "",
           isReminderSet: reminderTime,
-          time_for_reminder: convertTo12HourTime(medicineData[`medicineTime${i}`]) || '',
+          time_for_reminder:
+            convertTo12HourTime(medicineData[`medicineTime${i}`]) || "",
           medicine_start_date: medicDate.startFrom,
-          medicine_stop_date: medicDate.stopOn
+          medicine_stop_date: medicDate.stopOn,
         };
         allMedicines.push(medicine);
       }
-      const token = Cookies.get('token');
+      const token = Cookies.get("token");
       const response = await axios.post(
         `${apis.CREATE_MEDICINE}`,
         {
           creater_Id: creator,
-          medicines: allMedicines
+          medicines: allMedicines,
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
       if (response?.data?.resData?.status === true) {
-        // getMedicines();
-        // toggleMedicine();
         window.location.reload();
       }
     } catch (err) {
@@ -169,37 +170,40 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
     }
   };
 
-  const handleDeleteMedicine = () => {
-    setDeleteMedicine(true);
-  };
-
-  const [isSelectClicked, setIsSelectClicked] = useState(false);
-
-  const handleSelectClick = () => {
-    setIsSelectClicked(true);
-  };
 
   const handleChange = (e, index, select) => {
     if (select) {
-      setMedicineData({ ...medicineData, ['meal' + index]: e.value });
+      setMedicineData({ ...medicineData, ["meal" + index]: e.value });
     } else {
-      setMedicineData({ ...medicineData, [e.target.name + index]: e.target.value });
+      setMedicineData({
+        ...medicineData,
+        [e.target.name + index]: e.target.value,
+      });
     }
   };
 
   return (
     <>
       <div className="fixed inset-0 flex md:items-center items-start justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll px-5 py-[90px]">
-        <div className="flex flex-col bg-white rounded-[40px] lg:md:w-auto w-full max-h-fit px-10 py-5" style={{position:'absolute', top:'120px'}}>
+        <div
+          className="flex flex-col bg-white rounded-[40px] lg:md:w-auto w-full max-h-fit px-10 py-5"
+          style={{ position: "absolute", top: "120px" }}
+        >
           <div className="flex flex-row pb-4 justify-between items-center w-full">
             <h1 className="text-[22px] font-[500]">Add Medicines</h1>
-            <RxCross2 className="lg:md:ml-80 cursor-pointer" onClick={toggleMedicine} />
+            <RxCross2
+              className="lg:md:ml-80 cursor-pointer"
+              onClick={toggleMedicine}
+            />
           </div>
           <div className="flex flex-col">
             <form>
               {[...Array(medicineCount)].map((_, index) => (
-                <div className='mb-3' key={index}>
-                  <label className="text-[16px] font-[500]"> Medicine {index + 1} </label>
+                <div className="mb-3" key={index}>
+                  <label className="text-[16px] font-[500]">
+                    {" "}
+                    Medicine {index + 1}{" "}
+                  </label>
                   <div className="flex sm:flex-row lg:flex-row md:flex-row flex-col py-2 pb-0  gap-6">
                     <div className="relative z-0 lg:w-1/2 w-full group">
                       <input
@@ -291,11 +295,13 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                       <Select
                         options={mealOptions}
                         onChange={(e) => {
-                          handleChange(e, index, 'meal');
+                          handleChange(e, index, "meal");
                         }}
                         styles={customStyles}
                         placeholder={
-                          <p className="text-[12px] text-[#4B5563] font-[400]">Select meal</p>
+                          <p className="text-[12px] text-[#4B5563] font-[400]">
+                            Select meal
+                          </p>
                         }
                       />
                     </div>
@@ -433,14 +439,15 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
                 )}
               </div>
               <div className="flex justify-center">
-                <button style={{color:'#fff'}}
+                <button
+                  style={{ color: "#fff" }}
                   className={`w-1/2 text-[16px] rounded-[20px] py-3 px-7 bg-[#c31a7f] text-[#304747] font-[500] ${
-                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                    isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                   onClick={createMedicine}
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Submitting...' : 'Add'}
+                  {isSubmitting ? "Submitting..." : "Add"}
                 </button>
               </div>
             </form>

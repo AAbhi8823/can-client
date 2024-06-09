@@ -41,8 +41,8 @@ const LoginForm = () => {
         setBorder('2px solid red');
       }
     } catch (error) {
-      console.error('An error occurred:', error);
-      setError('An error occurred. Please try again.');
+      console.error('An error occurred:', );
+      setError(error.response.data.message);
       setLoading(false);
     }
   };

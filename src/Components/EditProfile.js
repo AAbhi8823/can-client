@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import axios from "axios";
-import apis, {  baseurl } from "../Api/baseUrl";
+import apis, { baseurl } from "../Api/baseUrl";
 import Cookies from "js-cookie";
 import Cookie from "js-cookie";
-const EditProfile = ({ id,onClose }) => {
-  const base_token=Cookies.get("token");
+
+const EditProfile = ({ id, onClose }) => {
+  const base_token = Cookies.get("token");
   const [userData, setUserData] = useState({});
   const [validationError, setValidationError] = useState(false);
+  const [imageError, setImageError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [profileData, setProfileData] = useState({
     name: "",
@@ -39,10 +41,16 @@ const EditProfile = ({ id,onClose }) => {
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "profileImage") {
-      setProfileData((prevState) => ({
-        ...prevState,
-        [name]: files[0],
-      }));
+      const file = files[0];
+      if (file && file.size > 1048576) {
+        setImageError("Image size should not exceed 1MB.");
+      } else {
+        setImageError("");
+        setProfileData((prevState) => ({
+          ...prevState,
+          [name]: file,
+        }));
+      }
     } else {
       setProfileData((prevState) => ({
         ...prevState,
@@ -68,13 +76,17 @@ const EditProfile = ({ id,onClose }) => {
     try {
       const token = Cookies.get("token");
 
-      const response = await axios.put(`${baseurl}/user/update-user-profile`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log("response::>>>>>>>", response)
+      const response = await axios.put(
+        `${baseurl}/user/update-user-profile`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("response::>>>>>>>", response);
 
       if (response?.status === 200) {
         window.location.reload();
@@ -85,6 +97,7 @@ const EditProfile = ({ id,onClose }) => {
       setIsSubmitting(false);
     }
   };
+
   const token = Cookie.get("token");
 
   const getProfile = async (id) => {
@@ -96,7 +109,7 @@ const EditProfile = ({ id,onClose }) => {
     };
     try {
       const response = await axios.get(`${apis.GET_SINGLE_USER}`, config);
-      console.log("Response::>>>>>>",response)
+      console.log("Response::>>>>>>", response);
       setUserData(response?.data?.resData?.data);
     } catch (error) {
       console.error(error);
@@ -111,7 +124,10 @@ const EditProfile = ({ id,onClose }) => {
       >
         <div className="flex flex-row pb-4 justify-between items-center w-full">
           <h1 className="text-[22px] font-[500]">Edit Profile</h1>
-          <RxCross2 className="cursor-pointer" onClick={()=>{console.log("Ankur Singh")}} />
+          <RxCross2
+            className="cursor-pointer"
+            onClick={onClose}
+          />
         </div>
         <div className="flex flex-col">
           <form onSubmit={handleSubmit}>
@@ -151,6 +167,7 @@ const EditProfile = ({ id,onClose }) => {
                   value={profileData.phone}
                   onChange={handleChange}
                   placeholder=" "
+                  pattern="[0-9]*"
                 />
               </div>
             </div>
@@ -178,6 +195,9 @@ const EditProfile = ({ id,onClose }) => {
                   accept="image/*"
                 />
               </div>
+              {imageError && (
+                <div className="text-red-500 text-sm mt-1">{imageError}</div>
+              )}
             </div>
             {validationError && (
               <div className="flex justify-center mb-10">

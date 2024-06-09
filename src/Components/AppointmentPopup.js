@@ -18,15 +18,30 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
   });
   const [isSaving, setIsSaving] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [timeError, setTimeError] = useState("");
   const navigate = useNavigate();
   const token = Cookies.get("token");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
+    if (name === "appointment_time") {
+      const selectedTime = new Date(`${formValues.appointment_date}T${value}`);
+      const currentTime = new Date();
+      if (selectedTime < currentTime) {
+        setTimeError("Time cannot be less than the current time.");
+      } else {
+        setTimeError("");
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          [name]: value,
+        }));
+      }
+    } else {
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+      }));
+    }
   };
 
   const getsingle_appointment = async (id) => {
@@ -56,7 +71,6 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
       getsingle_appointment(edit_id);
     }
   }, [edit, edit_id]);
-  
 
   const editappointment = async () => {
     setIsEditing(true);
@@ -65,10 +79,7 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
         appointment_Id: edit_id,
         ...formValues,
       };
-      const { data } = await axios.put(
-        `${apis.UPDATE_APPOINTMENT}}`,
-        datas
-      );
+      const { data } = await axios.put(`${apis.UPDATE_APPOINTMENT}`, datas);
       if (data.status) {
         setPop(false);
         setIsEditing(false);
@@ -90,17 +101,15 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
 
       const { data } = await axios.post(`${apis.CREATE_APPOINTMENT}`, datas, config);
-      console.log("data.status:::>>>1",data);
       if (data?.resData?.status) {
-        setPop(!pop)
+        setPop(!pop);
         setIsSaving(false);
         navigate("/appointment1");
-        console.log("data.status:::>>>",data.status);
       }
     } catch (error) {
       console.log(error);
@@ -236,9 +245,6 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
               <div className="relative z-0 w-1/2 mb-4 group">
                 <input
                   type="time"
-                  onFocus={(e) => {
-                    e.target.type = "time";
-                  }}
                   id="appointment_time"
                   name="appointment_time"
                   value={formValues.appointment_time}
@@ -255,6 +261,9 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
                     Time
                   </p>
                 </label>
+                {timeError && (
+                  <p className="text-red-500 text-xs mt-1">{timeError}</p>
+                )}
               </div>
             </div>
             <div className="relative z-0 w-full mb-4 group">
