@@ -5,6 +5,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import apis from '../Api/baseUrl';
 import Cookies from 'js-cookie';
+import './../Components/MedicinePopup.css';
 
 const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   const [validationError, setValidationError] = useState(false);

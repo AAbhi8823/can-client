@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import axios from "axios";
-import apis, { base_token, baseurl } from "../Api/baseUrl";
+import apis, {  baseurl } from "../Api/baseUrl";
 import Cookies from "js-cookie";
-
+import Cookie from "js-cookie";
 const EditProfile = ({ id,onClose }) => {
+  const base_token=Cookies.get("token");
   const [userData, setUserData] = useState({});
   const [validationError, setValidationError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -66,15 +67,16 @@ const EditProfile = ({ id,onClose }) => {
     formData.append("profile_image", profileData.profileImage);
     try {
       const token = Cookies.get("token");
+
       const response = await axios.put(`${baseurl}/user/update-user-profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("response::>>>>>>>",response)
+      console.log("response::>>>>>>>", response)
 
-      if (response?.data?.status === true) {
+      if (response?.status === 200) {
         window.location.reload();
       }
     } catch (err) {
@@ -83,11 +85,12 @@ const EditProfile = ({ id,onClose }) => {
       setIsSubmitting(false);
     }
   };
+  const token = Cookie.get("token");
 
   const getProfile = async (id) => {
     const config = {
       headers: {
-        Authorization: `Bearer ${base_token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     };

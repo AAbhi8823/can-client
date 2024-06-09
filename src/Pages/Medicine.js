@@ -4,6 +4,7 @@ import Medicineimg from '../Photos/Medicineimg.png'
 import MedicinePopup from '../Components/MedicinePopup';
 import { NavLink } from 'react-router-dom';
 import Page from '../Layouts/Pages';
+import './../Components/MedicinePopup.css';
 
 
 const Medicine = () => {

@@ -12,10 +12,10 @@ import logo2 from "../Photos/logo2.png";
 import Craousel from "../Components/Craousel";
 import { Skeleton } from "@mui/material";
 import fighter11 from "../Photos/fighter11.png";
-import { base_token } from "../Api/baseUrl";
 import './choosetitle.css';
-
+import Cookies from "js-cookie";
 const ChooseTitle = () => {
+  const base_token=Cookies.get("token");
   const [viewCategory, setViewCategory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [select, setSelect] = useState(null);

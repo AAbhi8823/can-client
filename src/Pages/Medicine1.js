@@ -9,9 +9,11 @@ import apis from "../Api/baseUrl";
 import axios from "axios";
 import UpdatePopup from "../Components/UpdatePopup";
 import Cookies from "js-cookie";
-import { base_token, baseurl } from "../Api/baseUrl";
+import { baseurl } from "../Api/baseUrl";
 
 const MedicineReminder = () => {
+  const base_token=Cookies.get("token");
+
   const [medicines, setMedicines] = useState([]);
   const [isClickedMedicine, setIsClickedMedicine] = useState(true);
   const [medicinePopup, setMedicinePopup] = useState(false);

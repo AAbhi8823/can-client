@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import HomeNav from "../Components/HomeNav";
 import { baseurl } from "../Api/baseUrl";
 import axios from "axios";
+import "../Pages/Subscription_Models.css";
 
 const SubscriptionModels = () => {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -59,7 +60,7 @@ const SubscriptionModels = () => {
         {subscriptions.length >0 && subscriptions.map((subscription, index) => (
           <div
             key={index}
-            className="flex flex-col w-[350px] mt-2 h-full rounded-[30px] justify-center items-center py-[25px]"
+            className="mod-box flex flex-col w-[350px] mt-2 h-full rounded-[30px] justify-center items-center py-[25px]"
             style={{
               backgroundColor: subscription.bgColor,
               boxShadow: "0px 20px 60px 0px #0000001A"
@@ -71,7 +72,9 @@ const SubscriptionModels = () => {
             >
               <h2 className="font-bold text-[18px] px-7">{subscription.duration}</h2>
             </div>
-            <div className=" text-[20px] font-bold py-3">{subscription.price}</div>
+            <div className=" text-[15px] font-bold py-2"><del>{subscription?.price}</del></div>
+            <div className=" text-[20px] font-bold py-3">{subscription?.offer_price}</div>
+
             <ul className="list-none w-full px-[35px]">
                 {console.log("subscription::>>>>",subscription)}
               {subscription.plan_features.map((feature, idx) => (

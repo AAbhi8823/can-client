@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { IoKeyOutline } from "react-icons/io5";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import axios from "axios"; // Assuming axios is installed and imported
-import { baseurl,base_token} from "../Api/baseUrl";
+import { baseurl} from "../Api/baseUrl";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 const SetPassword = () => {
+  const base_token=Cookies.get("token");
+
   const [eye1, setEye1] = useState(false);
   const [eye2, setEye2] = useState(false);
   const [eye3, setEye3] = useState(false);
