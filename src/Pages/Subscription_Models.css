@@ -1,0 +1,18 @@
+.mod-box:first-child{
+    background-color: pink;
+}
+.mod-box:nth-child(2){
+    background-color: green;
+}
+.mod-box:nth-child(3){
+    background-color: orange;
+}
+.mod-box:nth-child(4){
+    background-color: yellowgreen;
+}
+.mod-box:nth-child(5){
+    background-color: lightblue;
+}
+.mod-box:nth-child(6){
+    background-color: lightsalmon;
+}

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { RxCross2 } from "react-icons/rx";
-import { NavLink } from "react-router-dom";
-import Select from "react-select";
-import axios from "axios";
-import apis from "../Api/baseUrl";
-import Cookies from "js-cookie";
+import React, { useState } from 'react';
+import { RxCross2 } from 'react-icons/rx';
+import { NavLink } from 'react-router-dom';
+import Select from 'react-select';
+import axios from 'axios';
+import apis from '../Api/baseUrl';
+import Cookies from 'js-cookie';
+import './../Components/MedicinePopup.css';
 
 const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   const [validationError, setValidationError] = useState(false);
