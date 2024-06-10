@@ -12,8 +12,7 @@ import Cookies from "js-cookie";
 import { baseurl } from "../Api/baseUrl";
 
 const MedicineReminder = () => {
-  const base_token=Cookies.get("token");
-
+  const base_token = Cookies.get("token");
   const [medicines, setMedicines] = useState([]);
   const [isClickedMedicine, setIsClickedMedicine] = useState(true);
   const [medicinePopup, setMedicinePopup] = useState(false);
@@ -22,8 +21,10 @@ const MedicineReminder = () => {
   const [isDeleting, setIsDeleting] = useState();
   const location = useLocation();
   const filterdate = location?.search?.split("=")[1];
-  
-  const getMedicines = async (date = new Date().toISOString().split('T')[0]) => {
+
+  const getMedicines = async (
+    date = new Date().toISOString().split("T")[0]
+  ) => {
     const config = {
       headers: {
         Authorization: `Bearer ${base_token}`,
@@ -31,6 +32,7 @@ const MedicineReminder = () => {
     };
     const apiUrl = `${apis.GET_MEDICINE}/${date}`;
     const { data } = await axios.get(apiUrl, config);
+    console.log("Med::>>",data)
     setMedicines(data?.resData?.data);
   };
 
@@ -63,7 +65,6 @@ const MedicineReminder = () => {
         }
       );
       if (resp?.data?.status === true) {
-        // Remove the deleted item from the medicines state immediately
         setMedicines((prevMedicines) =>
           prevMedicines.map((item) => ({
             ...item,
@@ -77,6 +78,7 @@ const MedicineReminder = () => {
       setIsDeleting(false);
     }
   };
+  console.log("Starting::>>", updatedata);
 
   return (
     <Page
@@ -86,11 +88,15 @@ const MedicineReminder = () => {
             <div className="bg-[#FEF8FD] w-full flex flex-row h-full">
               <div className="flex flex-col w-full mx-[5%]">
                 <div className="mt-6 flex justify-between m-4">
-                  <div className={`flex lg:md:gap-8 gap-3 lg:md:w-[50%] w-full`}>
+                  <div
+                    className={`flex lg:md:gap-8 gap-3 lg:md:w-[50%] w-full`}
+                  >
                     <NavLink to="/Medicine1">
                       <button
                         className={`lg:text-[1.20vw] flex lg:md:py-2 lg:md:px-10 p-2 shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)] rounded-[15px] w-fit h-fit text-center ${
-                          isClickedMedicine ? "bg-white shadow-lg" : "bg-[#ffffff7b]"
+                          isClickedMedicine
+                            ? "bg-white shadow-lg"
+                            : "bg-[#ffffff7b]"
                         }`}
                         onClick={() => {
                           handleIsClickedMedicine();
@@ -109,7 +115,10 @@ const MedicineReminder = () => {
                     </button>
                   </div>
                   {medicinePopup && (
-                    <MedicinePopup toggleMedicine={toggleMedicine} getMedicines={getMedicines} />
+                    <MedicinePopup
+                      toggleMedicine={toggleMedicine}
+                      getMedicines={getMedicines}
+                    />
                   )}
                 </div>
 
@@ -133,90 +142,97 @@ const MedicineReminder = () => {
 
                     <table
                       className="relative table"
-                      style={{ borderCollapse: "separate", borderSpacing: "0 8px" }}
+                      style={{
+                        borderCollapse: "separate",
+                        borderSpacing: "0 8px",
+                      }}
                     >
                       {medicines &&
                         medicines?.map((item, e) => {
                           if (item?.medicines)
-                            return item?.medicines?.map((it, index) => {
-                              return (
-                                <tr
-                                  className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly overflow-y-visible justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 mb-4"
-                                  key={it?._id}
-                                >
-                                  <div className="text-center justify-center flex">
-                                    <td className="w-[18vw] lg:text-center flex flex-col px-5 gap-4 py-3">
-                                      <div>
-                                        <h2 className="text-[18px] font-[500] text-center flex-nowrap">
-                                          {it?.meal}
-                                        </h2>
-                                        <h3 className="text-[#7E7E7E] text-[14px] font-[500] flex-nowrap">
-                                          {it?.time_for_reminder}
-                                        </h3>
-                                      </div>
-                                    </td>
-                                  </div>
+                            console.log("Med:>>>>>>", item?.medicines);
+                          return item?.medicines?.map((it, index) => {
+                            return (
+                              <tr
+                                className="flex flex-col lg:flex-row lg:items-center lg:justify-evenly overflow-y-visible justify-around bg-white border-gray-200 border rounded-[20px] text-left md:p-4 p-1 mb-4"
+                                key={it?._id}
+                              >
+                                <div className="text-center justify-center flex">
+                                  <td className="w-[18vw] lg:text-center flex flex-col px-5 gap-4 py-3">
+                                    <div>
+                                      <h2 className="text-[18px] font-[500] text-center flex-nowrap">
+                                        {it?.meal}
+                                      </h2>
+                                      <h3 className="text-[#7E7E7E] text-[14px] font-[500] flex-nowrap">
+                                        {it?.time_for_reminder}
+                                      </h3>
+                                    </div>
+                                  </td>
+                                </div>
 
-                                  <td>
-                                    <div className="lg:flex">
-                                      <div className="lg:border-l-2 overflow-auto text-[16px] font-[500] lg:text-center flex flex-col px-10 gap-4 py-3">
-                                        <p className="text-[#7E7E7E] text-[14px] font-[500]">Medicine1</p>
-                                        {it?.medicine_name}
-                                      </div>
-                                      <div className="lg:border-l-2 lg:border-r-2 overflow-auto lg:text-center lg:flex px-10 py-3 gap-4">
-                                        <div className="lg:pr-10">
-                                          <div className="flex-row gap-10 py-0 justify-center align-middle text-[16px] font-[500]">
-                                            <p className="text-[#7E7E7E] text-[14px] font-[500] mb-4">Type</p>
-                                            {it?.medicine_type}
-                                          </div>
+                                <td>
+                                  <div className="lg:flex">
+                                    <div className="lg:border-l-2 overflow-auto text-[16px] font-[500] lg:text-center flex flex-col px-10 gap-4 py-3">
+                                      <p className="text-[#7E7E7E] text-[14px] font-[500]">
+                                        Medicine1
+                                      </p>
+                                      {it?.medicine_name}
+                                    </div>
+                                    <div className="lg:border-l-2 lg:border-r-2 overflow-auto lg:text-center lg:flex px-10 py-3 gap-4">
+                                      <div className="lg:pr-10">
+                                        <div className="flex-row gap-10 py-0 justify-center align-middle text-[16px] font-[500]">
+                                          <p className="text-[#7E7E7E] text-[14px] font-[500] mb-4">
+                                            Type
+                                          </p>
+                                          {it?.medicine_type}
                                         </div>
-                                        <div>
-                                          <div className="flex-row gap-10 py-0 justify-center align-middle text-[16px] font-[500] lg:py-0 md:py-0 py-3">
-                                            <p className="text-[#7E7E7E] text-[14px] font-[500] mb-4">Dose</p>
-                                            {it?.medicine_dosage}
-                                          </div>
+                                      </div>
+                                      <div>
+                                        <div className="flex-row gap-10 py-0 justify-center align-middle text-[16px] font-[500] lg:py-0 md:py-0 py-3">
+                                          <p className="text-[#7E7E7E] text-[14px] font-[500] mb-4">
+                                            Dose
+                                          </p>
+                                          {it?.medicine_dosage}
                                         </div>
                                       </div>
                                     </div>
-                                  </td>
+                                  </div>
+                                </td>
 
-                                  <td colSpan={2} className="flex px-4 w-full">
-                                    <table className="flex w-full h-full lg:justify-end justify-center md:justify-center items-center">
-                                      <tr>
-                                        <td className="pr-2">
-                                          <div
-                                            className="flex bg-[#C31A7F33] rounded-[15px] px-2 py-2 items-center justify-center text-[16px]"
+                                <td colSpan={2} className="flex px-4 w-full">
+                                  <table className="flex w-full h-full lg:justify-end justify-center md:justify-center items-center">
+                                    <tr>
+                                      <td className="pr-2">
+                                        <div
+                                          className="flex bg-[#C31A7F33] rounded-[15px] px-2 py-2 items-center justify-center text-[16px]"
+                                          onClick={() => {
+                                            handleDeleteMedicine(it?._id);
+                                          }}
+                                        >
+                                          {isDeleting ? (
+                                            <MdOutlineAutoDelete />
+                                          ) : (
+                                            <RiDeleteBinLine />
+                                          )}
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <div className="flex bg-[#C31A7F33] rounded-[15px] px-2 py-2 items-center justify-center text-[16px]">
+                                          <MdOutlineEdit
                                             onClick={() => {
-                                              handleDeleteMedicine(it?._id);
+                                              toggleMedicineUpdate(it);
+                                              setupdateData(it);
                                             }}
-                                          >
-                                            {isDeleting ? (
-                                              <MdOutlineAutoDelete />
-                                            ) : (
-                                              <RiDeleteBinLine />
-                                            )}
-                                          </div>
-                                        </td>
-                                        <td>
-                                          <div className="flex bg-[#C31A7F33] rounded-[15px] px-2 py-2 items-center justify-center text-[16px]">
-                                            <MdOutlineEdit
-                                              onClick={() => {
-                                                toggleMedicineUpdate(it);
-                                                setupdateData({
-                                                  it: it,
-                                                  index: index,
-                                                  id: item?._id,
-                                                });
-                                              }}
-                                            />
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                              );
-                            });
+                                          />
+                                          {console.log("Updated::>>>", it)}
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            );
+                          });
                         })}
                     </table>
                     {updatePopup && (

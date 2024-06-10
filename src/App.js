@@ -162,7 +162,6 @@ const App = () => {
           <Route exact path='NewUserDetails' element={<NewUserDetails />} />
           <Route exact path='NewUserPIN' element={<NewUserPin />} />
           <Route exact path='NewAddedProfile' element={<NewAddedProfile />} />
-          
           <Route expact path='Animate' element={<Animate/>}/>
           <Route expact path='SlideBox' element={<SlideBox/>}/>
           <Route expact path='TabPanel' element={<TabPanel/>}/>
@@ -176,10 +175,6 @@ const App = () => {
           <Route expact path='MedicineBank' element={<MedicineBank/>}/>
           <Route expact path='MobileCraousel' element={<MobileCraousel/>}/>
           {/* <Route expact path="Health" element={<MagickLink/>}/> */}
-
-
-
-
 
           <Route exact path='AdminLogin' element={<AdminLogin />} />
           <Route exact path='AdminContent' element={<AdminContent />} />
