@@ -1,15 +1,19 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import Select, { defaultTheme } from "react-select";
+import Select from "react-select";
 import axios from "axios";
-import apis from "../Api/baseUrl";
+import  { baseurl } from "../Api/baseUrl";
 import Cookies from "js-cookie";
 
 const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
+    let token = Cookies.get("token");
   const [medicine_Data, setmedicine_Data] = useState({ ...data?.it });
   console.log("updadteeeee", data);
+  console.log("getMedicines::>>>", getMedicines);
+  console.log("medicine_Data::>>>",  medicine_Data);
+ 
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [reminderTime, setReminderTime] = useState(false);
@@ -62,39 +66,33 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
       padding: "4px 4px", // Add padding to adjust the spacing around the placeholder
     }),
   };
-
-  let token = Cookies.get("token");
+  const info = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  
   const updateMedicine = async (e) => {
     e.preventDefault();
-    if (
-      !medicine_Data.medicineName ||
-      !medicine_Data.remainder_time ||
-      !medicine_Data.unit ||
-      !medicine_Data.medicine_meal ||
-      !medicine_Data.dose
-    ) {
-      setError(true);
-    } else {
-      setError(false);
-      console.log("hellobrother");
-      axios
-        .put(`${apis.UPDATE_MEDICINE}?token=${token}`, {
-          medicine: { ...medicine_Data },
-          id: data?.id,
-          index: data?.index,
-        })
-        .then((res) => {
-          console.log(",ressssss", res);
-          if (res?.data?.status === true) {
-            toggleMedicine();
-            getMedicines();
-          }
-        })
-        .catch((error) => {
-          console.log("Error:", error);
-        });
+    setError(false);
+    console.log("hellobrother",);
+    const updateData = {
+      medicine_id: data?._id,
+      medicine_name: medicine_Data?.medicine_name,
+      medicine_dosage: medicine_Data?.medicine_dosage,
+    };
+    try {
+      const res = await axios.put(`${baseurl}/medicine/update-medicine`, updateData, info);
+      console.log("ressssss", res);
+      if (res?.data?.status === true) {
+        toggleMedicine();
+        getMedicines();
+      }
+    } catch (err) {
+      console.log("Error:", err);
     }
   };
+  
 
   const [isSelectClicked, setIsSelectClicked] = useState(false);
 
@@ -104,22 +102,36 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
 
   const handelchange = (e, select) => {
     if (select) {
-      setmedicine_Data({ ...medicine_Data, medicine_meal: e.value });
+      setmedicine_Data({ medicine_meal: e.value });
       console.log(selectedOption);
     } else {
-      setmedicine_Data({ ...medicine_Data, [e.target.name]: e.target.value });
+      setmedicine_Data({[e.target.name]: e.target.value });
       console.log(selectedOption);
     }
 
     console.log("medicine_Data", medicine_Data);
   };
 
+  const getdata=async()=>{
+    try{
+      const responce=await axios.get(`${baseurl}/medicine/get-medicine-by-id/${data?._id}`,info)
+      setmedicine_Data(responce?.data?.resData?.data?.medicines)
+      console.log("medicine::>>",responce?.data?.resData?.data?.medicines)
+    }
+    catch(err){
+      console.log("Error", err);
+    }
+  }
+  
+  useEffect(()=>{
+    getdata();
+  },[])
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 overflow-y-scroll lg:pt-0 pt-56 ">
         <div className=" flex flex-col bg-white rounded-[40px] lg:md:w-auto lg:md:h-auto w-full max-h-fit px-10 ">
           <div className="flex flex-row py-4 justify-between items-center w-full">
-            <h1 className="text-[22px] font-[500]">Update Medicinennnnnnn</h1>
+            <h1 className="text-[22px] font-[500]">Update Medicine</h1>
             <RxCross2
               className=" lg:md:ml-80 cursor-pointer"
               onClick={toggleMedicine}
@@ -130,6 +142,7 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
               <div>
                 <label className="text-[16px] font-[500]"> Medicine </label>
                 <div className="flex lg:flex-row flex-col py-2 gap-6">
+                  {console.log("sdssdljvhbdsvvbhvjhbver::>>",medicine_Data)}
                   <div className="relative z-0 lg:w-1/2 w-full mb-4 group">
                     <input
                       type="text"
@@ -144,7 +157,7 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
                     />
 
                     <label
-                      for="medicine"
+                      htmlFor="medicine"
                       name="medicine_type"
                       className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                     >
@@ -168,7 +181,7 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
                     />
 
                     <label
-                      for="type"
+                      htmlFor="type"
                       className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                     >
                       <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -192,7 +205,7 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
                     />
 
                     <label
-                      for="dose"
+                      htmlFor="dose"
                       className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                     >
                       <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -214,7 +227,7 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
                     />
 
                     <label
-                      for="unit"
+                      htmlFor="unit"
                       className="peer-focus:font-medium absolute px-2 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                     >
                       <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -233,12 +246,11 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
                       styles={customStyles}
                       onFocus={handleSelectClick}
                       Value={medicine_Data?.medicine_meal}
-                      // defaultInputValue={medicine_Data?.medicine_meal}
+                  
                       onChange={(e) => {
                         handelchange(e, true);
                       }}
                     />
-                    {/* <TimePicker onChange={handleTimeChange} showSecond={false} defaultValue={time} */}
                     <label
                       htmlFor="mealOptions"
                       className={`absolute px-2 lg:md:text-sm text-xs flex-nowrap text-gray-500 dark:text-gray-300 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-20 origin-[0] peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ${
@@ -268,7 +280,7 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
                       placeholder=" "
                     />
                     <label
-                      for="medicineTime"
+                      htmlFor="medicineTime"
                       className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs flex-nowrap text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                     >
                       <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">
@@ -278,19 +290,6 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
                   </div>
                 </div>
               </div>
-              {/* <label className='text-[16px] font-[500]'>Select Date</label> */}
-              {/* <div className='flex lg:flex-row flex-col py-2 gap-6'>
-
-                                <div className="relative  lg:w-1/2 w-full mb-4 group">
-                                    <input type="text" name='startFrom' onChange={(e) => { setmedicDate({ ...medicDate, startFrom: e.target.value }) }} onFocus={(e) => { e.target.type = 'date'; }} id="startFrom" className="block w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer" placeholder=" " />
-                                    <label for="startFrom" className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-1 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "><p className='bg-white border-0 rounded-[8px] peer-focus:bg-transparent'>Start from</p></label>
-                                </div>
-
-                                <div className="relative  lg:w-1/2 w-full mb-4 group">
-                                    <input type="text" name='startfrom' onChange={(e) => { setmedicDate({ ...medicDate, stopOn: e.target.value }) }} onFocus={(e) => { e.target.type = 'date'; }} id="stopOn" className="block  w-full text-sm text-gray-900 bg-transparent border border-gray-300 rounded-[20px] p-3 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-black-500 focus:outline-none focus:ring-0 focus:border-black-600 peer" placeholder=" " />
-                                    <label for="stopOn" className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "><p className='bg-white border-0 rounded-[8px] peer-focus:bg-transparent'>Stop On</p></label>
-                                </div>
-                            </div> */}
 
               {reminderTime && (
                 <div className=" flex flex-col py-2 w-full">
@@ -305,7 +304,7 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
                       placeholder=" "
                     />
                     <label
-                      for="medicineTime"
+                      htmlFor="medicineTime"
                       className="peer-focus:font-medium absolute px-2 lg:md:text-sm text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-4 left-3 z-10 origin-[0]  peer-focus:left-3 peer-focus:text-black-600 peer-focus:dark:text-black-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                     >
                       <p className="bg-white border-0 rounded-[8px] peer-focus:bg-transparent">

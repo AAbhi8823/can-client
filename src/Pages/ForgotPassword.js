@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import LogoCAn from "../Photos/LogoCAn.png";
-import CANa from "../Photos/CANa.png";
 import Frame from "../Photos/Frame.png";
-import { AiOutlineMail } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
-import MagickLink from "./MagickLink";
 import loadingImg from "../Photos/GIF/loader.gif";
-import base_token from "../Api/baseUrl";
 const ForgotPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -24,16 +20,17 @@ const ForgotPassword = () => {
       });
       console.log("response::>>", response);
       if (response?.data?.resData.status === true) {
-        // setShowInput(false);
-        // setShowMessage(true);
-        navigate("/OtpVerify");
+        setShowInput(false);
+        setShowMessage(true);
+        navigate(response?.data?.resData?.data)
       } else {
-        setError("(Phone number not found)");
+        setError("(Email not found)");
       }
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   const handleEmailChange = (event) => {
     const enteredValue = event.target.value;

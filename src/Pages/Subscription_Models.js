@@ -27,10 +27,6 @@ const SubscriptionModels = () => {
     fetchSubscriptions();
   }, []);
 
-  // Fallback subscriptions in case API data is not available
-
-
-
   const handleBuyNow = (subscription) => {
     navigate("/Subscription_Payment_Method", { state: { subscription } });
   };
@@ -57,53 +53,60 @@ const SubscriptionModels = () => {
         </div>
       </div>
       <div className="flex flex-row flex-wrap px-5 justify-evenly">
-        {subscriptions.length >0 && subscriptions.map((subscription, index) => (
-          <div
-            key={index}
-            className="mod-box flex flex-col w-[350px] mt-2 h-full rounded-[30px] justify-center items-center py-[25px]"
-            style={{
-              backgroundColor: subscription.bgColor,
-              boxShadow: "0px 20px 60px 0px #0000001A"
-            }}
-          >
+        {subscriptions.length > 0 &&
+          subscriptions.map((subscription, index) => (
             <div
-              className="flex w-[100px] h-[100px] rounded-full bg-white items-center justify-center text-center shadow-2xl"
-              style={{ boxShadow: "0px 5px 20px 0px #0000001A" }}
-            >
-              <h2 className="font-bold text-[18px] px-7">{subscription.duration}</h2>
-            </div>
-            <div className=" text-[15px] font-bold py-2"><del>{subscription?.price}</del></div>
-            <div className=" text-[20px] font-bold py-3">{subscription?.offer_price}</div>
+              key={index}
+              className="mod-box flex flex-col w-[350px] mt-2 h-full rounded-[30px] justify-center items-center py-[25px]"
+              style={{
+                backgroundColor: subscription.bgColor,
+                boxShadow: "0px 20px 60px 0px #0000001A",
+              }}
+            >{console.log("Sub::>>>>>",subscription)}
+              <div
+                className="flex w-[100px] h-[100px] rounded-full bg-white items-center justify-center text-center shadow-2xl"
+                style={{ boxShadow: "0px 5px 20px 0px #0000001A" }}
+              >
+                <h2 className="font-bold text-[18px] px-7">
+                  {subscription.plan_name}
+                </h2>
+              </div>
+              <div className=" text-[15px] font-bold py-2">
+                <del>{subscription?.price}</del>
+              </div>
+              <div className=" text-[20px] font-bold py-3">
+                {subscription?.offer_price}
+              </div>
 
-            <ul className="list-none w-full px-[35px]">
-                {console.log("subscription::>>>>",subscription)}
-              {subscription.plan_features.map((feature, idx) => (
-                <li
-                  key={idx}
-                  className="flex flex-row gap-4 items-center leading-[2]"
-                >
-                  {typeof feature === "string" ? (
-                    <>
-                      <BsCheck2 />
-                      {feature}
-                    </>
-                  ) : (
-                    <>
-                      {feature.is_available ? <BsCheck2 /> : <RxCross2 />}
-                      {feature.feature_name}
-                    </>
-                  )}
-                </li>
-              ))}
-            </ul>
-            <button
-              className="border-[2px] rounded-[20px] w-[153px] h-[45px] mt-12 -mb-2"
-              onClick={() => handleBuyNow(subscription)}
-            >
-              Buy Now
-            </button>
-          </div>
-        ))}
+              <ul className="list-none w-full px-[35px]">
+                {console.log("subscription::>>>>", subscription)}
+                {subscription.plan_features.map((feature, idx) => (
+                  <li
+                    key={idx}
+                    className="flex flex-row gap-4 items-center leading-[2]"
+                  >
+                    {typeof feature === "string" ? (
+                      <>
+                        <BsCheck2 />
+                        {feature}
+                      </>
+                    ) : (
+                      <>
+                        {feature.is_available ? <BsCheck2 /> : <RxCross2 />}
+                        {feature.feature_name}
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <button
+                className="border-[2px] rounded-[20px] w-[153px] h-[45px] mt-12 -mb-2"
+                onClick={() => handleBuyNow(subscription)}
+              >
+                Buy Now
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );
