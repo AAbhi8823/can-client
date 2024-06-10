@@ -174,8 +174,7 @@ const App = () => {
           <Route expact path='HealthProfile' element={<HealthProfile/>}/>
           <Route expact path='MedicineBank' element={<MedicineBank/>}/>
           <Route expact path='MobileCraousel' element={<MobileCraousel/>}/>
-          {/* <Route expact path="Health" element={<MagickLink/>}/> */}
-
+          <Route expact path="MagickLink" element={<MagickLink/>} />
           <Route exact path='AdminLogin' element={<AdminLogin />} />
           <Route exact path='AdminContent' element={<AdminContent />} />
           <Route exact path='AdminUserManagement' element={<AdminUserManagement />} />

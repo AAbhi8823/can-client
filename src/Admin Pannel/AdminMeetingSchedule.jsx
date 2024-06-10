@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminPage from "./AdminPage";
-import {MeetingSchedule} from "./MeetingSchedule";
+import MeetingSchedule from "./MeetingSchedule";
 
 function AdminMeetingSchedule() {
   return (
@@ -13,7 +13,6 @@ function AdminMeetingSchedule() {
         </>
       }
     >
-      {/* Add your additional elements here */}
     </AdminPage>
   );
 }
