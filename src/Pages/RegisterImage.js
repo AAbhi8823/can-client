@@ -48,10 +48,10 @@ const RegisterImage = () => {
         method: 'POST',
         body: formData
       });
-
+      console.log("User registration",response)
       if (response.ok) {
         console.log("Data uploaded successfully",response);
-        navigate("/newaddedprofile", { state: { response } })
+        navigate("/newaddedprofile")
       } else {
         console.error("Failed to upload data");
       }
@@ -78,7 +78,7 @@ const RegisterImage = () => {
       .then(response => {
         if (response.ok) {
           console.log("Data uploaded successfully without image",response);
-          navigate("/newaddedprofile", { state: { response } })
+          navigate("/newaddedprofile")
         } else {
           console.error("Failed to upload data without image");
         }

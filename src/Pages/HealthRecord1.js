@@ -15,7 +15,6 @@ import Page from "../Layouts/Pages";
 
 const HealthRecord1 = () => {
   const [BiopsyuploadedPDFs, setBiopsyUploadedPDFs] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [pop, setPop] = useState(false);
   const [model, setModel] = useState(null);
   const [PDF, setPDF] = useState(null);
@@ -165,28 +164,6 @@ const HealthRecord1 = () => {
     }
   };
 
-  // const getHealthCategory = async () => {
-  //   const token = Cookies.get("token");
-  //   try {
-  //     const Data = await axios.get(
-  //       `${baseurl}/healthrecord/get-health-record`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     console.log("getHealthCategory:>>", Data);
-  //     if (Data) {
-  //       setCategories(Data.data.resData.data);
-  //     } else {
-  //       console.log("error");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const healthRecord = [
     { id: 1, name: "Biopsy/Molecular Markers Reports" },
     { id: 2, name: "CT Scan Reports" },
@@ -197,9 +174,6 @@ const HealthRecord1 = () => {
     { id: 7, name: "Others" },
   ];
 
-  useEffect(() => {
-    // getHealthCategory();
-  }, []);
 
   return (
     <Page

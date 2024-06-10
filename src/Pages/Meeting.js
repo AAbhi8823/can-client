@@ -69,6 +69,10 @@ const Meeting = () => {
     window.location.href = currentZoomLink;
   };
 
+  const formatDate = (dateString) => {
+    const options = { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
   return (
     <Page
       pageContent={
@@ -137,7 +141,8 @@ const Meeting = () => {
             {meetings.map((meeting, index) => (
               <div key={index} id="meet-box" className="meet-box bg-white shadow-xl mt-8 flex overflow-auto justify-between px-5 rounded-2xl py-2">
                 <div className="flex items-center font-semibold text-[#CF4899] w-[max-content] pr-2">
-                  {meeting?.start_time}
+              
+                  {formatDate(meeting?.start_time)}
                 </div>
                 <div className="flex items-center w-[max-content] pr-2">
                   <div className="rounded-full overflow-hidden shadow-md">
