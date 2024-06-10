@@ -56,14 +56,15 @@ const SubscriptionModels = () => {
           </p>
         </div>
       </div>
-      <div className="flex flex-row flex-wrap px-5 justify-evenly">
+      <div className="flex flex-row flex-wrap px-5 justify-center">
         {subscriptions.length >0 && subscriptions.map((subscription, index) => (
           <div
             key={index}
-            className="mod-box flex flex-col w-[350px] mt-2 h-full rounded-[30px] justify-center items-center py-[25px]"
+            className="mod-box px-[10px] mb-[20px] flex flex-col w-[350px] mt-2 h-full rounded-[30px] min-h-[510px] justify-center items-center py-[25px]"
             style={{
               backgroundColor: subscription.bgColor,
-              boxShadow: "0px 20px 60px 0px #0000001A"
+              boxShadow: "0px 20px 60px 0px #0000001A", 
+              margin:'0px 10px 20px 10px'
             }}
           >
             <div
@@ -72,6 +73,8 @@ const SubscriptionModels = () => {
             >
               <h2 className="font-bold text-[18px] px-7">{subscription.duration}</h2>
             </div>
+            
+            <div className=" text-[15px] font-bold py-2">{subscription?.plan_name}</div>
             <div className=" text-[15px] font-bold py-2"><del>{subscription?.price}</del></div>
             <div className=" text-[20px] font-bold py-3">{subscription?.offer_price}</div>
 
