@@ -6,14 +6,6 @@ import SideMenu from "../Components/SideMenu";
 import "./Pages.css";
 
 const Page = ({ pageContent }) => {
-  // const [isOpen, setIsOpen] = useState(() => {
-  //   const storedValue = localStorage.getItem('isOpen');
-  //   return storedValue ? JSON.parse(storedValue) : true;
-  // });
-  // useEffect(() => {
-  //   // Store the 'isOpen' state in localStorage whenever it changes
-  //   localStorage.setItem('isOpen', JSON.stringify(isOpen));
-  // }, [isOpen]); abhi ka h.....jab mene uski branch ko checkout kiya tha tb shi chla.
   return (
     <div>
       <div className="flex ">

@@ -113,12 +113,6 @@ const Appointment1 = () => {
                   >
                     Add Appointment
                   </button>
-                  {/* <button
-                    className="lg:text-[1.20vw] text-[16px] lg:h-[5vh] lg:hidden block text-sm end-2 z-10 lg:z-0 bottom-4 lg:bottom-0 lg:py-2 lg:px-6 p-2 bg-[#C31A7F] text-white shadow-lg rounded-[15px] w-fit text-center"
-                    onClick={editPopup}
-                  >
-                    Add
-                  </button> */}
                 </div>
                 {openAppointments && <AppointmentPopup />}
                 {openEditPopups && (

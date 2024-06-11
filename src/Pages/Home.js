@@ -43,10 +43,9 @@ import Skeleton from "@mui/material/Skeleton";
 import Cookies from "js-cookie";
 import apis from "../Api/baseUrl";
 import "./ContactUs.css";
-
+import account from "../Photos/account.jpg";
 const Home = () => {
-  const base_token=Cookies.get("token");
-
+  const base_token = Cookies.get("token");
   const emojiButtonRef = useRef(null);
   const pickerRef = useRef(null);
   const [createPost, setCreatePost] = useState(false);
@@ -100,7 +99,7 @@ const Home = () => {
         "Content-Type": "application/json",
       },
     };
-  
+
     try {
       const response = await axios.post(
         `${baseurl}/user/block-user`,
@@ -117,9 +116,7 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
-   
   };
-  
 
   // block user
   const toggleBlockTab = () => {
@@ -466,6 +463,7 @@ const Home = () => {
       console.log(error);
     }
   };
+  console.log("User:>>>>>",userData)
 
   const [commentImage, setCommentImage] = useState(null);
 
@@ -538,8 +536,8 @@ const Home = () => {
                       }}
                     >
                       <div className="flex px-10 pt-8 gap-3">
-                        {/* <img src={account} alt='none' className='rounded-full w-12 ' /> */}
-
+                        <img src={userData?.profile_image} alt='none' className='rounded-full w-12 ' />
+                        {console.log("comment:>>>>",userData)}
                         <input
                           value={input}
                           onChange={handleInput}
@@ -861,7 +859,12 @@ const Home = () => {
                                                   </p>
                                                   <p
                                                     className="w-20 rounded-lg h-9 bg-[#C31A7F] text-[#FFFFFF] flex items-center justify-center text-[14px] font-semibold"
-                                                    onClick={()=>{toggleBlockedTab(homePostItems?.user_id?._id)}}
+                                                    onClick={() => {
+                                                      toggleBlockedTab(
+                                                        homePostItems?.user_id
+                                                          ?._id
+                                                      );
+                                                    }}
                                                   >
                                                     Block
                                                   </p>
@@ -1154,7 +1157,12 @@ const Home = () => {
                                   </div>
 
                                   {showContent && (
-                                    <div className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50" style={{backgroundColor:'rgb(46 46 46 / 30%)',}}>
+                                    <div
+                                      className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50"
+                                      style={{
+                                        backgroundColor: "rgb(46 46 46 / 30%)",
+                                      }}
+                                    >
                                       <div className="w-[95%] lg:w-[70%] lg:h-[70%] bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden">
                                         <div className="lg:w-[60%]">
                                           <img
@@ -1227,7 +1235,13 @@ const Home = () => {
                                                 </div>
                                               </div>
                                             </div>
-                                            <div className="text-[16px] py-[15px]" style={{borderBottom: '1px solid rgba(128, 128, 128, 0.24)'}}>
+                                            <div
+                                              className="text-[16px] py-[15px]"
+                                              style={{
+                                                borderBottom:
+                                                  "1px solid rgba(128, 128, 128, 0.24)",
+                                              }}
+                                            >
                                               {commentImage?.post_title}
                                             </div>
                                             {commentImage?.comments?.length >
@@ -1235,7 +1249,15 @@ const Home = () => {
                                               commentImage.comments.map(
                                                 (comment) => (
                                                   <div
-                                                    className="mt-[15px] flex items-center" style={{backgroundColor:'#f9f9f9', padding:'5px', borderRadius:'10px', boxShadow:'2px 2px 15px #8080802b'}}
+                                                    className="mt-[15px] flex items-center"
+                                                    style={{
+                                                      backgroundColor:
+                                                        "#f9f9f9",
+                                                      padding: "5px",
+                                                      borderRadius: "10px",
+                                                      boxShadow:
+                                                        "2px 2px 15px #8080802b",
+                                                    }}
                                                     key={comment._id}
                                                   >
                                                     {console.log(
@@ -1287,9 +1309,9 @@ const Home = () => {
                                             className="bottom-4"
                                             style={{
                                               padding: "15px 12px",
-                                              border: "1px solid #8080803d", 
-                                              backgroundColor:'#fff',
-                                              borderRadius:'10px'
+                                              border: "1px solid #8080803d",
+                                              backgroundColor: "#fff",
+                                              borderRadius: "10px",
                                             }}
                                           >
                                             <div className="flex gap-3 w-full bg-transparent">
@@ -1352,11 +1374,11 @@ const Home = () => {
                                     </p>
                                   </div>
                                   {shareButton && (
-                                    <div className="fixed inset-0 flex items-center justify-center bg-[#0000000a]  z-50 ">
-                                      <div className=" ">
-                                        <div className="lg:w-[500px]   w-[350px] bg-[#FFFFFF] flex flex-col gap-5 rounded-[20px]  ">
+                                    <div className="fixed inset-0 flex items-center justify-center bg-[#0000000a] z-50">
+                                      <div>
+                                        <div className="lg:w-[500px] w-[350px] bg-[#FFFFFF] flex flex-col gap-5 rounded-[20px]">
                                           <div>
-                                            <div className="flex flex-row items-center justify-center relative pt-4 ">
+                                            <div className="flex flex-row items-center justify-center relative pt-4">
                                               <h1 className="text-[16px] font-semibold">
                                                 Share with your friends
                                               </h1>
@@ -1367,26 +1389,15 @@ const Home = () => {
                                                 <IoMdClose />
                                               </div>
                                             </div>
-                                            <div className=" relative p-4">
-                                              <CiSearch
-                                                size={20}
-                                                className="absolute top-6 left-6 "
-                                              />
 
-                                              <input
-                                                placeholder="Search Friends"
-                                                className=" w-full h-9 outline-none rounded-[15px] px-10 placeholder:text-[12px] placeholder:font-semibold   bg-[#FEF8FD]  "
-                                              />
-                                            </div>
-
-                                            <div className="h-[200px] overflow-y-scroll ">
+                                            <div className="h-[200px] overflow-y-scroll">
                                               {myFriends &&
                                                 myFriends.map((item) => (
                                                   <div
                                                     key={item.id}
                                                     className="flex py-3 px-3 flex-row items-center justify-between"
                                                   >
-                                                    <div className="flex flex-row items-center gap-2 ">
+                                                    <div className="flex flex-row items-center gap-2">
                                                       <img
                                                         src={
                                                           item.friend
@@ -1395,9 +1406,9 @@ const Home = () => {
                                                         className="h-10 w-10 rounded-full"
                                                         alt=""
                                                       />
-                                                      <div className="flex flex-col items-start gap-1  ">
+                                                      <div className="flex flex-col items-start gap-1">
                                                         <span
-                                                          className={` text-[14px] font-semibold`}
+                                                          className={`text-[14px] font-semibold`}
                                                         >
                                                           {item.friend.username}
                                                         </span>
@@ -1430,14 +1441,26 @@ const Home = () => {
                                                 ))}
                                             </div>
                                           </div>
-                                          <div className="w-full bg-[#FEF8FD] rounded-b-[20px]  ">
+
+                                          <div className="w-full bg-[#FEF8FD] rounded-b-[20px]">
                                             <div>
                                               <hr />
                                             </div>
                                             <div className="flex flex-row justify-between p-4">
-                                              <div className="flex flex-row items-center gap-2">
+                                              <div
+                                                className="flex flex-row items-center gap-2 cursor-pointer"
+                                                onClick={() => {
+                                                  const postUrl = `${window.location.origin}/post/${commentModel._id}`;
+                                                  navigator.clipboard.writeText(
+                                                    postUrl
+                                                  );
+                                                  alert(
+                                                    "URL copied to clipboard"
+                                                  );
+                                                }}
+                                              >
                                                 <BsLink45Deg color="#C31A7F" />
-                                                <p className="text-[12px]   text-[#C31A7F] font-semibold">
+                                                <p className="text-[12px] text-[#C31A7F] font-semibold">
                                                   Copy NavLink
                                                 </p>
                                               </div>

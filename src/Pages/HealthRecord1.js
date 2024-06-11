@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { CgAdd } from "react-icons/cg";
 import { RxCross1 } from "react-icons/rx";
 import { MdOutlineCloudUpload } from "react-icons/md";
-import { TbClipboardList } from "react-icons/tb";
-import { IoCloseCircleSharp } from "react-icons/io5";
 import { BsFileEarmarkPdf, BsDownload, BsTrash3 } from "react-icons/bs";
-import { AiOutlineShareAlt } from "react-icons/ai";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
@@ -26,7 +23,10 @@ const HealthRecord1 = () => {
   const [PDFname, setPDFname] = useState("");
   const [UploadBox, setUploadBox] = useState({});
   const [userPdfData, setUserPdfData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const token = Cookies.get("token");
+  const [uploadedFileName, setUploadedFileName] = useState(""); // State to store the name of the uploaded file
+
 
   const openUpload = (id) => {
     setModel(id);
@@ -35,7 +35,15 @@ const HealthRecord1 = () => {
 
   const handlePDFUpload = (event) => {
     const file = event.target.files[0];
+    if (file.size > 5 * 1024 * 1024) {
+      setErrorMessage("File size is too large. Please upload a file smaller than 5 MB.");
+      setFile(null);
+      setPDF(null);
+      setPDFname("");
+      return;
+    }
     setFile(file);
+    setErrorMessage("");
     if (file.type === "application/pdf") {
       setPDF(file);
       setPDFname(file.name);
@@ -93,16 +101,22 @@ const HealthRecord1 = () => {
     }
   };
 
-  const deleteRecoard = async (id) => {
+  const deleteRecoard = async (healthrecordId, docId) => {
+    console.log("deleteRecoard::::", healthrecordId, docId);
     setIsDeleting(true);
     try {
-      const deleteData = await axios.delete(
-        `${baseurl}/api/deleteHealth_recoard?token=${token}&health_recoard_Id=${id}`
+      const response = await axios.delete(
+        `${baseurl}/healthrecord/delete-health-record/${healthrecordId}/${docId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      if (deleteData.data.status === true) {
-        console.log(deleteData.data.status);
+      if (response.data.status === true) {
+        console.log(response.data.status);
         setIsDeleting(false);
-        toast.success("Posted Successfully!", {
+        toast.success("Record deleted successfully!", {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: true,
@@ -112,7 +126,7 @@ const HealthRecord1 = () => {
           progress: undefined,
           theme: "colored",
         });
-        setUploadBox(!UploadBox);
+        setUserPdfData((prevData) => prevData.filter(pdf => pdf._id !== healthrecordId)); // Update UI instantly
       } else {
         console.log("API error");
         setIsDeleting(false);
@@ -121,11 +135,6 @@ const HealthRecord1 = () => {
       console.log(error);
       setIsDeleting(false);
     }
-  };
-
-  const handleCopy = (text) => {
-    navigator.clipboard.writeText(text);
-    alert("Link copied. Now you can share your file.");
   };
 
   const uploadPDF = () => {
@@ -138,10 +147,9 @@ const HealthRecord1 = () => {
 
   const getInfoMetting = async (catId) => {
     console.log("Getting info...", catId);
-    setUploadBox((prev) => ({
-      ...prev,
-      [catId]: !prev[catId],
-    }));
+    // Close all other opened files
+    setUploadBox({ [catId]: true });
+
     const token = Cookies.get("token");
     try {
       const pdfData = await axios.get(
@@ -173,7 +181,6 @@ const HealthRecord1 = () => {
     { id: 6, name: "MRI Scan Reports" },
     { id: 7, name: "Others" },
   ];
-
 
   return (
     <Page
@@ -222,7 +229,7 @@ const HealthRecord1 = () => {
                             <div
                               className="my-4 flex flex-col md:flex-row gap-2 py-4 w-[100%] border rounded-2xl border-[#7E7E7E] flex items-center justify-between"
                               key={index}
-                            >
+                            >{console.log("index::>>>>", pdfItem)}
                               <div className="list-none flex flex-row items-center justify-center gap-16 mx-6">
                                 <div className="flex flex-row gap-2 items-center">
                                   <BsFileEarmarkPdf size={34} />
@@ -230,8 +237,7 @@ const HealthRecord1 = () => {
                                     {pdfItem.document_name}
                                   </h1>
                                 </div>
-
-                                <div className="flex gap-10">
+                                <div className="flex flex-col gap-1">
                                   <span className="text-[12px] font-semibold">
                                     {new Date(pdfItem.updatedAt).toLocaleString("en-US", {
                                       day: "numeric",
@@ -247,13 +253,6 @@ const HealthRecord1 = () => {
                                 </div>
                               </div>
                               <div className="list-none flex flex-row items-center justify-center gap-8 mx-6">
-                                <div
-                                  className="cursor-pointer"
-                                  onClick={() => handleCopy(pdfItem.document)}
-                                >
-                                  <AiOutlineShareAlt size={22} />
-                                </div>
-
                                 <div>
                                   <a
                                     href={pdfItem?.document_url}
@@ -267,7 +266,7 @@ const HealthRecord1 = () => {
 
                                 <div
                                   className="cursor-pointer"
-                                  onClick={() => deleteRecoard(pdfItem.id)}
+                                  onClick={() => deleteRecoard(pdfItem._id, pdfItem.doc_id)}
                                 >
                                   <BsTrash3 size={22} />
                                 </div>
@@ -320,11 +319,15 @@ const HealthRecord1 = () => {
                   </div>
                 </div>
 
+                {errorMessage && (
+                  <div className="text-red-500 text-[14px]">{errorMessage}</div>
+                )}
+
                 <div className="flex items-center gap-2">
                   <button
                     className="text-[14px] font-bold px-4 py-2 bg-[#C31A7F] text-white rounded-md"
                     onClick={UploadDocument}
-                    disabled={isUploading}
+                    disabled={isUploading || !!errorMessage}
                   >
                     {isUploading ? "Uploading..." : "Upload"}
                   </button>
