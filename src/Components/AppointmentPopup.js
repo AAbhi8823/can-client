@@ -24,11 +24,12 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === "appointment_time") {
-      const selectedTime = new Date(`${formValues.appointment_date}T${value}`);
+    if (name === "appointment_time" || name === "appointment_date") {
+      // Get the selected date and time
+      const selectedDateTime = new Date(`${formValues.appointment_date}T${formValues.appointment_time}`);
       const currentTime = new Date();
-      if (selectedTime < currentTime) {
-        setTimeError("Time cannot be less than the current time.");
+      if (selectedDateTime < currentTime) {
+        setTimeError("Date and time cannot be in the past.");
       } else {
         setTimeError("");
         setFormValues((prevValues) => ({
@@ -43,6 +44,8 @@ const AppointmentPopup = ({ edit, edit_id, getappointment }) => {
       }));
     }
   };
+  
+  
 
   const getsingle_appointment = async (id) => {
     try {

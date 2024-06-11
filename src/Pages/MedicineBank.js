@@ -3,7 +3,7 @@ import Page from "../Layouts/Pages";
 import CalenderRecords from "../Components/CalenderRecords";
 import MedicinePopup from "../Components/MedicinePopup";
 import axios from "axios";
-import apis from "../Api/baseUrl";
+import apis, { baseurl } from "../Api/baseUrl";
 import { NavLink, useLocation } from "react-router-dom";
 import { MdPictureAsPdf } from "react-icons/md";
 import Cookies from "js-cookie";
@@ -14,11 +14,15 @@ const MedicineBank = () => {
   let token = Cookies.get("token");
   let id = localStorage.getItem("active_user");
   const location = useLocation();
-
   const [medicinePopup, setMedicinePopup] = useState(false);
-  const [updatePopup, setUpdatePopup] = useState(false);
+  const [medicineHistory,setMedicineHistory]=useState([])
+  const [ongoingMedicine,setOngoingmedicine]=useState([])
   const queryParams = new URLSearchParams(location.search);
   const [medicines, setMedicines] = useState(null);
+
+  useEffect(()=>{
+    getData()
+  },[]) 
 
   const toggleMedicine = () => {
     setMedicinePopup(!medicinePopup);
@@ -40,12 +44,6 @@ const MedicineBank = () => {
     setMedicines(data?.data);
     console.log("med", data.data);
   };
-  useEffect(() => {
-    let id = localStorage.getItem("active_user");
-    if (token && id) {
-      getMedicines();
-    }
-  }, [queryParams.get("date")]);
 
   const data = [
     {
@@ -85,7 +83,71 @@ const MedicineBank = () => {
     },
   ];
 
+  const getData = async () => {
+    try {
+      const token = Cookies.get('token'); // Get the token from cookies
+      const response = await axios.get(`${baseurl}/medicine/get-medicine-bank`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Set the Authorization header with the token
+        },
+      });
+      setMedicineHistory(response?.data?.resData?.data?.medicine_history)
+      setOngoingmedicine(response?.data?.resData?.data?.medicine_history)
+      console.log('medicine_history:', response?.data?.resData?.data?.medicine_history);
+    } catch (error) {
+      console.error('Error getting data:', error);
+    }
+    console.log('getData');
+  };
+  const filterDataByMonth = (month) => {
+    return medicineHistory.filter((item) => {
+      const itemMonth = new Date(item.medicine_stop_date).getMonth() + 1;
+      return itemMonth === month;
+    });
+  };
+
+  // Function to render data for each month
+  const renderMonthData = (monthName, monthNumber) => {
+    const monthData = filterDataByMonth(monthNumber);
+    if (monthData.length === 0) return null; // Don't render if no data for the month
+    return (
+      <div className="lg:w-[50%] mb-6" key={monthNumber}>
+        <div className="flex justify-center">
+          <button className="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border rounded">
+            {monthName}
+          </button>
+        </div>
+        <div className="flex flex-wrap justify-around gap-5 px-5 mt-3">
+          {monthData.map((item, index) => (
+            <div
+              className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%] border-[1px] bg-[#fff] rounded-[20px] mt-5 py-6"
+              key={index}
+            >
+              <div className="flex justify-between">
+                <h1 className="font-bold lg:text-[0.84vw] text-[13px] px-5">
+                  {item.medicine_name}
+                </h1>
+                <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">
+                  {item.medicine_type}
+                </p>
+              </div>
+              <div className="flex justify-between px-3 py-3">
+                <h1 className="text-[#C31A7F] lg:text-[1vw] text-[15px]">
+                  {new Date(item.medicine_stop_date).toLocaleDateString()}
+                </h1>
+                <p className="text-[#A94360] lg:text-[.70vw] text-[8px] px-5">
+                  {item.meal}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
+
     <Page
       pageContent={
         <>
@@ -94,7 +156,6 @@ const MedicineBank = () => {
               <div className="bg-[#FEF8FD] w-full justify-between flex flex-row h-full">
                 <div className=" mt-6 flex  m-4">
                   <button className="lg:text-[1.20vw] flex   lg:md:py-2 lg:md:px-10 p-2 shadow-[0px_5px_20px_0px_rgba(0,0,0,0.05)] rounded-[15px] w-fit h-fit text-center">
-                    {" "}
                     Medicine
                   </button>
                 </div>
@@ -152,22 +213,23 @@ const MedicineBank = () => {
               </div>
 
               <div className=" flex flex-wrap justify-around gap-5 px-5 mt-5">
-                {data.map((item, index) => (
+                {console.log("ongoingMedicine:::",ongoingMedicine)}
+                {ongoingMedicine.map((item, index) => (
                   <div
                     className="border-[#C4C4C4] w-[100%] md:w-[48%] lg:w-[30%]  border-[1px] bg-[#fff] rounded-[20px] mt-5 px-10  py-6 justify-center"
                     key={index}
                   >
                     <div className="flex  justify-between py-3">
                       <h1 className="font-bold lg:text-[1.20vw] text-[20px]">
-                        {item.heading}
+                        {item?.meal}
                       </h1>
                       <p className="text-[#7E7E7E] lg:text-[1.04vw] text-[16px] px-5">
-                        {item.title}
+                        {item?.medicine_name}
                       </p>
                     </div>
                     <div className="flex justify-between py-3">
                       <h1 className="text-[#C31A7F]  lg:text-[1.04vw] text-[16px]">
-                        {item.date}
+                        {item?.medicine_start_date}
                       </h1>
                       <p className="text-[#A94360] px-5  lg:text-[1.04vw] text-[16px]">
                         {item.title2}
@@ -182,8 +244,21 @@ const MedicineBank = () => {
                   Medical History
                 </button>
               </div>
-
               <div className="lg:flex flex-wrap pt-10">
+            {renderMonthData("January", 1)}
+            {renderMonthData("February", 2)}
+            {renderMonthData("March", 3)}
+            {renderMonthData("April", 4)}
+            {renderMonthData("May", 5)}
+            {renderMonthData("June", 6)}
+            {renderMonthData("July", 7)}
+            {renderMonthData("August", 8)}
+            {renderMonthData("September", 9)}
+            {renderMonthData("October", 10)}
+            {renderMonthData("November", 11)}
+            {renderMonthData("December", 12)}
+          </div>
+              {/* <div className="lg:flex flex-wrap pt-10">
                 <div className="lg:w-[50%] mb-6 ">
                   <div className="flex justify-center ">
                     <button className="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
@@ -314,7 +389,7 @@ const MedicineBank = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </>
