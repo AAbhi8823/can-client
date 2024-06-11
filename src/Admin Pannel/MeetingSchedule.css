@@ -111,6 +111,7 @@
 .prev-polls{
     display: flex;
     width: 100%;
+    overflow-y: scroll;
 }
 .prevpoll-box{
     box-shadow: 2px 2px 15px rgba(128, 128, 128, 0.205);
