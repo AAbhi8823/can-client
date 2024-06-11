@@ -2,8 +2,9 @@ import React from "react";
 import AdminPage from "./AdminPage";
 import AdminUserTable from "./AdminUserTable";
 import AdminSettings from "../Photos/AdminIcons/Adminsetting.svg";
-
+import {AdminToken} from './AdminToken'
 function AdminUserManagement() {
+  console.log("AdminUserManagement",AdminToken)
   return (
     <AdminPage
       AdminpageContent={
