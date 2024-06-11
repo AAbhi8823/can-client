@@ -912,7 +912,7 @@ const Home = () => {
                                               </div>
                                             </div>
                                           )}
-                                          <NavLink
+                                          {/* <NavLink
                                             to={{
                                               pathname: "/profile",
                                               value: { userID },
@@ -921,7 +921,7 @@ const Home = () => {
                                             <p className="p-2 px-4 cursor-pointer hover:text-[#fff]  hover:bg-[#C31A7F]">
                                               About this account
                                             </p>
-                                          </NavLink>
+                                          </NavLink> */}
                                           <p
                                             className="p-2 px-4 cursor-pointer hover:text-[#fff] hover:bg-[#C31A7F]"
                                             onClick={toggleReportButton}
