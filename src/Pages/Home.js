@@ -227,7 +227,7 @@ const Home = () => {
           ...prevLikedPosts,
           [likeID]: true,
         }));
-        HomePost();
+        HomePost('new');
       } else {
         console.log("API error");
       }
@@ -308,10 +308,10 @@ const Home = () => {
     }
   };
 
-  const HomePost = async () => {
+  const HomePost = async (filter) => {
     try {
       const HomePosttoken = Cookie.get("token");
-      const homePost = await axios.get(`${baseurl}/mystory/get-story-list`, {
+      const homePost = await axios.get(`${baseurl}/mystory/get-story-by-filter/${filter}`, {
         headers: {
           Authorization: `Bearer ${HomePosttoken}`,
         },
@@ -351,7 +351,7 @@ const Home = () => {
   const activeUser = localStorage.getItem("active_user");
 
   useEffect(() => {
-    HomePost();
+    HomePost('new');
     friendList();
   }, []);
 
@@ -513,6 +513,12 @@ const Home = () => {
       console.log(error);
     }
   };
+  const handleFilterChange = (filterData) => {
+    sethomePost(filterData);
+    console.log("filterData:>>>>>",filterData)
+  };
+  
+ 
 
   return (
     <Page
@@ -689,7 +695,7 @@ const Home = () => {
                   )}
                   <div className="text-end"> </div>
                   <div className="text-end space-x-5 mt-2">
-                    <SelectLabels />
+                  <SelectLabels onFilterChange={handleFilterChange} />
                   </div>
 
                   {Loading ? (
