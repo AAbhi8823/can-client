@@ -1,65 +1,76 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import fileUpload from "../Photos/fileUpload.svg"
-import AdminFileAttach from '../Photos/AdminIcons/AdminFileAttach.svg'
-
-function createData(name, calories, fat, carbs, subject, date, fileAttach) {
-    return { name, calories, fat, carbs, subject, date, fileAttach };
-}
-
-const rows = [
-    createData("#1123", "Flag Comment", 5321, "20/02/2023", "There has been", "Active"),
-    createData('#1124', "Payment Issue", 3401, "20/02/2023", "There has been", "Closed"),
-    createData('#1124', "Payment Issue", 3401, "20/02/2023", "There has been", "In Process"),
-];
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import fileUpload from "../Photos/fileUpload.svg";
+import { useState, useEffect } from "react";
+import { AdminToken } from "./AdminToken";
+import axios from "axios";
+import { adminbaseurl } from "./AdminToken";
 
 export default function BasicTable() {
-    return (
-        <TableContainer component={Paper} sx={{ boxShadow: 'none', }}>
-            <Table sx={{ minWidth: 650, boxShadow: 'none' }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Ticket no.</TableCell>
-                        <TableCell align="center">Ticket Type</TableCell>
-                        <TableCell align="center">CAN Id</TableCell>
-                        <TableCell align="center">Date</TableCell>
-                        <TableCell align="center">Subject</TableCell>
-                        <TableCell align="center">Status</TableCell>
-                        <TableCell align="center">Files attached</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row,index) => (
-                        <TableRow
-                            key={index}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell style={{fontWeight: '600'}} component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="center">{row.calories}</TableCell>
-                            <TableCell align="center">{row.fat}</TableCell>
-                            <TableCell align="center">{row.carbs}</TableCell>
-                            <TableCell align="center">{row.subject}</TableCell>
-                            <TableCell align="center">{row.date}</TableCell>
-                            <TableCell align="center" className='flex justify-center' style={{ display: 'flex', justifyContent: 'center' }} >
+  const [ticketLists, setTicketList] = useState([]);
 
-                                <div className=' m-2 fileSection cursor-point '>
-                                    <img src={fileUpload} alt="" />
-                                </div>
+  const ticketList = async () => {
+    const info = {
+      headers: {
+        Authorization: `Bearer ${AdminToken}`,
+      },
+    };
+    try {
+      const response = await axios.get(
+        `${adminbaseurl}/ticket/get-ticket-list`,
+        info
+      );
+      console.log("setTicketList:::::>>>", response?.data?.data);
+      setTicketList(response?.data?.data || []);
+    } catch (error) {
+      console.error("Error fetching ticket list:", error);
+    }
+  };
 
-                            </TableCell>
-                            {/* <TableCell align="center">{row.protein}</TableCell> */}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+  useEffect(() => {
+    ticketList();
+  }, []);
+
+  return (
+    <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
+      <Table sx={{ minWidth: 650, boxShadow: "none" }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Ticket no.</TableCell>
+            <TableCell align="center">Ticket Type</TableCell>
+            <TableCell align="center">CAN Id</TableCell>
+            <TableCell align="center">Date</TableCell>
+            <TableCell align="center">Subject</TableCell>
+            <TableCell align="center">Status</TableCell>
+            <TableCell align="center">Files attached</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {ticketLists.map((ticket, index) => (
+            <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableCell style={{ fontWeight: "600" }} component="th" scope="row">
+                {ticket.ticket_id}
+              </TableCell>
+              <TableCell align="center">{ticket.ticket_type}</TableCell>
+              <TableCell align="center">{ticket.CANID}</TableCell>
+              <TableCell align="center">{ticket.createdAt}</TableCell>
+              <TableCell align="center">{ticket.ticket_subject}</TableCell>
+              <TableCell align="center">{ticket.ticket_status}</TableCell>
+              <TableCell align="center" className="flex justify-center">
+                <div className="m-2 fileSection cursor-pointer">
+                  <img src={fileUpload} alt="" />
+                </div>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 }

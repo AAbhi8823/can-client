@@ -146,8 +146,8 @@ const HealthCard1 = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      if (response.data.success) {
+      console.log("Success::>>>>",response)
+      if (response?.status===200) {
         toast.success(`Health Card ${isUpdate ? 'Updated' : 'Created'} Successfully!`);
         window.location.reload();
       } else {
