@@ -1,59 +1,63 @@
-import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
+import React, { useState, useEffect } from "react";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
-import NewReleasesIcon from "@mui/icons-material/NewReleases";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import NewReleasesOutlinedIcon from "@mui/icons-material/NewReleasesOutlined";
 import "./SelectLabels.css";
 import { Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState } from "react";
 import { Cookie } from "@mui/icons-material";
 import { baseurl } from "../Api/baseUrl";
 import axios from "axios";
 import Cookies from "js-cookie";
-import Home from "../Pages/Home";
-import { useNavigate } from 'react-router-dom';
-import { BiLabel } from "react-icons/bi";
+import { useNavigate,useLocation } from 'react-router-dom';
+
 
 export default function SelectLabels() {
   const theme = useTheme();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
   const displayButton = useMediaQuery(theme.breakpoints.up("420"));
   const [age, setAge] = useState(""); 
-  const [filter, setFilter] = useState()
-  const [homePost, setMostLikedPost] = useState()
-  // const most_liked = async(filter)=>{
-  //   const token = Cookies.get("token")
-  //   try {
-  //     const mostLikedPost = await axios.put(
-  //       `${baseurl}/api/postFilter?token=${token}`,
-  //       {
-  //         filter: filter,
-  //         limit: "",
-  //       }
-  //     );
-  //     if (mostLikedPost) {
-  //       setMostLikedPost(mostLikedPost.data.data)
-  //       console.log(filter,mostLikedPost.data.data)
-  //     } else {
-  //       console.log("error")
-  //     }
-      
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  // const handleChange = (event) => {
-  //   setAge(event.target.value);
-  //   most_liked(event.target.value);
-  // };
+  const [filter, setFilter] = useState("new");
+  const [posts, setPosts] = useState([]);
+  
+
+  const fetchPosts = async (filter) => {
+    const token = Cookies.get("token");
+    try {
+      const response = await axios.get(
+        `${baseurl}/mystory/most-liked-story`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setPosts(response.data.data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+ const handleChange = (event) => {
+    const selectedFilter = event.target.value;
+    setAge(selectedFilter);
+    setFilter(selectedFilter);
+    navigate(`/home?filter=${selectedFilter}`);
+    fetchPosts(selectedFilter);
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const filter = params.get('filter') || 'new';
+    setFilter(filter);
+    fetchPosts(filter);
+  }, [location.search]);
+
 
   return (
     <div className="flex justify-between">
@@ -86,10 +90,9 @@ export default function SelectLabels() {
             borderRadius: "20px",
             height: "42px",
             backgroundColor: "white",
-            // background: "#C31A7F",
+          
             border: "2px solid #C31A7F", // Updated border color
             "&:hover": {
-              // Remove hover effect
               background: "#C31A7F", // You can set it to the same color or any other desired color
               border: "2px solid #C31A7F", // Adjust if needed
             },
@@ -118,7 +121,7 @@ export default function SelectLabels() {
             },
           }}
           value={age || "new"}
-          // onChange={handleChange}
+          onChange={handleChange}
           displayempty="true"
           inputprops={{ "aria-label": "Without label" }}
           className="rounded-20 text-center"
