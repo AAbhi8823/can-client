@@ -34,7 +34,6 @@ function ProfileSuccessAdd(props) {
     }
   }, [token, location.state]);
 
-  console.log("done::>>>>>>>>",userValue);
   const handleSuccess = async () => {
     localStorage.clear();
     navigate("/");

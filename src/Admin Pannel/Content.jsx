@@ -4,13 +4,20 @@ import Chart from "react-apexcharts";
 import star from "../Photos/star.svg";
 import fileUpload from "../Photos/fileUpload.svg";
 import "./Content.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Page from "../Layouts/Pages";
 import AdminPage from "./AdminPage";
 import AdminTable from "./AdminMainTable";
 import AdminInput from "./AdminInput";
-
+import axios from "axios";
+import { baseurl } from "../Api/baseUrl";
+import { AdminToken } from "./AdminToken";
 const Content = () => {
+  const [totalUser,seTotalUser]=useState(0)
+  const [totaleVateran,setTotaleVaterans]=useState(0)
+  const [totalFighters,setTotalFighter]=useState(0)
+  const [totalCaregiver,setTotalCaregivers]=useState(0)
+  const [ticketLists,setTicketList]=useState(0)
   const [state, setState] = useState({
     options: {
       chart: {
@@ -57,6 +64,88 @@ const Content = () => {
     labels: ["A", "B", "C", "D", "E"],
   });
 
+  useEffect(()=>{
+    totaleUser()
+    totaleVaterans()
+    totalFighter()
+    totalCaregivers()
+    ticketList()
+  },[])
+
+  const totaleUser= async()=>{
+    const info={
+      headers: {
+        Authorization: `Bearer ${AdminToken}`,
+      },
+    }
+    try{
+      const responce=await axios.get(`${baseurl}/user/get-total-users`,info)
+      console.log("Success:::::>>>",responce?.data?.resData?.data)
+      seTotalUser(responce?.data?.resData?.data)
+    }catch(err){
+      console.error(err)
+    }
+  }
+
+  const totaleVaterans= async()=>{
+    const info={
+      headers: {
+        Authorization: `Bearer ${AdminToken}`,
+      },
+    }
+    try{
+      const responce=await axios.get(`${baseurl}/user/get-total-vaterans`,info)
+      console.log("Success:::::>>>",responce?.data?.resData?.data)
+      setTotaleVaterans(responce?.data?.resData?.data)
+    }catch(err){
+      console.error(err)
+    }
+  }
+
+  const totalFighter= async()=>{
+    const info={
+      headers: {
+        Authorization: `Bearer ${AdminToken}`,
+      },
+    }
+    try{
+      const responce=await axios.get(`${baseurl}/user/get-total-fighter`,info)
+      console.log("setTotalFighter:::::>>>",responce?.data?.resData?.data)
+      setTotalFighter(responce?.data?.resData?.data)
+    }catch(err){
+      console.error(err)
+    }
+  }
+
+  const totalCaregivers= async()=>{
+    const info={
+      headers: {
+        Authorization: `Bearer ${AdminToken}`,
+      },
+    }
+    try{
+      const responce=await axios.get(`${baseurl}/user/get-total-users`,info)
+      console.log("Success:::::>>>",responce?.data?.resData?.data)
+      setTotalCaregivers(responce?.data?.resData?.data)
+    }catch(err){
+      console.error(err)
+    }
+  }
+  const ticketList= async()=>{
+    const info={
+      headers: {
+        Authorization: `Bearer ${AdminToken}`,
+      },
+    }
+    try{
+      const responce=await axios.get(`${baseurl}/ticket/get-ticket-list`,info)
+      console.log("setTicketList:::::>>>",responce?.data?.data)
+      setTicketList(responce?.data?.data)
+    }catch(err){
+      console.error(err)
+    }
+  }
+
   return (
     <AdminPage
       AdminpageContent={
@@ -82,7 +171,7 @@ const Content = () => {
                   <img src={maincontent} alt="" />
                 </div>
                 <div className="text-content Rs-content text-2xl flex items-center ">
-                  103
+                  {totalUser}
                 </div>
               </div>
               <div className="Rs-content text-2xl content-balance ">
@@ -96,7 +185,7 @@ const Content = () => {
                   <img src={maincontent} alt="" />
                 </div>
                 <div className="text-content Rs-content text-2xl flex items-center ">
-                  103
+                  {totalFighters}
                 </div>
               </div>
               <div className="Rs-content text-2xl content-balance ">
@@ -110,7 +199,7 @@ const Content = () => {
                   <img src={maincontent} alt="" />
                 </div>
                 <div className="text-content Rs-content text-2xl flex items-center ">
-                  103
+                  {totalCaregiver}
                 </div>
               </div>
               <div className="Rs-content text-2xl content-balance ">
@@ -124,7 +213,7 @@ const Content = () => {
                   <img src={maincontent} alt="" />
                 </div>
                 <div className="text-content Rs-content text-2xl flex items-center ">
-                  103
+                  {totaleVateran}
                 </div>
               </div>
               <div className="Rs-content text-2xl content-balance ">
