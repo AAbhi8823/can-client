@@ -84,7 +84,7 @@ const UpdatePopup = ({ toggleMedicine, data, getMedicines }) => {
     try {
       const res = await axios.put(`${baseurl}/medicine/update-medicine`, updateData, info);
       console.log("ressssss", res);
-      if (res?.data?.status === true) {
+      if (res?.data?.resData?.status === true) {
         toggleMedicine();
         getMedicines();
       }
