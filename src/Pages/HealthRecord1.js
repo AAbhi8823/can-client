@@ -25,8 +25,7 @@ const HealthRecord1 = () => {
   const [userPdfData, setUserPdfData] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const token = Cookies.get("token");
-  const [uploadedFileName, setUploadedFileName] = useState(""); // State to store the name of the uploaded file
-
+  const [uploadedFileName, setUploadedFileName] = useState("");
 
   const openUpload = (id) => {
     setModel(id);
@@ -35,8 +34,8 @@ const HealthRecord1 = () => {
 
   const handlePDFUpload = (event) => {
     const file = event.target.files[0];
-    if (file.size > 5 * 1024 * 1024) {
-      setErrorMessage("File size is too large. Please upload a file smaller than 5 MB.");
+    if (file.size > 1 * 1024 * 1024) { // 1 MB limit
+      setErrorMessage("File size is too large. Please upload a file smaller than 1 MB.");
       setFile(null);
       setPDF(null);
       setPDFname("");

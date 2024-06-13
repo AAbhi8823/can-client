@@ -186,6 +186,7 @@ const Home = () => {
       console.error("Error posting comment:", error);
     }
   };
+  
 
   const handleInput = (e) => {
     setInput(e.target.value);
