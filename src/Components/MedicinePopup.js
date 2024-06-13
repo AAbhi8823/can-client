@@ -68,20 +68,20 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
   };
 
   const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: "white",
-      color: "black",
-      "&:hover": {
-        backgroundColor: "#EFC31968",
-        color: "white",
-      },
-    }),
-    menu: (provided) => ({
-      ...provided,
-      width: "70%",
-      zIndex: "99999999",
-    }),
+    // option: (provided, state) => ({
+    //   ...provided,
+    //   backgroundColor: "white",
+    //   color: "black",
+    //   "&:hover": {
+    //     backgroundColor: "#EFC31968",
+    //     color: "white",
+    //   },
+    // }),
+    // menu: (provided) => ({
+    //   ...provided,
+    //   width: "70%",
+    //   zIndex: "99999999",
+    // }),
     control: (provided, state) => ({
       ...provided,
       width: "100%",
