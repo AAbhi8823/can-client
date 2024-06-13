@@ -11,12 +11,8 @@ export default function PostFilter(filter) {
   const most_liked = async () => {
     const token = Cookies.get("token");
     try {
-      const mostLikedPost = await axios.put(
-        `${baseurl}/api/postFilter?token=${token}`,
-        {
-          filter: filter,
-          limit: "",
-        }
+      const mostLikedPost = await axios.get(
+        `${baseurl}/mystory/most-liked-story`,
       );
       if (mostLikedPost) {
         setMostLikedPost(mostLikedPost.data.data);

@@ -6,7 +6,6 @@ import Avatar from "@mui/material/Avatar";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import Cookie from "js-cookie";
-
 const FlippingImage = ({ data }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -30,14 +29,15 @@ const FlippingImage = ({ data }) => {
   const DPPost = async () => {
     try {
       const HomePosttoken = Cookie.get("token");
-      const homePost = await axios.put(
-        `${baseurl}/api/postFilter?token=${HomePosttoken}`,
-        {
-          filter: "most_likes",
-          limit: "",
+      const homePost = await axios.get(
+        `${baseurl}/mystory/most-liked-story`,{
+          headers:{
+            Authorization:`bearer ${HomePosttoken}`
+          }
         }
       );
-      sethomePost(homePost.data.data);
+      console.log("Home post token::>>",homePost)
+      sethomePost(homePost?.data?.resData?.data);
     } catch (error) {
       console.log(error);
     }
