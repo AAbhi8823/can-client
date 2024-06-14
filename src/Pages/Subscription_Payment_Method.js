@@ -1,25 +1,69 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 import { BiArrowBack, BiCheckCircle } from "react-icons/bi";
-import { NavLink } from "react-router-dom";
 import SecurePayment from "../Photos/SecurePayment.png";
 import HomeNav from "../Components/HomeNav";
 import Logo from "../Photos/Logo.png";
+
 const Subscription_Payment_Method = () => {
   const [paymentDone, setPaymentDone] = useState(false);
   const location = useLocation();
   const { subscription } = location.state || {};
-  console.log("subscription::>>",subscription)
+  console.log("subscription::>>", subscription);
 
   const togglePaymentDone = () => {
     setPaymentDone(!paymentDone);
   };
 
-  const handleRazorpayPayment = () => {
-    // Implement your payment handling logic here
-    console.log("Payment received");
-    togglePaymentDone()
-    // Call togglePaymentDone() when payment is successful
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  const handleRazorpayPayment = async () => {
+    const res = await loadRazorpayScript();
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const options = {
+      key: "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay key ID
+      amount: subscription.offer_price * 100, // amount in the smallest currency unit
+      currency: "INR",
+      name: "CAN Subscription",
+      description: `Subscription for ${subscription.duration}`,
+      image: Logo, // Your logo URL
+      handler: function (response) {
+        console.log(response);
+        togglePaymentDone();
+        // Here you can handle the response and save the transaction details
+      },
+      prefill: {
+        name: "Customer Name",
+        email: "customer@example.com",
+        contact: "9999999999",
+      },
+      notes: {
+        address: "Customer Address",
+      },
+      theme: {
+        color: "#C31A7F",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
   };
 
   if (!subscription) {
@@ -120,7 +164,7 @@ const Subscription_Payment_Method = () => {
                       <div className="flex flex-col gap-3 w-full">
                         <div className="flex flex-row justify-between">
                           <p>Amount Paid</p>
-                          <p>{subscription?.price}</p>
+                          <p>{subscription?.offer_price}</p>
                         </div>
                         <div className="flex flex-row justify-between">
                           <p>Payment Type</p>

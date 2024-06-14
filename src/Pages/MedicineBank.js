@@ -15,14 +15,14 @@ const MedicineBank = () => {
   let id = localStorage.getItem("active_user");
   const location = useLocation();
   const [medicinePopup, setMedicinePopup] = useState(false);
-  const [medicineHistory,setMedicineHistory]=useState([])
-  const [ongoingMedicine,setOngoingmedicine]=useState([])
+  const [medicineHistory, setMedicineHistory] = useState([]);
+  const [ongoingMedicine, setOngoingmedicine] = useState([]);
   const queryParams = new URLSearchParams(location.search);
   const [medicines, setMedicines] = useState(null);
 
-  useEffect(()=>{
-    getData()
-  },[]) 
+  useEffect(() => {
+    getData();
+  }, []);
 
   const toggleMedicine = () => {
     setMedicinePopup(!medicinePopup);
@@ -85,19 +85,22 @@ const MedicineBank = () => {
 
   const getData = async () => {
     try {
-      const token = Cookies.get('token'); // Get the token from cookies
-      const response = await axios.get(`${baseurl}/medicine/get-medicine-bank`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Set the Authorization header with the token
-        },
-      });
-      setMedicineHistory(response?.data?.resData?.data?.medicine_history)
-      setOngoingmedicine(response?.data?.resData?.data?.medicine_history)
-      console.log('medicine_history:', response?.data?.resData?.data?.medicine_history);
+      const token = Cookies.get("token"); // Get the token from cookies
+      const response = await axios.get(
+        `${baseurl}/medicine/get-medicine-bank`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Set the Authorization header with the token
+          },
+        }
+      );
+      setMedicineHistory(response?.data?.resData?.data?.medicine_history);
+      setOngoingmedicine(response?.data?.resData?.data?.ongoing_medicine);
+      console.log("medicine_history:", response);
     } catch (error) {
-      console.error('Error getting data:', error);
+      console.error("Error getting data:", error);
     }
-    console.log('getData');
+    console.log("getData");
   };
   const filterDataByMonth = (month) => {
     return medicineHistory.filter((item) => {
@@ -147,7 +150,6 @@ const MedicineBank = () => {
   };
 
   return (
-
     <Page
       pageContent={
         <>
@@ -213,7 +215,7 @@ const MedicineBank = () => {
               </div>
 
               <div className=" flex flex-wrap justify-around gap-5 px-5 mt-5">
-                {console.log("ongoingMedicine:::",ongoingMedicine)}
+                {console.log("ongoingMedicine:::", ongoingMedicine)}
                 {ongoingMedicine.map((item, index) => (
                   <div
                     className="border-[#C4C4C4] w-[100%] md:w-[48%] lg:w-[30%]  border-[1px] bg-[#fff] rounded-[20px] mt-5 px-10  py-6 justify-center"
@@ -232,7 +234,7 @@ const MedicineBank = () => {
                         {item?.medicine_start_date}
                       </h1>
                       <p className="text-[#A94360] px-5  lg:text-[1.04vw] text-[16px]">
-                        {item.title2}
+                        {item.medicine_stop_date}
                       </p>
                     </div>
                   </div>
@@ -245,151 +247,19 @@ const MedicineBank = () => {
                 </button>
               </div>
               <div className="lg:flex flex-wrap pt-10">
-            {renderMonthData("January", 1)}
-            {renderMonthData("February", 2)}
-            {renderMonthData("March", 3)}
-            {renderMonthData("April", 4)}
-            {renderMonthData("May", 5)}
-            {renderMonthData("June", 6)}
-            {renderMonthData("July", 7)}
-            {renderMonthData("August", 8)}
-            {renderMonthData("September", 9)}
-            {renderMonthData("October", 10)}
-            {renderMonthData("November", 11)}
-            {renderMonthData("December", 12)}
-          </div>
-              {/* <div className="lg:flex flex-wrap pt-10">
-                <div className="lg:w-[50%] mb-6 ">
-                  <div className="flex justify-center ">
-                    <button className="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
-                      January
-                    </button>
-                  </div>
-                  <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
-                    {data.map((item, index) => (
-                      <div
-                        className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6"
-                        key={index}
-                      >
-                        <div className="flex  justify-between ">
-                          <h1 className="font-bold lg:text-[0.84vw] text-[13px] px-5">
-                            {item.heading}
-                          </h1>
-                          <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">
-                            {item.title}
-                          </p>
-                        </div>
-                        <div className="flex justify-between px-3 py-3">
-                          <h1 className="text-[#C31A7F]  lg:text-[1vw] text-[15px]">
-                            {item.date}
-                          </h1>
-                          <p className="text-[#A94360] lg:text-[.70vw] text-[8px] px-5">
-                            {item.title2}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="lg:w-[50%] mb-6 border-l-[3px]">
-                  <div className="flex justify-center ">
-                    <button className="font-bold lg:text-[1.04vw] text-[16px] bg-[#EFC319] text-white py-1 px-16 border  rounded">
-                      February
-                    </button>
-                  </div>
-                  <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
-                    {data.map((item, index) => (
-                      <div
-                        className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6"
-                        key={index}
-                      >
-                        <div className="flex  justify-between ">
-                          <h1 className="font-bold  lg:text-[0.84vw] text-[13px] px-5">
-                            {item.heading}
-                          </h1>
-                          <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">
-                            {item.title}
-                          </p>
-                        </div>
-                        <div className="flex justify-between px-3 py-3">
-                          <h1 className="text-[#C31A7F]  lg:text-[1vw] text-[15px] ">
-                            {item.date}
-                          </h1>
-                          <p className="text-[#A94360] lg:text-[.70vw] text-[8px] px-5">
-                            {item.title2}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                {renderMonthData("January", 1)}
+                {renderMonthData("February", 2)}
+                {renderMonthData("March", 3)}
+                {renderMonthData("April", 4)}
+                {renderMonthData("May", 5)}
+                {renderMonthData("June", 6)}
+                {renderMonthData("July", 7)}
+                {renderMonthData("August", 8)}
+                {renderMonthData("September", 9)}
+                {renderMonthData("October", 10)}
+                {renderMonthData("November", 11)}
+                {renderMonthData("December", 12)}
               </div>
-              <div className="lg:flex flex-wrap pt-10">
-                <div className="lg:w-[50%]  mb-6  ">
-                  <div className="flex justify-center ">
-                    <button className="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
-                      March
-                    </button>
-                  </div>
-                  <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
-                    {data.map((item, index) => (
-                      <div
-                        className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6"
-                        key={index}
-                      >
-                        <div className="flex  justify-between ">
-                          <h1 className="font-bold   lg:text-[0.84vw] text-[13px] px-5">
-                            {item.heading}
-                          </h1>
-                          <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">
-                            {item.title}
-                          </p>
-                        </div>
-                        <div className="flex justify-between px-3 py-3">
-                          <h1 className="text-[#C31A7F]   lg:text-[1vw] text-[15px]">
-                            {item.date}
-                          </h1>
-                          <p className="text-[#A94360] lg:text-[.70vw] text-[8px] px-5">
-                            {item.title2}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="lg:w-[50%] mb-6 border-l-[3px]">
-                  <div className="flex justify-center ">
-                    <button className="font-bold bg-[#EFC319] lg:text-[1.04vw] text-[16px] text-white py-1 px-16 border  rounded">
-                      April
-                    </button>
-                  </div>
-                  <div className=" flex flex-wrap justify-around gap-5 px-5 mt-3">
-                    {data.map((item, index) => (
-                      <div
-                        className="border-[#C4C4C4] w-[100%] md:w-[40%] lg:w-[40%]  border-[1px] bg-[#fff] rounded-[20px] mt-5  py-6"
-                        key={index}
-                      >
-                        <div className="flex  justify-between ">
-                          <h1 className="font-bold  lg:text-[0.84vw] text-[13px] px-5">
-                            {item.heading}
-                          </h1>
-                          <p className="text-[#7E7E7E] lg:text-[.50vw] text-[8px] px-5">
-                            {item.title}
-                          </p>
-                        </div>
-                        <div className="flex justify-between px-3 py-3">
-                          <h1 className="text-[#C31A7F] lg:text-[1vw] text-[15px] ">
-                            {item.date}
-                          </h1>
-                          <p className="text-[#A94360] lg:text-[.70vw] text-[8px] px-5">
-                            {item.title2}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </>

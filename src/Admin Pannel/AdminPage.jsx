@@ -5,14 +5,6 @@ import AdminHomeNav from "./AdminNav";
 import AdminSideMenu from "./AdminSideBar";
 
 const Page = ({ AdminpageContent }) => {
-  // const [isOpen, setIsOpen] = useState(() => {
-  //   const storedValue = localStorage.getItem('isOpen');
-  //   return storedValue ? JSON.parse(storedValue) : true;
-  // });
-  // useEffect(() => {
-  //   // Store the 'isOpen' state in localStorage whenever it changes
-  //   localStorage.setItem('isOpen', JSON.stringify(isOpen));
-  // }, [isOpen]);
   return (
     <div>
       <div className="flex ">
