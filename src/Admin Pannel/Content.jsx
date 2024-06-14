@@ -5,19 +5,19 @@ import star from "../Photos/star.svg";
 import fileUpload from "../Photos/fileUpload.svg";
 import "./Content.css";
 import React, { useEffect, useState } from "react";
-// import Page from "../Layouts/Pages";
 import AdminPage from "./AdminPage";
 import AdminTable from "./AdminMainTable";
 import AdminInput from "./AdminInput";
 import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
-import { AdminToken } from "./AdminToken";
+import { adminbaseurl, AdminToken } from "./AdminToken";
 const Content = () => {
-  const [totalUser,seTotalUser]=useState(0)
-  const [totaleVateran,setTotaleVaterans]=useState(0)
-  const [totalFighters,setTotalFighter]=useState(0)
-  const [totalCaregiver,setTotalCaregivers]=useState(0)
-  const [ticketLists,setTicketList]=useState(0)
+  const [totalUser, seTotalUser] = useState(0);
+  const [totaleVateran, setTotaleVaterans] = useState(0);
+  const [totalFighters, setTotalFighter] = useState(0);
+  const [totalCaregiver, setTotalCaregivers] = useState(0);
+  const [ticketLists, setTicketList] = useState(0);
+  const [userPersent,setUserPersent] = useState(0);
   const [state, setState] = useState({
     options: {
       chart: {
@@ -64,85 +64,111 @@ const Content = () => {
     labels: ["A", "B", "C", "D", "E"],
   });
 
-  useEffect(()=>{
-    totaleUser()
-    totaleVaterans()
-    totalFighter()
-    totalCaregivers()
-    ticketList()
-  },[])
+  useEffect(() => {
+    totaleUser();
+    totaleVaterans();
+    totalFighter();
+    totalCaregivers();
+    ticketList();
+    getGenderPercentage();
+  }, []);
 
-  const totaleUser= async()=>{
-    const info={
+  const totaleUser = async () => {
+    const info = {
       headers: {
         Authorization: `Bearer ${AdminToken}`,
       },
+    };
+    try {
+      const responce = await axios.get(`${baseurl}/user/get-total-users`, info);
+      console.log("Success:::::>>>", responce?.data?.resData?.data);
+      seTotalUser(responce?.data?.resData?.data);
+    } catch (err) {
+      console.error(err);
     }
-    try{
-      const responce=await axios.get(`${baseurl}/user/get-total-users`,info)
-      console.log("Success:::::>>>",responce?.data?.resData?.data)
-      seTotalUser(responce?.data?.resData?.data)
-    }catch(err){
-      console.error(err)
-    }
-  }
+  };
 
-  const totaleVaterans= async()=>{
-    const info={
+  const totaleVaterans = async () => {
+    const info = {
       headers: {
         Authorization: `Bearer ${AdminToken}`,
       },
+    };
+    try {
+      const responce = await axios.get(
+        `${baseurl}/user/get-total-vaterans`,
+        info
+      );
+      console.log("Success:::::>>>", responce?.data?.resData?.data);
+      setTotaleVaterans(responce?.data?.resData?.data);
+    } catch (err) {
+      console.error(err);
     }
-    try{
-      const responce=await axios.get(`${baseurl}/user/get-total-vaterans`,info)
-      console.log("Success:::::>>>",responce?.data?.resData?.data)
-      setTotaleVaterans(responce?.data?.resData?.data)
-    }catch(err){
-      console.error(err)
-    }
-  }
+  };
 
-  const totalFighter= async()=>{
-    const info={
+  const totalFighter = async () => {
+    const info = {
       headers: {
         Authorization: `Bearer ${AdminToken}`,
       },
+    };
+    try {
+      const responce = await axios.get(
+        `${baseurl}/user/get-total-fighter`,
+        info
+      );
+      console.log("setTotalFighter:::::>>>", responce?.data?.resData?.data);
+      setTotalFighter(responce?.data?.resData?.data);
+    } catch (err) {
+      console.error(err);
     }
-    try{
-      const responce=await axios.get(`${baseurl}/user/get-total-fighter`,info)
-      console.log("setTotalFighter:::::>>>",responce?.data?.resData?.data)
-      setTotalFighter(responce?.data?.resData?.data)
-    }catch(err){
-      console.error(err)
-    }
-  }
+  };
 
-  const totalCaregivers= async()=>{
-    const info={
+  const totalCaregivers = async () => {
+    const info = {
+      headers: {
+        Authorization: `Bearer ${AdminToken}`,
+      },
+    };
+    try {
+      const responce = await axios.get(`${baseurl}/user/get-total-users`, info);
+      console.log("Success:::::>>>", responce?.data?.resData?.data);
+      setTotalCaregivers(responce?.data?.resData?.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const ticketList = async () => {
+    const info = {
+      headers: {
+        Authorization: `Bearer ${AdminToken}`,
+      },
+    };
+    try {
+      const responce = await axios.get(
+        `${baseurl}/ticket/get-ticket-list`,
+        info
+      );
+      console.log("setTicketList:::::>>>", responce?.data?.data);
+      setTicketList(responce?.data?.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const getGenderPercentage=async ()=>{
+    const info = {
       headers: {
         Authorization: `Bearer ${AdminToken}`,
       },
     }
     try{
-      const responce=await axios.get(`${baseurl}/user/get-total-users`,info)
-      console.log("Success:::::>>>",responce?.data?.resData?.data)
-      setTotalCaregivers(responce?.data?.resData?.data)
-    }catch(err){
-      console.error(err)
+      const responce=await axios.get(`${adminbaseurl}/user/get-users-percentage`,info)
+      console.log("successful::>>",responce?.data?.resData?.data)
+      setUserPersent(responce?.data?.resData?.data)
+
     }
-  }
-  const ticketList= async()=>{
-    const info={
-      headers: {
-        Authorization: `Bearer ${AdminToken}`,
-      },
-    }
-    try{
-      const responce=await axios.get(`${baseurl}/ticket/get-ticket-list`,info)
-      console.log("setTicketList:::::>>>",responce?.data?.data)
-      setTicketList(responce?.data?.data)
-    }catch(err){
-      console.error(err)
+    catch(err){
+      console.error(err);
     }
   }
 
@@ -256,7 +282,7 @@ const Content = () => {
                     <img src={maincontent} alt="" />
                   </div>
                   <div className="text-content font-bold text-[20px] items-center">
-                    User Age Stamp
+                    Active Users
                   </div>
                   <div className="text-content ml-[180px] flex text-[14px] items-center font-semibold">
                     Gender Distribution Data
@@ -293,7 +319,7 @@ const Content = () => {
                     User Age Stamp
                   </div>
                   <div className="text-content ml-[180px] flex text-[14px] items-center font-semibold">
-                    Gender Distribution Data
+                   Avg. User Count in a meet
                   </div>
                 </div>
                 <div className="content-graph flex">
@@ -410,7 +436,7 @@ const Content = () => {
                     <img src={maincontent} alt="" />
                   </div>
                   <div className="text-content font-bold text-[20px] flex items-center">
-                    <div>User Age Stamp</div>
+                    <div>Meeting Analysis</div>
                   </div>
                 </div>
                 <div className="p-4">
@@ -451,14 +477,14 @@ const Content = () => {
                   <div className="py-[15px]">
                     <AdminInput />
                   </div>
-                  <div className="flex">
+                  {/* <div className="flex">
                     <div className=" m-2 fileSection cursor-pointer ">
                       <img src={fileUpload} alt="" />
                     </div>
                     <div className=" mt-2">
                       <button className="Submit text-white">Submit</button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="rounded-[40px]  grid   border support-content">
                   <AdminTable />

@@ -55,7 +55,6 @@ const Home = () => {
   const [showContent, setShowContent] = useState(false);
   const [shareButton, setShareButton] = useState(false);
   const [reportButton, setReportButton] = useState(false);
-  const [showThanku, setThanku] = useState(false);
   const [showlocation, setShowLacation] = useState(false);
   const [showgif, setShowgif] = useState(false);
   const [userBlock, setUserBlock] = useState(false);
@@ -186,7 +185,6 @@ const Home = () => {
       console.error("Error posting comment:", error);
     }
   };
-  
 
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -201,7 +199,7 @@ const Home = () => {
   };
 
   const togglethanku = () => {
-    setThanku(!showThanku);
+    setShowThanku(!showThanku);
   };
 
   const likeButton = async (likeID) => {
@@ -227,7 +225,7 @@ const Home = () => {
           ...prevLikedPosts,
           [likeID]: true,
         }));
-        HomePost('new');
+        HomePost("new");
       } else {
         console.log("API error");
       }
@@ -311,11 +309,14 @@ const Home = () => {
   const HomePost = async (filter) => {
     try {
       const HomePosttoken = Cookie.get("token");
-      const homePost = await axios.get(`${baseurl}/mystory/get-story-by-filter/${filter}`, {
-        headers: {
-          Authorization: `Bearer ${HomePosttoken}`,
-        },
-      });
+      const homePost = await axios.get(
+        `${baseurl}/mystory/get-story-by-filter/${filter}`,
+        {
+          headers: {
+            Authorization: `Bearer ${HomePosttoken}`,
+          },
+        }
+      );
       console.log("homePost::>>>", homePost.data.resData.data);
       sethomePost(homePost.data.resData.data);
       setIsCommentLoading(!isCommentLoadin);
@@ -351,7 +352,7 @@ const Home = () => {
   const activeUser = localStorage.getItem("active_user");
 
   useEffect(() => {
-    HomePost('new');
+    HomePost("new");
     friendList();
   }, []);
 
@@ -464,7 +465,7 @@ const Home = () => {
       console.log(error);
     }
   };
-  console.log("User:>>>>>",userData)
+  console.log("User:>>>>>", userData);
 
   const [commentImage, setCommentImage] = useState(null);
 
@@ -505,6 +506,7 @@ const Home = () => {
       );
       console.log("delete-story::>>", data);
       if (data) {
+        window.location.reload()
         console.log(data);
       } else {
         console.log("api error");
@@ -515,10 +517,42 @@ const Home = () => {
   };
   const handleFilterChange = (filterData) => {
     sethomePost(filterData);
-    console.log("filterData:>>>>>",filterData)
+    console.log("filterData:>>>>>", filterData);
   };
-  
- 
+  const [reportReason, setReportReason] = useState("")
+  const [showThanku, setShowThanku] = useState(false);
+
+  const handleReportClick = async (postId,reason) => {
+    setReportReason(reason);
+    const HomePosttoken = Cookie.get("token");
+    try {
+      const response = await axios.post(
+        `${baseurl}/report`,
+        {
+          post_id: postId,
+          reason: reason,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${HomePosttoken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setShowThanku(true);
+      } else {
+        // Handle error here if needed
+        console.error("Error reporting the post:", response.data);
+      }
+    } catch (error) {
+      console.error("Error reporting the post:", error);
+    }
+  };
+  const toggleThanku = () => {
+    setShowThanku(!showThanku);
+    toggleReportButton(); // Close the report popup when thank you popup is closed
+  };
 
   return (
     <Page
@@ -543,8 +577,12 @@ const Home = () => {
                       }}
                     >
                       <div className="flex px-10 pt-8 gap-3">
-                        <img src={userData?.profile_image} alt='none' className='rounded-full w-12 ' />
-                        {console.log("comment:>>>>",userData)}
+                        <img
+                          src={userData?.profile_image}
+                          alt="none"
+                          className="rounded-full w-12 "
+                        />
+                        {console.log("comment:>>>>", userData)}
                         <input
                           value={input}
                           onChange={handleInput}
@@ -695,7 +733,7 @@ const Home = () => {
                   )}
                   <div className="text-end"> </div>
                   <div className="text-end space-x-5 mt-2">
-                  <SelectLabels onFilterChange={handleFilterChange} />
+                    <SelectLabels onFilterChange={handleFilterChange} />
                   </div>
 
                   {Loading ? (
@@ -942,7 +980,7 @@ const Home = () => {
                                                 <h1 className="text-[18px] font-semibold">
                                                   Report
                                                 </h1>
-                                                <div className="absolute right-6 top-6  cursor-pointer">
+                                                <div className="absolute right-6 top-6 cursor-pointer">
                                                   <IoMdClose
                                                     size={18}
                                                     onClick={toggleReportButton}
@@ -967,40 +1005,12 @@ const Home = () => {
                                                   <HiOutlineChevronRight
                                                     className="cursor-pointer"
                                                     color="#7E7E7E"
-                                                    onClick={togglethanku}
+                                                    onClick={() =>
+                                                      handleReportClick(
+                                                        "It's a spam"
+                                                      )
+                                                    }
                                                   />
-                                                  {showThanku && (
-                                                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
-                                                      <div className="w-[430px] bg-[#FFFFFF] flex flex-col items-center p-14 gap-7 rounded-[30px]">
-                                                        <div>
-                                                          <BiCheckCircle
-                                                            color="#C31A7F"
-                                                            size={75}
-                                                          />
-                                                        </div>
-                                                        <div className="flex flex-col gap-2">
-                                                          <h1 className="text-[18px] font-semibold">
-                                                            Thanks for letting
-                                                            us know
-                                                          </h1>
-                                                          <p className="text-[14px] text-[#7E7E7E] font-semibold">
-                                                            Your feedback is
-                                                            important in helping
-                                                            us keep the CAN
-                                                            community safe
-                                                          </p>
-                                                        </div>
-                                                        <div
-                                                          className="w-40 h-9 flex items-center justify-center rounded-[10px] bg-[#C31A7F] "
-                                                          onClick={togglethanku}
-                                                        >
-                                                          <p className="text-[#FFFFFF] text-[13px] font-semibold cursor-pointer">
-                                                            Close
-                                                          </p>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  )}
                                                 </div>
                                                 <div>
                                                   <hr />
@@ -1009,17 +1019,33 @@ const Home = () => {
                                                   <p className="text-[14px] font-semibold">
                                                     Hate speech or symbols
                                                   </p>
-                                                  <HiOutlineChevronRight color="#7E7E7E" />
+                                                  <HiOutlineChevronRight
+                                                    className="cursor-pointer"
+                                                    color="#7E7E7E"
+                                                    onClick={() =>
+                                                      handleReportClick(
+                                                        "Hate speech or symbols"
+                                                      )
+                                                    }
+                                                  />
                                                 </div>
                                                 <div>
                                                   <hr />
                                                 </div>
                                                 <div className="flex items-center justify-between text-center">
                                                   <p className="text-[14px] font-semibold">
-                                                    Violence of dangerous
+                                                    Violence or dangerous
                                                     organization
                                                   </p>
-                                                  <HiOutlineChevronRight color="#7E7E7E" />
+                                                  <HiOutlineChevronRight
+                                                    className="cursor-pointer"
+                                                    color="#7E7E7E"
+                                                    onClick={() =>
+                                                      handleReportClick(
+                                                        "Violence or dangerous organization"
+                                                      )
+                                                    }
+                                                  />
                                                 </div>
                                                 <div>
                                                   <hr />
@@ -1028,7 +1054,15 @@ const Home = () => {
                                                   <p className="text-[14px] font-semibold">
                                                     False information
                                                   </p>
-                                                  <HiOutlineChevronRight color="#7E7E7E" />
+                                                  <HiOutlineChevronRight
+                                                    className="cursor-pointer"
+                                                    color="#7E7E7E"
+                                                    onClick={() =>
+                                                      handleReportClick(
+                                                        "False information"
+                                                      )
+                                                    }
+                                                  />
                                                 </div>
                                                 <div>
                                                   <hr />
@@ -1037,7 +1071,45 @@ const Home = () => {
                                                   <p className="text-[14px] font-semibold">
                                                     I just don't like it
                                                   </p>
-                                                  <HiOutlineChevronRight color="#7E7E7E" />
+                                                  <HiOutlineChevronRight
+                                                    className="cursor-pointer"
+                                                    color="#7E7E7E"
+                                                    onClick={() =>
+                                                      handleReportClick(
+                                                        "I just don't like it"
+                                                      )
+                                                    }
+                                                  />
+                                                </div>
+                                              </div>
+                                            </div>
+                                          )}
+                                          {showThanku && (
+                                            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 lg:p-0 p-2">
+                                              <div className="w-[430px] bg-[#FFFFFF] flex flex-col items-center p-14 gap-7 rounded-[30px]">
+                                                <div>
+                                                  <BiCheckCircle
+                                                    color="#C31A7F"
+                                                    size={75}
+                                                  />
+                                                </div>
+                                                <div className="flex flex-col gap-2">
+                                                  <h1 className="text-[18px] font-semibold">
+                                                    Thanks for letting us know
+                                                  </h1>
+                                                  <p className="text-[14px] text-[#7E7E7E] font-semibold">
+                                                    Your feedback is important
+                                                    in helping us keep the CAN
+                                                    community safe
+                                                  </p>
+                                                </div>
+                                                <div
+                                                  className="w-40 h-9 flex items-center justify-center rounded-[10px] bg-[#C31A7F] "
+                                                  onClick={toggleThanku}
+                                                >
+                                                  <p className="text-[#FFFFFF] text-[13px] font-semibold cursor-pointer">
+                                                    Close
+                                                  </p>
                                                 </div>
                                               </div>
                                             </div>

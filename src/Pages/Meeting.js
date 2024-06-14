@@ -10,8 +10,9 @@ import axios from "axios";
 import { baseurl } from "../Api/baseUrl";
 import "./Meeting.css";
 
+
 const Meeting = () => {
-  const [selectedOption, setSelectedOption] = useState("Today");
+  const [selectedOption, setSelectedOption] = useState("today");
   const [meetings, setMeetings] = useState([]);
   const [enrolled, setEnrolled] = useState(false);
   const [join, setJoin] = useState(false);
@@ -51,15 +52,15 @@ const Meeting = () => {
     } else {
       getMeeting();
     }
-  }, [token, navigate]);
+  }, [selectedOption]);
 
   const getMeeting = async () => {
     try {
-      const response = await axios.get(`${baseurl}/meeting/get-meeting-list`, {
+      const response = await axios.get(`${baseurl}/meeting/get-meeting-by-filter/${selectedOption}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("response:::>>",response)
-      setMeetings(response?.data?.data); // Assuming the response contains a `meetings` array
+      console.log("response:::", response);
+      setMeetings(response?.data?.data);
     } catch (err) {
       console.error(err);
     }
@@ -73,6 +74,29 @@ const Meeting = () => {
     const options = { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
+
+  const renderActionButtons = (meeting) => {
+    if (selectedOption === "today") {
+      return (
+        <h2 className="bg-[#C31A7F] text-white px-8 py-1 rounded-xl cursor-pointer" onClick={() => joinMeeting(meeting?.join_url)}>
+          Join
+        </h2>
+      );
+    } else if (selectedOption === "upcoming") {
+      return (
+        <h2 className="bg-[#4CAF50] text-white px-8 py-1 rounded-xl cursor-pointer" onClick={() => enroll()}>
+          Register
+        </h2>
+      );
+    } else {
+      return (
+        <h2 className="bg-gray-400 text-white px-8 py-1 rounded-xl cursor-not-allowed opacity-50">
+          Ended
+        </h2>
+      );
+    }
+  };
+
   return (
     <Page
       pageContent={
@@ -80,18 +104,18 @@ const Meeting = () => {
           {/* top bar */}
           <div className="pl-[20px] pr-[20px] lg:pl-[10%] lg:pr-[6%] flex justify-between pt-8 flex-col md:flex-row">
             <div className="cursor-pointer mb-3 md:mb-0">
-              {selectedOption === "Today" && (
+              {selectedOption === "today" && (
                 <h2 className="text-xl font-semibold flex items-center gap-2">
                   <TiMediaRecord color="red" />
                   Live Meeting
                 </h2>
               )}
-              {selectedOption === "Meeting" && (
+              {selectedOption === "upcoming" && (
                 <h2 className="text-xl font-semibold cursor-pointer">
-                  Meeting
+                  Upcoming
                 </h2>
               )}
-              {selectedOption !== "Today" && selectedOption !== "Meeting" && (
+              {selectedOption === "history" && (
                 <h2 className="text-xl font-semibold cursor-pointer">History</h2>
               )}
             </div>
@@ -108,27 +132,27 @@ const Meeting = () => {
                       ? "font-bold text-black transition duration-300"
                       : "text-[#C4C4C4] cursor-pointer"
                   }`}
-                  onClick={() => handleItemClick("Today")}
+                  onClick={() => handleItemClick("today")}
                 >
                   Today
                 </h2>
                 <h2
                   className={`px-2 ${
-                    selectedOption === "Meeting"
+                    selectedOption === "upcoming"
                       ? "font-bold text-black transition duration-300"
                       : "text-[#C4C4C4] cursor-pointer"
                   }`}
-                  onClick={() => handleItemClick("Meeting")}
+                  onClick={() => handleItemClick("upcoming")}
                 >
-                  Meeting
+                  Upcoming
                 </h2>
                 <h2
                   className={`px-2 ${
-                    selectedOption === "History"
+                    selectedOption === "history"
                       ? "font-bold text-black transition duration-300"
                       : "text-[#C4C4C4] cursor-pointer"
                   }`}
-                  onClick={() => handleItemClick("History")}
+                  onClick={() => handleItemClick("history")}
                 >
                   History
                 </h2>
@@ -141,7 +165,6 @@ const Meeting = () => {
             {meetings.map((meeting, index) => (
               <div key={index} id="meet-box" className="meet-box bg-white shadow-xl mt-8 flex overflow-auto justify-between px-5 rounded-2xl py-2">
                 <div className="flex items-center font-semibold text-[#CF4899] w-[max-content] pr-2">
-              
                   {formatDate(meeting?.start_time)}
                 </div>
                 <div className="flex items-center w-[max-content] pr-2">
@@ -166,9 +189,7 @@ const Meeting = () => {
                   Active accounts
                 </div>
                 <div className="flex items-center justify-center w-[max-content] pr-2">
-                  <h2 className="bg-[#C31A7F] text-white px-8 py-1 rounded-xl cursor-pointer" onClick={() => joinMeeting(meeting?.join_url)}>
-                    Join
-                  </h2>
+                  {renderActionButtons(meeting)}
                 </div>
               </div>
             ))}
@@ -199,7 +220,7 @@ const Meeting = () => {
               {!joinWith && (
                 <div className="w-[35%] h-[40%] bg-white rounded-2xl">
                   <div className="flex items-center justify-center pt-6">
-                    <h1 className="font-semibold text-lg">Enter your name</h1>
+                  <h1 className="font-semibold text-lg">Enter your name</h1>
                     <div className="absolute right-[35%]">
                       <div onClick={() => joinMeeting()}>
                         <IoMdClose />
@@ -227,3 +248,4 @@ const Meeting = () => {
 };
 
 export default Meeting;
+
