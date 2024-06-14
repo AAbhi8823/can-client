@@ -14,10 +14,11 @@ import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 
 function HealthProfile({ value }) {
-  const base_token=Cookies.get("token");
+  const base_token = Cookies.get("token");
   const [helthdata, setHelthdata] = useState(null);
   const [userData, setUserData] = useState("");
-  const gethelthCard = async () => {
+
+  const getHelthCard = async () => {
     const postToken = Cookie.get("token");
     try {
       const response = await axios.get(`${baseurl}/healthcard/get-health-card`, {
@@ -27,7 +28,7 @@ function HealthProfile({ value }) {
       });
       if (response.data?.resData?.status === true) {
         setHelthdata(response.data.resData.data[0]);
-        console.log("response::>>",response)
+        console.log("response::>>", response);
       } else {
         console.log("API error");
       }
@@ -36,13 +37,7 @@ function HealthProfile({ value }) {
     }
   };
 
-  useEffect(() => {
-    gethelthCard();
-    LandingData();
-  }, []);
-
-
-  const LandingData = async () => {
+  const landingData = async () => {
     const config = {
       headers: {
         Authorization: `Bearer ${base_token}`,
@@ -52,15 +47,22 @@ function HealthProfile({ value }) {
     try {
       const response = await axios(`${apis.GET_SINGLE_USER}`, config);
       console.log(
-        "response:response " + JSON.stringify(response?.data?.resData?.data)
+        "response:response " + response?.data?.resData?.data
       );
       setUserData(response?.data?.resData?.data);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log("value:>>>>",userData)
 
+  useEffect(() => {
+    getHelthCard();
+    landingData();
+  }, []);
+
+  const handleDownload = (fileUrl) => {
+    window.open(fileUrl, "_blank");
+  };
 
   return (
     <TabPanel value={value} index={3}>
@@ -84,7 +86,10 @@ function HealthProfile({ value }) {
               <div className="bg-[#c31a7f38] text-[#C31A7F] px-3 py-2 rounded-[12px] cursor-pointer flex justify-center shadow-md w-9 items-center">
                 <BsDownload className="flex flex-grow" />
               </div>
-              <NavLink className="bg-[#c31a7f38] text-[#C31A7F] px-3 py-2 bold rounded-[12px] cursor-pointer flex justify-center shadow-md w-9 items-center" to='/HealthCard1'>
+              <NavLink
+                className="bg-[#c31a7f38] text-[#C31A7F] px-3 py-2 bold rounded-[12px] cursor-pointer flex justify-center shadow-md w-9 items-center"
+                to="/HealthCard1"
+              >
                 <MdOutlineModeEditOutline className="flex flex-grow" />
               </NavLink>
             </div>
@@ -98,7 +103,16 @@ function HealthProfile({ value }) {
                     <img src={Icon} alt="icon" />
                   </div>
                   <div className="flex overflow-hidden justify-center items-center">
-                    <img src={userData?.profile_image} alt="account" style={{objectFit:'cover', borderRadius:'50%', width:'100px', height:'100px'}}/>
+                    <img
+                      src={userData?.profile_image}
+                      alt="account"
+                      style={{
+                        objectFit: "cover",
+                        borderRadius: "50%",
+                        width: "100px",
+                        height: "100px",
+                      }}
+                    />
                   </div>
                 </div>
                 <div className="flex justify-center text-center">
@@ -111,51 +125,66 @@ function HealthProfile({ value }) {
                 </div>
               </div>
               <div className="flex lg:px-0 xl:mb-[0px] mb-[20px]">
-              <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] lg:h-fit gap-4 flex-col items-start py-6 px-4 justify-evenly w-full">
-                <div className="flex flex-row justify-evenly items-start w-full">
-                  <div className="flex flex-col items-start px-4 border-r-2 border-[#C4C4C4]">
-                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Presiding Doctor</h2>
-                    <p>{helthdata?.presiding_doctor}</p>
+                <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] lg:h-fit gap-4 flex-col items-start py-6 px-4 justify-evenly w-full">
+                  <div className="flex flex-row justify-evenly items-start w-full">
+                    <div className="flex flex-col items-start px-4 border-r-2 border-[#C4C4C4]">
+                      <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">
+                        Presiding Doctor
+                      </h2>
+                      <p>{helthdata?.presiding_doctor}</p>
+                    </div>
+                    <div className="flex flex-col px-2">
+                      <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">
+                        Hospital Details (primary)
+                      </h2>
+                      <p>{helthdata?.hospital_details_primary}</p>
+                    </div>
                   </div>
-                  <div className="flex flex-col px-2">
-                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Hospital Details (primary)</h2>
-                    <p>{helthdata?.hospital_details_primary}</p>
+                  <hr className="w-full border-[#C4C4C4] my-4" />
+                  <div className="flex flex-col justify-center items-center w-full">
+                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">
+                      Hospital Details
+                    </h2>
+                    <p>{helthdata?.hospital_details}</p>
                   </div>
-                </div>
-                <hr className="w-full border-[#C4C4C4] my-4" />
-                <div className="flex flex-col justify-center items-center w-full">
-                  <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Hospital Details</h2>
-                  <p>{helthdata?.hospital_details}</p>
                 </div>
               </div>
-            </div>
-              
             </div>
             <div className="flex flex-col bg-transparent gap-5 w-full lg:w-[50%] px-3">
               <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] gap-4 flex-col items-start py-6 px-4 justify-evenly w-full h-full">
                 <div className="flex flex-row justify-around items-start w-full">
                   <div className="flex flex-col items-start px-3 border-r-2 border-[#C4C4C4]">
-                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Cancer</h2>
-                    <p className="font-[600] text-[18px]">{helthdata?.cancer_type}</p>
+                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">
+                      Cancer
+                    </h2>
+                    <p className="font-[600] text-[18px]">
+                      {helthdata?.cancer_type}
+                    </p>
                   </div>
                   <div className="flex flex-col px-2">
-                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Stage</h2>
+                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">
+                      Stage
+                    </h2>
                     <p>{helthdata?.cancer_stage}</p>
                   </div>
                 </div>
                 <hr className="w-full border-[#C4C4C4] my-2" />
                 <div className="flex flex-row gap-4 justify-evenly w-full">
                   <div className="flex flex-col border-r-2 border-[#C4C4C4]">
-                    <h2 className="lg:text-[12px] text-[14px] flex px-2 text-[#C31A7F]">Current Treatment</h2>
+                    <h2 className="lg:text-[12px] text-[14px] flex px-2 text-[#C31A7F]">
+                      Current Treatment
+                    </h2>
                     <p>{helthdata?.current_treatment}</p>
                   </div>
                   <div className="flex flex-col">
-                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">Last Treatment</h2>
+                    <h2 className="lg:text-[12px] text-[14px] text-[#C31A7F]">
+                      Last Treatment
+                    </h2>
                     <p>{helthdata?.last_treatment}</p>
                   </div>
                 </div>
               </div>
-              <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] flex-row py-6 justify-evenly w-full">
+              <div className="border-[#C4C4C4] border [#FCF5FA] bg-[#FCF5FA] flex rounded-[20px] flex-row py-6 justify-evenly w-full">
                 <div className="flex flex-col border-r-2 border-[#C4C4C4]">
                   <h2 className="lg:text-[12px] text-[14px] px-2 text-[#C31A7F]">Weight</h2>
                   <p>{helthdata?.weight}</p>
@@ -186,11 +215,37 @@ function HealthProfile({ value }) {
           <div className="flex lg:flex-row flex-col w-full gap-10 px-3">
             <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] flex-row py-6 px-4 justify-evenly lg:w-1/2 w-full">
               <h2 className="lg:text-[16px] text-[14px] text-[#C31A7F]">Aadhar Card</h2>
-              <p className="text-[#7E7E7E]">{helthdata?.aadhar_card}</p>
+              <div className="flex items-center">
+                {/* <p className="text-[#7E7E7E]">{helthdata?.adhaar_card}</p> */}
+                
+                {helthdata?.adhaar_card && (
+                  <div
+                    className="ml-2 cursor-pointer"
+                    onClick={() => handleDownload(helthdata?.adhaar_card)}
+                  >
+                    <div className="bg-[#c31a7f38] text-[#C31A7F] px-3 py-2 rounded-[12px] cursor-pointer flex justify-center shadow-md w-9 items-center">
+                <BsDownload className="flex flex-grow" />
+              </div>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="border-[#C4C4C4] border-[1px] bg-[#FCF5FA] flex rounded-[20px] flex-row py-6 px-4 justify-evenly lg:w-1/2 w-full">
               <h2 className="lg:text-[16px] text-[14px] text-[#C31A7F]">Fit to Fly</h2>
-              <p className="text-[#7E7E7E]">{helthdata?.fit_to_fly}</p>
+              <div className="flex items-center">
+                {/* <p className="text-[#7E7E7E]">{helthdata?.fit_to_fly_certificate}</p> */}
+                {console.log("qdefjhbefewbfbewfbewf::",helthdata)}
+                {helthdata?.fit_to_fly_certificate && (
+                  <div
+                    className="ml-2 cursor-pointer"
+                    onClick={() => handleDownload(helthdata?.fit_to_fly_certificate)}
+                  >
+                   <div className="bg-[#c31a7f38] text-[#C31A7F] px-3 py-2 rounded-[12px] cursor-pointer flex justify-center shadow-md w-9 items-center">
+                <BsDownload className="flex flex-grow" />
+              </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
