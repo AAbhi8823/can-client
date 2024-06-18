@@ -319,7 +319,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
               <div className="flex justify-end py-4">
                 <button
                   type="button"
-                  className="text-white bg-blue-500 rounded-full px-4 py-2"
+                  className="text-white bg-[#C31A7F] rounded-full px-4 py-2"
                   onClick={handleAddMedicine}
                 >
                   Add More
@@ -329,7 +329,7 @@ const MedicinePopup = ({ toggleMedicine, getMedicines }) => {
               <div className="flex justify-center py-4">
                 <button
                   type="submit"
-                  className="text-white bg-blue-500 rounded-full px-4 py-2"
+                  className="text-white bg-[#C31A7F] rounded-full px-4 py-2"
                   onClick={createMedicine}
                   disabled={isSubmitting}
                 >
