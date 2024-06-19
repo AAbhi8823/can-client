@@ -44,6 +44,7 @@ import Cookies from "js-cookie";
 import apis from "../Api/baseUrl";
 import "./ContactUs.css";
 import account from "../Photos/account.jpg";
+import Slider from "react-slick";
 const Home = () => {
   const base_token = Cookies.get("token");
   const emojiButtonRef = useRef(null);
@@ -351,11 +352,6 @@ const Home = () => {
 
   const activeUser = localStorage.getItem("active_user");
 
-  useEffect(() => {
-    HomePost("new");
-    friendList();
-  }, []);
-
   const handleComInput = (e) => {
     setComVal(e.target.value);
   };
@@ -444,6 +440,9 @@ const Home = () => {
       navigate("/loginform");
     }
     getProfile();
+    getPolldata();
+    HomePost("new");
+    friendList();
   }, []);
 
   const [userData, setUserData] = useState(null);
@@ -506,7 +505,7 @@ const Home = () => {
       );
       console.log("delete-story::>>", data);
       if (data) {
-        window.location.reload()
+        window.location.reload();
         console.log(data);
       } else {
         console.log("api error");
@@ -519,10 +518,10 @@ const Home = () => {
     sethomePost(filterData);
     console.log("filterData:>>>>>", filterData);
   };
-  const [reportReason, setReportReason] = useState("")
+  const [reportReason, setReportReason] = useState("");
   const [showThanku, setShowThanku] = useState(false);
 
-  const handleReportClick = async (postId,reason) => {
+  const handleReportClick = async (postId, reason) => {
     setReportReason(reason);
     const HomePosttoken = Cookie.get("token");
     try {
@@ -551,7 +550,29 @@ const Home = () => {
   };
   const toggleThanku = () => {
     setShowThanku(!showThanku);
-    toggleReportButton(); // Close the report popup when thank you popup is closed
+    toggleReportButton();
+  };
+  const [pollList, setPollList] = useState([]);
+  const getPolldata = async () => {
+    const info = {
+      headers: {
+        Authorization: `bearer ${base_token}`,
+      },
+    };
+    try {
+      const responce = await axios.get(`${baseurl}/poll/get-poll-list`, info);
+      console.log("Response:>>", responce?.data?.resData?.data);
+      setPollList(responce?.data?.resData?.data);
+    } catch (errors) {
+      console.error("Error getting");
+    }
+  };
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   return (
@@ -1587,6 +1608,42 @@ const Home = () => {
                   )}
                 </div>
                 <div className="ris-home lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
+                  <div className="mt-8 p-5 pb-4 rounded-[30px] w-[100%] bg-[#FFFFFF] border-[0.5px] border-[#C31A7F33]">
+                    <p className="flex flex-wrap text-center text-[17px]">
+                      What time is best suited for you to join the meeting?
+                    </p>
+
+                    <div className="flex flex-col gap-4">
+                      <Slider {...sliderSettings}>
+                        {pollList.map((time, index) => (
+                          <div
+                            key={index}
+                            className="flex  items-center justify-center gap-3 pt-3"
+                            style={{}}
+                          >
+                            {time.poll_options.map((option, idx) => (
+                              <div
+                                key={idx}
+                                className={`w-24 h-9 cursor-pointer flex flex-row items-center justify-center rounded-[15px] ${
+                                  option.selected
+                                    ? "bg-[#C31A7F] text-[#FFFFFF]"
+                                    : "bg-[#FFFFFF] text-[#C31A7F] border-[1px] border-[#C31A7F]"
+                                }`}
+                                style={{ fontSize: "13px" }}
+                              >
+                                <p>{option.option}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </Slider>
+                      <div className="flex flex-row items-center justify-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-[#C31A7F]"></div>
+                        <div className="w-2 h-2 rounded-full bg-[#E7E7E7]"></div>
+                        <div className="w-2 h-2 rounded-full bg-[#E7E7E7]"></div>
+                      </div>
+                    </div>
+                  </div>
                   <div className="w-[100%]   mt-3  relative">
                     <div>
                       <div
