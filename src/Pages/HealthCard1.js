@@ -9,26 +9,26 @@ import { toast } from "react-toastify";
 import Page from "../Layouts/Pages";
 import "./choosetitle.css";
 import Cookie from "js-cookie";
+
 const HealthCard1 = () => {
   const hiddenChoosePDF = useRef();
   const hiddenChoosePDF1 = useRef();
   const hiddenChoosePDF2 = useRef();
   const [helthdata, setHelthdata] = useState(null);
   const [healthCardData, setHealthCardData] = useState({
-    name: helthdata?.name,
-    gender: helthdata?.gender,
-    date_of_birth: helthdata?.date_of_birth,
-    blood_group:helthdata?.blood_group,
-    height: helthdata?.height,
-    weight: helthdata?.weight,
-    cancer_type: helthdata?.cancer_type,
-    cancer_stage: helthdata?.cancer_stage,
-    current_treatment:helthdata?.current_treatment,
-    presiding_doctor: helthdata?.presiding_doctor,
-    hospital_detail:"",
-    hospital_details_primary: helthdata?.hospital_details_primary,
+    name: "",
+    gender: "",
+    date_of_birth: "",
+    blood_group: "",
+    height: "",
+    weight: "",
+    cancer_type: "",
+    cancer_stage: "",
+    current_treatment: "",
+    presiding_doctor: "",
+    hospital_detail: "",
+    hospital_details_primary: "",
   });
-  console.log("ankursingh::>>>",helthdata)
   const [emergencyContacts, setEmergencyContacts] = useState([]);
   const [showEmergencyContacts, setShowEmergencyContacts] = useState(false);
   const [PDF, setPDF] = useState(null);
@@ -38,9 +38,8 @@ const HealthCard1 = () => {
   const [errors, setErrors] = useState({});
   const [isUpdate, setIsUpdate] = useState(false);
   const [healthCardId, setHealthCardId] = useState(null);
-  
+
   useEffect(() => {
-    gethelthCard();
     fetchData();
   }, []);
 
@@ -52,16 +51,33 @@ const HealthCard1 = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.data.success && response.data.data) {
-        setHealthCardData(response.data.data);
-        setEmergencyContacts(response.data.data.emergency_contact || []);
-        setHealthCardId(response.data.data._id);
+      console.log("Fetched data::>>",response.data.resData.status)
+      if (response.data.resData.status) {
+        const fetchedData = response.data.resData.data[0]
+     console.log("Fetched data::",fetchedData)
+        setHealthCardData({
+          name: fetchedData.name || "",
+          gender: fetchedData.gender || "",
+          date_of_birth: fetchedData.date_of_birth || "",
+          blood_group: fetchedData.blood_group || "",
+          height: fetchedData.height || "",
+          weight: fetchedData.weight || "",
+          cancer_type: fetchedData.cancer_type || "",
+          cancer_stage: fetchedData.cancer_stage || "",
+          current_treatment: fetchedData.current_treatment || "",
+          presiding_doctor: fetchedData.presiding_doctor || "",
+          hospital_detail: fetchedData.hospital_detail || "",
+          hospital_details_primary: fetchedData.hospital_details_primary || "",
+        });
+        setEmergencyContacts(fetchedData.emergency_contact || []);
+        setHealthCardId(fetchedData._id);
         setIsUpdate(true);
       }
     } catch (error) {
       console.error("Failed to fetch data", error);
     }
   };
+
   const handleInputChange = (event) => {
     const { id, value } = event.target;
     if (id.startsWith("emergency_")) {
@@ -70,6 +86,11 @@ const HealthCard1 = () => {
       const updatedContacts = [...emergencyContacts];
       updatedContacts[index][field] = value;
       setEmergencyContacts(updatedContacts);
+    } else if (id === "height" || id === "weight") {
+      // Validate numeric input for height and weight
+      if (/^\d{0,3}(\.\d{0,2})?$/.test(value)) {
+        setHealthCardData({ ...healthCardData, [id]: value });
+      }
     } else {
       setHealthCardData({ ...healthCardData, [id]: value });
     }
@@ -113,7 +134,6 @@ const HealthCard1 = () => {
         hasErrors = true;
       }
     });
-    console.log("Updated::>>", emergencyContacts);
 
     setErrors(newErrors);
 
@@ -136,7 +156,7 @@ const HealthCard1 = () => {
     try {
       const url = isUpdate ? `${baseurl}/healthcard/update-health-card/${healthCardId}` : `${baseurl}/healthcard/add-health-card`;
       const method = isUpdate ? 'put' : 'post';
-      
+
       const response = await axios({
         method,
         url,
@@ -146,8 +166,8 @@ const HealthCard1 = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Success::>>>>",response)
-      if (response?.status===200) {
+      
+      if (response?.status === 200) {
         toast.success(`Health Card ${isUpdate ? 'Updated' : 'Created'} Successfully!`);
         window.location.reload();
       } else {
@@ -161,25 +181,6 @@ const HealthCard1 = () => {
   };
 
   const uploadPDF = (ref) => ref.current.click();
-
-  const gethelthCard = async () => {
-    const postToken = Cookie.get("token");
-    try {
-      const response = await axios.get(`${baseurl}/healthcard/get-health-card`, {
-        headers: {
-          Authorization: `Bearer ${postToken}`,
-        },
-      });
-      if (response.data?.resData?.status === true) {
-        setHelthdata(response.data.resData.data[0]);
-        console.log("response::>>",response)
-      } else {
-        console.log("API error");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <Page
@@ -200,15 +201,18 @@ const HealthCard1 = () => {
                         type={key === "date_of_birth" ? "date" : "text"}
                         id={key}
                         required
-                        className="w-full h-12 px-4 text-sm peer outline-none border rounded-lg"
+                        className={`w-full h-12 px-4 text-sm peer outline-none border rounded-lg ${
+                          key === "height" || key === "weight" ? "placeholder-cm" : ""
+                        }`}
                         onChange={handleInputChange}
                         value={healthCardData[key]}
+                        placeholder={key === "height" ? "Height (cm)" : key === "weight" ? "Weight (kg)" : ""}
                       />
                       <label
                         htmlFor={key}
                         className="transform duration-300 peer-focus:-translate-y-3 peer-focus:left-2 peer-focus:bg-white absolute z-10 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-3 peer-valid:left-2 group-focus-within:pl-0 peer-valid:pl-0"
                       >
-                        {key.replace(/_/g, " ")}
+                        {key.replace(/_/g, " ").charAt(0).toUpperCase() + key.replace(/_/g, " ").slice(1)}
                       </label>
                       {errors[key] && (
                         <div className="text-red-500 text-xs mt-1">
@@ -218,13 +222,7 @@ const HealthCard1 = () => {
                     </div>
                   )
               )}
-              {[
-                "gender",
-                "blood_group",
-                "cancer_type",
-                "cancer_stage",
-                "current_treatment",
-              ].map((key) => (
+              {["gender", "blood_group", "cancer_type", "cancer_stage", "current_treatment"].map((key) => (
                 <div className="md:w-[46%] w-full relative group" key={key}>
                   <select
                     id={key}
@@ -348,16 +346,15 @@ const HealthCard1 = () => {
                   key={index}
                 >
                   <div
-                    className={`border h-full rounded-lg flex flex-col items-center justify-center gap-3 cursor-pointer ${
-                      pdf ? "bg-[#B30F73] text-white" : ""
-                    }`}
+                    className={`border h-full rounded-lg flex flex-col items-center justify-center gap-3 cursor-pointer ${pdf ? "bg-[#B30F73] text-white" : ""
+                      }`}
                     onClick={() =>
                       uploadPDF(
                         index === 0
                           ? hiddenChoosePDF
                           : index === 1
-                          ? hiddenChoosePDF1
-                          : hiddenChoosePDF2
+                            ? hiddenChoosePDF1
+                            : hiddenChoosePDF2
                       )
                     }
                   >
@@ -375,8 +372,8 @@ const HealthCard1 = () => {
                           {index === 0
                             ? "Aadhaar Card"
                             : index === 1
-                            ? "Fit to Fly Certificate"
-                            : "Biopsy Certificate"}
+                              ? "Fit to Fly Certificate"
+                              : "Biopsy Certificate"}
                         </div>
                       </>
                     )}
@@ -387,8 +384,8 @@ const HealthCard1 = () => {
                       index === 0
                         ? hiddenChoosePDF
                         : index === 1
-                        ? hiddenChoosePDF1
-                        : hiddenChoosePDF2
+                          ? hiddenChoosePDF1
+                          : hiddenChoosePDF2
                     }
                     onChange={(e) =>
                       handlePDFUpload(
@@ -403,11 +400,10 @@ const HealthCard1 = () => {
               ))}
               <button
                 type="button"
-                className={`md:w-[25%] w-full h-12 rounded-xl ${
-                  isSubmitting
+                className={`md:w-[25%] w-full h-12 rounded-xl ${isSubmitting
                     ? "bg-[#F5F5F5] cursor-not-allowed"
                     : "bg-[#B30F73] text-white"
-                }`}
+                  }`}
                 onClick={handleOnSubmit}
                 disabled={isSubmitting}
               >

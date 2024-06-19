@@ -66,16 +66,11 @@ const Home = () => {
   const [singlePostId, setSinglePostId] = useState();
   const [isShared, setIsShared] = useState();
   const [threeDots, setThreeDots] = useState(false);
-  const [userDetails, setUserDetails] = useState();
   const threeDotsOutClick = useRef(null);
   const [vertical, setVertical] = useState("Upcoming");
   const [comVal, setComVal] = useState("");
   const [Loading, setLoading] = useState(true);
-  const location = useLocation();
-  const querysearch = new URLSearchParams(location.search);
   const [myFriends, setMyFriends] = useState();
-  const [reloadFlag, setReloadFlag] = useState(false);
-  const [isCommenting, setIsCommenting] = useState();
   const [homePost, sethomePost] = useState();
   const [isPosting, setIsPosting] = useState();
   const [isSaved, setIsSaved] = useState();
@@ -109,6 +104,8 @@ const Home = () => {
       if (response) {
         console.log(response.data);
         setUserBlocked(!userBlocked);
+        window.location.reload();
+        
       } else {
         console.log("api error");
       }
@@ -117,7 +114,6 @@ const Home = () => {
     }
   };
 
-  // block user
   const toggleBlockTab = () => {
     setUserBlock(!userBlock);
   };
@@ -1653,7 +1649,7 @@ const Home = () => {
                             key={index}
                             className="flex flex-row items-center justify-center gap-3 pt-3"
                           >
-                            {/* {time.poll_options.map((option, idx) => (
+                            {time.poll_options.map((option, idx) => (
                               <div
                                 key={idx}
                                 className={`w-24 h-9 cursor-pointer flex flex-column items-center justify-center rounded-[15px] ${
@@ -1665,7 +1661,7 @@ const Home = () => {
                               >
                                 <p>{option.option}</p>
                               </div>
-                            ))} */}
+                            ))}
                           </div>
                         ))}
                       </Slider>
