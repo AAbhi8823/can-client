@@ -567,12 +567,37 @@ const Home = () => {
       console.error("Error getting");
     }
   };
+
+  const sliderRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const sliderSettings = {
-    dots: true,
+    dots: false, // Disable default dots
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex),
+  };
+
+  const getDotIndex = (slideIndex) => {
+    const totalSlides = pollList.length;
+    const slidesPerGroup = Math.ceil(totalSlides / 3);
+    return Math.floor(slideIndex / slidesPerGroup);
+  };
+
+  const handleDotClick = (dotIdx) => {
+    const slidesPerGroup = Math.ceil(pollList.length / 3);
+    const targetSlide = dotIdx * slidesPerGroup;
+    sliderRef.current.slickGoTo(targetSlide);
+  };
+
+  const handlePrevClick = () => {
+    sliderRef.current.slickPrev();
+  };
+
+  const handleNextClick = () => {
+    sliderRef.current.slickNext();
   };
 
   return (
@@ -1417,8 +1442,7 @@ const Home = () => {
                                             <div className="flex gap-3 w-full bg-transparent">
                                               <img
                                                 src={
-                                                  commentImage?.user_id
-                                                    ?.profile_image
+                                                  userData?.profile_image 
                                                 }
                                                 alt="none"
                                                 className="w-[55px] h-[45px] shadow-md"
@@ -1612,35 +1636,55 @@ const Home = () => {
                     <p className="flex flex-wrap text-center text-[17px]">
                       What time is best suited for you to join the meeting?
                     </p>
-
                     <div className="flex flex-col gap-4">
-                      <Slider {...sliderSettings}>
+                      <Slider ref={sliderRef} {...sliderSettings}>
                         {pollList.map((time, index) => (
                           <div
                             key={index}
-                            className="flex  items-center justify-center gap-3 pt-3"
-                            style={{}}
+                            className="flex flex-row items-center justify-center gap-3 pt-3"
                           >
-                            {time.poll_options.map((option, idx) => (
+                            {/* {time.poll_options.map((option, idx) => (
                               <div
                                 key={idx}
-                                className={`w-24 h-9 cursor-pointer flex flex-row items-center justify-center rounded-[15px] ${
+                                className={`w-24 h-9 cursor-pointer flex flex-column items-center justify-center rounded-[15px] ${
                                   option.selected
                                     ? "bg-[#C31A7F] text-[#FFFFFF]"
                                     : "bg-[#FFFFFF] text-[#C31A7F] border-[1px] border-[#C31A7F]"
                                 }`}
-                                style={{ fontSize: "13px" }}
+                                style={{ fontSize: "10px" }}
                               >
                                 <p>{option.option}</p>
                               </div>
-                            ))}
+                            ))} */}
                           </div>
                         ))}
                       </Slider>
-                      <div className="flex flex-row items-center justify-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-[#C31A7F]"></div>
-                        <div className="w-2 h-2 rounded-full bg-[#E7E7E7]"></div>
-                        <div className="w-2 h-2 rounded-full bg-[#E7E7E7]"></div>
+                      <div className="flex justify-between items-center mt-4">
+                        <button
+                          className="text-[#C31A7F] border border-[#C31A7F] rounded-full w-8 h-8 flex items-center justify-center"
+                          onClick={handlePrevClick}
+                        >
+                          &lt;
+                        </button>
+                        <div className="flex flex-row items-center justify-center gap-3">
+                          {[0, 1, 2].map((dotIdx) => (
+                            <div
+                              key={dotIdx}
+                              className={`w-2 h-2 rounded-full cursor-pointer ${
+                                getDotIndex(currentSlide) === dotIdx
+                                  ? "bg-[#C31A7F]"
+                                  : "bg-[#E7E7E7]"
+                              }`}
+                              onClick={() => handleDotClick(dotIdx)}
+                            ></div>
+                          ))}
+                        </div>
+                        <button
+                          className="text-[#C31A7F] border border-[#C31A7F] rounded-full w-8 h-8 flex items-center justify-center"
+                          onClick={handleNextClick}
+                        >
+                          &gt;
+                        </button>
                       </div>
                     </div>
                   </div>
