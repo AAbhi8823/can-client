@@ -61,7 +61,6 @@ const Home = () => {
   const [userBlock, setUserBlock] = useState(false);
   const [userBlocked, setUserBlocked] = useState(false);
   const [commentModel, setcommentModel] = useState([]);
-  const [postCommentModel, setPostCommentModel] = useState();
   const [isCommentLoadin, setIsCommentLoading] = useState(true);
   const [likedPosts, setLikedPosts] = useState({});
   const [singlePostId, setSinglePostId] = useState();
@@ -103,12 +102,12 @@ const Home = () => {
     try {
       const response = await axios.post(
         `${baseurl}/user/block-user`,
-        { user_id: userID }, // Sending userID in the request body
+        { user_id: userID },
         config
       );
       console.log("delete-story::>>", response);
       if (response) {
-        console.log(response.data); // Log response data
+        console.log(response.data);
         setUserBlocked(!userBlocked);
       } else {
         console.log("api error");
@@ -159,7 +158,7 @@ const Home = () => {
       } else {
         console.log("api error or");
       }
-    } catch (error) {}
+    } catch (error) { }
     console.log(share_userid, singlePostId);
   };
 
@@ -181,7 +180,10 @@ const Home = () => {
         body,
         config
       );
+      // await getComment(posiID, commentImage);
       setShowContent(false);
+      window.location.reload();
+     
     } catch (error) {
       console.error("Error posting comment:", error);
     }
@@ -197,10 +199,6 @@ const Home = () => {
 
   const toggleReportButton = () => {
     setReportButton(!reportButton);
-  };
-
-  const togglethanku = () => {
-    setShowThanku(!showThanku);
   };
 
   const likeButton = async (likeID) => {
@@ -230,6 +228,24 @@ const Home = () => {
       } else {
         console.log("API error");
       }
+      console.log("",likeData)
+      console.log("likeData::>>",likeData)
+      if (likeData?.data?.resData?.status === true) {
+        toast.success(likeData?.data?.resData?.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+          className: "mt-[81px] ",
+        });
+        // setIsSaved(true);
+      } else {
+        console.log("api error");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -257,7 +273,6 @@ const Home = () => {
             id: `${homeUser}`,
           }
         );
-        setUserDetails(userData.data.data);
         console.log(userData.data.data);
       } catch (error) {
         console.log(error);
@@ -485,11 +500,11 @@ const Home = () => {
       console.log("Post:>><><><<>>>::>>", homePost);
       setShowContent(!showContent);
       setCommentImage(postData);
+      
     } catch (error) {
       console.error(error);
     }
   };
-
   const deletePost = async (postid) => {
     console.log("postid1", postid);
     const config = {
@@ -765,11 +780,10 @@ const Home = () => {
                         </div>
 
                         <div
-                          className={`${
-                            input
+                          className={`${input
                               ? "bg-[#C31A7F]  text-white p-1 py-2  px-8 rounded-xl  cursor-pointer"
                               : "bg-[#C31A7F] opacity-60 text-white p-1 py-2 px-8  rounded-xl"
-                          }`}
+                            }`}
                           onClick={handlePost}
                         >
                           {isPosting ? "Posting..." : "Post"}
@@ -898,7 +912,7 @@ const Home = () => {
                                       ref={threeDotsOutClick}
                                     >
                                       {homePostItems?.user_id?._id ===
-                                      userData?._id ? (
+                                        userData?._id ? (
                                         // If the user is the self user, show the delete option
                                         <p
                                           className="p-2 px-4 cursor-pointer hover:bg-[#C31A7F] hover:text-[#fff] "
@@ -1272,10 +1286,6 @@ const Home = () => {
                                         )
                                       }
                                     />
-                                    {console.log(
-                                      "commentImage::",
-                                      commentImage
-                                    )}
                                     <p className="text-[12px] font-bold">
                                       {homePostItems?.comments?.length}
                                     </p>
@@ -1370,7 +1380,7 @@ const Home = () => {
                                               {commentImage?.post_title}
                                             </div>
                                             {commentImage?.comments?.length >
-                                            0 ? (
+                                              0 ? (
                                               commentImage.comments.map(
                                                 (comment) => (
                                                   <div
@@ -1442,7 +1452,7 @@ const Home = () => {
                                             <div className="flex gap-3 w-full bg-transparent">
                                               <img
                                                 src={
-                                                  userData?.profile_image 
+                                                  userData?.profile_image
                                                 }
                                                 alt="none"
                                                 className="w-[55px] h-[45px] shadow-md"
@@ -1670,11 +1680,10 @@ const Home = () => {
                           {[0, 1, 2].map((dotIdx) => (
                             <div
                               key={dotIdx}
-                              className={`w-2 h-2 rounded-full cursor-pointer ${
-                                getDotIndex(currentSlide) === dotIdx
+                              className={`w-2 h-2 rounded-full cursor-pointer ${getDotIndex(currentSlide) === dotIdx
                                   ? "bg-[#C31A7F]"
                                   : "bg-[#E7E7E7]"
-                              }`}
+                                }`}
                               onClick={() => handleDotClick(dotIdx)}
                             ></div>
                           ))}
