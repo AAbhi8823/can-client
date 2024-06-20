@@ -1385,8 +1385,8 @@ const Home = () => {
                                                   <div
                                                     className="mt-[15px] flex items-center"
                                                     style={{
-                                                      backgroundColor:
-                                                        "#f9f9f9",
+                                                      // backgroundColor:
+                                                      //   "#f9f9f9",
                                                       padding: "5px",
                                                       borderRadius: "10px",
                                                       boxShadow:
