@@ -887,6 +887,9 @@ const Home = () => {
                                     <p className="text-[12px] font-semibold   text-[#C31A7F]">
                                       {homePostItems?.user_id?.user_profile}
                                     </p>
+                                    <p className="text-[12px] font-semibold   text-[#C31A7F]">
+                                      {homePostItems?.user_id?.CANID}
+                                    </p>
                                   </div>
                                 </div>
                                 <div className="flex  items-center justify-between relative  pb-6">
