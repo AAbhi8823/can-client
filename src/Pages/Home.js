@@ -1289,12 +1289,12 @@ const Home = () => {
 
                                   {showContent && (
                                     <div
-                                      className="fixed inset-0 flex items-center justify-center bg-cover bg-center z-50"
+                                      className="h-model fixed inset-0 flex items-center justify-center bg-cover bg-center z-50 "
                                       style={{
                                         backgroundColor: "rgb(46 46 46 / 30%)",
                                       }}
                                     >
-                                      <div className="w-[95%] lg:w-[70%] lg:h-[70%] bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-hidden">
+                                      <div className="hmodel-box w-[95%] lg:w-[70%] lg:h-[70%] bg-[#FDF4F9] rounded-3xl flex flex-col lg:flex lg:flex-row overflow-auto">
                                         <div className="lg:w-[60%]">
                                           <img
                                             src={commentImage?.media_files[0]}
@@ -1302,7 +1302,7 @@ const Home = () => {
                                             className="object-cover w-full h-full"
                                           />
                                         </div>
-                                        <div className="lg:w-[40%] flex flex-col justify-between p-4 relative">
+                                        <div className="mcont-box lg:w-[40%] flex flex-col justify-between p-4 relative">
                                           <div
                                             className="comment-box pb-[10px]"
                                             style={{
@@ -1647,7 +1647,7 @@ const Home = () => {
                         {pollList.map((time, index) => (
                           <div
                             key={index}
-                            className="flex flex-row items-center justify-center gap-3 pt-3"
+                            className="slider-box flex flex-row items-center justify-center gap-3 pt-3"
                           >
                             {time.poll_options.map((option, idx) => (
                               <div
@@ -1741,16 +1741,16 @@ const Home = () => {
                       boxShadow: "0px 10px 30px 0px rgba(0, 0, 0, 0.05)",
                     }}
                   >
-                    <div className=" flex items-center ">
+                    {/* <div className=" flex items-center ">
                       <SingleLineCalendar />
-                    </div>
+                    </div> */}
 
-                    <div className="p-4">
+                    {/* <div className="p-4">
                       <hr />
-                    </div>
+                    </div> */}
 
                     <div className=" text-[14px]  flex flex-row items-center justify-center gap-6">
-                      <h1
+                      {/* <h1
                         onClick={() => toggleVertical("Upcoming")}
                         className={
                           vertical === "Upcoming"
@@ -1759,7 +1759,7 @@ const Home = () => {
                         }
                       >
                         Upcoming
-                      </h1>
+                      </h1> */}
                       <h1
                         onClick={() => toggleVertical("Appointment")}
                         className={
@@ -1784,11 +1784,11 @@ const Home = () => {
 
                     <div className="">
                       <div className="flex flex-col">
-                        {vertical === "Upcoming" && (
+                        {/* {vertical === "Upcoming" && (
                           <div className="w-full mt-4 ">
                             <VerticalSLC />
                           </div>
-                        )}
+                        )} */}
                         {vertical === "Appointment" && (
                           <div className="w-full mt-4">
                             <VerticalAppointment />
@@ -1800,7 +1800,7 @@ const Home = () => {
                           </div>
                         )}
 
-                        <div className="w-full h-[10%] mt-7 top-[90%] bg-white flex justify-center items-center font-semibold">
+                        {/* <div className="w-full h-[10%] mt-7 top-[90%] bg-white flex justify-center items-center font-semibold">
                           <div className="bg-[#c31a7f3c] flex items-center h-10 gap-2 pl-2 rounded-3xl">
                             {vertical === "Upcoming" && (
                               <div className="flex flex-row px-4 items-center  cursor-pointer text-[15px]">
@@ -1821,7 +1821,7 @@ const Home = () => {
                               </div>
                             )}
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

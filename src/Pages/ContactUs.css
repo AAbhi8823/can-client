@@ -85,3 +85,30 @@
   .css-1pqm26d-MuiAvatar-img{
     border-radius: 50%;
 }
+
+
+.ris-home .slick-slider .slider-box{
+    display: flex !important;
+}
+.ris-home .slick-slider .slider-box p{
+    font-size: 12px !important;
+    font-weight: 600;
+}
+
+@media screen and (max-width:991px) {
+  .h-model{
+    top: 80px;
+  }  
+  .h-model .hmodel-box{
+    height: fit-content;
+    padding: 20px 0px;
+    max-height: 90vh;
+  } 
+  .h-model .hmodel-box img{
+    width: 50%;
+    margin: auto;
+  } 
+  .mcont-box{
+    padding-bottom: 0px;
+  }
+}
