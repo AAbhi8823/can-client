@@ -887,6 +887,9 @@ const Home = () => {
                                     <p className="text-[12px] font-semibold   text-[#C31A7F]">
                                       {homePostItems?.user_id?.user_profile}
                                     </p>
+                                    <p className="text-[12px] font-semibold   text-[#C31A7F]">
+                                      {homePostItems?.user_id?.CANID}
+                                    </p>
                                   </div>
                                 </div>
                                 <div className="flex  items-center justify-between relative  pb-6">
@@ -1382,8 +1385,8 @@ const Home = () => {
                                                   <div
                                                     className="mt-[15px] flex items-center"
                                                     style={{
-                                                      backgroundColor:
-                                                        "#f9f9f9",
+                                                      // backgroundColor:
+                                                      //   "#f9f9f9",
                                                       padding: "5px",
                                                       borderRadius: "10px",
                                                       boxShadow:
