@@ -27,7 +27,8 @@ const VerticalAppointment = () => {
             'Content-Type': 'application/json',
           },
         });
-
+        
+        console.log("response::>>>>",response.json())
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

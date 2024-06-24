@@ -67,7 +67,7 @@ const Home = () => {
   const [isShared, setIsShared] = useState();
   const [threeDots, setThreeDots] = useState(false);
   const threeDotsOutClick = useRef(null);
-  const [vertical, setVertical] = useState("Upcoming");
+  const [vertical, setVertical] = useState("Appointment");
   const [comVal, setComVal] = useState("");
   const [Loading, setLoading] = useState(true);
   const [myFriends, setMyFriends] = useState();
@@ -609,6 +609,29 @@ const Home = () => {
 
   const handleNextClick = () => {
     sliderRef.current.slickNext();
+  };
+  const [pollData, setPollData] = useState(pollList);
+
+  const handleOptionClick = async (time, option) => {
+    console.log("handle::>>>>",time,option);
+    try {
+      const response = await axios.post(`${baseurl}/poll/add-vote`, {
+        poll_id: option,
+        option_id: time
+      }, {
+        headers: {
+          Authorization: `Bearer ${base_token}`
+        }
+      });
+
+      const updatedPoll = response.data;
+      const updatedPollData = pollData.map(poll => 
+        poll.id === updatedPoll.id ? updatedPoll : poll
+      );
+      setPollData(updatedPollData);
+    } catch (error) {
+      console.error('Error updating poll option:', error);
+    }
   };
 
   return (
@@ -1651,7 +1674,7 @@ const Home = () => {
                           <div
                             key={index}
                             className="slider-box flex flex-row items-center justify-center gap-3 pt-3"
-                          >
+                          > {console.log("Time::>>>>>>>",time)}
                             {time.poll_options.map((option, idx) => (
                               <div
                                 key={idx}
@@ -1661,7 +1684,10 @@ const Home = () => {
                                     : "bg-[#FFFFFF] text-[#C31A7F] border-[1px] border-[#C31A7F]"
                                 }`}
                                 style={{ fontSize: "10px" }}
+                                onClick={() => handleOptionClick(time?._id, option?._id)}
+                                
                               >
+                                {console.log("Time::>>>>>>>1",option)}
                                 <p>{option.option}</p>
                               </div>
                             ))}
@@ -1744,25 +1770,8 @@ const Home = () => {
                       boxShadow: "0px 10px 30px 0px rgba(0, 0, 0, 0.05)",
                     }}
                   >
-                    {/* <div className=" flex items-center ">
-                      <SingleLineCalendar />
-                    </div> */}
-
-                    {/* <div className="p-4">
-                      <hr />
-                    </div> */}
 
                     <div className=" text-[14px]  flex flex-row items-center justify-center gap-6">
-                      {/* <h1
-                        onClick={() => toggleVertical("Upcoming")}
-                        className={
-                          vertical === "Upcoming"
-                            ? "text-black font-semibold transition-all duration-300"
-                            : "text-[#C4C4C4] font-semibold cursor-pointer"
-                        }
-                      >
-                        Upcoming
-                      </h1> */}
                       <h1
                         onClick={() => toggleVertical("Appointment")}
                         className={
@@ -1784,14 +1793,9 @@ const Home = () => {
                         Medicines
                       </h1>
                     </div>
-
                     <div className="">
                       <div className="flex flex-col">
-                        {/* {vertical === "Upcoming" && (
-                          <div className="w-full mt-4 ">
-                            <VerticalSLC />
-                          </div>
-                        )} */}
+                       
                         {vertical === "Appointment" && (
                           <div className="w-full mt-4">
                             <VerticalAppointment />
@@ -1802,29 +1806,6 @@ const Home = () => {
                             <VerticalMedicine />
                           </div>
                         )}
-
-                        {/* <div className="w-full h-[10%] mt-7 top-[90%] bg-white flex justify-center items-center font-semibold">
-                          <div className="bg-[#c31a7f3c] flex items-center h-10 gap-2 pl-2 rounded-3xl">
-                            {vertical === "Upcoming" && (
-                              <div className="flex flex-row px-4 items-center  cursor-pointer text-[15px]">
-                                <p>View all schedule</p>
-                                <RiArrowDropDownLine size={26} />
-                              </div>
-                            )}
-                            {vertical === "Appointment" && (
-                              <div className="flex flex-row px-4 items-center cursor-pointer text-[15px]">
-                                <p>View all schedule</p>
-                                <RiArrowDropDownLine size={26} />
-                              </div>
-                            )}
-                            {vertical === "Medicines" && (
-                              <div className="flex flex-row px-4 ite-center  cursor-pointer test-[15px]">
-                                <p>View all</p>
-                                <RiArrowDropDownLine size={26} />
-                              </div>
-                            )}
-                          </div>
-                        </div> */}
                       </div>
                     </div>
                   </div>
