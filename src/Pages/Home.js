@@ -616,8 +616,8 @@ const Home = () => {
     console.log("handle::>>>>",time,option);
     try {
       const response = await axios.post(`${baseurl}/poll/add-vote`, {
-        poll_id: option,
-        option_id: time
+        poll_id: time,
+        option_id: option
       }, {
         headers: {
           Authorization: `Bearer ${base_token}`
@@ -629,6 +629,7 @@ const Home = () => {
         poll.id === updatedPoll.id ? updatedPoll : poll
       );
       setPollData(updatedPollData);
+      
     } catch (error) {
       console.error('Error updating poll option:', error);
     }
@@ -1675,6 +1676,9 @@ const Home = () => {
                             key={index}
                             className="slider-box flex flex-row items-center justify-center gap-3 pt-3"
                           > {console.log("Time::>>>>>>>",time)}
+                          <p className="flex flex-wrap text-center text-[17px]">
+                            {time?.poll_question}
+                    </p>
                             {time.poll_options.map((option, idx) => (
                               <div
                                 key={idx}
