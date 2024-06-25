@@ -423,7 +423,7 @@ display: none;
 
 @media screen and (min-width: 1024px) and (max-width: 1869px){
   .css-11xur9t-MuiPaper-root-MuiTableContainer-root{
-    margin-left: -10rem;
+    /* margin-left: 10rem; */
   }
 }
 
