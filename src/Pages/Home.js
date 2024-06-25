@@ -623,15 +623,41 @@ const Home = () => {
           Authorization: `Bearer ${base_token}`
         }
       });
-
-      const updatedPoll = response.data;
-      const updatedPollData = pollData.map(poll => 
-        poll.id === updatedPoll.id ? updatedPoll : poll
-      );
-      setPollData(updatedPollData);
+      console.log("response:::::>>>",response)
+        const updatedPoll = response.data;
+        const updatedPollData = pollData.map(poll => 
+          poll.id === updatedPoll.id ? updatedPoll : poll
+        );
+        setPollData(updatedPollData);
+        console.log("Updated::>>",updatedPoll)
+        toast.success("Your Vote added successfully", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+          className: "mt-[81px] ",
+        });
       
+     
     } catch (error) {
       console.error('Error updating poll option:', error);
+      if(error.response.status===401){
+        toast.success("You already voted", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+          className: "mt-[81px] ",
+        });
+      }
     }
   };
 
