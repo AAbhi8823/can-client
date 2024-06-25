@@ -24,7 +24,7 @@ import { useSelector } from "react-redux";
 import FeedTable from "../Components/FeedTable";
 
 const HomeNav = (props) => {
-  const base_token=Cookies.get("token");
+  const base_token = Cookies.get("token");
   const dispatch = useDispatch();
   const [friend, setFriend] = useState(false);
   const [notification, setNotification] = useState(false);
@@ -39,10 +39,36 @@ const HomeNav = (props) => {
   const navigate = useNavigate();
   const outclick = useRef(null);
   const notificationOutclick = useRef(null);
+  const tableRef = useRef(null);
   const { search } = useSelector((state) => state.filter);
   const activeuser = localStorage.getItem("active_user");
   const token = Cookies.get("token");
-  const tableRef = useRef(null);
+
+  // Save login time to localStorage
+  const loginTimestamp = localStorage.getItem('login_timestamp');
+
+  const handleLogOut = () => {
+    Cookies.remove("token");
+    localStorage.clear();
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (!loginTimestamp) {
+      const currentTime = Date.now();
+      localStorage.setItem('login_timestamp', currentTime);
+    } else {
+      const timeElapsed = Date.now() - loginTimestamp;
+      if (timeElapsed >= 86400000) { // 24 hours in milliseconds
+        handleLogOut();
+      } else {
+        const timeout = setTimeout(() => {
+          handleLogOut();
+        }, 86400000 - timeElapsed);
+        return () => clearTimeout(timeout);
+      }
+    }
+  }, [loginTimestamp]);
 
   useEffect(() => {
     setNav(props.onStateChange);
@@ -51,6 +77,7 @@ const HomeNav = (props) => {
   useEffect(() => {
     userProfile();
   }, []);
+
   const userProfile = async () => {
     const config = {
       headers: {
@@ -59,10 +86,8 @@ const HomeNav = (props) => {
       },
     };
     try {
-      const response = await axios(`${apis.GET_SINGLE_USER}`, config);
-      console.log(
-        "response:response " + JSON.stringify(response?.data?.resData?.data)
-      );
+      const response = await axios.get(`${apis.GET_SINGLE_USER}`, config);
+      console.log("response:response " + JSON.stringify(response?.data?.resData?.data));
       setUserdata(response?.data?.resData?.data);
       console.log("response:response>>>>", response);
     } catch (error) {
@@ -86,10 +111,7 @@ const HomeNav = (props) => {
 
   useEffect(() => {
     const handleClickOutsidenotification = (event) => {
-      if (
-        notificationOutclick.current &&
-        !notificationOutclick.current.contains(event.target)
-      ) {
+      if (notificationOutclick.current && !notificationOutclick.current.contains(event.target)) {
         setNotification(false);
       }
     };
@@ -97,11 +119,7 @@ const HomeNav = (props) => {
     document.addEventListener("click", handleClickOutsidenotification, true);
 
     return () => {
-      document.removeEventListener(
-        "click",
-        handleClickOutsidenotification,
-        true
-      );
+      document.removeEventListener("click", handleClickOutsidenotification, true);
     };
   }, [notificationOutclick]);
 
@@ -127,12 +145,6 @@ const HomeNav = (props) => {
     setExplore(!explore);
   };
 
-  const handleLogOut = () => {
-    Cookies.remove("token");
-    localStorage.clear();
-    navigate("/");
-  };
-
   const getSearchUser = async (txt) => {
     try {
       const { data } = await axios.post(`${apis.SEARCH_USER}?token=${token}`, {
@@ -153,7 +165,8 @@ const HomeNav = (props) => {
     if (search !== "") {
       getSearchUser(search);
     }
-  }, [search, getSearchUser]);
+  }, [search]);
+
   return (
     <>
       <div className="z-10">
