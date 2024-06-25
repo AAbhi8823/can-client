@@ -1666,17 +1666,14 @@ const Home = () => {
                 </div>
                 <div className="ris-home lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
                   <div className="mt-8 p-5 pb-4 rounded-[30px] w-[100%] bg-[#FFFFFF] border-[0.5px] border-[#C31A7F33]">
-                    <p className="flex flex-wrap text-center text-[17px]">
-                      What time is best suited for you to join the meeting?
-                    </p>
                     <div className="flex flex-col gap-4">
-                      <Slider ref={sliderRef} {...sliderSettings}>
+                   <Slider ref={sliderRef} {...sliderSettings}>
                         {pollList.map((time, index) => (
                           <div
                             key={index}
-                            className="slider-box flex flex-row items-center justify-center gap-3 pt-3"
+                            className="slider-box flex flex-row items-center justify-center gap-3 pt-8"
                           > {console.log("Time::>>>>>>>",time)}
-                          <p className="flex flex-wrap text-center text-[17px]">
+                          <p className="slid-pera flex flex-wrap text-center text-[17px]">
                             {time?.poll_question}
                     </p>
                             {time.poll_options.map((option, idx) => (
