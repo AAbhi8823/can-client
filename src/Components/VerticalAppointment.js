@@ -17,32 +17,30 @@ const VerticalAppointment = () => {
   const token = Cookies.get("token");
 
   useEffect(() => {
-    // Fetch data from the API
-    const fetchAppointments = async () => {
-      try {
-        const response = await fetch(`${baseurl}/appointment/get-next-seven-days-appointments`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-        
-        console.log("response::>>>>",response.json())
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        console.log("data:>>>>>>>>",data.resData.data);
-        setAppointments(data.resData.data);
-      } catch (error) {
-        console.error('Error fetching appointments:', error);
-      }
-    };
-
     fetchAppointments();
-  }, [token]);
+  }, []);
+  
+  const fetchAppointments = async () => {
+    try {
+      const response = await fetch(`${baseurl}/appointment/get-next-seven-days-appointments`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      console.log("response::>>>>",response)
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log("data:>>>>>>>>",data);
+      setAppointments(data?.resData?.data);
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+    }
+  };
 
   const startOffset = Math.max(currentDate, 1);
   const endOffset = Math.min(currentDate + 3, daysInMonth);

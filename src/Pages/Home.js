@@ -668,9 +668,9 @@ const Home = () => {
           <ToastContainer />
           <div className=" h-[100%] y-scrl ">
             <div className=" lg:flex">
-              <div className="bg-[#FEF8FD] lg:px-0 px-2 lg:px-10 w-[100%] flex flex-wrap justify-around">
+              <div className="bg-[#FEF8FD] w-[100%] flex flex-wrap">
                 {/* post */}
-                <div className="flex flex-col  ml-0  w-full  lg:w-[55%] ">
+                <div className="ris-main flex flex-col  ml-0  w-full  lg:w-[70%] ">
                   {createPost ? (
                     <CreatePost
                       close_createPost={() => setCreatePost(false)}
@@ -828,7 +828,7 @@ const Home = () => {
                         <div
                           className={`${input
                               ? "bg-[#C31A7F]  text-white p-1 py-2  px-8 rounded-xl  cursor-pointer"
-                              : "bg-[#C31A7F] opacity-60 text-white p-1 py-2 px-8  rounded-xl"
+                              : "bg-[#C31A7F] opacity-60 text-white p-1 py-2 px-8  rounded-xl post-btn"
                             }`}
                           onClick={handlePost}
                         >
@@ -1690,7 +1690,7 @@ const Home = () => {
                     </>
                   )}
                 </div>
-                <div className="ris-home lg:flex  lg:flex-col lg:gap-4 lg:items-center   w-full  lg:w-[40%] xl:w-[30%] ">
+                <div className="ris-home lg:flex  lg:flex-col lg:gap-4 lg:items-center w-full lg:w-[40%] xl:w-[30%] ">
                   <div className="mt-8 p-5 pb-4 rounded-[30px] w-[100%] bg-[#FFFFFF] border-[0.5px] border-[#C31A7F33]">
                     <div className="flex flex-col gap-4">
                    <Slider ref={sliderRef} {...sliderSettings}>
@@ -1705,7 +1705,7 @@ const Home = () => {
                             {time.poll_options.map((option, idx) => (
                               <div
                                 key={idx}
-                                className={`w-24 h-9 cursor-pointer flex flex-column items-center justify-center rounded-[15px] ${
+                                className={`w-24 h-9 poll-btn cursor-pointer flex flex-column items-center justify-center rounded-[15px] ${
                                   option.selected
                                     ? "bg-[#C31A7F] text-[#FFFFFF]"
                                     : "bg-[#FFFFFF] text-[#C31A7F] border-[1px] border-[#C31A7F]"

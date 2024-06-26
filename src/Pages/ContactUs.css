@@ -1,119 +1,159 @@
 .mapandits-element{
-    position: relative;
-    display: flex;
-    flex-direction: row;
+  position: relative;
+  display: flex;
+  flex-direction: row;
 }
 .contact-emoji img{
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .pri ul{
-    list-style:Disc;
-    padding-left:25px;
+  list-style:Disc;
+  padding-left:25px;
 }
 .pri ul li{
-    font-size: 17px;
+  font-size: 17px;
 }
 .pri p{
-    font-size: 17px;
+  font-size: 17px;
 }
 .pri h4{
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color:#084943;
-    font-size:22px;
-    font-weight:600; 
-    padding-top:30px; 
-    padding-bottom:10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color:#084943;
+  font-size:22px;
+  font-weight:600; 
+  padding-top:30px; 
+  padding-bottom:10px;
 }
 .list-space li{
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 .list-space ul{
-    margin-top: 0px;
-    margin-bottom: 15px;
+  margin-top: 0px;
+  margin-bottom: 15px;
 }
 .list-space ul li{
-    margin: 0px;
+  margin: 0px;
 }
 
 .slid-pera{
-  position: absolute;
-  top: 0;
+position: absolute;
+top: 0;
 }
 
 @media screen and (max-width:1023px){
-    .contact-wrap{
-      flex-direction:column;
-    }
-    .contact-map{
-        height: 400px;
-        margin-bottom: 20px;
-        margin-left: 0px;
-    }
+  .contact-wrap{
+    flex-direction:column;
   }
-  @media screen and (max-width:991px){
-    .ris-home{
-        display: none;
-      }
+  .contact-map{
+      height: 400px;
+      margin-bottom: 20px;
+      margin-left: 0px;
+  }
+}
+@media screen and (max-width:991px){
+  .ris-home{
+      display: none;
+    }
+}
+
+.edit-profile input[type="file"]::file-selector-button {
+  margin-left: 0px;
+  background-color: #F1C9E1;
+  padding: 10px 15px !important;
+  color: #000;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: .1s;
+  }
+  .edit-profile input[type="file"]::file-selector-button:hover{
+      color: #fff;
+      background-color: #2e2e2e;
   }
 
-  .edit-profile input[type="file"]::file-selector-button {
-    margin-left: 0px;
-    background-color: #F1C9E1;
-    padding: 10px 15px !important;
-    color: #000;
-    font-weight: 500;
-    border-radius: 5px;
-    transition: .1s;
-    }
-    .edit-profile input[type="file"]::file-selector-button:hover{
-        color: #fff;
-        background-color: #2e2e2e;
-    }
+/* width */
+.comment-box::-webkit-scrollbar {
+  width: 5px;
+}
 
-  /* width */
- .comment-box::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  /* Track */
-   .comment-box::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  /* Handle */
-   .comment-box::-webkit-scrollbar-thumb {
-    background: #c31a7f;
-    border-radius: 10px;
-  }
-  .css-1pqm26d-MuiAvatar-img{
-    border-radius: 50%;
+/* Track */
+ .comment-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+ .comment-box::-webkit-scrollbar-thumb {
+  background: #c31a7f;
+  border-radius: 10px;
+}
+.css-1pqm26d-MuiAvatar-img{
+  border-radius: 50%;
 }
 
 
 .ris-home .slick-slider .slider-box{
-    display: flex !important;
+  display: flex !important;
 }
 .ris-home .slick-slider .slider-box p{
-    font-size: 12px !important;
-    font-weight: 600;
+  font-size: 12px !important;
+  font-weight: 600;
 }
 
 @media screen and (max-width:991px) {
-  .h-model{
-    top: 80px;
-  }  
-  .h-model .hmodel-box{
-    height: fit-content;
-    padding: 20px 0px;
-    max-height: 90vh;
-  } 
-  .h-model .hmodel-box img{
-    width: 50%;
-    margin: auto;
-  } 
-  .mcont-box{
-    padding-bottom: 0px;
-  }
+.h-model{
+  top: 80px;
+}  
+.h-model .hmodel-box{
+  height: fit-content;
+  padding: 20px 0px;
+  max-height: 90vh;
+} 
+.h-model .hmodel-box img{
+  width: 50%;
+  margin: auto;
+} 
+.mcont-box{
+  padding-bottom: 0px;
+}
+}
+
+
+.poll-btn{
+transition: .3s;
+}
+.poll-btn:hover{
+background-color: #c31a7f;
+}
+.poll-btn:hover p{
+color: #fff;
+}
+.ris-main{
+padding: 0px 20px;
+}
+.ris-home{
+padding: 0px 20px;
+}
+
+.post-btn{
+cursor: pointer;
+transition: .3s;
+}
+.post-btn:hover{
+background-color: #efc419;
+}
+
+@media screen and (min-width:1024px){
+.ris-main{
+  width: 65%;
+}
+.ris-home{
+  width: 30%;
+}
+}
+
+@media screen and (max-width:991px) {
+.h-right{
+  width: 100%;
+}
 }
