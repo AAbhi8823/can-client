@@ -96,7 +96,7 @@ top: 0;
   display: flex !important;
 }
 .ris-home .slick-slider .slider-box p{
-  font-size: 12px !important;
+  font-size: 1.3vh !important;
   font-weight: 600;
 }
 
@@ -156,4 +156,10 @@ background-color: #efc419;
 .h-right{
   width: 100%;
 }
+}
+.poll-btn:active{
+  background-color: #c31a7f;
+}
+.poll-btn:active p{
+  color: #fff;
 }
