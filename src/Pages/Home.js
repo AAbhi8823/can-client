@@ -74,6 +74,7 @@ const Home = () => {
   const [homePost, sethomePost] = useState();
   const [isPosting, setIsPosting] = useState();
   const [isSaved, setIsSaved] = useState();
+  const [selectedOptions, setSelectedOptions] = useState({}); 
   const navigate = useNavigate();
 
   const GifImage = [
@@ -611,9 +612,9 @@ const Home = () => {
     sliderRef.current.slickNext();
   };
   const [pollData, setPollData] = useState(pollList);
-
+  const [active,setActive] = useState(false);
   const handleOptionClick = async (time, option) => {
-    console.log("handle::>>>>",time,option);
+    console.log("handle::>>>>", time, option);
     try {
       const response = await axios.post(`${baseurl}/poll/add-vote`, {
         poll_id: time,
@@ -623,30 +624,32 @@ const Home = () => {
           Authorization: `Bearer ${base_token}`
         }
       });
-      console.log("response:::::>>>",response)
-        const updatedPoll = response.data;
-        const updatedPollData = pollData.map(poll => 
-          poll.id === updatedPoll.id ? updatedPoll : poll
-        );
-        setPollData(updatedPollData);
-        console.log("Updated::>>",updatedPoll)
-        toast.success("Your Vote added successfully", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
-          theme: "colored",
-          className: "mt-[81px] ",
-        });
-      
-     
+      console.log("response:::::>>>", response)
+      const updatedPoll = response.data;
+      const updatedPollData = pollData.map(poll =>
+        poll._id === updatedPoll._id ? updatedPoll : poll
+      );
+      setPollData(updatedPollData);
+      setSelectedOptions({
+        ...selectedOptions,
+        [time]: option
+      });
+      console.log("Updated::>>", updatedPoll);
+      toast.success("Your Vote added successfully", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+        className: "mt-[81px] ",
+      });
     } catch (error) {
       console.error('Error updating poll option:', error);
-      if(error.response.status===401){
-        toast.success("You already voted", {
+      if (error.response.status === 401) {
+        toast.error("You already voted", {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: true,
@@ -689,7 +692,6 @@ const Home = () => {
                           alt="none"
                           className="rounded-full w-12 "
                         />
-                        {console.log("comment:>>>>", userData)}
                         <input
                           value={input}
                           onChange={handleInput}
@@ -1698,7 +1700,7 @@ const Home = () => {
                           <div
                             key={index}
                             className="slider-box flex flex-row items-center justify-center gap-3 pt-8"
-                          > {console.log("Time::>>>>>>>",time)}
+                          >
                           <p className="slid-pera flex flex-wrap text-center text-[17px]">
                             {time?.poll_question}
                     </p>
@@ -1706,7 +1708,7 @@ const Home = () => {
                               <div
                                 key={idx}
                                 className={`w-24 h-9 poll-btn cursor-pointer flex flex-column items-center justify-center rounded-[15px] ${
-                                  option.selected
+                                  selectedOptions[time._id] === option._id
                                     ? "bg-[#C31A7F] text-[#FFFFFF]"
                                     : "bg-[#FFFFFF] text-[#C31A7F] border-[1px] border-[#C31A7F]"
                                 }`}
