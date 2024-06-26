@@ -1715,7 +1715,7 @@ const Home = () => {
                                 
                               >
                                 {console.log("Time::>>>>>>>1",option)}
-                                <p style={{fontSize:'100%'}}>{option.option}</p>
+                                <p>{option.option}</p>
                               </div>
                             ))}
                           </div>
