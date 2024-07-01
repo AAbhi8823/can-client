@@ -86,9 +86,10 @@ const VerticalMedicine = () => {
                   <div className='flex flex-row items-center text-[12px] text-[#7E7E7E] font-semibold'>
                     <div className='flex flex-row items-center gap-1'>
                       <span>{medicine.time_for_reminder}</span>
-                      <span>{medicine.time_for_reminder.includes('AM') ? 'AM' : 'PM'}</span>
+                      {/* <span>{medicine.time_for_reminder.includes('AM') ? 'AM' : 'PM'}</span> */}
                     </div>
                     <div className='flex flex-row gap-3 text-[12px]'>
+                      <span>  </span>
                       <span>{medicine.medicine_dosage}</span>
                       <span>{medicine.meal}</span>
                     </div>

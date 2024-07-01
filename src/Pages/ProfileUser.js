@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import VerticalAppointment from "../Components/VerticalAppointment";
 import VerticalMedicine from "../Components/VerticalMedicine";
 import backprofile from "../Photos/profile/red.png";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import SingleLineCalendar from "../Components/SingleLineCalender";
-import VerticalSLC from "../Components/VericalSLC";
 import Page from "../Layouts/Pages";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Cookies from "js-cookie";
-import account2 from "../Photos/account2.jpg";
-import UserProfile from "../Photos/UserProfile.png";
 import SlideBox from "../Components/SlideBox";
 import MyStory from "../Components/MyStory";
 import MeetingProfile from "../Components/MeetingProfile";
@@ -18,7 +14,6 @@ import Saved from "../Components/Saved";
 import { MdOutlineEdit } from "react-icons/md";
 import HealthProfile from "../Components/HealthProfile";
 import axios from "axios";
-import { baseurl } from "../Api/baseUrl";
 import apis from "../Api/baseUrl";
 import "./ContactUs.css";
 import EditProfile from "../Components/EditProfile";
@@ -27,7 +22,7 @@ const ProfileUser = () => {
   const base_token = Cookies.get("token");
   const [userData, setUserData] = useState("");
   const [value, setValue] = useState(0);
-  const [vertical, setVertical] = useState("Upcoming");
+  const [vertical, setVertical] = useState("Appointment");
   const [editProfile, setEditProfile] = useState(false);
   const [editProfileId, setEditProfileId] = useState(null);
   const navigate = useNavigate();
@@ -206,23 +201,13 @@ const ProfileUser = () => {
                     boxShadow: "0px 10px 30px 0px rgba(0, 0, 0, 0.05)",
                   }}
                 >
-                  <div className="flex items-center">
+                  {/* <div className="flex items-center">
                     <SingleLineCalendar />
                   </div>
                   <div className="p-4">
                     <hr />
-                  </div>
+                  </div> */}
                   <div className="text-[14px] flex flex-row items-center justify-center gap-6">
-                    <h1
-                      onClick={() => toggleVertical("Upcoming")}
-                      className={
-                        vertical === "Upcoming"
-                          ? "text-black font-semibold transition-all duration-300"
-                          : "text-[#C4C4C4] font-semibold cursor-pointer"
-                      }
-                    >
-                      Upcoming
-                    </h1>
                     <h1
                       onClick={() => toggleVertical("Appointment")}
                       className={
@@ -246,11 +231,6 @@ const ProfileUser = () => {
                   </div>
                   <div className="">
                     <div className="flex flex-col">
-                      {vertical === "Upcoming" && (
-                        <div className="w-full mt-4">
-                          <VerticalSLC />
-                        </div>
-                      )}
                       {vertical === "Appointment" && (
                         <div className="w-full mt-4">
                           <VerticalAppointment />
@@ -261,28 +241,6 @@ const ProfileUser = () => {
                           <VerticalMedicine />
                         </div>
                       )}
-                      <div className="w-full h-[10%] mt-7 top-[90%] bg-white flex justify-center items-center font-semibold">
-                        <div className="bg-[#c31a7f3c] flex items-center h-10 gap-2 pl-2 rounded-3xl">
-                          {vertical === "Upcoming" && (
-                            <div className="flex flex-row px-4 items-center cursor-pointer text-[15px]">
-                              <p>View all schedule</p>
-                              <RiArrowDropDownLine size={26} />
-                            </div>
-                          )}
-                          {vertical === "Appointment" && (
-                            <div className="flex flex-row px-4 items-center cursor-pointer text-[15px]">
-                              <p>View all schedule</p>
-                              <RiArrowDropDownLine size={26} />
-                            </div>
-                          )}
-                          {vertical === "Medicines" && (
-                            <div className="flex flex-row px-4 ite-center cursor-pointer test-[15px]">
-                              <p>View all</p>
-                              <RiArrowDropDownLine size={26} />
-                            </div>
-                          )}
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
