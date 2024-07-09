@@ -89,6 +89,8 @@ import MagickLink from './Pages/MagickLink'
 import TermsService from './Pages/TermsService'
 import { AllFeeds } from './Admin Pannel/AllFeeds'
 import {UserActivity} from './Admin Pannel/UserActivity'
+import {UsersTransaction} from './Admin Pannel/UsersTransaction'
+import { UsersReports } from './Admin Pannel/UsersReports'
 const App = () => {
   let token = Cookies.get("authToken")
   return (
@@ -181,7 +183,8 @@ const App = () => {
           <Route exact path='AdminMeetingSchedule' element={<AdminMeetingSchedule />} />
           <Route exact path='AllFeeds' element={<AllFeeds />} />
           <Route exact path='UserActivity' element={<UserActivity />} />
-          
+          <Route exact path='UsersTransaction' element={<UsersTransaction />} />
+          <Route exact path='UsersReports' element={<UsersReports />} />
         </Routes>
       </BrowserRouter>
     </>
