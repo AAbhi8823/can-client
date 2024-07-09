@@ -146,7 +146,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Transaction
+          Users Reports
         </Typography>
       )}
       {numSelected > 0 ? (
