@@ -54,10 +54,10 @@ const SideMenu = () => {
     { to: "/AdminUserManagement", icon: AdminUser, label: "Users" },
     { to: "/AdminMeetingSchedule", icon: AdminMeeting, label: "Meeting" },
     { to: "/AllFeeds", icon: AdminPost, label: "AllFeeds" },
-    { to: "/HealthRecord", icon: AdminTransaction, label: "Transaction" },
-    { to: "/HealthCard", icon: AdminReport, label: "Reports" },
-    { to: "/Appointment", icon: AdminSetting, label: "Setting" },
-    { to: "/Medicine", icon: AdminLogout, label: "Logout" },
+    { to: "/UsersTransaction", icon: AdminTransaction, label: "UsersTransaction" },
+    { to: "/UsersReports", icon: AdminReport, label: "Reports" },
+    // { to: "/Appointment", icon: AdminSetting, label: "Setting" },
+    // { to: "/Medicine", icon: AdminLogout, label: "Logout" },
   ];
 
   return (

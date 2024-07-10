@@ -1,21 +1,23 @@
 // Page.js
 import React, { useState, useEffect } from "react";
-import HomeNav from "../Components/HomeNav";
-import SideNav from "../Components/SideNav";
-import SideMenu from "../Components/SideMenu";
-import "./Pages.css";
+import AdminHomeNav from "./AdminNav";
+// import SideNav from "../Components/SideNav";
+import AdminSideMenu from "./AdminSideBar";
 
-const Page = ({ pageContent }) => {
+const Page = ({ AdminpageContent }) => {
   return (
     <div>
       <div className="flex ">
-        <SideMenu />
-        <div className="h-right flex flex-col">
-          <div className="header    bg-white z-[9]">
-            <HomeNav />
+        <AdminSideMenu />
+        <div className="flex w-full flex-col">
+          <div className="header">
+            <AdminHomeNav />
           </div>
-          <div className="content_page  overflow-scroll h-screen mt-[-81px]  bg-[#FFF6FB] z-0">
-            <div className="mt-[81px] ">{pageContent}</div>
+          <div
+            style={{ background: "#F5FBFF" }}
+            className="h-[92vh] overflow-scroll"
+          >
+            {AdminpageContent}
           </div>
         </div>
       </div>

@@ -28,16 +28,16 @@ import { adminbaseurl } from "./AdminToken";
 import { AdminToken } from "./AdminToken";
 
 const headCells = [
-  { id: "name", numeric: false, disablePadding: false, label: "Name" },
-  { id: "usertype", numeric: false, disablePadding: false, label: "User Type" },
-  { id: "canID", numeric: false, disablePadding: false, label: "Can ID" },
-  { id: "email", numeric: false, disablePadding: false, label: "Email" },
-  { id: "number", numeric: true, disablePadding: false, label: "Phone No." },
+  { id: "name", numeric: false, disablePadding: false, label: "Sr no" },
+  { id: "usertype", numeric: false, disablePadding: false, label: "Name" },
+  { id: "canID", numeric: false, disablePadding: false, label: "CAN ID" },
+  { id: "email", numeric: false, disablePadding: false, label: "Report Category" },
+  { id: "number", numeric: true, disablePadding: false, label: "Time Stamp" },
   {
     id: "dateOfJoining",
     numeric: false,
     disablePadding: false,
-    label: "Date Of Joining",
+    label: "Action",
   },
 
   // { id: "status", numeric: false, disablePadding: false, label: "Status" },
@@ -146,7 +146,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          Users Reports
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -170,7 +170,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function UsersReportss() {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
   const [selected, setSelected] = useState([]);
